@@ -1,3 +1,5 @@
+package SevenWonders;
+
 import SevenWonders.model.Player;
 
 public class Client {
@@ -14,7 +16,7 @@ public class Client {
 		throw new UnsupportedOperationException();
 	}
 
-	public Promise connectServer() {
+	public boolean connectServer() {
 		// TODO - implement Client.connectServer
 		throw new UnsupportedOperationException();
 	}
