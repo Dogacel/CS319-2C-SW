@@ -1,4 +1,4 @@
-package SevenWonders;
+package SevenWonders.model;
 
 public enum ActionType {
 	DISCARD_CARD,

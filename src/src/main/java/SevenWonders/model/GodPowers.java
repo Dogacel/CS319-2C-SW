@@ -1,3 +1,5 @@
+package SevenWonders.model;
+
 public enum GodPowers {
 	MAKE_EARTHQUAKE,
 	GIVE_FIVE_WAR_TOKENS,

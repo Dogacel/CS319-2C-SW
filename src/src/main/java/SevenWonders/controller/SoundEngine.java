@@ -1,4 +1,4 @@
-package SevenWonders;
+package SevenWonders.controller;
 
 public class SoundEngine {
 

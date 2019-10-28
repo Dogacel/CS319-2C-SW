@@ -1,3 +1,5 @@
+import SevenWonders.model.Player;
+
 public class Client {
 
 	private Player currentPlayer;

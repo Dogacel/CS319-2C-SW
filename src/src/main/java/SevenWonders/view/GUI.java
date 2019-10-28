@@ -1,12 +1,14 @@
+package SevenWonders.view;
+
 public class GUI {
 
 	public void draw() {
-		// TODO - implement GUI.draw
+		// TODO - implement SevenWonders.view.GUI.draw
 		throw new UnsupportedOperationException();
 	}
 
 	public void handleInput() {
-		// TODO - implement GUI.handleInput
+		// TODO - implement SevenWonders.view.GUI.handleInput
 		throw new UnsupportedOperationException();
 	}
 

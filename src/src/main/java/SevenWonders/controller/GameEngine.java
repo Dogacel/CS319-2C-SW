@@ -1,4 +1,9 @@
-package SevenWonders;
+package SevenWonders.controller;
+
+import SevenWonders.model.ActionType;
+import SevenWonders.model.Card;
+import SevenWonders.model.Player;
+import SevenWonders.model.PlayerBoardInformation;
 
 public class GameEngine {
 

@@ -1,4 +1,7 @@
-package SevenWonders;
+package SevenWonders.model;
+
+import SevenWonders.model.Card;
+import SevenWonders.model.Wonder;
 
 public class PlayerBoardInformation {
 
