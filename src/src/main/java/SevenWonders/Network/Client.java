@@ -1,90 +1,45 @@
-package SevenWonders;
+package SevenWonders.Network;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class Client {
 
-	private Socket socket;
-	private string serverAddress;
-	private int serverPort;
+	private class JSONParser {}
+	private class JSONObject {}
+
 	private JSONParser jsonParser;
-	private ServerListener serverListener;
+	private ServerHandler sh;
 
-	public void receiveResponse() {
-		// TODO - implement Client.receiveResponse
-		throw new UnsupportedOperationException();
+	public static void main(String[] args) {
+		Client c = new Client("localhost", 8080);
+		Scanner sc = new Scanner(System.in);
+		String in = sc.nextLine();
+		while (!in.equals("exit")) {
+			c.sendMessage(in);
+			in = sc.nextLine();
+		}
 	}
 
-	/**
-	 * 
-	 * @param response
-	 */
-	public void parseResponse(string response) {
-		// TODO - implement Client.parseResponse
-		throw new UnsupportedOperationException();
+	public Client(String serverAddress, int serverPort) {
+		try {
+			InetAddress IP  = InetAddress.getByName(serverAddress);
+			Socket socket = new Socket(IP, serverPort);
+
+			sh = new ServerHandler(socket, this);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	/**
-	 * 
-	 * @param isReady
-	 */
-	public JSONObject sendGetReadyRequest(boolean isReady) {
-		// TODO - implement Client.sendGetReadyRequest
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param move
-	 */
-	public JSONObject sendMakeMoveRequest(MoveModel move) {
-		// TODO - implement Client.sendMakeMoveRequest
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param trade
-	 */
-	public JSONObject sendUpdateMoveValidityRequest(TradeAction trade) {
-		// TODO - implement Client.sendUpdateMoveValidityRequest
-		throw new UnsupportedOperationException();
-	}
-
-	public JSONObject sendGetBoardInfoRequest() {
-		// TODO - implement Client.sendGetBoardInfoRequest
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param wonderName
-	 */
-	public JSONObject sendWonderSelectRequest(String wonderName) {
-		// TODO - implement Client.sendWonderSelectRequest
-		throw new UnsupportedOperationException();
-	}
-
-	public JSONObject sendConnectionRequest() {
-		// TODO - implement Client.sendConnectionRequest
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param newGameState
-	 */
-	public void onGameStateChanged(JSONObject newGameState) {
-		// TODO - implement Client.onGameStateChanged
-		throw new UnsupportedOperationException();
-	}
-
-	private void changeSceneToGameScene() {
-		// TODO - implement Client.changeSceneToGameScene
-		throw new UnsupportedOperationException();
-	}
-
-	private void changeSceneToScoreboardScene() {
-		// TODO - implement Client.changeSceneToScoreboardScene
-		throw new UnsupportedOperationException();
+	public void sendMessage(String message) {
+		this.sh.sendString(message);
 	}
 
 }
