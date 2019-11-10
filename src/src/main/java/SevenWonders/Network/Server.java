@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class GameServer implements Runnable {
+public class Server implements Runnable {
 
 	private class JSONParser{}
 	private class JSONObject{}
@@ -18,11 +18,11 @@ public class GameServer implements Runnable {
 	private Object game;
 
 	public static void main(String[] args) {
-		GameServer server = new GameServer();
+		Server server = new Server();
 		while(server.acceptConnection());
 	}
 
-	public GameServer() {
+	public Server() {
 		clientHandlerList = new ClientHandler[7];
 		clientCount = 0;
 
