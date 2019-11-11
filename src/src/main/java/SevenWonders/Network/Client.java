@@ -46,6 +46,6 @@ public class Client implements INetworkListener {
 
 	@Override
 	public void onDisconnect(ConnectionHandler connection) {
-
+		System.out.println("Disconnected!");
 	}
 }
