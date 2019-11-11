@@ -1,13 +1,13 @@
 package SevenWonders.Network;
 
+import SevenWonders.Network.Requests.Request;
+import SevenWonders.Network.Requests.SendTextRequest;
+import com.google.gson.Gson;
 import javafx.util.Pair;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Vector;
 
 
@@ -16,12 +16,13 @@ public class Server implements Runnable, INetworkListener {
 	private Vector<ConnectionHandler> connectionHandlerList;
 	private ServerSocket serverSocket;
 	private Thread worker;
+	private Gson gson;
 	private Object game;
 
 
 	public Server() {
 		connectionHandlerList = new Vector<>();
-
+		gson = new Gson();
 		try {
 			serverSocket = new ServerSocket(8080);
 			worker = new Thread(this);
@@ -58,16 +59,19 @@ public class Server implements Runnable, INetworkListener {
 
 	@Override
 	public void receiveMessage(String message, ConnectionHandler sender) {
-		JSONObject receivedObject = new JSONObject(message);
-		String requestType = receivedObject.getString("type");
 
-		if (requestType.equals("text")) {
-			System.out.println("Got: " + receivedObject.getString("text") + " from " + sender);
-			sender.sendMessage(message);
-		} else if (requestType.equals("connect")) {
-			sender.setConnectionID(receivedObject.getString("id"));
-		} else {
-			throw new UnsupportedOperationException();
+		Request requestInfo = gson.fromJson(message, Request.class);
+
+		switch (requestInfo.requestType) {
+			case SENDTEXT:
+				SendTextRequest request = gson.fromJson(message, SendTextRequest.class);
+				System.out.println("Got: " + request.text + " from " + sender);
+				sender.sendMessage(message);
+				break;
+			case JOIN:
+				break;
+			default:
+				throw new UnsupportedOperationException();
 		}
 	}
 
@@ -82,12 +86,12 @@ public class Server implements Runnable, INetworkListener {
 		onDisconnect(connectionHandler);
 	}
 
-	/**
-	 * 
-	 * @param object
-	 */
-	public Object generateMoveFromJSONObject(JSONObject object) {
-		// TODO - implement GameServer.generateMoveFromJSONObject
+	public void parseJoinLobbyRequest(Gson requestBody) {
+
+	}
+
+	public Object generateMoveFromGson(Gson object) {
+		// TODO - implement GameServer.generateMoveFromGson
 		throw new UnsupportedOperationException();
 	}
 
@@ -116,7 +120,7 @@ public class Server implements Runnable, INetworkListener {
 	 * @param object
 	 * @param clientID
 	 */
-	private void parseMoveValidityRequest(JSONObject object, int clientID) {
+	private void parseMoveValidityRequest(Gson object, int clientID) {
 		// TODO - implement GameServer.parseMoveValidityRequest
 		throw new UnsupportedOperationException();
 	}
@@ -126,7 +130,7 @@ public class Server implements Runnable, INetworkListener {
 	 * @param object
 	 * @param clientID
 	 */
-	private void parseMakeMoveRequest(JSONObject object, int clientID) {
+	private void parseMakeMoveRequest(Gson object, int clientID) {
 		// TODO - implement GameServer.parseMakeMoveRequest
 		throw new UnsupportedOperationException();
 	}
@@ -136,7 +140,7 @@ public class Server implements Runnable, INetworkListener {
 	 * @param object
 	 * @param clientID
 	 */
-	private void parseBoardInfoRequest(JSONObject object, int clientID) {
+	private void parseBoardInfoRequest(Gson object, int clientID) {
 		// TODO - implement GameServer.parseBoardInfoRequest
 		throw new UnsupportedOperationException();
 	}
@@ -146,7 +150,7 @@ public class Server implements Runnable, INetworkListener {
 	 * @param object
 	 * @param clientID
 	 */
-	private void parseGetReadyRequest(JSONObject object, int clientID) {
+	private void parseGetReadyRequest(Gson object, int clientID) {
 		// TODO - implement GameServer.parseGetReadyRequest
 		throw new UnsupportedOperationException();
 	}
@@ -156,7 +160,7 @@ public class Server implements Runnable, INetworkListener {
 	 * @param object
 	 * @param clientID
 	 */
-	private void parseWonderSelectRequest(JSONObject object, int clientID) {
+	private void parseWonderSelectRequest(Gson object, int clientID) {
 		// TODO - implement GameServer.parseWonderSelectRequest
 		throw new UnsupportedOperationException();
 	}

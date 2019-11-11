@@ -1,5 +1,7 @@
 package SevenWonders.Network;
 
+import com.google.gson.Gson;
+
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
@@ -12,6 +14,7 @@ public class ConnectionHandler implements Runnable {
     private INetworkListener listener;
     private String connectionID;
     private Thread worker;
+    private Gson gson;
 
     public String getConnectionID() {return connectionID;}
     public void setConnectionID(String val){connectionID = val;}
@@ -21,6 +24,7 @@ public class ConnectionHandler implements Runnable {
         this.listener = listener;
         this.connectionID = s.toString();
         this.worker = new Thread(this);
+        this.gson = new Gson();
         try {
             this.inputStream = new DataInputStream(s.getInputStream());
             this.outputStream = new DataOutputStream(s.getOutputStream());

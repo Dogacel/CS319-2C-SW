@@ -1,15 +1,17 @@
 package SevenWonders.Network;
 
-import org.json.*;
+import SevenWonders.Network.Requests.Request;
+import SevenWonders.Network.Requests.RequestType;
+import SevenWonders.Network.Requests.SendTextRequest;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client implements INetworkListener {
 
-	private JSONObject jsonParser;
+	private Gson gson;
 	private ConnectionHandler connectionHandler;
 
 
@@ -17,6 +19,7 @@ public class Client implements INetworkListener {
 		try {
 			InetAddress IP  = InetAddress.getByName(serverAddress);
 			Socket socket = new Socket(IP, serverPort);
+			gson = new Gson();
 
 			connectionHandler = new ConnectionHandler(socket, this);
 			connectionHandler.startListening();
@@ -26,17 +29,22 @@ public class Client implements INetworkListener {
 		}
 	}
 
+	public void sendRequest(Request r) {
+		String message = gson.toJson(r, r.getClass());
+		connectionHandler.sendMessage(message);
+	}
+
 	public void sendMessage(String message) {
 		connectionHandler.sendMessage(message);
 	}
 
 	@Override
     public void receiveMessage(String message, ConnectionHandler connectionHandler) {
-	    JSONObject responseObject = new JSONObject(message);
-	    String responseType = responseObject.getString("type");
+		Request dummyRequest = gson.fromJson(message, Request.class);
 
-	    if (responseType.equals("text")) {
-	        System.out.println("Server: " + responseObject.getString("text"));
+	    if (dummyRequest.requestType == RequestType.SENDTEXT) {
+			SendTextRequest request = gson.fromJson(message, SendTextRequest.class);
+			System.out.println("Server: " + request.text);
         }
     }
 
