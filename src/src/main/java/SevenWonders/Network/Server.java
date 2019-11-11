@@ -15,21 +15,23 @@ public class Server implements Runnable, INetworkListener {
 
 	private Vector<ConnectionHandler> connectionHandlerList;
 	private ServerSocket serverSocket;
+	private Thread worker;
 	private Object game;
 
-	public static void main(String[] args) {
-		Server server = new Server();
-		new Thread(server).start();
-	}
 
 	public Server() {
 		connectionHandlerList = new Vector<>();
 
 		try {
 			serverSocket = new ServerSocket(8080);
+			worker = new Thread(this);
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
+	}
+
+	public void startServing() {
+		worker.start();
 	}
 
 	@Override
