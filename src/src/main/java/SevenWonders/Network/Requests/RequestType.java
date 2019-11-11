@@ -1,7 +1,7 @@
 package SevenWonders.Network.Requests;
 
 public enum RequestType {
-    SENDTEXT, // For debugging
+    SEND_TEXT, // For debugging
     JOIN,
     CONNECT,
 }

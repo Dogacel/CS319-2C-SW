@@ -63,7 +63,7 @@ public class Server implements Runnable, INetworkListener {
 		Request requestInfo = gson.fromJson(message, Request.class);
 
 		switch (requestInfo.requestType) {
-			case SENDTEXT:
+			case SEND_TEXT:
 				SendTextRequest request = gson.fromJson(message, SendTextRequest.class);
 				System.out.println("Got: " + request.text + " from " + sender);
 				sender.sendMessage(message);

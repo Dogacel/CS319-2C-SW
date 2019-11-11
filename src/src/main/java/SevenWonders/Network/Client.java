@@ -42,7 +42,7 @@ public class Client implements INetworkListener {
     public void receiveMessage(String message, ConnectionHandler connectionHandler) {
 		Request dummyRequest = gson.fromJson(message, Request.class);
 
-	    if (dummyRequest.requestType == RequestType.SENDTEXT) {
+	    if (dummyRequest.requestType == RequestType.SEND_TEXT) {
 			SendTextRequest request = gson.fromJson(message, SendTextRequest.class);
 			System.out.println("Server: " + request.text);
         }
