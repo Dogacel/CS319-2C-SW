@@ -1,0 +1,49 @@
+package SevenWonders;
+
+import javafx.scene.image.Image;
+import java.util.HashMap;
+import java.util.Map;
+
+public class AssetManager {
+    //properties
+    private static AssetManager managerInstance = null; //Singleton class, holds one static instance of itself
+    Map<String, Image> imageMap;
+
+    //constructor
+    private AssetManager() {
+        imageMap = new HashMap<>();
+    }
+
+    //methods
+
+    /**
+     * Static method to create a AssetManager instance
+     * @return AssetManager instance
+     */
+    public static AssetManager getInstance() {
+        if ( managerInstance == null) {
+            managerInstance = new AssetManager();
+        }
+        return managerInstance;
+    }
+
+    /**
+     *
+     * @param imageId String ID of an image
+     * @return the matching image for that ID
+     */
+    public Image getImage(String imageId) {
+        if ( !imageMap.containsKey(imageId)) {
+            return imageMap.get(imageId);
+        }
+        else {
+            System.out.println("Cannot find image in the map!");
+        }
+        return null;
+    }
+
+    private void loadImages() {
+        
+    }
+
+}
