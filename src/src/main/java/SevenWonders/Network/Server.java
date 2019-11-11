@@ -1,30 +1,29 @@
 package SevenWonders.Network;
 
 import javafx.util.Pair;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
-public class Server implements Runnable {
 
-	private class JSONParser{}
-	private class JSONObject{}
+public class Server implements Runnable, INetworkListener {
 
-	private ClientHandler[] clientHandlerList;
-	private int clientCount;
+	private Vector<ConnectionHandler> connectionHandlerList;
 	private ServerSocket serverSocket;
-	private JSONParser jsonParser;
 	private Object game;
 
 	public static void main(String[] args) {
 		Server server = new Server();
-		while(server.acceptConnection());
+		new Thread(server).start();
 	}
 
 	public Server() {
-		clientHandlerList = new ClientHandler[7];
-		clientCount = 0;
+		connectionHandlerList = new Vector<>();
 
 		try {
 			serverSocket = new ServerSocket(8080);
@@ -43,10 +42,10 @@ public class Server implements Runnable {
 			Socket s = serverSocket.accept();
 			System.out.println("New client connected : " + s);
 
-			ClientHandler latestClient = new ClientHandler(s, clientCount, this);
-			clientHandlerList[clientCount] = latestClient;
-			clientCount++;
-			new Thread(latestClient).start();
+			ConnectionHandler latestConnection = new ConnectionHandler(s, this);
+			connectionHandlerList.add(latestConnection);
+
+			latestConnection.startListening();
 
 			return true;
 		} catch (IOException exception) {
@@ -55,14 +54,30 @@ public class Server implements Runnable {
 		}
 	}
 
-	/**
-	 * 
-	 * @param receivedString
-	 * @param clientID
-	 */
-	public void parseRequest(String receivedString, int clientID) {
-		// TODO - implement GameServer.parseRequest
-		throw new UnsupportedOperationException();
+	@Override
+	public void receiveMessage(String message, ConnectionHandler sender) {
+		JSONObject receivedObject = new JSONObject(message);
+		String requestType = receivedObject.getString("type");
+
+		if (requestType.equals("text")) {
+			System.out.println("Got: " + receivedObject.getString("text") + " from " + sender);
+			sender.sendMessage(message);
+		} else if (requestType.equals("connect")) {
+			sender.setConnectionID(receivedObject.getString("id"));
+		} else {
+			throw new UnsupportedOperationException();
+		}
+	}
+
+	@Override
+	public void onDisconnect(ConnectionHandler connectionHandler) {
+		connectionHandlerList.remove(connectionHandler);
+		System.out.println("Client disconnected : " + connectionHandler.getConnectionID());
+	}
+
+	public void disconnectClient(ConnectionHandler connectionHandler) {
+		connectionHandler.disconnect();
+		onDisconnect(connectionHandler);
 	}
 
 	/**
@@ -143,5 +158,6 @@ public class Server implements Runnable {
 		// TODO - implement GameServer.parseWonderSelectRequest
 		throw new UnsupportedOperationException();
 	}
+
 
 }

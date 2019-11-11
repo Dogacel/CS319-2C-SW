@@ -1,29 +1,32 @@
 package SevenWonders.Network;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import org.json.*;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class Client {
+public class Client implements INetworkListener {
 
-	private class JSONParser {}
-	private class JSONObject {}
-
-	private JSONParser jsonParser;
-	private ServerHandler sh;
+	private JSONObject jsonParser;
+	private ConnectionHandler connectionHandler;
 
 	public static void main(String[] args) {
 		Client c = new Client("localhost", 8080);
+		c.connectionHandler.startListening();
+
 		Scanner sc = new Scanner(System.in);
 		String in = sc.nextLine();
 		while (!in.equals("exit")) {
-			c.sendMessage(in);
+			JSONObject myobj = new JSONObject();
+			myobj.put("type", "text");
+			myobj.put("text", in);
+
+			c.sendMessage(myobj.toString());
 			in = sc.nextLine();
 		}
+		c.connectionHandler.disconnect();
 	}
 
 	public Client(String serverAddress, int serverPort) {
@@ -31,7 +34,7 @@ public class Client {
 			InetAddress IP  = InetAddress.getByName(serverAddress);
 			Socket socket = new Socket(IP, serverPort);
 
-			sh = new ServerHandler(socket, this);
+			connectionHandler = new ConnectionHandler(socket, this);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -39,7 +42,21 @@ public class Client {
 	}
 
 	public void sendMessage(String message) {
-		this.sh.sendString(message);
+		connectionHandler.sendMessage(message);
 	}
 
+	@Override
+    public void receiveMessage(String message, ConnectionHandler connectionHandler) {
+	    JSONObject responseObject = new JSONObject(message);
+	    String responseType = responseObject.getString("type");
+
+	    if (responseType.equals("text")) {
+	        System.out.println("Server: " + responseObject.getString("text"));
+        }
+    }
+
+	@Override
+	public void onDisconnect(ConnectionHandler connection) {
+
+	}
 }
