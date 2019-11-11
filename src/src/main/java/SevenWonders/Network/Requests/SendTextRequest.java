@@ -7,7 +7,7 @@ public class SendTextRequest extends  Request {
     public static SendTextRequest of(String text) {
        SendTextRequest str = new SendTextRequest();
        str.text = text;
-       str.requestType = RequestType.SENDTEXT;
+       str.requestType = RequestType.SEND_TEXT;
        return str;
     }
 
