@@ -8,6 +8,9 @@ import javafx.util.Pair;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.Vector;
 
 
@@ -89,6 +92,64 @@ public class Server implements Runnable, INetworkListener {
 	public void disconnectClient(ConnectionHandler connectionHandler) {
 		connectionHandler.disconnect();
 		onDisconnect(connectionHandler);
+	}
+
+	// TODO: Change to real wonders and update
+	public void distributeWonders() {
+		// Mocked wonders
+		String[] mockWonders = {"A", "B", "C", "D", "E", "F", "G"};
+
+		// Holds a list of clients want to choose that wonder
+		Map<String, Vector<ConnectionHandler>> wonderCounts = new HashMap<>();
+
+		// Iterate over all clients and add them to list of clients that want a wonder
+		for (ConnectionHandler connectionHandler : connectionHandlerList) {
+			String wonder = connectionHandler.user.selectedWonder;
+			Vector<ConnectionHandler> connections = wonderCounts.get(wonder);
+			if (connections == null) {
+				connections = new Vector<ConnectionHandler>();
+				connections.add(connectionHandler);
+				wonderCounts.put(wonder, connections);
+			} else {
+				connections.add(connectionHandler);
+			}
+		}
+
+		// Store which client will have which wonder
+		Map<ConnectionHandler, String> wonderUserMap = new HashMap<>();
+		Vector<String> emptyWonders = new Vector<>();
+		Vector<ConnectionHandler> unassignedUsers = new Vector<>();
+
+		// Iterate over all wonders and assign clients to wonders if only one client wants that wonder
+		for (String wonder : mockWonders) {
+			Vector<ConnectionHandler> connections = wonderCounts.get(wonder);
+			// Store unassigned wonders in emptyWonders
+			if (connections == null) {
+				emptyWonders.add(wonder);
+			} else if (connections.size() == 1) {
+				wonderUserMap.put(connections.firstElement(), wonder);
+			} else {
+				// If more than 1 client wants a wonder, choose a random client
+				Random r = new Random();
+				int randomIndex = r.nextInt(connections.size());
+				for (int i = 0 ; i < connections.size() ; i++) {
+					if (i == randomIndex) {
+						wonderUserMap.put(connections.get(i), wonder);
+					} else {
+						// Store other users in unassigned users
+						unassignedUsers.add(connections.get(i));
+					}
+				}
+			}
+		}
+
+		// Number of unassigned users should match number of unassigned wonders
+		assert unassignedUsers.size() == emptyWonders.size();
+
+		// Distribute unassigned users to unassigned wonders
+		for (int i = 0 ; i < unassignedUsers.size() ; i++) {
+			wonderUserMap.put(unassignedUsers.get(i), emptyWonders.get(i));
+		}
 	}
 
 	public void parseJoinLobbyRequest(Gson requestBody) {
