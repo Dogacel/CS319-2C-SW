@@ -14,17 +14,20 @@ public class ConnectionHandler implements Runnable {
     private INetworkListener listener;
     private String connectionID;
     private Thread worker;
-    private Gson gson;
+    private boolean isAdmin;
 
-    public String getConnectionID() {return connectionID;}
-    public void setConnectionID(String val){connectionID = val;}
+    public boolean isAdmin() { return isAdmin; }
+    public void setAdmin() { this.isAdmin = true; }
+
+    public String getConnectionID() { return connectionID; }
+    public void setConnectionID(String val){ connectionID = val; }
 
     public ConnectionHandler(Socket s, INetworkListener listener) {
         this.socket = s;
         this.listener = listener;
         this.connectionID = s.toString();
         this.worker = new Thread(this);
-        this.gson = new Gson();
+        this.isAdmin = false;
         try {
             this.inputStream = new DataInputStream(s.getInputStream());
             this.outputStream = new DataOutputStream(s.getOutputStream());

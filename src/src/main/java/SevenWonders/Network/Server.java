@@ -19,7 +19,6 @@ public class Server implements Runnable, INetworkListener {
 	private Gson gson;
 	private Object game;
 
-
 	public Server() {
 		connectionHandlerList = new Vector<>();
 		gson = new Gson();
@@ -46,6 +45,12 @@ public class Server implements Runnable, INetworkListener {
 			System.out.println("New client connected : " + s);
 
 			ConnectionHandler latestConnection = new ConnectionHandler(s, this);
+
+			// TODO: Change how to set someone admin
+			if (connectionHandlerList.isEmpty()) {
+				latestConnection.setAdmin();
+			}
+
 			connectionHandlerList.add(latestConnection);
 
 			latestConnection.startListening();
