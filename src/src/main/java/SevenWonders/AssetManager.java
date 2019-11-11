@@ -3,6 +3,10 @@ package SevenWonders;
 import javafx.scene.image.Image;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+
 
 public class AssetManager {
     //properties
@@ -42,8 +46,22 @@ public class AssetManager {
         return null;
     }
 
+    /**
+     * Loads all images from a file to the program for efficiency.
+     */
     private void loadImages() {
-        
+        BufferedReader r;
+        try {
+            r = new BufferedReader( new FileReader("images.txt")); //filename to be determined?
+            String imageLocation  = r.readLine();
+            //read every line which contains a image address, push the address and a Image object inside the map
+            while ( imageLocation != null) {
+                imageMap.put(imageLocation, new Image(imageLocation));
+                imageLocation = r.readLine();
+            }
+            r.close();
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
     }
-
 }
