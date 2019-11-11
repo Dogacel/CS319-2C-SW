@@ -14,10 +14,11 @@ public class ConnectionHandler implements Runnable {
     private INetworkListener listener;
     private String connectionID;
     private Thread worker;
-    private boolean isAdmin;
 
-    public boolean isAdmin() { return isAdmin; }
-    public void setAdmin() { this.isAdmin = true; }
+    public User user;
+
+    public boolean isAdmin() { return this.user.isAdmin; }
+    public void setAdmin() { this.user.isAdmin = true; }
 
     public String getConnectionID() { return connectionID; }
     public void setConnectionID(String val){ connectionID = val; }
@@ -27,7 +28,7 @@ public class ConnectionHandler implements Runnable {
         this.listener = listener;
         this.connectionID = s.toString();
         this.worker = new Thread(this);
-        this.isAdmin = false;
+        this.user = new User(connectionID);
         try {
             this.inputStream = new DataInputStream(s.getInputStream());
             this.outputStream = new DataOutputStream(s.getOutputStream());

@@ -7,4 +7,5 @@ public enum RequestType {
     KICK,
     START_GAME,
     ADD_AI_PLAYER,
+    SELECT_WONDER,
 }
