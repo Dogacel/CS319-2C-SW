@@ -6,7 +6,7 @@ public class MoveModel {
     private int playerID;
     private int selectedCardID;
     private ACTION_TYPE action;
-    //private TradeAction[] trades;
+    //private TradeAction[] trades;  TODO
 
     public MoveModel(int playerID, int selectedCardID, ACTION_TYPE action)
     {
