@@ -8,7 +8,7 @@ public class DiscardPileModel {
 
     public DiscardPileModel()
     {
-        cards = new Vector<Card>();
+        cards = new Vector<>();
     }
 
     public void updateDiscardPile(Card card)
