@@ -11,6 +11,6 @@ public class UpdateGameStateRequest extends Request {
         UpdateGameStateRequest updateGameStateRequest = new UpdateGameStateRequest();
         updateGameStateRequest.requestType = RequestType.UPDATE_GAME_STATE;
         updateGameStateRequest.newGameModel = model;
-        return  updateGameStateRequest;
+        return updateGameStateRequest;
     }
 }

@@ -1,7 +1,6 @@
 package SevenWonders.Network;
 
-import SevenWonders.Network.Requests.Request;
-import SevenWonders.Network.Requests.SendTextRequest;
+import SevenWonders.Network.Requests.*;
 import com.google.gson.Gson;
 import javafx.util.Pair;
 
@@ -42,7 +41,7 @@ public class Server implements Runnable, INetworkListener {
 		while (acceptConnection()) ;
 	}
 
-	public boolean acceptConnection() {
+	private boolean acceptConnection() {
 		try {
 			Socket s = serverSocket.accept();
 			System.out.println("New client connected : " + s);
@@ -66,6 +65,17 @@ public class Server implements Runnable, INetworkListener {
 	}
 
 	@Override
+	public void onDisconnect(ConnectionHandler connectionHandler) {
+		connectionHandlerList.remove(connectionHandler);
+		System.out.println("Client disconnected : " + connectionHandler.getConnectionID());
+	}
+
+	private void disconnectClient(ConnectionHandler connectionHandler) {
+		connectionHandler.disconnect();
+		onDisconnect(connectionHandler);
+	}
+
+	@Override
 	public void receiveMessage(String message, ConnectionHandler sender) {
 
 		Request requestInfo = gson.fromJson(message, Request.class);
@@ -75,23 +85,66 @@ public class Server implements Runnable, INetworkListener {
 				SendTextRequest request = gson.fromJson(message, SendTextRequest.class);
 				System.out.println("Got: " + request.text + " from " + sender);
 				sender.sendMessage(message);
-				break;
-			case JOIN:
-				break;
+			case CONNECT:
+				parseConnectRequest(message, sender);
+			case KICK:
+				parseKickRequest(message, sender);
+			case START_GAME:
+				parseStartGameRequest(message, sender);
+			case ADD_AI_PLAYER:
+				parseAddAIPlayerRequest(message, sender);
+			case SELECT_WONDER:
+				parseWonderSelectRequest(message, sender);
+			case MAKE_MOVE:
+				parseMakeMoveRequest(message, sender);
 			default:
 				throw new UnsupportedOperationException();
 		}
 	}
 
-	@Override
-	public void onDisconnect(ConnectionHandler connectionHandler) {
-		connectionHandlerList.remove(connectionHandler);
-		System.out.println("Client disconnected : " + connectionHandler.getConnectionID());
+	private void parseConnectRequest(String message, ConnectionHandler sender) {
+		ConnectRequest request = gson.fromJson(message, ConnectRequest.class);
+		sender.user.username = request.username;
 	}
 
-	public void disconnectClient(ConnectionHandler connectionHandler) {
-		connectionHandler.disconnect();
-		onDisconnect(connectionHandler);
+	private void parseKickRequest(String message, ConnectionHandler sender) {
+		if (!sender.isAdmin()) {
+			// Unauthorized
+			return;
+		}
+
+		KickRequest request = gson.fromJson(message, KickRequest.class);
+		for (ConnectionHandler connectionHandler : connectionHandlerList) {
+			if (connectionHandler.user.username.equals(request.username)) {
+				disconnectClient(connectionHandler);
+				break;
+			}
+		}
+	}
+
+	private void parseStartGameRequest(String message, ConnectionHandler sender) {
+		// TODO: Start game
+		// TODO: Send UpdateGameStateRequest
+	}
+
+	private void parseAddAIPlayerRequest(String message, ConnectionHandler sender) {
+		if (!sender.isAdmin()) {
+			// Unauthorized
+			return;
+		}
+
+		AddAIPlayerRequest request = gson.fromJson(message, AddAIPlayerRequest.class);
+		// TODO: Initialize AI Player as pseudoConnectionHandler and add it to the connectionHandlerList
+	}
+
+	private void parseMakeMoveRequest(String message, ConnectionHandler sender) {
+		MakeMoveRequest request = gson.fromJson(message, MakeMoveRequest.class);
+		// TODO: Implement make move functionality
+	}
+
+	private void parseWonderSelectRequest(String message, ConnectionHandler sender) {
+		SelectWonderRequest request = gson.fromJson(message, SelectWonderRequest.class);
+		// TODO: Implement select wonder functionality
 	}
 
 	// TODO: Change to real wonders and update
@@ -151,85 +204,4 @@ public class Server implements Runnable, INetworkListener {
 			wonderUserMap.put(unassignedUsers.get(i), emptyWonders.get(i));
 		}
 	}
-
-	public void parseJoinLobbyRequest(Gson requestBody) {
-
-	}
-
-	public Object generateMoveFromGson(Gson object) {
-		// TODO - implement GameServer.generateMoveFromGson
-		throw new UnsupportedOperationException();
-	}
-
-	public void updateGameStateForClients() {
-		// TODO - implement GameServer.updateGameStateForClients
-		throw new UnsupportedOperationException();
-	}
-
-	public void startNewGame() {
-		// TODO - implement GameServer.startNewGame
-		throw new UnsupportedOperationException();
-	}
-
-	private void generateAndPlayMovesForAIPlayers() {
-		// TODO - implement GameServer.generateAndPlayMovesForAIPlayers
-		throw new UnsupportedOperationException();
-	}
-
-	private Pair<Integer, Integer>[] distributeWondersForPlayers() {
-		// TODO - implement GameServer.distributeWondersForPlayers
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param object
-	 * @param clientID
-	 */
-	private void parseMoveValidityRequest(Gson object, int clientID) {
-		// TODO - implement GameServer.parseMoveValidityRequest
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param object
-	 * @param clientID
-	 */
-	private void parseMakeMoveRequest(Gson object, int clientID) {
-		// TODO - implement GameServer.parseMakeMoveRequest
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param object
-	 * @param clientID
-	 */
-	private void parseBoardInfoRequest(Gson object, int clientID) {
-		// TODO - implement GameServer.parseBoardInfoRequest
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param object
-	 * @param clientID
-	 */
-	private void parseGetReadyRequest(Gson object, int clientID) {
-		// TODO - implement GameServer.parseGetReadyRequest
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param object
-	 * @param clientID
-	 */
-	private void parseWonderSelectRequest(Gson object, int clientID) {
-		// TODO - implement GameServer.parseWonderSelectRequest
-		throw new UnsupportedOperationException();
-	}
-
-
 }
