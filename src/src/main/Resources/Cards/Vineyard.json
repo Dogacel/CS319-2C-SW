@@ -1,0 +1,13 @@
+{
+  "id": 39, 
+  "name": "Vineyard", 
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "GET_MONEY_FOR_BROWN", 
+    "resources": {}, 
+    "gold": 1, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

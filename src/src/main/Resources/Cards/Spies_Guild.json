@@ -1,0 +1,16 @@
+{
+  "id": 71, 
+  "name": "Spies Guild", 
+  "requirements": {
+    "GLASS": 1, 
+    "BRICK": 3
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "SPIES_GUILD", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 1, 
+    "shields": 0
+  }
+}

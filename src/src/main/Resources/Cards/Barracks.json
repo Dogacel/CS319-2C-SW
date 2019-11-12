@@ -1,0 +1,15 @@
+{
+  "id": 21, 
+  "name": "Barracks", 
+  "requirements": {
+    "ORE": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "GRANT_SHIELDS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 1
+  }
+}

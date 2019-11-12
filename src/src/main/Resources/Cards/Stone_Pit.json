@@ -1,0 +1,15 @@
+{
+  "id": 2, 
+  "name": "Stone Pit", 
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "PRODUCE_RAW_MATERIAL", 
+    "resources": {
+      "STONE" : 1
+    }, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

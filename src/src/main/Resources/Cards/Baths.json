@@ -1,0 +1,15 @@
+{
+  "id": 13, 
+  "name": "Baths", 
+  "requirements": {
+    "STONE": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "GIVE_VICTORY_POINTS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 3, 
+    "shields": 0
+  }
+}

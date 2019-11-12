@@ -1,0 +1,15 @@
+{
+  "id": 1, 
+  "name": "Lumber Yard", 
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "PRODUCE_RAW_MATERIAL", 
+    "resources": {
+      "WOOD" : 1
+    }, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

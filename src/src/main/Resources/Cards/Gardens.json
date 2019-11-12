@@ -1,0 +1,18 @@
+{
+  "id": 50, 
+  "name": "Gardens", 
+  "requirements": {
+    "BRICK": 2, 
+    "WOOD": 1
+  }, 
+  "buildingChain": [
+    "Statue"
+  ], 
+  "cardEffect": {
+    "cardType": "GIVE_VICTORY_POINTS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 5, 
+    "shields": 0
+  }
+}

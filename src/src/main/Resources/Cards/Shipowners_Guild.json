@@ -1,0 +1,17 @@
+{
+  "id": 73, 
+  "name": "Shipowners Guild", 
+  "requirements": {
+    "GLASS": 1, 
+    "WOOD": 3, 
+    "PAPYRUS": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "SHIPOWNERS_GUILD", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 1, 
+    "shields": 0
+  }
+}

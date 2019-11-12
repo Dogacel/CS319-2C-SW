@@ -1,0 +1,18 @@
+{
+  "id": 45, 
+  "name": "Dispensary", 
+  "requirements": {
+    "GLASS": 1, 
+    "ORE": 2
+  }, 
+  "buildingChain": [
+    "Apothecary"
+  ], 
+  "cardEffect": {
+    "cardType": "SCIENCE_DRAWINGS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

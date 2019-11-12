@@ -1,0 +1,15 @@
+{
+  "id": 23, 
+  "name": "Apothecary", 
+  "requirements": {
+    "LOOM": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "SCIENCE_DRAWINGS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": 19, 
+  "name": "Marketplace", 
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "MANUFACTURED_GOODS_TRADE_DISCOUNT", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

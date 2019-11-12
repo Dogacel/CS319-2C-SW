@@ -1,0 +1,13 @@
+{
+  "id": 14, 
+  "name": "Altar", 
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "GIVE_VICTORY_POINTS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 2, 
+    "shields": 0
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": 6, 
+  "name": "Clay Pit", 
+  "requirements": {
+    "GOLD": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "PRODUCE_ONE_OF_TWO", 
+    "resources": {
+      "BRICK" : 1,
+      "ORE" : 1
+    }, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

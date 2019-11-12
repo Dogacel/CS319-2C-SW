@@ -1,0 +1,18 @@
+{
+  "id": 36, 
+  "name": "Courthouse", 
+  "requirements": {
+    "BRICK": 2, 
+    "LOOM": 1
+  }, 
+  "buildingChain": [
+    "Scriptorium"
+  ], 
+  "cardEffect": {
+    "cardType": "GIVE_VICTORY_POINTS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 4, 
+    "shields": 0
+  }
+}

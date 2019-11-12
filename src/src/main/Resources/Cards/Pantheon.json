@@ -1,0 +1,21 @@
+{
+  "id": 49, 
+  "name": "Pantheon", 
+  "requirements": {
+    "GLASS": 1, 
+    "BRICK": 2, 
+    "ORE": 1, 
+    "LOOM": 1, 
+    "PAPYRUS": 1
+  }, 
+  "buildingChain": [
+    "Temple"
+  ], 
+  "cardEffect": {
+    "cardType": "GIVE_VICTORY_POINTS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 7, 
+    "shields": 0
+  }
+}

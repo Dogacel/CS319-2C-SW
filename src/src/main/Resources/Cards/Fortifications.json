@@ -1,0 +1,18 @@
+{
+  "id": 58, 
+  "name": "Fortifications", 
+  "requirements": {
+    "STONE": 1, 
+    "ORE": 3
+  }, 
+  "buildingChain": [
+    "Walls"
+  ], 
+  "cardEffect": {
+    "cardType": "GRANT_SHIELDS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 3
+  }
+}

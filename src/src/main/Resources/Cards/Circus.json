@@ -1,0 +1,18 @@
+{
+  "id": 59, 
+  "name": "Circus", 
+  "requirements": {
+    "STONE": 3, 
+    "ORE": 1
+  }, 
+  "buildingChain": [
+    "Training Ground"
+  ], 
+  "cardEffect": {
+    "cardType": "GRANT_SHIELDS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 3
+  }
+}

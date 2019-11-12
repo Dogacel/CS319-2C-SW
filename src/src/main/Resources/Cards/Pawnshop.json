@@ -1,0 +1,13 @@
+{
+  "id": 12, 
+  "name": "Pawnshop", 
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "GIVE_VICTORY_POINTS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 3, 
+    "shields": 0
+  }
+}

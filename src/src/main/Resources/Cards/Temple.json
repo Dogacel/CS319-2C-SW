@@ -1,0 +1,19 @@
+{
+  "id": 34, 
+  "name": "Temple", 
+  "requirements": {
+    "GLASS": 1, 
+    "BRICK": 1, 
+    "WOOD": 1
+  }, 
+  "buildingChain": [
+    "Altar"
+  ], 
+  "cardEffect": {
+    "cardType": "GIVE_VICTORY_POINTS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 3, 
+    "shields": 0
+  }
+}

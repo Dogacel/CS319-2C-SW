@@ -1,0 +1,15 @@
+{
+  "id": 25, 
+  "name": "Scriptorium", 
+  "requirements": {
+    "PAPYRUS": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "SCIENCE_WIRITINGS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

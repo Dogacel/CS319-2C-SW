@@ -1,0 +1,18 @@
+{
+  "id": 57, 
+  "name": "Arena", 
+  "requirements": {
+    "STONE": 2, 
+    "ORE": 1
+  }, 
+  "buildingChain": [
+    "Dispensary"
+  ], 
+  "cardEffect": {
+    "cardType": "GET_MONEY_AND_VP_PER_WONDER", 
+    "resources": {}, 
+    "gold": 3, 
+    "victoryPoints": 1, 
+    "shields": 0
+  }
+}

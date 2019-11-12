@@ -1,0 +1,17 @@
+{
+  "id": 26, 
+  "name": "Sawmill", 
+  "requirements": {
+    "GOLD": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "PRODUCE_RAW_MATERIAL", 
+    "resources": {
+      "WOOD" : 2
+    }, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

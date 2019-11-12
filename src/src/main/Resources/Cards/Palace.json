@@ -1,0 +1,21 @@
+{
+  "id": 52, 
+  "name": "Palace", 
+  "requirements": {
+    "STONE": 1, 
+    "LOOM": 1, 
+    "PAPYRUS": 1, 
+    "GLASS": 1, 
+    "WOOD": 1, 
+    "BRICK": 1, 
+    "ORE": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "GIVE_VICTORY_POINTS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 8, 
+    "shields": 0
+  }
+}
