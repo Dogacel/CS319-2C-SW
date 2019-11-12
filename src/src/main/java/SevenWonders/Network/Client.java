@@ -34,6 +34,27 @@ public class Client implements INetworkListener {
 		}
 	}
 
+	public void onEndGameRequest() {
+		// TODO: Change to score view
+	}
+
+	public void onEndAgeRequest() {
+		// TODO: Battle screen?
+	}
+
+	public void onEndTurnRequest() {
+		// TODO: Unimplemented
+	}
+
+	public void onStartGameRequest() {
+		// TODO: Change view to game-play view
+	}
+
+	public void onUpdateGameStateRequest(String message) {
+		UpdateGameStateRequest request = gson.fromJson(message, UpdateGameStateRequest.class);
+		// TODO: Implement interaction between UI and Client
+	}
+
 	// TODO: Update move to MoveModel
 	public void sendMakeMoveRequest(Object move) {
 		MakeMoveRequest request = MakeMoveRequest.of(move);
@@ -98,11 +119,30 @@ public class Client implements INetworkListener {
 	 */
 	@Override
     public void receiveMessage(String message, ConnectionHandler connectionHandler) {
-		Request dummyRequest = gson.fromJson(message, Request.class);
+		Request request = gson.fromJson(message, Request.class);
 
-	    if (dummyRequest.requestType == RequestType.SEND_TEXT) {
-			SendTextRequest request = gson.fromJson(message, SendTextRequest.class);
-			System.out.println("Server: " + request.text);
+	    switch (request.requestType) {
+			case SEND_TEXT:
+				SendTextRequest textRequest = gson.fromJson(message, SendTextRequest.class);
+				System.out.println("Server: " + textRequest.text);
+				break;
+			case START_GAME:
+				onStartGameRequest();
+				break;
+			case UPDATE_GAME_STATE:
+				onUpdateGameStateRequest(message);
+				break;
+			case END_TURN:
+				onEndTurnRequest();
+				break;
+			case END_AGE:
+				onEndAgeRequest();
+				break;
+			case END_GAME:
+				onEndGameRequest();
+				break;
+			default:
+				throw new UnsupportedOperationException();
         }
     }
 
