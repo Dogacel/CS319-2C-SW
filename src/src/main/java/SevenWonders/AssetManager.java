@@ -1,11 +1,12 @@
 package SevenWonders;
 
 import javafx.scene.image.Image;
+
+import java.io.*;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.util.Objects;
 
 
 public class AssetManager {
@@ -16,6 +17,7 @@ public class AssetManager {
     //constructor
     private AssetManager() {
         imageMap = new HashMap<>();
+        loadImages();
     }
 
     //methods
@@ -36,32 +38,25 @@ public class AssetManager {
      * @param imageId String ID of an image
      * @return the matching image for that ID
      */
-    public Image getImage(String imageId) {
-        if ( !imageMap.containsKey(imageId)) {
+    public Image getImage(String imageId) throws FileNotFoundException {
+        if (imageMap.containsKey(imageId)) {
             return imageMap.get(imageId);
+        } else {
+            throw new FileNotFoundException(imageId);
         }
-        else {
-            System.out.println("Cannot find image in the map!");
-        }
-        return null;
     }
 
     /**
      * Loads all images from a file to the program for efficiency.
      */
     private void loadImages() {
-        BufferedReader r;
-        try {
-            r = new BufferedReader( new FileReader("images.txt")); //filename to be determined?
-            String imageLocation  = r.readLine();
-            //read every line which contains a image address, push the address and a Image object inside the map
-            while ( imageLocation != null) {
-                imageMap.put(imageLocation, new Image(imageLocation));
-                imageLocation = r.readLine();
-            }
-            r.close();
-        } catch (IOException err) {
-            err.printStackTrace();
+        URL imageResourcesURL = getClass().getClassLoader().getResource("images");
+        assert imageResourcesURL != null;
+        File dir = new File(imageResourcesURL.getPath());
+
+        for (File f : Objects.requireNonNull(dir.listFiles())) {
+            System.out.println(f.getName());
+            imageMap.put(f.getName(), new Image("images/" + f.getName()));
         }
     }
 }

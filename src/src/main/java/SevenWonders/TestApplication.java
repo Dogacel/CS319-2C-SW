@@ -3,7 +3,11 @@ package SevenWonders;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
 
 public class TestApplication extends Application {
 
@@ -13,8 +17,12 @@ public class TestApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Scene emptyScene = new Scene(new Group(), 640, 480);
+        Group g = new Group();
+        Scene emptyScene = new Scene(g, 640, 480);
         primaryStage.setScene(emptyScene);
         primaryStage.show();
+
+        AssetManager.getInstance();
+
     }
 }
