@@ -8,4 +8,6 @@ public enum RequestType {
     START_GAME,
     ADD_AI_PLAYER,
     SELECT_WONDER,
+    UPDATE_GAME_STATE,
+    MAKE_MOVE,
 }
