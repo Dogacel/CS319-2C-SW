@@ -43,14 +43,6 @@ public class Client implements INetworkListener {
 	}
 
 	/**
-	 * Sends a string to the server, should be a JSON string.
-	 * @param message String to send
-	 */
-	public void sendMessage(String message) {
-		connectionHandler.sendMessage(message);
-	}
-
-	/**
 	 * Called when client receives a message from the client.
 	 * This method should parse the given request depending on its type.
 	 * @param message Incoming String

@@ -172,6 +172,7 @@ public class Server implements Runnable, INetworkListener {
 
 	/*
 	 * Distributes wonders to connected users.
+	 * TODO: Add a test
 	 */
 	public void distributeWonders() {
 		// TODO: Change to real wonders and update
