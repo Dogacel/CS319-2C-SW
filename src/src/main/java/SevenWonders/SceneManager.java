@@ -1,4 +1,4 @@
-package SevenWonders.controller;
+package SevenWonders;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
