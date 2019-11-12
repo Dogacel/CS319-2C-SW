@@ -1,7 +1,7 @@
 package SevenWonders.GameLogic.Enums;
 
 public enum RESOURCE_TYPE {
-    CLAY,
+    BRICK,
     ORE,
     STONE,
     WOOD,
