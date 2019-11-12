@@ -11,7 +11,7 @@ public class Card {
     private Map<RESOURCE_TYPE, Integer> resourceCost;
     private int[] preConditionCardIDs;
     private CardEffect cardEffect;
-    private CARD_COLOR_TYPE color; //This may change to ENUM
+    private CARD_COLOR_TYPE color;
 
     public Card(){
         this.id = -1;
