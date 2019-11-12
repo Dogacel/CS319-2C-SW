@@ -6,7 +6,7 @@
   }, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "SCIENCE_WIRITINGS", 
+    "cardType": "SCIENCE_WRITINGS",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 0, 
