@@ -1,14 +1,11 @@
 package SevenWonders.Network.Requests;
 
-// TODO: Implement
+// TODO: Implement MoveModel
 public class MakeMoveRequest extends Request {
 
-    // TODO: Implement MoveModel
-    private class MoveModel {};
+    public Object move;
 
-    public MoveModel move;  
-
-    public static MakeMoveRequest of(MoveModel move) {
+    public static MakeMoveRequest of(Object move) {
         MakeMoveRequest makeMoveRequest = new MakeMoveRequest();
         makeMoveRequest.requestType = RequestType.MAKE_MOVE;
         makeMoveRequest.move = move;
