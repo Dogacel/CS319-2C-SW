@@ -1,17 +1,19 @@
-package SevenWonders;
+package SevenWonders.GameLogic;
 
-public class CardEffect {
-    private CARD_EFFECT_TYPE effectType;
+import java.util.Map;
+
+public class WonderEffect {
+    private WONDER_EFFECT_TYPE effectType;
     private int victoryPoints;
     private int gold;
     private int shields;
-    private Resources[] resources;
+    private Map<RESOURCE_TYPE, Integer> resources;
 
-    public CARD_EFFECT_TYPE getEffectType() {
+    public WONDER_EFFECT_TYPE getEffectType() {
         return effectType;
     }
 
-    public void setEffectType(CARD_EFFECT_TYPE effectType) {
+    public void setEffectType(WONDER_EFFECT_TYPE effectType) {
         this.effectType = effectType;
     }
 
@@ -39,11 +41,11 @@ public class CardEffect {
         this.shields = shields;
     }
 
-    public Resources[] getResources() {
+    public Map<RESOURCE_TYPE, Integer> getResources() {
         return resources;
     }
 
-    public void setResources(Resources[] resources) {
+    public void setResources(Map<RESOURCE_TYPE, Integer> resources) {
         this.resources = resources;
     }
 }
