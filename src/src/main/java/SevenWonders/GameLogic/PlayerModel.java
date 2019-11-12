@@ -1,6 +1,9 @@
 package SevenWonders.GameLogic;
 
+import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
+
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class PlayerModel {
 
@@ -14,23 +17,22 @@ public class PlayerModel {
     private int       warPoints;
     private boolean   isReady;
     private MoveModel currentMove;
-    private ArrayList<Hero> heroes;  //TODO Might change, did like this because hero number is not limited
+    private Vector<Hero> heroes;
     private ConstructionZone constructionZone;
 
-    public PlayerModel(int id, String name)
+    public PlayerModel(int id, String name, Wonder wonder)
     {
         this.id = id;
         this.name = name;
         this.gold = 0;
 
-        this.wonder = new Wonder(); //TODO, Change according to the wonder constructor
+        this.wonder = wonder;
         this.warPoints = 0;
         this.isReady = false;
-        this.currentMove = new MoveModel(); //TODO, Change according to the wonder constructor
 
-        this.heroes = new ArrayList<Hero>();
+        this.heroes = new Vector<>();
 
-        this.constructionZone = new ConstructionZone(); //TODO, Change according to CZ constructor
+        this.constructionZone = new ConstructionZone();
     }
 
     public int getId() { return id; }
@@ -51,7 +53,7 @@ public class PlayerModel {
 
     public ConstructionZone getConstructionZone() { return constructionZone; }
 
-    public ArrayList<Hero> getHeroes() { return heroes; }
+    public Vector<Hero> getHeroes() { return heroes; }
 
     public void setId(int id) { this.id = id; }
 
@@ -71,7 +73,7 @@ public class PlayerModel {
 
     public void addHero(String name, HERO_EFFECT_TYPE effect) {
 
-        heroes.add(Hero(name, effect));
+        heroes.add(new Hero(name, effect));
 
     }
 }
