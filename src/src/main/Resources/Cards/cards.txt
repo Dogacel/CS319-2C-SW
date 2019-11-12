@@ -1,0 +1,76 @@
+Lumber Yard.none.none.
+Stone Pit.none.none.
+Clay Pool.none.none.
+Ore Vein.none.none.
+Tree Farm.1_GOLD.none.
+Clay Pit.1_GOLD.none.
+Forest Cave.1_GOLD.none.
+Mine.1_GOLD.none.
+Loom.none.none.
+Glassworks.none.none.
+Press.none.none.
+Pawnshop.none.none.
+Baths.1_STONE.none.
+Altar.none.none.
+Theater.none.none.
+Tavern.none.none.
+East Trading Post.none.none.
+West Trading Post.none.none.
+Marketplace.none.none.
+Stockade.1_WOOD.none.
+Barracks.1_ORE.none.
+Guard Tower.1_BRICK.none.
+Apothecary.1_LOOM.none.
+Workshop.1_GLASS.none.
+Scriptorium.1_PAPYRUS.none.
+Sawmill.1_GOLD.none.
+Quarry.1_GOLD.none.
+Brickyard.1_GOLD.none.
+Foundry.1_GOLD.none.
+Loom.none.none.
+Glassworks.none.none.
+Press.none.none.
+Aqueduct.3_STONE.Baths.
+Temple.1_WOOD,1_BRICK,1_GLASS.Altar.
+Statue.1_WOOD,2_ORE.Theater.
+Courthouse.2_BRICK,1_LOOM.Scriptorium.
+Forum.2_BRICK.East Trading Post,West Trading Post.
+Caravansery.2_WOOD.Marketplace.
+Vineyard.none.none.
+Bazar.none.none.
+Walls.3_STONE.none.
+Training Ground.1_WOOD,2_ORE.none.
+Stables.1_ORE,1_BRICK,1_WOOD.none.
+Archery Range.2_WOOD,1_ORE.Workshop.
+Dispensary.2_ORE,1_GLASS.Apothecary.
+Laboratory.2_BRICK,1_PAPYRUS.Workshop.
+Library.2_STONE,1_LOOM.Scriptorium.
+School.1_WOOD,1_PAPYRUS.none.
+Pantheon.2_BRICK,1_ORE,1_PAPYRUS,1_LOOM,1_GLASS.Temple.
+Gardens.1_WOOD,2_BRICK.Statue.
+Town Hall.1_GLASS,1_ORE,2_STONE.none.
+Palace.1_GLASS,1_PAPYRUS,1_LOOM,1_BRICK,1_WOOD,1_ORE,1_STONE.none.
+Senate.1_ORE,1_STONE,2_WOOD.Library.
+Haven.1_LOOM,1_ORE,1_WOOD.Forum.
+Lighthouse.1_GLASS,1_STONE.Caravansery.
+Chamber Of Commerce.2_BRICK,1_PAPYRUS.none.
+Arena.1_ORE,2_STONE.Dispensary.
+Fortifications.1_STONE,3_ORE.Walls.
+Circus.3_STONE,1_ORE.Training Ground.
+Arsenal.1_ORE,2_WOOD,1_LOOM.none.
+Siege Workshop.1_WOOD,3_BRICK.Laboratory.
+Lodge.2_BRICK,1_LOOM,1_PAPYRUS.Dispensary.
+Observatory.2_ORE,1_GLASS,1_LOOM.Laboratory.
+University.2_WOOD,1_PAPYRUS,1_GOLD.Library.
+Academy.3_STONE,1_GLASS.School.
+Study.1_WOOD,1_PAPYRUS,1_LOOM.School.
+Workers Guild.2_ORE,1_BRICK,1_STONE,1_WOOD.none.
+Craftsmens Guild.2_ORE,2_STONE.none.
+Traders Guild.1_LOOM,1_PAPYRUS,1_GLASS.none.
+Philosophers Guild.3_BRICK,1_LOOM,1_PAPYRUS.none.
+Spies Guild.3_BRICK,1_GLASS.none.
+Strategists Guild.2_ORE,1_STONE,1_LOOM.none.
+Shipowners Guild.3_WOOD,1_PAPYRUS,1_GLASS.none.
+Scientists Guild.2_WOOD,2_ORE,1_PAPYRUS.none.
+Magistrates Guild.3_WOOD,1_STONE,1_LOOM.none.
+Builders Guild.2_STONE,2_BRICK,1_GLASS.none.
