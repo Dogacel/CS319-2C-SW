@@ -8,6 +8,7 @@ public class Wonder {
     private RESOURCE_TYPE resource;
     private WonderStage[] stages;
     private God god;
+    private int wonderStageIndex;
 
     public Wonder(int id, String name, RESOURCE_TYPE resource, WonderStage[] stages, God god)
     {
@@ -16,6 +17,7 @@ public class Wonder {
         this.resource = resource;
         this.stages = stages;
         this.god = god;
+        this.wonderStageIndex = -1;
     }
 
     public int getId() {
@@ -56,5 +58,16 @@ public class Wonder {
 
     public void setGod(God god) {
         this.god = god;
+    }
+
+    public WonderStage getCurrentStage() {
+        if (wonderStageIndex == -1) {
+            return null;
+        }
+        return stages[wonderStageIndex];
+    }
+
+    public void setWonderStageIndex( int index) {
+        this.wonderStageIndex = index;
     }
 }
