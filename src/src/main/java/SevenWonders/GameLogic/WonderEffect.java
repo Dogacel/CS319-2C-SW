@@ -12,6 +12,20 @@ public class WonderEffect {
     private int shields;
     private Map<RESOURCE_TYPE, Integer> resources;
 
+    public WonderEffect(WONDER_EFFECT_TYPE effect_type,
+                        int victoryPoints,
+                        int gold,
+                        int shields,
+                        Map<RESOURCE_TYPE,Integer> resources)
+    {
+        this.effectType = effect_type;
+        this.victoryPoints = victoryPoints;
+        this.gold = gold;
+        this.shields = shields;
+        this.resources = resources;
+    }
+
+
     public WONDER_EFFECT_TYPE getEffectType() {
         return effectType;
     }

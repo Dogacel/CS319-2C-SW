@@ -8,6 +8,13 @@ public class MoveModel {
     private ACTION_TYPE action;
     //private TradeAction[] trades;
 
+    public MoveModel(int playerID, int selectedCardID, ACTION_TYPE action)
+    {
+        this.playerID = playerID;
+        this.selectedCardID = selectedCardID;
+        this.action = action;
+    }
+
     public int getPlayerID(){
         return playerID;
     }
