@@ -6,6 +6,12 @@ public class Hero {
     private String name;
     private HERO_EFFECT_TYPE heroEffect;
 
+    public Hero(String name, HERO_EFFECT_TYPE effect)
+    {
+        this.name = name;
+        this.heroEffect = effect;
+    }
+
     public String getName() {
         return name;
     }
