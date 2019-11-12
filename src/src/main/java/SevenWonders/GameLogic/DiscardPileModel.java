@@ -1,14 +1,14 @@
 package SevenWonders.GameLogic;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 public class DiscardPileModel {
 
-    private ArrayList<Card> cards;
+    private Vector<Card> cards;
 
     public DiscardPileModel()
     {
-        cards = new ArrayList<Card>();
+        cards = new Vector<Card>();
     }
 
     public void updateDiscardPile(Card card)
@@ -16,7 +16,7 @@ public class DiscardPileModel {
         cards.add(card);
     }
 
-    public ArrayList<Card> getCards()
+    public Vector<Card> getCards()
     {
         return cards;
     }
