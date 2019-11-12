@@ -9,6 +9,7 @@ public class Wonder {
     private WonderStage[] stages;
     private int currentStage;
     private God god;
+    private int wonderStageIndex;
 
     public Wonder(int id, String name, RESOURCE_TYPE resource, WonderStage[] stages, God god)
     {
@@ -18,6 +19,7 @@ public class Wonder {
         this.stages = stages;
         this.currentStage = 0;
         this.god = god;
+        this.wonderStageIndex = -1;
     }
 
     public int getId() {
@@ -47,5 +49,16 @@ public class Wonder {
 
     public boolean isUpgradeable() {
         return currentStage <= 2;
+    }
+
+    public WonderStage getCurrentStage() {
+        if (wonderStageIndex == -1) {
+            return null;
+        }
+        return stages[wonderStageIndex];
+    }
+
+    public void setWonderStageIndex( int index) {
+        this.wonderStageIndex = index;
     }
 }
