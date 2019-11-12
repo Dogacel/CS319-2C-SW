@@ -23,9 +23,6 @@ public class PlayerModel {
         this.name = name;
         this.gold = 0;
 
-        this.hand = new Card[MAX_CARDS_AT_HAND];
-        initializeCards();
-
         this.wonder = new Wonder(); //TODO, Change according to the wonder constructor
         this.warPoints = 0;
         this.isReady = false;
@@ -34,11 +31,6 @@ public class PlayerModel {
         this.heroes = new ArrayList<Hero>();
 
         this.constructionZone = new ConstructionZone(); //TODO, Change according to CZ constructor
-    }
-
-    private void initializeCards()
-    {
-        //TODO Question: Will the players have a hand full of cards when they are constructed? If so, do it here.
     }
 
     public int getId() { return id; }
