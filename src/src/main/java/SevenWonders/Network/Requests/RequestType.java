@@ -10,4 +10,7 @@ public enum RequestType {
     SELECT_WONDER,
     UPDATE_GAME_STATE,
     MAKE_MOVE,
+    END_TURN,
+    END_AGE,
+    END_GAME,
 }
