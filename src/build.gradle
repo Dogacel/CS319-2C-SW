@@ -19,6 +19,18 @@ javafx {
     modules = [ 'javafx.controls' ]
 }
 
+task(runServerCLI, dependsOn: 'classes', type: JavaExec) {
+    main = 'SevenWonders.Network.ConsoleApplication.ServerApplication'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+}
+
+task(runClientCLI, dependsOn: 'classes', type: JavaExec) {
+    main = 'SevenWonders.Network.ConsoleApplication.ClientApplication'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+}
+
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
@@ -38,4 +50,6 @@ dependencies {
 application {
     // Define the main class for the application
     mainClassName = 'SevenWonders.TestApplication'
+
 }
+

@@ -30,6 +30,7 @@ public class ConnectionHandler implements Runnable {
         this.worker = new Thread(this);
         this.user = new User(connectionID);
         try {
+            s.setTcpNoDelay(true);
             this.inputStream = new DataInputStream(s.getInputStream());
             this.outputStream = new DataOutputStream(s.getOutputStream());
         } catch (IOException e) {
