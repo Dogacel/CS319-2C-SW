@@ -1,4 +1,7 @@
 package SevenWonders.GameLogic;
+import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
+import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+
 import java.util.Map;
 
 public class Card {

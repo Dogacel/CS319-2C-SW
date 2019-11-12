@@ -1,5 +1,7 @@
 package SevenWonders.GameLogic;
 
+import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
+
 public class Hero {
     private String name;
     private HERO_EFFECT_TYPE heroEffect;

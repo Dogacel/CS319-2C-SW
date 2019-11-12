@@ -1,4 +1,4 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Enums;
 
 public enum CARD_COLOR_TYPE {
     BROWN,

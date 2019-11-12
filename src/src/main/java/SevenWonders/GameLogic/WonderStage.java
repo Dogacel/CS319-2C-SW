@@ -1,5 +1,7 @@
 package SevenWonders.GameLogic;
 
+import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+
 import java.util.Map;
 
 public class WonderStage {

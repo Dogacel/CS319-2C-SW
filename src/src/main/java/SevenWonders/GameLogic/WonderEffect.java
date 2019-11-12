@@ -1,5 +1,8 @@
 package SevenWonders.GameLogic;
 
+import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
+
 import java.util.Map;
 
 public class WonderEffect {

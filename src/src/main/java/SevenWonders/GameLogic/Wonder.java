@@ -1,5 +1,7 @@
 package SevenWonders.GameLogic;
 
+import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+
 public class Wonder {
     private int id;
     private String name;

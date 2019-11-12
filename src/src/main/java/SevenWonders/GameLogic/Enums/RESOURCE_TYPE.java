@@ -1,4 +1,4 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Enums;
 
 public enum RESOURCE_TYPE {
     CLAY,

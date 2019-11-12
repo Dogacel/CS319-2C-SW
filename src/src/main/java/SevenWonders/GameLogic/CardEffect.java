@@ -1,5 +1,8 @@
 package SevenWonders.GameLogic;
 
+import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
+import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+
 import java.util.Map;
 
 public class CardEffect {
