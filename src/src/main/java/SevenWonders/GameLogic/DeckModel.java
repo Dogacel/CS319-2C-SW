@@ -11,21 +11,15 @@ public class DeckModel {
     public DeckModel()
     {
         cards = new Card[NUMBER_OF_AGES][CARDS_PER_AGE];
-        initializeDeck();
     }
 
-    private void initializeDeck()
+    private void setCards(Card[][] cards)
     {
-        //TODO, file read and initialization of each card should be done here.
+        this.cards = cards;
     }
 
     public Card[][] getCards()
     {
         return cards;
-    }
-
-    public void shuffleCards()
-    {
-        //TODO, card shuffling
     }
 }
