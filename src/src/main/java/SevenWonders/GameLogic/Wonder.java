@@ -9,7 +9,13 @@ public class Wonder {
     private WonderStage[] stages;
     private God god;
 
-    public Wonder() {
+    public Wonder(int id, String name, RESOURCE_TYPE resource, WonderStage[] stages, God god)
+    {
+        this.id = id;
+        this.name = name;
+        this.resource = resource;
+        this.stages = stages;
+        this.god = god;
     }
 
     public int getId() {
