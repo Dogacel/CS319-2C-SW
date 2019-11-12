@@ -15,6 +15,7 @@ public class ConnectionHandler implements Runnable {
     private String connectionID;
     private Thread worker;
 
+    // Current user
     public User user;
 
     public boolean isAdmin() { return this.user.isAdmin; }
@@ -23,6 +24,11 @@ public class ConnectionHandler implements Runnable {
     public String getConnectionID() { return connectionID; }
     public void setConnectionID(String val){ connectionID = val; }
 
+    /**
+     * Establishes a connection to the given socket and listens to it.
+     * @param s Socket
+     * @param listener Listener that will parse requests
+     */
     public ConnectionHandler(Socket s, INetworkListener listener) {
         this.socket = s;
         this.listener = listener;
@@ -38,10 +44,17 @@ public class ConnectionHandler implements Runnable {
         }
     }
 
+    /**
+     * Start listening to the socket for incoming messages
+     */
     public void startListening() {
         this.worker.start();
     }
 
+    /**
+     * Send the string to the connection.
+     * @param message String message
+     */
     public void sendMessage(String message) {
         try {
             outputStream.writeUTF(message);
@@ -50,6 +63,10 @@ public class ConnectionHandler implements Runnable {
         }
     }
 
+    /**
+     * Receive a message from the socket
+     * @return True if connection still exists.
+     */
     public boolean receiveMessage() {
         try {
             String message = inputStream.readUTF();
@@ -68,6 +85,9 @@ public class ConnectionHandler implements Runnable {
         }
     }
 
+    /**
+     * Disconnect the socket
+     */
     public void disconnect() {
         try {
             listener.onDisconnect(this);

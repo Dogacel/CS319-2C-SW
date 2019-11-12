@@ -14,7 +14,11 @@ public class Client implements INetworkListener {
 	private Gson gson;
 	private ConnectionHandler connectionHandler;
 
-
+	/**
+	 * Establishes a connection to given address and port.
+	 * @param serverAddress IP Address of the server
+	 * @param serverPort Port of the server
+	 */
 	public Client(String serverAddress, int serverPort) {
 		try {
 			InetAddress IP  = InetAddress.getByName(serverAddress);
@@ -29,15 +33,29 @@ public class Client implements INetworkListener {
 		}
 	}
 
+	/**
+	 * Send given request to the server
+	 * @param r Request
+	 */
 	public void sendRequest(Request r) {
 		String message = gson.toJson(r, r.getClass());
 		connectionHandler.sendMessage(message);
 	}
 
+	/**
+	 * Sends a string to the server, should be a JSON string.
+	 * @param message String to send
+	 */
 	public void sendMessage(String message) {
 		connectionHandler.sendMessage(message);
 	}
 
+	/**
+	 * Called when client receives a message from the client.
+	 * This method should parse the given request depending on its type.
+	 * @param message Incoming String
+	 * @param connectionHandler Connection to server
+	 */
 	@Override
     public void receiveMessage(String message, ConnectionHandler connectionHandler) {
 		Request dummyRequest = gson.fromJson(message, Request.class);

@@ -2,7 +2,6 @@ package SevenWonders.Network;
 
 import SevenWonders.Network.Requests.*;
 import com.google.gson.Gson;
-import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Vector;
-
 
 public class Server implements Runnable, INetworkListener {
 
@@ -32,6 +30,9 @@ public class Server implements Runnable, INetworkListener {
 		}
 	}
 
+	/**
+	 * Start listening to the incoming connections.
+	 */
 	public void startServing() {
 		worker.start();
 	}
@@ -41,6 +42,10 @@ public class Server implements Runnable, INetworkListener {
 		while (acceptConnection()) ;
 	}
 
+	/**
+	 * Accept connection when a new client tries to connect
+	 * @return False if an exception occurs
+	 */
 	private boolean acceptConnection() {
 		try {
 			Socket s = serverSocket.accept();
@@ -68,13 +73,23 @@ public class Server implements Runnable, INetworkListener {
 	public void onDisconnect(ConnectionHandler connectionHandler) {
 		connectionHandlerList.remove(connectionHandler);
 		System.out.println("Client disconnected : " + connectionHandler.getConnectionID());
+		// TODO: Add AI Player if needed
 	}
 
+	/**
+	 * Disconnect a client, similar to kick action.
+	 * @param connectionHandler ConnectionHandler to disconnect
+	 */
 	private void disconnectClient(ConnectionHandler connectionHandler) {
 		connectionHandler.disconnect();
 		onDisconnect(connectionHandler);
 	}
 
+	/**
+	 * Receive a message from a client
+	 * @param message String of a JSONObject, it extends Request type
+	 * @param sender Sender of the request
+	 */
 	@Override
 	public void receiveMessage(String message, ConnectionHandler sender) {
 
@@ -83,20 +98,27 @@ public class Server implements Runnable, INetworkListener {
 		switch (requestInfo.requestType) {
 			case SEND_TEXT:
 				SendTextRequest request = gson.fromJson(message, SendTextRequest.class);
-				System.out.println("Got: " + request.text + " from " + sender);
+				System.out.println("Got: " + request.text + " from " + sender.user.username);
 				sender.sendMessage(message);
+				break;
 			case CONNECT:
 				parseConnectRequest(message, sender);
+				break;
 			case KICK:
 				parseKickRequest(message, sender);
+				break;
 			case START_GAME:
 				parseStartGameRequest(message, sender);
+				break;
 			case ADD_AI_PLAYER:
 				parseAddAIPlayerRequest(message, sender);
+				break;
 			case SELECT_WONDER:
 				parseWonderSelectRequest(message, sender);
+				break;
 			case MAKE_MOVE:
 				parseMakeMoveRequest(message, sender);
+				break;
 			default:
 				throw new UnsupportedOperationException();
 		}
@@ -147,9 +169,12 @@ public class Server implements Runnable, INetworkListener {
 		// TODO: Implement select wonder functionality
 	}
 
-	// TODO: Change to real wonders and update
+
+	/*
+	 * Distributes wonders to connected users.
+	 */
 	public void distributeWonders() {
-		// Mocked wonders
+		// TODO: Change to real wonders and update
 		String[] mockWonders = {"A", "B", "C", "D", "E", "F", "G"};
 
 		// Holds a list of clients want to choose that wonder
