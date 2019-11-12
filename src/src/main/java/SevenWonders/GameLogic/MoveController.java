@@ -4,6 +4,7 @@ import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 import javafx.util.Pair;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MoveController {
@@ -31,21 +32,36 @@ public class MoveController {
 
     }
 
+    //  TODO add trade action here!
     private boolean playerHasEnoughResources(MoveModel moveModel, PlayerModel currentPlayer) {
         Map<RESOURCE_TYPE,Integer> requiredResources = fromIDToCard(moveModel.getSelectedCardID()).getResourceCost();
-        Map<RESOURCE_TYPE,Integer> clonedResourceMap;
-        for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
-            clonedResourceMap.put()
-        }
+        Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
 
+        //to deep clone a map
+        for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
+            clonedResourceMap.put(entry.getKey(),entry.getValue());
+        }
         for (Card builtCard : currentPlayer.getConstructionZone().getConstructedCards()) {
             CardEffect effect = builtCard.getCardEffect();
             CARD_EFFECT_TYPE effect_type =  effect.getEffectType();
             switch (effect_type) {
                 case PRODUCE_RAW_MATERIAL:
+                case PRODUCE_MANUFACTURED_GOODS:
                     for (Map.Entry<RESOURCE_TYPE, Integer> entry : effect.getResources().entrySet()) {
-
+                        int numberOfResources = clonedResourceMap.getOrDefault( entry.getKey(), 0);
+                        if (numberOfResources > 0) {
+                            int valueToBePut = clonedResourceMap.get(entry.getKey()) - numberOfResources;
+                            if (valueToBePut <= 0) {
+                                clonedResourceMap.remove(entry.getKey());
+                            } else {
+                                clonedResourceMap.put( entry.getKey(), valueToBePut);
+                            }
+                        }
                     }
+                    break;
+                case PRODUCE_ONE_OF_TWO:
+                    //TODO implement here
+                    break;
             }
         }
     }
