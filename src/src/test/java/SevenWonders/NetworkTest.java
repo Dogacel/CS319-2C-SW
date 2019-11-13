@@ -41,7 +41,7 @@ public class NetworkTest {
 
         myClient.disconnect();
         Thread.sleep(100);
-        
+
         assert outContent.toString().contains("Disconnected!");
     }
 

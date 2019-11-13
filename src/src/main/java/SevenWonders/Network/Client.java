@@ -35,17 +35,6 @@ public class Client implements INetworkListener {
 		}
 	}
 
-	// TODO: Test method to remove
-	public void sendTextRequest(String message) {
-		SendTextRequest textRequest = SendTextRequest.of(message);
-		sendRequest(textRequest);
-	}
-
-	private void onTextRequest(String message) {
-		SendTextRequest textRequest = gson.fromJson(message, SendTextRequest.class);
-		System.out.println("Server: " + textRequest.text);
-	}
-
 	private void onEndGameRequest() {
 		// TODO: Change to score view
 	}
@@ -67,9 +56,15 @@ public class Client implements INetworkListener {
 		// TODO: Implement interaction between UI and Client
 	}
 
+	public void sendGetReadyRequest(boolean ready) {
+		GetReadyRequest request = GetReadyRequest.of(ready);
+		sendRequest(request);
+	}
+
 	// TODO: Update move to MoveModel
 	public void sendMakeMoveRequest(Object move) {
 		MakeMoveRequest request = MakeMoveRequest.of(move);
+		sendRequest(request);
 	}
 
 	// TODO: Update wonder
@@ -134,9 +129,6 @@ public class Client implements INetworkListener {
 		Request request = gson.fromJson(message, Request.class);
 
 	    switch (request.requestType) {
-			case SEND_TEXT:
-				// TODO: onTextRequest(message);
-				break;
 			case START_GAME:
 				onStartGameRequest();
 				break;
