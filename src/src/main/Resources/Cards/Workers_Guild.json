@@ -1,6 +1,7 @@
 {
   "id": 67, 
-  "name": "Workers Guild", 
+  "name": "Workers Guild",
+  "color": "PURPLE",
   "requirements": {
     "BRICK": 1, 
     "ORE": 2, 

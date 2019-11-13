@@ -1,6 +1,7 @@
 {
   "id": 20, 
-  "name": "Stockade", 
+  "name": "Stockade",
+  "color": "RED",
   "requirements": {
     "WOOD": 1
   }, 

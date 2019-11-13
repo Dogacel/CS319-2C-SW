@@ -1,6 +1,7 @@
 {
   "id": 58, 
-  "name": "Fortifications", 
+  "name": "Fortifications",
+  "color": "RED",
   "requirements": {
     "STONE": 1, 
     "ORE": 3

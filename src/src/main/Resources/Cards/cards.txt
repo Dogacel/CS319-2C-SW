@@ -27,9 +27,6 @@ Sawmill.1_GOLD.none.
 Quarry.1_GOLD.none.
 Brickyard.1_GOLD.none.
 Foundry.1_GOLD.none.
-Loom.none.none.
-Glassworks.none.none.
-Press.none.none.
 Aqueduct.3_STONE.Baths.
 Temple.1_WOOD,1_BRICK,1_GLASS.Altar.
 Statue.1_WOOD,2_ORE.Theater.

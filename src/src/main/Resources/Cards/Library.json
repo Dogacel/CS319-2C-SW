@@ -1,6 +1,7 @@
 {
   "id": 47, 
-  "name": "Library", 
+  "name": "Library",
+  "color": "GREEN",
   "requirements": {
     "STONE": 2, 
     "LOOM": 1

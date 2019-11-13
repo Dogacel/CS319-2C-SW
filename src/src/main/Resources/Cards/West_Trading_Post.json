@@ -1,6 +1,7 @@
 {
   "id": 18, 
-  "name": "West Trading Post", 
+  "name": "West Trading Post",
+  "color": "YELLOW",
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {

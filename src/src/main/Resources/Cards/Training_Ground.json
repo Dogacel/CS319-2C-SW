@@ -1,6 +1,7 @@
 {
   "id": 42, 
-  "name": "Training Ground", 
+  "name": "Training Ground",
+  "color": "RED",
   "requirements": {
     "ORE": 2, 
     "WOOD": 1

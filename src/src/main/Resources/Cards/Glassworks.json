@@ -1,6 +1,7 @@
 {
   "id": 31, 
-  "name": "Glassworks", 
+  "name": "Glassworks",
+  "color": "GRAY",
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {

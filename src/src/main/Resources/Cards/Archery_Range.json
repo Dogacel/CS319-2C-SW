@@ -1,6 +1,7 @@
 {
   "id": 44, 
-  "name": "Archery Range", 
+  "name": "Archery Range",
+  "color": "RED",
   "requirements": {
     "ORE": 1, 
     "WOOD": 2

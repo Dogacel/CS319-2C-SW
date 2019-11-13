@@ -1,6 +1,7 @@
 {
   "id": 13, 
-  "name": "Baths", 
+  "name": "Baths",
+  "color": "BLUE",
   "requirements": {
     "STONE": 1
   }, 

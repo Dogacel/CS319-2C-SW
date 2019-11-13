@@ -1,6 +1,7 @@
 {
   "id": 50, 
-  "name": "Gardens", 
+  "name": "Gardens",
+  "color": "BLUE",
   "requirements": {
     "BRICK": 2, 
     "WOOD": 1

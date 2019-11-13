@@ -1,6 +1,7 @@
 {
   "id": 61, 
-  "name": "Siege Workshop", 
+  "name": "Siege Workshop",
+  "color": "RED",
   "requirements": {
     "BRICK": 3, 
     "WOOD": 1

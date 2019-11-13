@@ -1,6 +1,7 @@
 {
   "id": 7, 
-  "name": "Forest Cave", 
+  "name": "Forest Cave",
+  "color": "BROWN",
   "requirements": {
     "GOLD": 1
   }, 

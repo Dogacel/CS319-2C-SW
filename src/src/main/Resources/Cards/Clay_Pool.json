@@ -1,6 +1,7 @@
 {
   "id": 3, 
-  "name": "Clay Pool", 
+  "name": "Clay Pool",
+  "color": "BROWN",
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {

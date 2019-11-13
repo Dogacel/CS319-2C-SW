@@ -1,6 +1,7 @@
 {
   "id": 51, 
-  "name": "Town Hall", 
+  "name": "Town Hall",
+  "color": "BLUE",
   "requirements": {
     "GLASS": 1, 
     "STONE": 2, 

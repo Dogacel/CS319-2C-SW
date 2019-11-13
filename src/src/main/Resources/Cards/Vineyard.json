@@ -1,6 +1,7 @@
 {
   "id": 39, 
-  "name": "Vineyard", 
+  "name": "Vineyard",
+  "color": "YELLOW",
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {

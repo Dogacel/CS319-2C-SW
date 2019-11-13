@@ -1,6 +1,7 @@
 {
   "id": 74, 
-  "name": "Scientists Guild", 
+  "name": "Scientists Guild",
+  "color": "PURPLE",
   "requirements": {
     "ORE": 2, 
     "WOOD": 2, 

@@ -1,6 +1,7 @@
 {
   "id": 26, 
-  "name": "Sawmill", 
+  "name": "Sawmill",
+  "color": "BROWN",
   "requirements": {
     "GOLD": 1
   }, 

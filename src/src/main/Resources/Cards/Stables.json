@@ -1,6 +1,7 @@
 {
   "id": 43, 
-  "name": "Stables", 
+  "name": "Stables",
+  "color": "RED",
   "requirements": {
     "BRICK": 1, 
     "ORE": 1, 

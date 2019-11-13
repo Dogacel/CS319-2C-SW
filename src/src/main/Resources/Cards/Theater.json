@@ -1,6 +1,7 @@
 {
   "id": 15, 
-  "name": "Theater", 
+  "name": "Theater",
+  "color": "BLUE",
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {

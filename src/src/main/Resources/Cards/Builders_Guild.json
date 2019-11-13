@@ -1,6 +1,7 @@
 {
   "id": 76, 
-  "name": "Builders Guild", 
+  "name": "Builders Guild",
+  "color": "PURPLE",
   "requirements": {
     "GLASS": 1, 
     "STONE": 2, 

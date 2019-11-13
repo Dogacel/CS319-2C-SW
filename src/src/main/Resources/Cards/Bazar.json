@@ -1,6 +1,7 @@
 {
   "id": 40, 
-  "name": "Bazar", 
+  "name": "Bazar",
+  "color": "YELLOW",
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {

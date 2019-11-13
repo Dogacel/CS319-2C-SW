@@ -1,6 +1,7 @@
 {
   "id": 75, 
-  "name": "Magistrates Guild", 
+  "name": "Magistrates Guild",
+  "color": "PURPLE",
   "requirements": {
     "STONE": 1, 
     "WOOD": 3, 

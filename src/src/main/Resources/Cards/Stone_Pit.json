@@ -1,6 +1,7 @@
 {
   "id": 2, 
-  "name": "Stone Pit", 
+  "name": "Stone Pit",
+  "color": "BROWN",
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {

@@ -1,6 +1,7 @@
 {
   "id": 29, 
-  "name": "Foundry", 
+  "name": "Foundry",
+  "color": "BROWN",
   "requirements": {
     "GOLD": 1
   }, 

@@ -1,6 +1,7 @@
 {
   "id": 6, 
-  "name": "Clay Pit", 
+  "name": "Clay Pit",
+  "color": "BROWN",
   "requirements": {
     "GOLD": 1
   }, 

@@ -1,6 +1,7 @@
 {
   "id": 28, 
-  "name": "Brickyard", 
+  "name": "Brickyard",
+  "color": "BROWN",
   "requirements": {
     "GOLD": 1
   }, 

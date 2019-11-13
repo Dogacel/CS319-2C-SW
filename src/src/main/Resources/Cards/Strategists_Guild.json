@@ -1,6 +1,7 @@
 {
   "id": 72, 
-  "name": "Strategists Guild", 
+  "name": "Strategists Guild",
+  "color": "PURPLE",
   "requirements": {
     "STONE": 1, 
     "ORE": 2, 

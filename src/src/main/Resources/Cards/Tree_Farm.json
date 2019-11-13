@@ -1,6 +1,7 @@
 {
   "id": 5, 
-  "name": "Tree Farm", 
+  "name": "Tree Farm",
+  "color": "BROWN",
   "requirements": {
     "GOLD": 1
   }, 

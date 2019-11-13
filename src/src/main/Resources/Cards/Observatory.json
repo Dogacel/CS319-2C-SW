@@ -1,6 +1,7 @@
 {
   "id": 63, 
-  "name": "Observatory", 
+  "name": "Observatory",
+  "color": "GREEN",
   "requirements": {
     "GLASS": 1, 
     "ORE": 2, 

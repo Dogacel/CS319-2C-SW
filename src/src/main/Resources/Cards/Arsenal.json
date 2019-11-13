@@ -1,6 +1,7 @@
 {
   "id": 60, 
-  "name": "Arsenal", 
+  "name": "Arsenal",
+  "color": "RED",
   "requirements": {
     "ORE": 1, 
     "LOOM": 1, 

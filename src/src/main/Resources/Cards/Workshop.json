@@ -1,6 +1,7 @@
 {
   "id": 24, 
-  "name": "Workshop", 
+  "name": "Workshop",
+  "color": "GREEN",
   "requirements": {
     "GLASS": 1
   }, 

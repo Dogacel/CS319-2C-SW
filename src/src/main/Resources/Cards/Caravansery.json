@@ -1,6 +1,7 @@
 {
   "id": 38, 
-  "name": "Caravansery", 
+  "name": "Caravansery",
+  "color": "YELLOW",
   "requirements": {
     "WOOD": 2
   }, 

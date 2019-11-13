@@ -1,6 +1,7 @@
 {
   "id": 33, 
-  "name": "Aqueduct", 
+  "name": "Aqueduct",
+  "color": "BLUE",
   "requirements": {
     "STONE": 3
   }, 

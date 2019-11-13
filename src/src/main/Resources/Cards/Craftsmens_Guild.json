@@ -1,6 +1,7 @@
 {
   "id": 68, 
-  "name": "Craftsmens Guild", 
+  "name": "Craftsmens Guild",
+  "color": "PURPLE",
   "requirements": {
     "STONE": 2, 
     "ORE": 2

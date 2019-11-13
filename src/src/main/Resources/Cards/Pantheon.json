@@ -1,6 +1,7 @@
 {
   "id": 49, 
-  "name": "Pantheon", 
+  "name": "Pantheon",
+  "color": "BLUE",
   "requirements": {
     "GLASS": 1, 
     "BRICK": 2, 

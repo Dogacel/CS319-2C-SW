@@ -1,6 +1,7 @@
 {
   "id": 25, 
-  "name": "Scriptorium", 
+  "name": "Scriptorium",
+  "color": "GREEN",
   "requirements": {
     "PAPYRUS": 1
   }, 

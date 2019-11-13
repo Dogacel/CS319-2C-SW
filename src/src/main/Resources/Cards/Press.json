@@ -1,6 +1,7 @@
 {
   "id": 32, 
-  "name": "Press", 
+  "name": "Press",
+  "color": "GRAY",
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {

@@ -1,6 +1,7 @@
 {
   "id": 12, 
-  "name": "Pawnshop", 
+  "name": "Pawnshop",
+  "color": "BLUE",
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {

@@ -1,6 +1,7 @@
 {
   "id": 27, 
-  "name": "Quarry", 
+  "name": "Quarry",
+  "color": "BROWN",
   "requirements": {
     "GOLD": 1
   }, 

@@ -1,6 +1,7 @@
 {
   "id": 53, 
-  "name": "Senate", 
+  "name": "Senate",
+  "color": "BLUE",
   "requirements": {
     "STONE": 1, 
     "ORE": 1, 

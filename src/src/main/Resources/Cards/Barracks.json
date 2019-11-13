@@ -1,6 +1,7 @@
 {
   "id": 21, 
-  "name": "Barracks", 
+  "name": "Barracks",
+  "color": "RED",
   "requirements": {
     "ORE": 1
   }, 

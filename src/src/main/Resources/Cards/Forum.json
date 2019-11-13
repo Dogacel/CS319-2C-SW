@@ -1,6 +1,7 @@
 {
   "id": 37, 
-  "name": "Forum", 
+  "name": "Forum",
+  "color": "YELLOW",
   "requirements": {
     "BRICK": 2
   }, 

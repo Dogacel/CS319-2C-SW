@@ -1,6 +1,7 @@
 {
   "id": 69, 
-  "name": "Traders Guild", 
+  "name": "Traders Guild",
+  "color": "PURPLE",
   "requirements": {
     "GLASS": 1, 
     "LOOM": 1, 

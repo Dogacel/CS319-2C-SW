@@ -1,6 +1,7 @@
 {
   "id": 55, 
-  "name": "Lighthouse", 
+  "name": "Lighthouse",
+  "color": "YELLOW",
   "requirements": {
     "GLASS": 1, 
     "STONE": 1

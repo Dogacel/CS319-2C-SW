@@ -1,6 +1,7 @@
 {
   "id": 14, 
-  "name": "Altar", 
+  "name": "Altar",
+  "color": "BLUE",
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {

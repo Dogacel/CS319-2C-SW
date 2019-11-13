@@ -1,6 +1,7 @@
 {
   "id": 35, 
-  "name": "Statue", 
+  "name": "Statue",
+  "color": "BLUE",
   "requirements": {
     "ORE": 2, 
     "WOOD": 1

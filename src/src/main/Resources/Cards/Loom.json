@@ -1,6 +1,7 @@
 {
   "id": 30, 
-  "name": "Loom", 
+  "name": "Loom",
+  "color": "GRAY",
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {

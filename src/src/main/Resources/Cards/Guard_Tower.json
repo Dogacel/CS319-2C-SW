@@ -1,6 +1,7 @@
 {
   "id": 22, 
-  "name": "Guard Tower", 
+  "name": "Guard Tower",
+  "color": "RED",
   "requirements": {
     "BRICK": 1
   }, 

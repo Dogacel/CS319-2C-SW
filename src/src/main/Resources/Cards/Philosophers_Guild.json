@@ -1,6 +1,7 @@
 {
   "id": 70, 
-  "name": "Philosophers Guild", 
+  "name": "Philosophers Guild",
+  "color": "PURPLE",
   "requirements": {
     "BRICK": 3, 
     "LOOM": 1, 

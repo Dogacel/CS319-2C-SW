@@ -1,6 +1,7 @@
 {
   "id": 56, 
-  "name": "Chamber Of Commerce", 
+  "name": "Chamber Of Commerce",
+  "color": "YELLOW",
   "requirements": {
     "BRICK": 2, 
     "PAPYRUS": 1

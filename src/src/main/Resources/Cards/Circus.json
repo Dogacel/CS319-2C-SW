@@ -1,6 +1,7 @@
 {
   "id": 59, 
-  "name": "Circus", 
+  "name": "Circus",
+  "color": "RED",
   "requirements": {
     "STONE": 3, 
     "ORE": 1

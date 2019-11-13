@@ -1,6 +1,7 @@
 {
   "id": 71, 
-  "name": "Spies Guild", 
+  "name": "Spies Guild",
+  "color": "PURPLE",
   "requirements": {
     "GLASS": 1, 
     "BRICK": 3

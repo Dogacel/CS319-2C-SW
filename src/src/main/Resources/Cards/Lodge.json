@@ -1,6 +1,7 @@
 {
   "id": 62, 
-  "name": "Lodge", 
+  "name": "Lodge",
+  "color": "GREEN",
   "requirements": {
     "BRICK": 2, 
     "LOOM": 1, 

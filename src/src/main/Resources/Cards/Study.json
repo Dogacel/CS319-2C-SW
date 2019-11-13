@@ -1,6 +1,7 @@
 {
   "id": 66, 
-  "name": "Study", 
+  "name": "Study",
+  "color": "GREEN",
   "requirements": {
     "WOOD": 1, 
     "LOOM": 1, 

@@ -1,6 +1,7 @@
 {
   "id": 52, 
-  "name": "Palace", 
+  "name": "Palace",
+  "color": "BLUE",
   "requirements": {
     "STONE": 1, 
     "LOOM": 1, 
