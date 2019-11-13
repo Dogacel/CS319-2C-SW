@@ -9,9 +9,8 @@ import java.io.IOException;
 
 public class SceneManager {
     private static SceneManager instance = new SceneManager();
-    private FXMLLoader fxmlLoader;
-    private Stage stage;
 
+    private Stage stage;
 
     private SceneManager() {
         fxmlLoader = new FXMLLoader();
@@ -36,9 +35,5 @@ public class SceneManager {
     public void actOnExit() {
         stage.close();
 
-    }
-
-    private Parent getSceneByName(String sceneName) throws IOException {
-        return fxmlLoader.load(getClass().getResource(sceneName));
     }
 }
