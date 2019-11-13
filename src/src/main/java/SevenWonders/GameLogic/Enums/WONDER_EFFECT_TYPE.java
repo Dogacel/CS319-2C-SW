@@ -1,0 +1,11 @@
+package SevenWonders.GameLogic.Enums;
+
+public enum WONDER_EFFECT_TYPE {
+    GIVE_VICTORY_POINTS,
+    GRANT_SHIELDS,
+    GET_MONEY,
+    ONE_OF_EACH_RAW_MATERIAL,
+    SCIENTISTS_GUILD,
+    FREE_BUILDING,
+    BUILD_FROM_DISCARDED
+}

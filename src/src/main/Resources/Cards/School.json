@@ -1,0 +1,17 @@
+{
+  "id": 48, 
+  "name": "School",
+  "color": "GREEN",
+  "requirements": {
+    "WOOD": 1, 
+    "PAPYRUS": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "SCIENCE_WRITINGS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

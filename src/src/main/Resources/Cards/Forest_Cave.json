@@ -1,0 +1,19 @@
+{
+  "id": 7, 
+  "name": "Forest Cave",
+  "color": "BROWN",
+  "requirements": {
+    "GOLD": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "PRODUCE_ONE_OF_TWO", 
+    "resources": {
+      "WOOD" : 1,
+      "ORE" : 1
+    }, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

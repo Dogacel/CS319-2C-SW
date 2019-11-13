@@ -1,0 +1,19 @@
+{
+  "id": 65, 
+  "name": "Academy",
+  "color": "GREEN",
+  "requirements": {
+    "GLASS": 1, 
+    "STONE": 3
+  }, 
+  "buildingChain": [
+    "School"
+  ], 
+  "cardEffect": {
+    "cardType": "SCIENCE_DRAWINGS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

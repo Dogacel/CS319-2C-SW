@@ -1,0 +1,18 @@
+{
+  "id": 29, 
+  "name": "Foundry",
+  "color": "BROWN",
+  "requirements": {
+    "GOLD": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "PRODUCE_RAW_MATERIAL", 
+    "resources": {
+      "ORE" : 2
+    }, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

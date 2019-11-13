@@ -1,0 +1,18 @@
+{
+  "id": 38, 
+  "name": "Caravansery",
+  "color": "YELLOW",
+  "requirements": {
+    "WOOD": 2
+  }, 
+  "buildingChain": [
+    "Marketplace"
+  ], 
+  "cardEffect": {
+    "cardType": "ONE_OF_EACH_RAW_MATERIAL", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

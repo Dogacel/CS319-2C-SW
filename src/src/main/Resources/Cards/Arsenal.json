@@ -1,0 +1,18 @@
+{
+  "id": 60, 
+  "name": "Arsenal",
+  "color": "RED",
+  "requirements": {
+    "ORE": 1, 
+    "LOOM": 1, 
+    "WOOD": 2
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "GRANT_SHIELDS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 3
+  }
+}

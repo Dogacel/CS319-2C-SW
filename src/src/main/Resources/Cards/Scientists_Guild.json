@@ -1,0 +1,18 @@
+{
+  "id": 74, 
+  "name": "Scientists Guild",
+  "color": "PURPLE",
+  "requirements": {
+    "ORE": 2, 
+    "WOOD": 2, 
+    "PAPYRUS": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "SCIENTISTS_GUILD",
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}
