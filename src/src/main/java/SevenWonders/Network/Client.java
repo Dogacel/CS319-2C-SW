@@ -37,32 +37,32 @@ public class Client implements INetworkListener {
 
 	// TODO: Test method to remove
 	public void sendTextRequest(String message) {
-		SendTextRequest textRequest = gson.fromJson(message, SendTextRequest.class);
+		SendTextRequest textRequest = SendTextRequest.of(message);
 		sendRequest(textRequest);
 	}
 
-	public void onTextRequest(String message) {
+	private void onTextRequest(String message) {
 		SendTextRequest textRequest = gson.fromJson(message, SendTextRequest.class);
 		System.out.println("Server: " + textRequest.text);
 	}
 
-	public void onEndGameRequest() {
+	private void onEndGameRequest() {
 		// TODO: Change to score view
 	}
 
-	public void onEndAgeRequest() {
+	private void onEndAgeRequest() {
 		// TODO: Battle screen?
 	}
 
-	public void onEndTurnRequest() {
+	private void onEndTurnRequest() {
 		// TODO: Unimplemented
 	}
 
-	public void onStartGameRequest() {
+	private void onStartGameRequest() {
 		// TODO: Change view to game-play view
 	}
 
-	public void onUpdateGameStateRequest(String message) {
+	private void onUpdateGameStateRequest(String message) {
 		UpdateGameStateRequest request = gson.fromJson(message, UpdateGameStateRequest.class);
 		// TODO: Implement interaction between UI and Client
 	}
@@ -80,7 +80,7 @@ public class Client implements INetworkListener {
 
 	// TODO: Update difficulty
 	public void sendAddAIPlayerRequest(String difficulty) {
-		if (!user.isAdmin) {
+		if (!user.isAdmin()) {
 			// Unauthorized
 			return;
 		}
@@ -90,7 +90,7 @@ public class Client implements INetworkListener {
 	}
 
 	public void sendStartGameRequest() {
-		if (!user.isAdmin) {
+		if (!user.isAdmin()) {
 			// Unauthorized
 			return;
 		}
@@ -100,7 +100,7 @@ public class Client implements INetworkListener {
 	}
 
 	public void sendKickRequest(String userToKick) {
-		if (!user.isAdmin) {
+		if (!user.isAdmin()) {
 			// Unauthorized
 			return;
 		}
@@ -130,7 +130,7 @@ public class Client implements INetworkListener {
 	 * @param connectionHandler Connection to server
 	 */
 	@Override
-    public void receiveMessage(String message, ConnectionHandler connectionHandler) {
+	public void receiveMessage(String message, ConnectionHandler connectionHandler) {
 		Request request = gson.fromJson(message, Request.class);
 
 	    switch (request.requestType) {

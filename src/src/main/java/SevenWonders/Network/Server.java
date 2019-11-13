@@ -55,7 +55,7 @@ public class Server implements Runnable, INetworkListener {
 
 			// TODO: Change how to set someone admin
 			if (connectionHandlerList.isEmpty()) {
-				latestConnection.setAdmin();
+				latestConnection.getUser().setAdmin(true);
 			}
 
 			connectionHandlerList.add(latestConnection);
@@ -72,7 +72,7 @@ public class Server implements Runnable, INetworkListener {
 	@Override
 	public void onDisconnect(ConnectionHandler connectionHandler) {
 		connectionHandlerList.remove(connectionHandler);
-		System.out.println("Client disconnected : " + connectionHandler.getConnectionID());
+		System.out.println("Client disconnected : " + connectionHandler);
 		// TODO: Add AI Player if needed
 	}
 
@@ -98,7 +98,7 @@ public class Server implements Runnable, INetworkListener {
 		switch (requestInfo.requestType) {
 			case SEND_TEXT:
 				SendTextRequest request = gson.fromJson(message, SendTextRequest.class);
-				System.out.println("Got: " + request.text + " from " + sender.user.username);
+				System.out.println("Got: " + request.text + " from " + sender.getUser().getUsername());
 				sender.sendMessage(message);
 				break;
 			case CONNECT:
@@ -126,18 +126,18 @@ public class Server implements Runnable, INetworkListener {
 
 	private void parseConnectRequest(String message, ConnectionHandler sender) {
 		ConnectRequest request = gson.fromJson(message, ConnectRequest.class);
-		sender.user.username = request.username;
+		sender.getUser().setUsername(request.username);
 	}
 
 	private void parseKickRequest(String message, ConnectionHandler sender) {
-		if (!sender.isAdmin()) {
+		if (!sender.getUser().isAdmin()) {
 			// Unauthorized
 			return;
 		}
 
 		KickRequest request = gson.fromJson(message, KickRequest.class);
 		for (ConnectionHandler connectionHandler : connectionHandlerList) {
-			if (connectionHandler.user.username.equals(request.username)) {
+			if (connectionHandler.getUser().getUsername().equals(request.username)) {
 				disconnectClient(connectionHandler);
 				break;
 			}
@@ -150,7 +150,7 @@ public class Server implements Runnable, INetworkListener {
 	}
 
 	private void parseAddAIPlayerRequest(String message, ConnectionHandler sender) {
-		if (!sender.isAdmin()) {
+		if (!sender.getUser().isAdmin()) {
 			// Unauthorized
 			return;
 		}
@@ -174,7 +174,7 @@ public class Server implements Runnable, INetworkListener {
 	 * Distributes wonders to connected users.
 	 * TODO: Add a test
 	 */
-	public void distributeWonders() {
+	private void distributeWonders() {
 		// TODO: Change to real wonders and update
 		String[] mockWonders = {"A", "B", "C", "D", "E", "F", "G"};
 
@@ -183,7 +183,7 @@ public class Server implements Runnable, INetworkListener {
 
 		// Iterate over all clients and add them to list of clients that want a wonder
 		for (ConnectionHandler connectionHandler : connectionHandlerList) {
-			String wonder = connectionHandler.user.selectedWonder;
+			String wonder = connectionHandler.getUser().getSelectedWonder();
 			Vector<ConnectionHandler> connections = wonderCounts.get(wonder);
 			if (connections == null) {
 				connections = new Vector<ConnectionHandler>();
