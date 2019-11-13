@@ -1,8 +1,12 @@
 package SevenWonders;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,10 +17,12 @@ public class AssetManager {
     //properties
     private static AssetManager managerInstance = null; //Singleton class, holds one static instance of itself
     Map<String, Image> imageMap;
+    Map<String, Parent> sceneMap;
 
     //constructor
     private AssetManager() {
         imageMap = new HashMap<>();
+        sceneMap = new HashMap<>();
         loadImages();
     }
 
@@ -50,13 +56,35 @@ public class AssetManager {
      * Loads all images from a file to the program for efficiency.
      */
     private void loadImages() {
-        URL imageResourcesURL = getClass().getClassLoader().getResource("images");
+        URL imageResourcesURL = getClass().getClassLoader().getResource("ui-images");
         assert imageResourcesURL != null;
         File dir = new File(imageResourcesURL.getPath());
 
         for (File f : Objects.requireNonNull(dir.listFiles())) {
-            System.out.println(f.getName());
-            imageMap.put(f.getName(), new Image("images/" + f.getName()));
+            if( f.getName().matches(".*(\\.(png|jpg|jpeg))"))
+                imageMap.put(f.getName(), new Image("ui-images/" + f.getName()));
         }
+    }
+
+    private void loadScenes() {
+        URL sceneResourcesURL = getClass().getClassLoader().getResource("fxml-scenes");
+        assert sceneResourcesURL != null;
+        File dir = new File(sceneResourcesURL.getPath());
+
+        for( File f : Objects.requireNonNull(dir.listFiles())) {
+            if( f.getName().endsWith(".fxml"))
+            {
+                try {
+                    sceneMap.put(f.getName(), FXMLLoader.load(getClass().getResource("fxml-scenes/" + f.getName())));
+                }
+                catch ( IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public Parent getSceneByName(String sceneName) {
+        return sceneMap.get(sceneName);
     }
 }
