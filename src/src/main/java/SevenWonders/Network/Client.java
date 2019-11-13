@@ -1,6 +1,7 @@
 package SevenWonders.Network;
 
 import SevenWonders.Network.Requests.*;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -32,6 +33,17 @@ public class Client implements INetworkListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	// TODO: Test method to remove
+	public void sendTextRequest(String message) {
+		SendTextRequest textRequest = gson.fromJson(message, SendTextRequest.class);
+		sendRequest(textRequest);
+	}
+
+	public void onTextRequest(String message) {
+		SendTextRequest textRequest = gson.fromJson(message, SendTextRequest.class);
+		System.out.println("Server: " + textRequest.text);
 	}
 
 	public void onEndGameRequest() {
@@ -123,8 +135,7 @@ public class Client implements INetworkListener {
 
 	    switch (request.requestType) {
 			case SEND_TEXT:
-				SendTextRequest textRequest = gson.fromJson(message, SendTextRequest.class);
-				System.out.println("Server: " + textRequest.text);
+				// TODO: onTextRequest(message);
 				break;
 			case START_GAME:
 				onStartGameRequest();

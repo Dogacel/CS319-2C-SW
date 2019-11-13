@@ -14,16 +14,16 @@ public class ClientApplication {
     public static void main(String[] args) {
 
         Gson gson = new Gson();
-        Client c = new Client("localhost", 8080);
+        Client c = new Client("localhost", 8080, "DefaultUser");
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Please enter your name:");
         String in = sc.nextLine();
-        c.sendRequest(ConnectRequest.of(in));
+        c.sendConnectRequest(in);
 
         in = sc.nextLine();
         while (!in.equals("exit")) {
-            c.sendRequest(SendTextRequest.of(in));
+            c.sendTextRequest(in);
             in = sc.nextLine();
         }
         c.disconnect();
