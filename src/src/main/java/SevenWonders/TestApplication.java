@@ -3,8 +3,6 @@ package SevenWonders;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
-
 public class TestApplication extends Application {
 
     @Override

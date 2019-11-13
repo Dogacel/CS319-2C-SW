@@ -32,7 +32,6 @@ public class SceneManager {
 
     public void actOnExit() {
         stage.close();
-
     }
 
     public void show(){
