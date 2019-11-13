@@ -29,7 +29,20 @@ public class GameModel {
 
     public PlayerModel[] getPlayerList() { return playerList; }
 
-    public void setCurrentTurn(int currentTurn) { this.currentTurn = currentTurn; }
+    public void incrementCurrentTurn(){
+        currentTurn++;
+    }
 
-    public void setCurrentAge(int currentAge) { this.currentAge = currentAge; }
+    public void incrementCurrentAge() {
+        if (!isGameEnded())
+        {
+            currentAge++;
+            currentTurn = 1;
+        }
+    }
+
+    public boolean isGameEnded()
+    {
+        return currentAge == 3 && currentTurn == 7;  //Might change according to design choices in GameController
+    }
 }

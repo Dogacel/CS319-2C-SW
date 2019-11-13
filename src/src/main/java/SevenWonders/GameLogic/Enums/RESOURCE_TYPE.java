@@ -7,5 +7,6 @@ public enum RESOURCE_TYPE {
     WOOD,
     GLASS,
     LOOM,
-    PAPYRUS
+    PAPYRUS,
+    GOLD
 }

@@ -7,6 +7,7 @@ public class Wonder {
     private String name;
     private RESOURCE_TYPE resource;
     private WonderStage[] stages;
+    private int currentStage;
     private God god;
 
     public Wonder(int id, String name, RESOURCE_TYPE resource, WonderStage[] stages, God god)
@@ -15,6 +16,7 @@ public class Wonder {
         this.name = name;
         this.resource = resource;
         this.stages = stages;
+        this.currentStage = 0;
         this.god = god;
     }
 
@@ -22,39 +24,28 @@ public class Wonder {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public RESOURCE_TYPE getResource() {
         return resource;
     }
 
-    public void setResource(RESOURCE_TYPE resource) {
-        this.resource = resource;
-    }
-
     public WonderStage[] getStages() {
         return stages;
     }
 
-    public void setStages(WonderStage[] stages) {
-        this.stages = stages;
+    public int getCurrentStage() { return currentStage; }
+
+    public God getGod() { return god; }
+
+    public void upgradeStage() {
+        if (isUpgradeable())
+            currentStage++;
     }
 
-    public God getGod() {
-        return god;
-    }
-
-    public void setGod(God god) {
-        this.god = god;
+    public boolean isUpgradeable() {
+        return currentStage <= 2;
     }
 }

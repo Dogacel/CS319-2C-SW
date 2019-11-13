@@ -18,15 +18,11 @@ public class MoveModel {
     public int getPlayerID(){
         return playerID;
     }
-    public void setPlayerID( int newID){
-        playerID = newID;
-    }
+
     public int getSelectedCardID(){
         return selectedCardID;
     }
-    public void setSelectedCardID( int selectedID){
-        selectedCardID = selectedID;
-    }
+
     public ACTION_TYPE getAction(){
         return action;
     }

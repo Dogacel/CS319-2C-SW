@@ -18,15 +18,7 @@ public class WonderStage {
         return requiredResources;
     }
 
-    public void setRequiredResources(Map<RESOURCE_TYPE, Integer> requiredResources) {
-        this.requiredResources = requiredResources;
-    }
-
     public WonderEffect getWonderEffect() {
         return wonderEffect;
-    }
-
-    public void setWonderEffect(WonderEffect wonderEffect) {
-        this.wonderEffect = wonderEffect;
     }
 }

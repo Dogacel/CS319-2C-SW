@@ -12,19 +12,10 @@ public class Hero {
         this.heroEffect = effect;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getName() { return name; }
 
     public HERO_EFFECT_TYPE getHeroEffect() {
         return heroEffect;
     }
 
-    public void setHeroEffect(HERO_EFFECT_TYPE heroEffect) {
-        this.heroEffect = heroEffect;
-    }
 }

@@ -24,7 +24,7 @@ public class PlayerModel {
     {
         this.id = id;
         this.name = name;
-        this.gold = 0;
+        this.gold = 5;
 
         this.wonder = wonder;
         this.warPoints = 0;
@@ -55,13 +55,7 @@ public class PlayerModel {
 
     public Vector<Hero> getHeroes() { return heroes; }
 
-    public void setId(int id) { this.id = id; }
-
-    public void setName(String name) { this.name = name; }
-
     public void setGold(int gold) { this.gold = gold; }
-
-    public void setWonder(Wonder wonder) { this.wonder = wonder; }
 
     public void setWarPoints(int warPoints) { this.warPoints = warPoints; }
 
