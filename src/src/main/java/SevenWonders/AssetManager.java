@@ -18,13 +18,11 @@ public class AssetManager {
     private static AssetManager managerInstance = null; //Singleton class, holds one static instance of itself
     Map<String, Image> imageMap;
     Map<String, Parent> sceneMap;
-    private FXMLLoader fxmlLoader;
 
     //constructor
     private AssetManager() {
         imageMap = new HashMap<>();
         sceneMap = new HashMap<>();
-        fxmlLoader = new FXMLLoader();
         loadImages();
     }
 
@@ -63,16 +61,30 @@ public class AssetManager {
         File dir = new File(imageResourcesURL.getPath());
 
         for (File f : Objects.requireNonNull(dir.listFiles())) {
-            System.out.println(f.getName());
-            imageMap.put(f.getName(), new Image("ui-images/" + f.getName()));
+            if( f.getName().matches(".*(\\.(png|jpg|jpeg))"))
+                imageMap.put(f.getName(), new Image("ui-images/" + f.getName()));
         }
     }
 
     private void loadScenes() {
+        URL sceneResourcesURL = getClass().getClassLoader().getResource("fxml-scenes");
+        assert sceneResourcesURL != null;
+        File dir = new File(sceneResourcesURL.getPath());
 
+        for( File f : Objects.requireNonNull(dir.listFiles())) {
+            if( f.getName().endsWith(".fxml"))
+            {
+                try {
+                    sceneMap.put(f.getName(), FXMLLoader.load(getClass().getResource("fxml-scenes/" + f.getName())));
+                }
+                catch ( IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
-    private Parent getSceneByName(String sceneName) throws IOException {
-        return fxmlLoader.load(getClass().getResource(sceneName));
+    public Parent getSceneByName(String sceneName) {
+        return sceneMap.get(sceneName);
     }
 }

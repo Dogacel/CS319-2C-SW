@@ -1,6 +1,5 @@
 package SevenWonders;
 
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,11 +8,10 @@ import java.io.IOException;
 
 public class SceneManager {
     private static SceneManager instance = new SceneManager();
-
     private Stage stage;
 
     private SceneManager() {
-        fxmlLoader = new FXMLLoader();
+        stage = new Stage();
     }
 
     public static SceneManager getInstance() {
@@ -22,7 +20,7 @@ public class SceneManager {
 
     private void changeScene(String sceneName) throws IOException {
 
-        Parent root = getSceneByName(sceneName);
+        Parent root = AssetManager.getInstance().getSceneByName(sceneName);
         Scene scene = stage.getScene();
         if (scene == null) {
             scene = new Scene(root);
@@ -35,5 +33,9 @@ public class SceneManager {
     public void actOnExit() {
         stage.close();
 
+    }
+
+    public void show(){
+        stage.show();
     }
 }
