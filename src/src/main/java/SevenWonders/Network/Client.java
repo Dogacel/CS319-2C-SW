@@ -1,5 +1,6 @@
 package SevenWonders.Network;
 
+import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.Network.Requests.*;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.Gson;
@@ -62,7 +63,7 @@ public class Client implements INetworkListener {
 	}
 
 	// TODO: Update move to MoveModel
-	public void sendMakeMoveRequest(Object move) {
+	public void sendMakeMoveRequest(MoveModel move) {
 		MakeMoveRequest request = MakeMoveRequest.of(move);
 		sendRequest(request);
 	}

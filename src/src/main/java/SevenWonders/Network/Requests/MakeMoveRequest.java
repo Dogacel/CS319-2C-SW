@@ -1,11 +1,12 @@
 package SevenWonders.Network.Requests;
 
-// TODO: Implement MoveModel
+import SevenWonders.GameLogic.MoveModel;
+
 public class MakeMoveRequest extends Request {
 
-    public Object move;
+    public MoveModel move;
 
-    public static MakeMoveRequest of(Object move) {
+    public static MakeMoveRequest of(MoveModel move) {
         MakeMoveRequest makeMoveRequest = new MakeMoveRequest();
         makeMoveRequest.requestType = RequestType.MAKE_MOVE;
         makeMoveRequest.move = move;
