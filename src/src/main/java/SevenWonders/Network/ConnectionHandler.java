@@ -8,28 +8,33 @@ import java.net.SocketException;
 
 public class ConnectionHandler implements Runnable {
 
+
     private Socket socket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
+
     private INetworkListener listener;
-    private String connectionID;
+
     private Thread worker;
 
-    // Current user
-    public User user;
+    private String connectionID;
+    private User user;
 
-    public boolean isAdmin() { return this.user.isAdmin; }
-    public void setAdmin() { this.user.isAdmin = true; }
+    public User getUser() {
+        return user;
+    }
 
-    public String getConnectionID() { return connectionID; }
-    public void setConnectionID(String val){ connectionID = val; }
+    @Override
+    public String toString() {
+        return connectionID;
+    }
 
     /**
      * Establishes a connection to the given socket and listens to it.
      * @param s Socket
      * @param listener Listener that will parse requests
      */
-    public ConnectionHandler(Socket s, INetworkListener listener) {
+    ConnectionHandler(Socket s, INetworkListener listener) {
         this.socket = s;
         this.listener = listener;
         this.connectionID = s.toString();
@@ -47,7 +52,7 @@ public class ConnectionHandler implements Runnable {
     /**
      * Start listening to the socket for incoming messages
      */
-    public void startListening() {
+    void startListening() {
         this.worker.start();
     }
 
@@ -55,7 +60,7 @@ public class ConnectionHandler implements Runnable {
      * Send the string to the connection.
      * @param message String message
      */
-    public void sendMessage(String message) {
+    void sendMessage(String message) {
         try {
             outputStream.writeUTF(message);
         } catch (IOException exception) {
@@ -67,7 +72,7 @@ public class ConnectionHandler implements Runnable {
      * Receive a message from the socket
      * @return True if connection still exists.
      */
-    public boolean receiveMessage() {
+    private boolean receiveMessage() {
         try {
             String message = inputStream.readUTF();
             listener.receiveMessage(message, this);
@@ -88,7 +93,7 @@ public class ConnectionHandler implements Runnable {
     /**
      * Disconnect the socket
      */
-    public void disconnect() {
+    void disconnect() {
         try {
             listener.onDisconnect(this);
             inputStream.close();
