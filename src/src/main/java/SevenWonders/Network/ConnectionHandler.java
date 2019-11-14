@@ -5,9 +5,11 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.logging.Logger;
 
 public class ConnectionHandler implements Runnable {
 
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private Socket socket;
     private DataInputStream inputStream;
@@ -61,6 +63,7 @@ public class ConnectionHandler implements Runnable {
      * @param message String message
      */
     void sendMessage(String message) {
+        LOGGER.info("Sending: " + message);
         try {
             outputStream.writeUTF(message);
         } catch (IOException exception) {
@@ -75,6 +78,7 @@ public class ConnectionHandler implements Runnable {
     private boolean receiveMessage() {
         try {
             String message = inputStream.readUTF();
+            LOGGER.info("Received: " + message);
             listener.receiveMessage(message, this);
             return true;
         } catch (IOException e) {

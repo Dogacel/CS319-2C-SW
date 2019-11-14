@@ -1,10 +1,9 @@
 package SevenWonders.Network;
 
+import SevenWonders.GameLogic.GameModel;
 import SevenWonders.Network.Requests.*;
 import com.google.gson.Gson;
 
-import java.util.logging.Level;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -22,7 +21,7 @@ public class Server implements Runnable, INetworkListener {
 	private ServerSocket serverSocket;
 	private Thread worker;
 	private Gson gson;
-	private Object game;
+	private GameModel gameModel;
 
 	public Server() {
 		connectionHandlerList = new Vector<>();
@@ -55,20 +54,22 @@ public class Server implements Runnable, INetworkListener {
 	 */
 	private boolean acceptConnection() {
 		try {
-			Socket s = serverSocket.accept();
-			LOGGER.info("New client connected : " + s);
+			if (connectionHandlerList.size() < 7) {
+				Socket s = serverSocket.accept();
+				LOGGER.info("New client connected : " + s);
 
-			ConnectionHandler latestConnection = new ConnectionHandler(s, this);
+				ConnectionHandler latestConnection = new ConnectionHandler(s, this);
 
-			// TODO: Change how to set someone admin
-			if (connectionHandlerList.isEmpty()) {
-				latestConnection.getUser().setAdmin(true);
+				// TODO: Change how to set someone admin
+				if (connectionHandlerList.isEmpty()) {
+					latestConnection.getUser().setAdmin(true);
+				}
+
+				connectionHandlerList.add(latestConnection);
+
+				latestConnection.startListening();
+
 			}
-
-			connectionHandlerList.add(latestConnection);
-
-			latestConnection.startListening();
-
 			return true;
 		} catch (IOException exception) {
 			exception.printStackTrace();
@@ -81,7 +82,6 @@ public class Server implements Runnable, INetworkListener {
 		connectionHandlerList.remove(connectionHandler);
 		LOGGER.warning("Client disconnected : " + connectionHandler);
 		// TODO: Add AI Player if needed
-
 	}
 
 	/**
@@ -101,7 +101,6 @@ public class Server implements Runnable, INetworkListener {
 	@Override
 	public void receiveMessage(String message, ConnectionHandler sender) {
 
-		LOGGER.info(message);
 		Request requestInfo = gson.fromJson(message, Request.class);;
 
 		switch (requestInfo.requestType) {
@@ -131,10 +130,25 @@ public class Server implements Runnable, INetworkListener {
 		}
 	}
 
+	private void sendUpdateGameStateRequest(ConnectionHandler receiver) {
+		UpdateGameStateRequest request = UpdateGameStateRequest.of(gameModel);
+		sendRequest(request, receiver);
+	}
+
+	private void sendRequest(Request request, ConnectionHandler receiver) {
+		String message = gson.toJson(request, request.getClass());
+		receiver.sendMessage(message);
+	}
+
 	private void parseGetReadyRequest(String message, ConnectionHandler sender) {
 		GetReadyRequest request = gson.fromJson(message, GetReadyRequest.class);
 		sender.getUser().setReady(request.isReady);
-		// TODO: Do something with ready request
+		for (ConnectionHandler connectionHandler : connectionHandlerList) {
+			if (!connectionHandler.getUser().isReady()) {
+				return;
+			}
+		}
+		// TODO: play the turn if everyone is ready
 	}
 
 	private void parseConnectRequest(String message, ConnectionHandler sender) {
@@ -158,8 +172,16 @@ public class Server implements Runnable, INetworkListener {
 	}
 
 	private void parseStartGameRequest(String message, ConnectionHandler sender) {
+		if (!sender.getUser().isAdmin()) {
+			// Unauthorized
+			return;
+		}
 		// TODO: Start game
-		// TODO: Send UpdateGameStateRequest
+		gameModel = new GameModel();
+
+		for (ConnectionHandler connection : connectionHandlerList) {
+			sendUpdateGameStateRequest(connection);
+		}
 	}
 
 	private void parseAddAIPlayerRequest(String message, ConnectionHandler sender) {
@@ -175,11 +197,12 @@ public class Server implements Runnable, INetworkListener {
 	private void parseMakeMoveRequest(String message, ConnectionHandler sender) {
 		MakeMoveRequest request = gson.fromJson(message, MakeMoveRequest.class);
 		// TODO: Implement make move functionality
+		// MoveController.isMoveValid ? => game.setMove(move, sender.getUser())
 	}
 
 	private void parseWonderSelectRequest(String message, ConnectionHandler sender) {
 		SelectWonderRequest request = gson.fromJson(message, SelectWonderRequest.class);
-		// TODO: Implement select wonder functionality
+		sender.getUser().setSelectedWonder(request.wonder);
 	}
 
 	/*

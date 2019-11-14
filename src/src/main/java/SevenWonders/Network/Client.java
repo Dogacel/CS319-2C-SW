@@ -8,8 +8,11 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.logging.Logger;
 
 public class Client implements INetworkListener {
+
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private User user;
 	private Gson gson;
@@ -62,7 +65,6 @@ public class Client implements INetworkListener {
 		sendRequest(request);
 	}
 
-	// TODO: Update move to MoveModel
 	public void sendMakeMoveRequest(MoveModel move) {
 		MakeMoveRequest request = MakeMoveRequest.of(move);
 		sendRequest(request);
@@ -127,6 +129,7 @@ public class Client implements INetworkListener {
 	 */
 	@Override
 	public void receiveMessage(String message, ConnectionHandler connectionHandler) {
+
 		Request request = gson.fromJson(message, Request.class);
 
 	    switch (request.requestType) {
@@ -156,6 +159,6 @@ public class Client implements INetworkListener {
 
 	@Override
 	public void onDisconnect(ConnectionHandler connection) {
-		System.out.println("Disconnected!");
+		LOGGER.warning("Disconnected!");
 	}
 }
