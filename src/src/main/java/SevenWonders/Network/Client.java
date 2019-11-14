@@ -1,5 +1,6 @@
 package SevenWonders.Network;
 
+import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.Network.Requests.*;
 import com.google.common.annotations.VisibleForTesting;
@@ -77,7 +78,7 @@ public class Client implements INetworkListener {
 	}
 
 	// TODO: Update difficulty
-	public void sendAddAIPlayerRequest(String difficulty) {
+	public void sendAddAIPlayerRequest(AI_DIFFICULTY difficulty) {
 		if (!user.isAdmin()) {
 			// Unauthorized
 			return;
@@ -128,7 +129,7 @@ public class Client implements INetworkListener {
 	 * @param connectionHandler Connection to server
 	 */
 	@Override
-	public void receiveMessage(String message, ConnectionHandler connectionHandler) {
+	public void receiveMessage(String message, IConnectionHandler connectionHandler) {
 
 		Request request = gson.fromJson(message, Request.class);
 
@@ -158,7 +159,7 @@ public class Client implements INetworkListener {
 	}
 
 	@Override
-	public void onDisconnect(ConnectionHandler connection) {
+	public void onDisconnect(IConnectionHandler connection) {
 		LOGGER.warning("Disconnected!");
 	}
 }

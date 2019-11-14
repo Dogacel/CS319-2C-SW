@@ -33,11 +33,6 @@ public class NetworkTest {
 
         Client myClient = new Client("localhost", 8080, "someone");
         myClient.sendConnectRequest("my name");
-        myClient.sendTextRequest("selam");
-
-        Thread.sleep(100);
-
-        assert outContent.toString().contains("Got: selam from my name");
 
         myClient.disconnect();
         Thread.sleep(100);

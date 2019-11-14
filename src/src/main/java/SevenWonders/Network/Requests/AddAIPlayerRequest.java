@@ -1,13 +1,14 @@
 package SevenWonders.Network.Requests;
 
-// TODO: Change aiDifficulty from String to enum
-public class AddAIPlayerRequest extends AdminRequest {
-    public String aiDifficulty;
+import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 
-    public static AddAIPlayerRequest of(String aiDifficulty) {
+public class AddAIPlayerRequest extends AdminRequest {
+    public AI_DIFFICULTY difficulty;
+
+    public static AddAIPlayerRequest of(AI_DIFFICULTY difficulty) {
         AddAIPlayerRequest addAIPlayerRequest = new AddAIPlayerRequest();
         addAIPlayerRequest.requestType = RequestType.ADD_AI_PLAYER;
-        addAIPlayerRequest.aiDifficulty = aiDifficulty;
+        addAIPlayerRequest.difficulty = difficulty;
         return addAIPlayerRequest;
     }
 }

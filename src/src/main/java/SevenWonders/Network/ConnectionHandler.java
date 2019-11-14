@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.logging.Logger;
 
-public class ConnectionHandler implements Runnable {
+public class ConnectionHandler implements Runnable, IConnectionHandler {
 
     private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -22,6 +22,7 @@ public class ConnectionHandler implements Runnable {
     private String connectionID;
     private User user;
 
+    @Override
     public User getUser() {
         return user;
     }
@@ -54,7 +55,8 @@ public class ConnectionHandler implements Runnable {
     /**
      * Start listening to the socket for incoming messages
      */
-    void startListening() {
+    @Override
+    public void startListening() {
         this.worker.start();
     }
 
@@ -62,7 +64,8 @@ public class ConnectionHandler implements Runnable {
      * Send the string to the connection.
      * @param message String message
      */
-    void sendMessage(String message) {
+    @Override
+    public void sendMessage(String message) {
         LOGGER.info("Sending: " + message);
         try {
             outputStream.writeUTF(message);
@@ -75,7 +78,8 @@ public class ConnectionHandler implements Runnable {
      * Receive a message from the socket
      * @return True if connection still exists.
      */
-    private boolean receiveMessage() {
+    @Override
+    public boolean receiveMessage() {
         try {
             String message = inputStream.readUTF();
             LOGGER.info("Received: " + message);
@@ -97,7 +101,8 @@ public class ConnectionHandler implements Runnable {
     /**
      * Disconnect the socket
      */
-    void disconnect() {
+    @Override
+    public void disconnect() {
         try {
             listener.onDisconnect(this);
             inputStream.close();

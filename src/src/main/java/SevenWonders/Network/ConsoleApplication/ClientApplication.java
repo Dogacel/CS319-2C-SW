@@ -1,5 +1,6 @@
 package SevenWonders.Network.ConsoleApplication;
 
+import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 import SevenWonders.Network.Client;
 
 import java.util.Scanner;
@@ -22,7 +23,12 @@ public class ClientApplication {
             } else if (in.startsWith("start game")) {
                 c.sendStartGameRequest();
             } else if (in.startsWith("add ai")) {
-                c.sendAddAIPlayerRequest(in.replaceFirst("add ai ", ""));
+                try {
+                    String str = in.replaceFirst("add ai ", "");
+                    c.sendAddAIPlayerRequest(AI_DIFFICULTY.valueOf(str));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else if (in.startsWith("kick")) {
                 c.sendKickRequest(in.replaceFirst("kick ", ""));
             } else if (in.endsWith("ready")) {
