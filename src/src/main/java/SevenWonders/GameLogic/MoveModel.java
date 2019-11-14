@@ -35,12 +35,33 @@ public class MoveModel {
     }
 
     public boolean addTrades( TradeAction trade) {
-        if ( trades.contains(trade)) {
+        if ( cardNotUsedForTrade(trade.getSelectedCardId() ) ) {
             throw new IllegalArgumentException("The value is already in the list."); //discuss
         }
         else {
             trades.add(trade);
             return true;
         }
+    }
+
+    // Deletes trade action from current trades if user change their mind
+    // e.g Trade same resource from the other neighbour
+    public boolean deleteTrades( TradeAction trade){
+        if( trades.contains( trade)){
+            trades.delete( trade);
+            return true;
+        }
+        else{
+            throw new NoSuchElementException("Trade does not exist.");
+        }
+    }
+
+    //Checks if card is already used for trade
+    private boolean cardNotUsedForTrade( int selectedCard){
+        for(TradeAction t: trades){
+            if( t.getSelectedCardID() == selectedCard)
+                return false;
+        }
+        return true;
     }
 }
