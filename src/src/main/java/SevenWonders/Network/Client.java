@@ -22,6 +22,10 @@ public class Client implements INetworkListener {
 		this.user.setAdmin(true);
 	}
 
+	public boolean isConnected() {
+		return connectionHandler.isConnected();
+	}
+
 	/**
 	 * Establishes a connection to given address and port.
 	 * @param serverAddress IP Address of the server

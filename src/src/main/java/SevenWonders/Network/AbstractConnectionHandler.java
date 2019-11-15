@@ -12,4 +12,5 @@ abstract class AbstractConnectionHandler {
     abstract boolean receiveMessage();
     abstract void sendMessage(String message);
     abstract void disconnect();
+
 }

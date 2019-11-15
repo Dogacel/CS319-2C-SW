@@ -28,9 +28,8 @@ public class ClientApplication {
         c.sendConnectRequest(in);
 
         in = sc.nextLine();
-        while (!in.equals("exit")) {
+        while (!in.equals("exit") && c.isConnected()) {
             if (in.startsWith("wonder")) {
-                c.sendSelectWonderRequest(in.replaceFirst("wonder ", ""));
                 c.sendSelectWonderRequest(in.replaceFirst("wonder ", ""));
             } else if (in.startsWith("start game")) {
                 c.sendStartGameRequest();
@@ -52,6 +51,8 @@ public class ClientApplication {
             }
             in = sc.nextLine();
         }
-        c.disconnect();
+        if (c.isConnected()) {
+            c.disconnect();
+        }
     }
 }

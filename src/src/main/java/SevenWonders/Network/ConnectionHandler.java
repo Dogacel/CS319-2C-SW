@@ -18,6 +18,10 @@ public class ConnectionHandler extends AbstractConnectionHandler implements Runn
 
     private String connectionID;
 
+    boolean isConnected() {
+        return !this.socket.isClosed();
+    }
+
     @Override
     public String toString() {
         return connectionID;
@@ -81,10 +85,10 @@ public class ConnectionHandler extends AbstractConnectionHandler implements Runn
                 // Our connection closed
             } else if (e instanceof EOFException) {
                 // Their connection closed
-                listener.onDisconnect(this);
             } else {
                 e.printStackTrace();
             }
+            disconnect();
             return false;
         }
     }

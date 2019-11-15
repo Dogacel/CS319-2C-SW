@@ -1,6 +1,7 @@
 package SevenWonders.Network;
 
 import SevenWonders.GameLogic.AIMoveGenerator;
+import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 import SevenWonders.GameLogic.GameModel;
 import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.Network.Requests.*;
@@ -62,7 +63,6 @@ public class Server implements Runnable, INetworkListener {
 
 				AbstractConnectionHandler latestConnection = new ConnectionHandler(s, this);
 
-
 				if (s.getLocalSocketAddress().toString().startsWith(s.getInetAddress().toString())) {
 					latestConnection.getUser().setAdmin(true);
 				}
@@ -81,9 +81,14 @@ public class Server implements Runnable, INetworkListener {
 
 	@Override
 	public void onDisconnect(AbstractConnectionHandler connectionHandler) {
+		PseudoConnectionHandler replacement = new PseudoConnectionHandler(this, AI_DIFFICULTY.MEDIUM, "");
+		replacement.user = connectionHandler.user;
+		replacement.user.setUsername(replacement.user.getUsername()+" Bot");
+
 		connectionHandlerList.remove(connectionHandler);
 		LOGGER.warning("Client disconnected : " + connectionHandler);
-		// TODO: Add AI Player if needed
+
+		connectionHandlerList.add(replacement);
 	}
 
 	/**
