@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameplayController {
+public class GameplayController implements Initializable{
     GameplayModel model;
 
     @FXML
@@ -19,8 +19,11 @@ public class GameplayController {
 
     public GameplayController() {
         this.model = new GameplayModel();
+    }
 
-         Pane newLoadedPane =  (Pane)AssetManager.getInstance().getSceneByName("PlayerView.fxml");
-         //this.playerViewPane.getChildren().add(newLoadedPane);
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        Pane newLoadedPane =  (Pane) AssetManager.getInstance().getSceneByNameForce("PlayerView.fxml");
+        this.playerViewPane.getChildren().add(newLoadedPane);
     }
 }
