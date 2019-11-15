@@ -18,6 +18,10 @@ public class Client implements INetworkListener {
 	private Gson gson;
 	private ConnectionHandler connectionHandler;
 
+	public void makeAdmin() {
+		this.user.setAdmin(true);
+	}
+
 	/**
 	 * Establishes a connection to given address and port.
 	 * @param serverAddress IP Address of the server
@@ -88,7 +92,7 @@ public class Client implements INetworkListener {
 	}
 
 	public void sendStartGameRequest() {
-		if (!user.isAdmin()) {
+			if (!user.isAdmin()) {
 			// Unauthorized
 			return;
 		}

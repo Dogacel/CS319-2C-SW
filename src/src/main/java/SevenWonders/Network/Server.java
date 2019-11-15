@@ -62,13 +62,8 @@ public class Server implements Runnable, INetworkListener {
 
 				AbstractConnectionHandler latestConnection = new ConnectionHandler(s, this);
 
-				// TODO: Change how to set someone admin
-				System.out.println(s.getInetAddress());
-				System.out.println(s.getInetAddress().getHostName());
-				System.out.println(s.getRemoteSocketAddress());
-				System.out.println(s.getLocalSocketAddress());
-				if (s.getInetAddress().isAnyLocalAddress()) {
-					System.out.println("LOCAL!");
+
+				if (s.getLocalSocketAddress().toString().startsWith(s.getInetAddress().toString())) {
 					latestConnection.getUser().setAdmin(true);
 				}
 

@@ -10,13 +10,18 @@ public class ClientApplication {
 
     public static void main(String[] args) {
 
-        UPnP.openPortTCP(8080)
-        ;
+        UPnP.openPortTCP(8080);
+
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter server address:");
+
         String addr = sc.nextLine();
 
         Client c = new Client(addr, 8080, "DefaultUser");
+
+        if (addr.equals("localhost")) {
+            c.makeAdmin();
+        }
 
         System.out.println("Please enter your name:");
         String in = sc.nextLine();
@@ -25,6 +30,7 @@ public class ClientApplication {
         in = sc.nextLine();
         while (!in.equals("exit")) {
             if (in.startsWith("wonder")) {
+                c.sendSelectWonderRequest(in.replaceFirst("wonder ", ""));
                 c.sendSelectWonderRequest(in.replaceFirst("wonder ", ""));
             } else if (in.startsWith("start game")) {
                 c.sendStartGameRequest();
