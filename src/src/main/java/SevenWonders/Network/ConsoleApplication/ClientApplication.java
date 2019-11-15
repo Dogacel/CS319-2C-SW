@@ -2,6 +2,7 @@ package SevenWonders.Network.ConsoleApplication;
 
 import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 import SevenWonders.Network.Client;
+import com.dosse.upnp.UPnP;
 
 import java.util.Scanner;
 
@@ -9,8 +10,13 @@ public class ClientApplication {
 
     public static void main(String[] args) {
 
-        Client c = new Client("localhost", 8080, "DefaultUser");
+        UPnP.openPortTCP(8080)
+        ;
         Scanner sc = new Scanner(System.in);
+        System.out.println("Enter server address:");
+        String addr = sc.nextLine();
+
+        Client c = new Client(addr, 8080, "DefaultUser");
 
         System.out.println("Please enter your name:");
         String in = sc.nextLine();
