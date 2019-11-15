@@ -5,6 +5,7 @@ import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,17 +26,16 @@ public class MoveController {
         Card selectedCard = fromIDToCard(moveModel.getSelectedCardID());
     }
 
-    private boolean playerCanMakeTheTrade( MoveModel move, PlayerModel currentPlayer) {
+    private boolean playerCanMakeTheTrade( MoveModel move, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours) {
         int goldOfCurrentPlayer = currentPlayer.getGold();
 
         /* boolean for understanding if there is a discount */
         boolean hasRightRawDiscount = false;
         boolean hasLeftRawDiscount = false;
         boolean hasManifacturedDiscount = false;
-
-        RESOURCE_TYPE[] rawResources = { RESOURCE_TYPE.WOOD, RESOURCE_TYPE.STONE, RESOURCE_TYPE.ORE, RESOURCE_TYPE.BRICK};
-        RESOURCE_TYPE[] manifacturedResources = { RESOURCE_TYPE.GLASS, RESOURCE_TYPE.PAPYRUS, RESOURCE_TYPE.LOOM};
-
+        /*
+        Check if the user has a discount by looking at their constructionZone
+         */
         for (Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
             CARD_EFFECT_TYPE effect = card.getCardEffect().getEffectType();
 
@@ -52,30 +52,38 @@ public class MoveController {
                 default: break;
             }
         }
-
+        /* Check the trade array, check if valid and if valid, reduce gold */
         for (TradeAction trade : move.getTrades()) {
-            if ( trade.getSelectedResource())
+            if ( trade.getSelectedResource() == RESOURCE_TYPE.BRICK || trade.getSelectedResource() == RESOURCE_TYPE.ORE ||
+                    trade.getSelectedResource() == RESOURCE_TYPE.WOOD || trade.getSelectedResource() == RESOURCE_TYPE.STONE ) {
+                if ( hasLeftRawDiscount) {
+                    if (trade.getPlayerID() == neighbours.getKey().getId()) {
+                        goldOfCurrentPlayer -= 1;
+                    }
+                }
+                else if (hasRightRawDiscount) {
+                    if (trade.getPlayerID() == neighbours.getValue().getId()) {
+                        goldOfCurrentPlayer -= 1;
+                    }
+                }
+                else {
+                    goldOfCurrentPlayer -= 2;
+                }
+            }
+            else if ( trade.getSelectedResource() == RESOURCE_TYPE.LOOM || trade.getSelectedResource() == RESOURCE_TYPE.PAPYRUS || trade.getSelectedResource() == RESOURCE_TYPE.GLASS) {
+                if ( hasManifacturedDiscount) {
+                    goldOfCurrentPlayer -= 1;
+                }
+                else {
+                    goldOfCurrentPlayer -= 2;
+                }
+            }
+            //at the end of each iteration, check if the user has ran out of money, return false if so.
+            if (goldOfCurrentPlayer < 0) {
+                return false;
+            }
         }
-
-    }
-
-    private boolean playerHasEnoughCoins(MoveModel moveModel, PlayerModel currentPlayer) {
-        ACTION_TYPE action = moveModel.getAction();
-        TradeAction[] trades = moveModel.getTrades();
-        int goldOfCurrentPlayer = currentPlayer.getGold();
-        int goldCostForCurrentCard = fromIDToCard(moveModel.getSelectedCardID()).getRequirements().get(RESOURCE_TYPE.GOLD);
-
-        for ()
-
-        switch ( action) {
-            case DISCARD_CARD:
-            case UPGRADE_WONDER:
-            case USE_GOD_POWER:
-                return true;
-            case BUILD_CARD:
-                return goldOfCurrentPlayer >= goldCostForCurrentCard;
-            default: return false;
-        }
+        return true;
     }
 
     //  TODO add trade action here!
@@ -136,6 +144,11 @@ public class MoveController {
     This method is for taking an ID and returning a Card object, maybe initialized somewhere else later.
      */
     public Card fromIDToCard(int cardID) {
+        return null;
+    }
+
+    //TODO implement this method, meybe somewhere else
+    public PlayerModel fromIDToPlayer(int playerID) {
         return null;
     }
 }
