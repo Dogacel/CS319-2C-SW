@@ -24,6 +24,7 @@ public class AssetManager {
         imageMap = new HashMap<>();
         sceneMap = new HashMap<>();
         loadImages();
+        loadScenes();
     }
 
     //methods
@@ -75,7 +76,10 @@ public class AssetManager {
             if( f.getName().endsWith(".fxml"))
             {
                 try {
-                    sceneMap.put(f.getName(), FXMLLoader.load(getClass().getResource("fxml-scenes/" + f.getName())));
+                    sceneMap.put(f.getName(), FXMLLoader.load(getClass().getClassLoader().getResource("fxml-scenes/" + f.getName())));
+                    if(sceneMap.isEmpty()){
+                        System.out.println("aaaaaaxxxxxxxxxxaaaa");
+                    }
                 }
                 catch ( IOException e){
                     e.printStackTrace();

@@ -7,7 +7,7 @@ public class TestApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        SceneManager.getInstance().changeScene("PlayerView.fxml");
+        SceneManager.getInstance().changeScene("GameplayView.fxml");
         SceneManager.getInstance().show();
     }
 
