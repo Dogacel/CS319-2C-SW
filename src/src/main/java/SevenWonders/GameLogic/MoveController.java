@@ -8,6 +8,7 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 public class MoveController {
     //variables
@@ -86,15 +87,34 @@ public class MoveController {
         return true;
     }
 
-    //  TODO add trade action here!
-    private boolean playerHasEnoughResources(MoveModel moveModel, PlayerModel currentPlayer) {
-        Map<RESOURCE_TYPE,Integer> requiredResources = fromIDToCard(moveModel.getSelectedCardID()).getResourceCost();
+    private boolean playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, ArrayList<TradeAction> trades) {
         Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
 
-        //to deep clone a map
+        /*to deep clone a map */
         for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
             clonedResourceMap.put(entry.getKey(),entry.getValue());
         }
+
+        /*First assume all the trades, successful trades are a given and will not be checked*/
+        for ( TradeAction trade : trades) {
+            RESOURCE_TYPE resource = trade.getSelectedResource();
+            if ( clonedResourceMap.containsKey( resource)) {
+                if ( clonedResourceMap.get( resource) <= 0) {
+                    clonedResourceMap.remove( resource);
+                }
+                else {
+                    int numberOfResources = clonedResourceMap.get(resource);
+                    clonedResourceMap.put(resource, numberOfResources - 1);
+                }
+            }
+        }
+
+        // If the trades were enough, just return true
+        if ( clonedResourceMap.isEmpty()) {
+            return true;
+        }
+
+        /*check for all the non-choice cards to see if we have enough resources for user action*/
         for (Card builtCard : currentPlayer.getConstructionZone().getConstructedCards()) {
             CardEffect effect = builtCard.getCardEffect();
             CARD_EFFECT_TYPE effect_type =  effect.getEffectType();
@@ -113,11 +133,98 @@ public class MoveController {
                         }
                     }
                     break;
+                default: break;
+            }
+        }
+        /*If the non-choice cards provide enough resources, return true*/
+        if ( clonedResourceMap.isEmpty()) {
+            return true;
+        }
+        //If non-choice cards are not enough, must look at choice cards
+        Vector<Card> choiceCards = new Vector<>();
+
+        /*Traverse every card and collect choice cards*/
+        for ( Card card : currentPlayer.getConstructionZone().getConstructedCards() ) {
+            switch (card.getCardEffect().getEffectType()) {
+                case ONE_OF_EACH_MANUFACTURED_GOODS:
+                case ONE_OF_EACH_RAW_MATERIAL:
                 case PRODUCE_ONE_OF_TWO:
-                    //TODO implement here
+                    choiceCards.add(card);
                     break;
             }
         }
+        return playerHasEnoughResourcesWitChoiceCards( choiceCards, choiceCards.size() - 1, clonedResourceMap);
+    }
+
+    /**
+     *  A recursive method for understanding if choice cards provide enough resources.
+     * @param choiceCards all the choice cards that the user have in their constructionZone
+     * @param begin size of the choiceCard vector
+     * @param map resources that user requires to perform given action
+     * @return true if choice cards provide necessary resources, false if not.
+     */
+    private boolean playerHasEnoughResourcesWitChoiceCards(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map) {
+        if (begin == -1) {
+            // gold ?
+            return map.isEmpty();
+        }
+        Card card = choiceCards.get(begin);
+        switch (card.getCardEffect().getEffectType()) {
+            case ONE_OF_EACH_MANUFACTURED_GOODS:
+                if (recursive(choiceCards, begin, map, RESOURCE_TYPE.LOOM)) {
+                    return true;
+                } else if (recursive(choiceCards, begin, map, RESOURCE_TYPE.GLASS)) {
+                    return true;
+                } else if (recursive(choiceCards, begin, map, RESOURCE_TYPE.PAPYRUS)) {
+                    return true;
+                }
+                break;
+            case ONE_OF_EACH_RAW_MATERIAL:
+                if (recursive(choiceCards, begin, map, RESOURCE_TYPE.WOOD)) {
+                    return true;
+                } else if (recursive(choiceCards, begin, map, RESOURCE_TYPE.BRICK)) {
+                    return true;
+                } else if (recursive(choiceCards, begin, map, RESOURCE_TYPE.STONE)) {
+                    return true;
+                }else if (recursive(choiceCards, begin, map, RESOURCE_TYPE.ORE)) {
+                    return true;
+                }
+                break;
+            case PRODUCE_ONE_OF_TWO:
+                Map<RESOURCE_TYPE, Integer> tempMap = card.getCardEffect().getResources();
+               for (var k : tempMap.keySet()) {
+                   if (recursive(choiceCards, begin, map, k)) {
+                       return true;
+                   }
+               }
+                break;
+        }
+    return true;
+    }
+
+    /**
+     * A helper method that contains the body of the recursion
+     * @param choiceCards
+     * @param begin
+     * @param map
+     * @param resource_type
+     * @return
+     */
+    private boolean recursive(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map, RESOURCE_TYPE resource_type) {
+        int resourceCount = map.get(resource_type);
+        if (resourceCount > 1) {
+            map.put(resource_type, resourceCount-1);
+        } else if (resourceCount == 1 || resourceCount == 0){
+            map.remove(resource_type);
+        }
+        boolean isPossible  = playerHasEnoughResourcesWitChoiceCards(choiceCards, begin-1, map);
+        if (resourceCount > 0){
+            map.put(resource_type, resourceCount);
+        }
+        if (isPossible) {
+            return true;
+        }
+        return false;
     }
 
     private boolean playerCanBuild(MoveModel moveModel, PlayerModel currentPlayer) {
