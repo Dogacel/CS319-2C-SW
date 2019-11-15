@@ -19,8 +19,7 @@ public class PlayerModel {
     private MoveModel currentMove;
     private Vector<Hero> heroes;
     private ConstructionZone constructionZone;
-    private Pair<PlayerModel, PlayerModel> neighbours;
-    public PlayerModel(int id, String name, Wonder wonder, Pair<PlayerModel, PlayerModel> neighbours)
+    public PlayerModel(int id, String name, Wonder wonder)
     {
         this.id = id;
         this.name = name;
@@ -34,7 +33,6 @@ public class PlayerModel {
 
         this.constructionZone = new ConstructionZone();
 
-        this.neighbours = neighbours; //TODO
     }
 
     public int getId() { return id; }
@@ -66,10 +64,6 @@ public class PlayerModel {
     public void setCurrentMove(MoveModel currentMove) { this.currentMove = currentMove; }
 
     public void setHand(Card[] hand) { this.hand = hand; }
-
-    public Pair<PlayerModel, PlayerModel> getNeighbours() {
-        return neighbours;
-    }
 
     public void addHero(String name, HERO_EFFECT_TYPE effect) {
 
