@@ -1,13 +1,11 @@
 package SevenWonders.Network;
 
-import com.google.gson.Gson;
-
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.logging.Logger;
 
-public class ConnectionHandler implements Runnable, IConnectionHandler {
+public class ConnectionHandler extends AbstractConnectionHandler implements Runnable {
 
     private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -15,17 +13,10 @@ public class ConnectionHandler implements Runnable, IConnectionHandler {
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
 
-    private INetworkListener listener;
 
     private Thread worker;
 
     private String connectionID;
-    private User user;
-
-    @Override
-    public User getUser() {
-        return user;
-    }
 
     @Override
     public String toString() {
@@ -56,7 +47,7 @@ public class ConnectionHandler implements Runnable, IConnectionHandler {
      * Start listening to the socket for incoming messages
      */
     @Override
-    public void startListening() {
+    void startListening() {
         this.worker.start();
     }
 
@@ -65,7 +56,7 @@ public class ConnectionHandler implements Runnable, IConnectionHandler {
      * @param message String message
      */
     @Override
-    public void sendMessage(String message) {
+    void sendMessage(String message) {
         LOGGER.info("Sending: " + message);
         try {
             outputStream.writeUTF(message);
@@ -79,7 +70,7 @@ public class ConnectionHandler implements Runnable, IConnectionHandler {
      * @return True if connection still exists.
      */
     @Override
-    public boolean receiveMessage() {
+    boolean receiveMessage() {
         try {
             String message = inputStream.readUTF();
             LOGGER.info("Received: " + message);
@@ -102,7 +93,7 @@ public class ConnectionHandler implements Runnable, IConnectionHandler {
      * Disconnect the socket
      */
     @Override
-    public void disconnect() {
+    void disconnect() {
         try {
             listener.onDisconnect(this);
             inputStream.close();

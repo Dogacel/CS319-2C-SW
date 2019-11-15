@@ -6,11 +6,11 @@ interface INetworkListener {
      * @param message Incoming message
      * @param sender ConnectionHandler that received the message
      */
-    void receiveMessage(String message, IConnectionHandler sender);
+    void receiveMessage(String message, AbstractConnectionHandler sender);
 
     /**
      * Called when connection is closed.
      * @param connection Closed connectionHandler
      */
-    void onDisconnect(IConnectionHandler connection);
+    void onDisconnect(AbstractConnectionHandler connection);
 }

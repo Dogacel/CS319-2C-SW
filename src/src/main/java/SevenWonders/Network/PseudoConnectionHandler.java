@@ -2,11 +2,8 @@ package SevenWonders.Network;
 
 import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 
-import java.net.Socket;
+public class PseudoConnectionHandler extends AbstractConnectionHandler {
 
-public class PseudoConnectionHandler implements IConnectionHandler {
-
-    private User user;
     private INetworkListener listener;
     private AI_DIFFICULTY difficulty;
 
@@ -20,28 +17,24 @@ public class PseudoConnectionHandler implements IConnectionHandler {
         return difficulty;
     }
 
-    @Override
-    public User getUser() {
-        return user;
-    }
 
     @Override
-    public void startListening() {
+    void startListening() {
 
     }
 
     @Override
-    public boolean receiveMessage() {
+    boolean receiveMessage() {
         return true;
     }
 
     @Override
-    public void sendMessage(String message) {
+    void sendMessage(String message) {
         listener.receiveMessage(message, this);
     }
 
     @Override
-    public void disconnect() {
+    void disconnect() {
 
     }
 }

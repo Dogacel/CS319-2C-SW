@@ -3,7 +3,6 @@ package SevenWonders.Network;
 import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.Network.Requests.*;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -129,7 +128,7 @@ public class Client implements INetworkListener {
 	 * @param connectionHandler Connection to server
 	 */
 	@Override
-	public void receiveMessage(String message, IConnectionHandler connectionHandler) {
+	public void receiveMessage(String message, AbstractConnectionHandler connectionHandler) {
 
 		Request request = gson.fromJson(message, Request.class);
 
@@ -159,7 +158,7 @@ public class Client implements INetworkListener {
 	}
 
 	@Override
-	public void onDisconnect(IConnectionHandler connection) {
+	public void onDisconnect(AbstractConnectionHandler connection) {
 		LOGGER.warning("Disconnected!");
 	}
 }
