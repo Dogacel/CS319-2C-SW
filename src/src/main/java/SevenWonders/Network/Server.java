@@ -1,6 +1,8 @@
 package SevenWonders.Network;
 
+import SevenWonders.GameLogic.AIMoveGenerator;
 import SevenWonders.GameLogic.GameModel;
+import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.Network.Requests.*;
 import com.google.gson.Gson;
 
@@ -61,7 +63,12 @@ public class Server implements Runnable, INetworkListener {
 				AbstractConnectionHandler latestConnection = new ConnectionHandler(s, this);
 
 				// TODO: Change how to set someone admin
-				if (connectionHandlerList.isEmpty()) {
+				System.out.println(s.getInetAddress());
+				System.out.println(s.getInetAddress().getHostName());
+				System.out.println(s.getRemoteSocketAddress());
+				System.out.println(s.getLocalSocketAddress());
+				if (s.getInetAddress().isAnyLocalAddress()) {
+					System.out.println("LOCAL!");
 					latestConnection.getUser().setAdmin(true);
 				}
 
@@ -148,7 +155,16 @@ public class Server implements Runnable, INetworkListener {
 				return;
 			}
 		}
-		// TODO: play the turn if everyone is ready
+
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
+			if (connectionHandler instanceof PseudoConnectionHandler) {
+				MoveModel aiMove = AIMoveGenerator.generateMove(gameModel, ((PseudoConnectionHandler) connectionHandler).getDifficulty());
+				// TODO: Queue move for ai player
+			}
+
+			// TODO: Play the turn
+		}
+
 	}
 
 	private void parseConnectRequest(String message, AbstractConnectionHandler sender) {
@@ -190,9 +206,14 @@ public class Server implements Runnable, INetworkListener {
 			return;
 		}
 
+		if (connectionHandlerList.size() >= 7) {
+			// Lobby full
+			return;
+		}
+
 		AddAIPlayerRequest request = gson.fromJson(message, AddAIPlayerRequest.class);
 		PseudoConnectionHandler pseudoConnectionHandler = new PseudoConnectionHandler(this, request.difficulty, "name");
-		// TODO: Initialize AI Player as pseudoConnectionHandler and add it to the connectionHandlerList
+		connectionHandlerList.add(pseudoConnectionHandler);
 	}
 
 	private void parseMakeMoveRequest(String message, AbstractConnectionHandler sender) {
