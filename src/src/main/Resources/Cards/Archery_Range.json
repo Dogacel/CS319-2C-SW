@@ -1,0 +1,19 @@
+{
+  "id": 44, 
+  "name": "Archery Range",
+  "color": "RED",
+  "requirements": {
+    "ORE": 1, 
+    "WOOD": 2
+  }, 
+  "buildingChain": [
+    "Workshop"
+  ], 
+  "cardEffect": {
+    "cardType": "GRANT_SHIELDS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 2
+  }
+}

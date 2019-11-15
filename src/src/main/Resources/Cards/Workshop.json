@@ -1,0 +1,16 @@
+{
+  "id": 24, 
+  "name": "Workshop",
+  "color": "GREEN",
+  "requirements": {
+    "GLASS": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "SCIENCE_MECHANICS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

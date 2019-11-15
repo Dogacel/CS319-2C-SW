@@ -1,0 +1,20 @@
+{
+  "id": 64, 
+  "name": "University",
+  "color": "GREEN",
+  "requirements": {
+    "WOOD": 2, 
+    "PAPYRUS": 1, 
+    "GOLD": 1
+  }, 
+  "buildingChain": [
+    "Library"
+  ], 
+  "cardEffect": {
+    "cardType": "SCIENCE_WRITINGS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

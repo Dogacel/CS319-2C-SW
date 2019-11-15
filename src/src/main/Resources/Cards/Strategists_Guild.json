@@ -1,0 +1,18 @@
+{
+  "id": 72, 
+  "name": "Strategists Guild",
+  "color": "PURPLE",
+  "requirements": {
+    "STONE": 1, 
+    "ORE": 2, 
+    "LOOM": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "STRATEGISTS_GUILD", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 1, 
+    "shields": 0
+  }
+}

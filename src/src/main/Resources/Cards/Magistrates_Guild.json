@@ -1,0 +1,18 @@
+{
+  "id": 75, 
+  "name": "Magistrates Guild",
+  "color": "PURPLE",
+  "requirements": {
+    "STONE": 1, 
+    "WOOD": 3, 
+    "LOOM": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "MAGISTRATES_GUILD", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 1, 
+    "shields": 0
+  }
+}

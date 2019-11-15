@@ -1,0 +1,17 @@
+{
+  "id": 68, 
+  "name": "Craftsmens Guild",
+  "color": "PURPLE",
+  "requirements": {
+    "STONE": 2, 
+    "ORE": 2
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "CRAFTSMENS_GUILD", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 2, 
+    "shields": 0
+  }
+}

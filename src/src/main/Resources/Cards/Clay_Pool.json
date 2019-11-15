@@ -1,0 +1,16 @@
+{
+  "id": 3, 
+  "name": "Clay Pool",
+  "color": "BROWN",
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "PRODUCE_RAW_MATERIAL", 
+    "resources": {
+      "BRICK" : 1
+    }, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

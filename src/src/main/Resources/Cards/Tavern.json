@@ -1,0 +1,14 @@
+{
+  "id": 16, 
+  "name": "Tavern",
+  "color": "YELLOW",
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "GET_MONEY", 
+    "resources": {}, 
+    "gold": 5, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

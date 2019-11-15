@@ -1,0 +1,19 @@
+{
+  "id": 37, 
+  "name": "Forum",
+  "color": "YELLOW",
+  "requirements": {
+    "BRICK": 2
+  }, 
+  "buildingChain": [
+    "East Trading Post", 
+    "West Trading Post"
+  ], 
+  "cardEffect": {
+    "cardType": "ONE_OF_EACH_MANUFACTURED_GOODS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

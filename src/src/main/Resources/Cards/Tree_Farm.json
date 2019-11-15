@@ -1,0 +1,19 @@
+{
+  "id": 5, 
+  "name": "Tree Farm",
+  "color": "BROWN",
+  "requirements": {
+    "GOLD": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "PRODUCE_ONE_OF_TWO", 
+    "resources": {
+      "WOOD" : 1,
+      "BRICK" : 1
+    }, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}
