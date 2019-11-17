@@ -1,43 +1,30 @@
 #anchor{
-    -fx-background-image: url('ui-images/babylonwonder.png');
+    -fx-background-image: url('ui-images/babylonwonderbar.png');
+}
+#readyButton{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: #828282;
 }
 
-#scroll-pane{
-    -fx-background: black;
+#builtWonderButton{
+    -fx-background-image: url('ui-images/buton.png');
+    -fx-background-radius: 100;
 }
 
-#scroll-pane:horizontal .track,
-#scroll-pane:vertical .track{
-    -fx-background-color :transparent;
-    -fx-border-color :transparent;
-    -fx-background-radius : 0.0em;
-    -fx-border-radius :2.0em;
+#builtCardButton{
+    -fx-background-image: url('ui-images/buton.png');
+    -fx-background-radius: 100;
 }
 
-#scroll-pane:vertical .increment-button ,
-#scroll-pane:vertical .decrement-button {
-    -fx-background-color :transparent;
-    -fx-background-radius : 0.0em;
-    -fx-padding :0.0 10.0 0.0 0.0;
-
+#discardCardButton{
+    -fx-background-image: url('ui-images/buton.png');
+    -fx-background-radius: 100;
 }
 
-#scroll-pane .increment-arrow,
-#scroll-pane .decrement-arrow{
-    -fx-shape : " ";
-    -fx-padding :0.15em 0.0;
-}
-
-#scroll-pane:vertical .increment-arrow,
-#scroll-pane:vertical .decrement-arrow{
-    -fx-shape : " ";
-    -fx-padding :0.0 0.15em;
-}
-
-
-#scroll-pane:horizontal .thumb:hover,
-#scroll-pane:vertical .thumb:hover {
-    -fx-background-color :derive(#4D4C4F,10.0%);
-    -fx-background-insets : 2.0, 0.0, 0.0;
-    -fx-background-radius : 2.0em;
+#godPowerButton{
+    -fx-background-image: url('ui-images/buton.png');
+    -fx-background-radius: 100;
 }
