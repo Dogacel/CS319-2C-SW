@@ -3,19 +3,21 @@ package SevenWonders.GameLogic;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Vector;
 
 public class MoveModel {
     private int playerID;
     private int selectedCardID;
     private ACTION_TYPE action;
-    private ArrayList<TradeAction> trades; //ask
+    private Vector<TradeAction> trades; //ask
 
     public MoveModel(int playerID, int selectedCardID, ACTION_TYPE action)
     {
         this.playerID = playerID;
         this.selectedCardID = selectedCardID;
         this.action = action;
-        this.trades = new ArrayList<TradeAction>();
+        this.trades = new Vector<TradeAction>();
     }
 
     public int getPlayerID(){
@@ -30,38 +32,11 @@ public class MoveModel {
         return action;
     }
 
-    public ArrayList<TradeAction> getTrades() {
+    public Vector<TradeAction> getTrades() {
         return trades;
     }
 
     public boolean addTrades( TradeAction trade) {
-        if ( cardNotUsedForTrade(trade.getSelectedCardId() ) ) {
-            throw new IllegalArgumentException("The value is already in the list."); //discuss
-        }
-        else {
-            trades.add(trade);
-            return true;
-        }
-    }
-
-    // Deletes trade action from current trades if user change their mind
-    // e.g Trade same resource from the other neighbour
-    public boolean deleteTrades( TradeAction trade){
-        if( trades.contains( trade)){
-            trades.delete( trade);
-            return true;
-        }
-        else{
-            throw new NoSuchElementException("Trade does not exist.");
-        }
-    }
-
-    //Checks if card is already used for trade
-    private boolean cardNotUsedForTrade( int selectedCard){
-        for(TradeAction t: trades){
-            if( t.getSelectedCardID() == selectedCard)
-                return false;
-        }
-        return true;
+        return trades.add(trade);
     }
 }
