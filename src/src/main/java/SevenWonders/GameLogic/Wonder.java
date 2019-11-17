@@ -36,7 +36,7 @@ public class Wonder {
         return stages;
     }
 
-    public int getCurrentStage() { return currentStage; }
+    public int getCurrentStageIndex() { return currentStage; }
 
     public God getGod() { return god; }
 
@@ -47,5 +47,12 @@ public class Wonder {
 
     public boolean isUpgradeable() {
         return currentStage <= 2;
+    }
+
+    public WonderStage getCurrentStage() {
+        if (isUpgradeable()) {
+            return stages[currentStage];
+        }
+        return null;
     }
 }
