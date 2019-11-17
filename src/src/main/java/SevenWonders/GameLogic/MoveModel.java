@@ -36,7 +36,7 @@ public class MoveModel {
         return trades;
     }
 
-    public boolean addTrades( TradeAction trade) {
+    public boolean addTrade( TradeAction trade) {
         return trades.add(trade);
     }
 }
