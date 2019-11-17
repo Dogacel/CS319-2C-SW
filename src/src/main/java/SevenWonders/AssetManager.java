@@ -84,9 +84,6 @@ public class AssetManager {
             {
                 try {
                     sceneMap.put(f.getName(), FXMLLoader.load(getClass().getClassLoader().getResource("fxml-scenes/" + f.getName())));
-                    if(sceneMap.isEmpty()){
-                        System.out.println("aaaaaaxxxxxxxxxxaaaa");
-                    }
                 }
                 catch ( IOException e){
                     e.printStackTrace();
