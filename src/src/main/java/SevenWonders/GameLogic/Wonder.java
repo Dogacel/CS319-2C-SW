@@ -55,8 +55,4 @@ public class Wonder {
         }
         return null;
     }
-
-    public void setWonderStageIndex( int index) {
-        this.wonderStageIndex = index;
-    }
 }
