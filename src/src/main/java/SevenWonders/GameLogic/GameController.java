@@ -163,7 +163,6 @@ public class GameController {
         if (model.getCurrentAge() == 2 ) //If Age is 2, shift cards right
         {
             for( int i = 0; i < playerControllers.length; i++){
-                PlayerController myPlayerController = playerControllers[i];
                 PlayerController rightPlayerController = playerControllers[(i + 1) % 7];
 
                 tmp1 = rightPlayerController.getHand();
