@@ -27,13 +27,3 @@ public class MainMenuModel {
     }
 }
 
-
-/*
-MainMenuModel:
-Attributes:
-public String backgroundImage:​ Holds the path to the background image as a string.
-35public String barImage:​ Holds the path to the bar image as a string.
-Constructor:
-MainMenuModel():​ Constructs the main menu model object.
-
- */

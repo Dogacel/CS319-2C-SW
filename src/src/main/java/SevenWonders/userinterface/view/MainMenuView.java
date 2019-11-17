@@ -16,7 +16,7 @@ public class MainMenuView {
 
     public MainMenuView()
     {
-
+        
     }
 
     public Button getPlayGameButton() {
