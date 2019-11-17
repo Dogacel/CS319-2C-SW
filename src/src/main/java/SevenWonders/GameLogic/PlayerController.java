@@ -81,6 +81,8 @@ public class PlayerController {
 
     public ConstructionZone getConstructionZone() { return player.getConstructionZone(); }
 
+    public Wonder getWonder() { return getWonder(); }
+
     public int getGold(){ return player.getGold(); }
 
     public int getShields() { return player.getShields(); }

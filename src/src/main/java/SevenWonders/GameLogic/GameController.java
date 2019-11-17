@@ -125,10 +125,19 @@ public class GameController {
                     myPlayerController.setGold( cardCount * 2 + myPlayerController.getGold());
                     break;
                 case GET_MONEY_AND_VP_PER_WONDER:
-                    //TODO
+                    int goldToAdd = (playerControllers[i].getWonder().getCurrentStage() + 1) * 3;
+
+                    myPlayerController.setGold( goldToAdd + myPlayerController.getGold() );
                     break;
                 case GET_MONEY_AND_VP_PER_YELLOW:
-                    //TODO
+                    cardCount = 0;
+
+                    for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
+                        if (card.getColor() == CARD_COLOR_TYPE.YELLOW) {
+                            cardCount++;
+                        }
+                    }
+                    myPlayerController.setGold( cardCount + myPlayerController.getGold());
                     break;
             }
 
