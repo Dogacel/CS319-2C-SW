@@ -1,19 +1,30 @@
 package SevenWonders.Network;
 
+import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.Network.Requests.*;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.logging.Logger;
 
 public class Client implements INetworkListener {
+
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private User user;
 	private Gson gson;
 	private ConnectionHandler connectionHandler;
+
+	public void makeAdmin() {
+		this.user.setAdmin(true);
+	}
+
+	public boolean isConnected() {
+		return connectionHandler.isConnected();
+	}
 
 	/**
 	 * Establishes a connection to given address and port.
@@ -62,7 +73,6 @@ public class Client implements INetworkListener {
 		sendRequest(request);
 	}
 
-	// TODO: Update move to MoveModel
 	public void sendMakeMoveRequest(MoveModel move) {
 		MakeMoveRequest request = MakeMoveRequest.of(move);
 		sendRequest(request);
@@ -75,7 +85,7 @@ public class Client implements INetworkListener {
 	}
 
 	// TODO: Update difficulty
-	public void sendAddAIPlayerRequest(String difficulty) {
+	public void sendAddAIPlayerRequest(AI_DIFFICULTY difficulty) {
 		if (!user.isAdmin()) {
 			// Unauthorized
 			return;
@@ -86,7 +96,7 @@ public class Client implements INetworkListener {
 	}
 
 	public void sendStartGameRequest() {
-		if (!user.isAdmin()) {
+			if (!user.isAdmin()) {
 			// Unauthorized
 			return;
 		}
@@ -126,7 +136,8 @@ public class Client implements INetworkListener {
 	 * @param connectionHandler Connection to server
 	 */
 	@Override
-	public void receiveMessage(String message, ConnectionHandler connectionHandler) {
+	public void receiveMessage(String message, AbstractConnectionHandler connectionHandler) {
+
 		Request request = gson.fromJson(message, Request.class);
 
 	    switch (request.requestType) {
@@ -155,7 +166,7 @@ public class Client implements INetworkListener {
 	}
 
 	@Override
-	public void onDisconnect(ConnectionHandler connection) {
-		System.out.println("Disconnected!");
+	public void onDisconnect(AbstractConnectionHandler connection) {
+		LOGGER.warning("Disconnected!");
 	}
 }

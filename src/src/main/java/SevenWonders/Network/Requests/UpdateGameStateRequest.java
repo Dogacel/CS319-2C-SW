@@ -1,9 +1,8 @@
 package SevenWonders.Network.Requests;
 
-public class UpdateGameStateRequest extends Request {
+import SevenWonders.GameLogic.GameModel;
 
-    // TODO: Implement GameModel
-    private class GameModel {};
+public class UpdateGameStateRequest extends Request {
 
     public GameModel newGameModel;
 

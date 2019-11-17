@@ -1,27 +1,25 @@
 package SevenWonders.Network;
 
-import com.google.gson.Gson;
-
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.logging.Logger;
 
-public class ConnectionHandler implements Runnable {
+public class ConnectionHandler extends AbstractConnectionHandler implements Runnable {
 
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private Socket socket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
 
-    private INetworkListener listener;
 
     private Thread worker;
 
     private String connectionID;
-    private User user;
 
-    public User getUser() {
-        return user;
+    boolean isConnected() {
+        return !this.socket.isClosed();
     }
 
     @Override
@@ -52,6 +50,7 @@ public class ConnectionHandler implements Runnable {
     /**
      * Start listening to the socket for incoming messages
      */
+    @Override
     void startListening() {
         this.worker.start();
     }
@@ -60,7 +59,9 @@ public class ConnectionHandler implements Runnable {
      * Send the string to the connection.
      * @param message String message
      */
+    @Override
     void sendMessage(String message) {
+        LOGGER.info("Sending: " + message);
         try {
             outputStream.writeUTF(message);
         } catch (IOException exception) {
@@ -72,9 +73,11 @@ public class ConnectionHandler implements Runnable {
      * Receive a message from the socket
      * @return True if connection still exists.
      */
-    private boolean receiveMessage() {
+    @Override
+    boolean receiveMessage() {
         try {
             String message = inputStream.readUTF();
+            LOGGER.info("Received: " + message);
             listener.receiveMessage(message, this);
             return true;
         } catch (IOException e) {
@@ -82,10 +85,10 @@ public class ConnectionHandler implements Runnable {
                 // Our connection closed
             } else if (e instanceof EOFException) {
                 // Their connection closed
-                listener.onDisconnect(this);
             } else {
                 e.printStackTrace();
             }
+            disconnect();
             return false;
         }
     }
@@ -93,6 +96,7 @@ public class ConnectionHandler implements Runnable {
     /**
      * Disconnect the socket
      */
+    @Override
     void disconnect() {
         try {
             listener.onDisconnect(this);

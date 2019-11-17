@@ -1,10 +1,12 @@
 package SevenWonders.Network;
 
+import SevenWonders.GameLogic.AIMoveGenerator;
+import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
+import SevenWonders.GameLogic.GameModel;
+import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.Network.Requests.*;
 import com.google.gson.Gson;
 
-import java.util.logging.Level;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -18,11 +20,11 @@ public class Server implements Runnable, INetworkListener {
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-	private Vector<ConnectionHandler> connectionHandlerList;
+	private Vector<AbstractConnectionHandler> connectionHandlerList;
 	private ServerSocket serverSocket;
 	private Thread worker;
 	private Gson gson;
-	private Object game;
+	private GameModel gameModel;
 
 	public Server() {
 		connectionHandlerList = new Vector<>();
@@ -55,20 +57,21 @@ public class Server implements Runnable, INetworkListener {
 	 */
 	private boolean acceptConnection() {
 		try {
-			Socket s = serverSocket.accept();
-			LOGGER.info("New client connected : " + s);
+			if (connectionHandlerList.size() < 7) {
+				Socket s = serverSocket.accept();
+				LOGGER.info("New client connected : " + s);
 
-			ConnectionHandler latestConnection = new ConnectionHandler(s, this);
+				AbstractConnectionHandler latestConnection = new ConnectionHandler(s, this);
 
-			// TODO: Change how to set someone admin
-			if (connectionHandlerList.isEmpty()) {
-				latestConnection.getUser().setAdmin(true);
+				if (s.getLocalSocketAddress().toString().startsWith(s.getInetAddress().toString())) {
+					latestConnection.getUser().setAdmin(true);
+				}
+
+				connectionHandlerList.add(latestConnection);
+
+				latestConnection.startListening();
+
 			}
-
-			connectionHandlerList.add(latestConnection);
-
-			latestConnection.startListening();
-
 			return true;
 		} catch (IOException exception) {
 			exception.printStackTrace();
@@ -77,18 +80,22 @@ public class Server implements Runnable, INetworkListener {
 	}
 
 	@Override
-	public void onDisconnect(ConnectionHandler connectionHandler) {
+	public void onDisconnect(AbstractConnectionHandler connectionHandler) {
+		PseudoConnectionHandler replacement = new PseudoConnectionHandler(this, AI_DIFFICULTY.MEDIUM, "");
+		replacement.user = connectionHandler.user;
+		replacement.user.setUsername(replacement.user.getUsername()+" Bot");
+
 		connectionHandlerList.remove(connectionHandler);
 		LOGGER.warning("Client disconnected : " + connectionHandler);
-		// TODO: Add AI Player if needed
 
+		connectionHandlerList.add(replacement);
 	}
 
 	/**
 	 * Disconnect a client, similar to kick action.
 	 * @param connectionHandler ConnectionHandler to disconnect
 	 */
-	private void disconnectClient(ConnectionHandler connectionHandler) {
+	private void disconnectClient(AbstractConnectionHandler connectionHandler) {
 		connectionHandler.disconnect();
 		onDisconnect(connectionHandler);
 	}
@@ -99,9 +106,8 @@ public class Server implements Runnable, INetworkListener {
 	 * @param sender Sender of the request
 	 */
 	@Override
-	public void receiveMessage(String message, ConnectionHandler sender) {
+	public void receiveMessage(String message, AbstractConnectionHandler sender) {
 
-		LOGGER.info(message);
 		Request requestInfo = gson.fromJson(message, Request.class);;
 
 		switch (requestInfo.requestType) {
@@ -131,25 +137,49 @@ public class Server implements Runnable, INetworkListener {
 		}
 	}
 
-	private void parseGetReadyRequest(String message, ConnectionHandler sender) {
-		GetReadyRequest request = gson.fromJson(message, GetReadyRequest.class);
-		sender.getUser().setReady(request.isReady);
-		// TODO: Do something with ready request
+	private void sendUpdateGameStateRequest(AbstractConnectionHandler receiver) {
+		UpdateGameStateRequest request = UpdateGameStateRequest.of(gameModel);
+		sendRequest(request, receiver);
 	}
 
-	private void parseConnectRequest(String message, ConnectionHandler sender) {
+	private void sendRequest(Request request, AbstractConnectionHandler receiver) {
+		String message = gson.toJson(request, request.getClass());
+		receiver.sendMessage(message);
+	}
+
+	private void parseGetReadyRequest(String message, AbstractConnectionHandler sender) {
+		GetReadyRequest request = gson.fromJson(message, GetReadyRequest.class);
+		sender.getUser().setReady(request.isReady);
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
+			if (!connectionHandler.getUser().isReady()) {
+				return;
+			}
+		}
+
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
+			if (connectionHandler instanceof PseudoConnectionHandler) {
+				MoveModel aiMove = AIMoveGenerator.generateMove(gameModel, ((PseudoConnectionHandler) connectionHandler).getDifficulty());
+				// TODO: Queue move for ai player
+			}
+
+			// TODO: Play the turn
+		}
+
+	}
+
+	private void parseConnectRequest(String message, AbstractConnectionHandler sender) {
 		ConnectRequest request = gson.fromJson(message, ConnectRequest.class);
 		sender.getUser().setUsername(request.username);
 	}
 
-	private void parseKickRequest(String message, ConnectionHandler sender) {
+	private void parseKickRequest(String message, AbstractConnectionHandler sender) {
 		if (!sender.getUser().isAdmin()) {
 			// Unauthorized
 			return;
 		}
 
 		KickRequest request = gson.fromJson(message, KickRequest.class);
-		for (ConnectionHandler connectionHandler : connectionHandlerList) {
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			if (connectionHandler.getUser().getUsername().equals(request.username)) {
 				disconnectClient(connectionHandler);
 				break;
@@ -157,29 +187,44 @@ public class Server implements Runnable, INetworkListener {
 		}
 	}
 
-	private void parseStartGameRequest(String message, ConnectionHandler sender) {
+	private void parseStartGameRequest(String message, AbstractConnectionHandler sender) {
+		if (!sender.getUser().isAdmin()) {
+			// Unauthorized
+			return;
+		}
 		// TODO: Start game
-		// TODO: Send UpdateGameStateRequest
+		gameModel = new GameModel();
+
+		for (AbstractConnectionHandler connection : connectionHandlerList) {
+			sendUpdateGameStateRequest(connection);
+		}
 	}
 
-	private void parseAddAIPlayerRequest(String message, ConnectionHandler sender) {
+	private void parseAddAIPlayerRequest(String message, AbstractConnectionHandler sender) {
 		if (!sender.getUser().isAdmin()) {
 			// Unauthorized
 			return;
 		}
 
+		if (connectionHandlerList.size() >= 7) {
+			// Lobby full
+			return;
+		}
+
 		AddAIPlayerRequest request = gson.fromJson(message, AddAIPlayerRequest.class);
-		// TODO: Initialize AI Player as pseudoConnectionHandler and add it to the connectionHandlerList
+		PseudoConnectionHandler pseudoConnectionHandler = new PseudoConnectionHandler(this, request.difficulty, "name");
+		connectionHandlerList.add(pseudoConnectionHandler);
 	}
 
-	private void parseMakeMoveRequest(String message, ConnectionHandler sender) {
+	private void parseMakeMoveRequest(String message, AbstractConnectionHandler sender) {
 		MakeMoveRequest request = gson.fromJson(message, MakeMoveRequest.class);
 		// TODO: Implement make move functionality
+		// MoveController.isMoveValid ? => game.setMove(move, sender.getUser())
 	}
 
-	private void parseWonderSelectRequest(String message, ConnectionHandler sender) {
+	private void parseWonderSelectRequest(String message, AbstractConnectionHandler sender) {
 		SelectWonderRequest request = gson.fromJson(message, SelectWonderRequest.class);
-		// TODO: Implement select wonder functionality
+		sender.getUser().setSelectedWonder(request.wonder);
 	}
 
 	/*
@@ -191,14 +236,14 @@ public class Server implements Runnable, INetworkListener {
 		String[] mockWonders = {"A", "B", "C", "D", "E", "F", "G"};
 
 		// Holds a list of clients want to choose that wonder
-		Map<String, Vector<ConnectionHandler>> wonderCounts = new HashMap<>();
+		Map<String, Vector<AbstractConnectionHandler>> wonderCounts = new HashMap<>();
 
 		// Iterate over all clients and add them to list of clients that want a wonder
-		for (ConnectionHandler connectionHandler : connectionHandlerList) {
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			String wonder = connectionHandler.getUser().getSelectedWonder();
-			Vector<ConnectionHandler> connections = wonderCounts.get(wonder);
+			Vector<AbstractConnectionHandler> connections = wonderCounts.get(wonder);
 			if (connections == null) {
-				connections = new Vector<ConnectionHandler>();
+				connections = new Vector<AbstractConnectionHandler>();
 				connections.add(connectionHandler);
 				wonderCounts.put(wonder, connections);
 			} else {
@@ -207,13 +252,13 @@ public class Server implements Runnable, INetworkListener {
 		}
 
 		// Store which client will have which wonder
-		Map<ConnectionHandler, String> wonderUserMap = new HashMap<>();
+		Map<AbstractConnectionHandler, String> wonderUserMap = new HashMap<>();
 		Vector<String> emptyWonders = new Vector<>();
-		Vector<ConnectionHandler> unassignedUsers = new Vector<>();
+		Vector<AbstractConnectionHandler> unassignedUsers = new Vector<>();
 
 		// Iterate over all wonders and assign clients to wonders if only one client wants that wonder
 		for (String wonder : mockWonders) {
-			Vector<ConnectionHandler> connections = wonderCounts.get(wonder);
+			Vector<AbstractConnectionHandler> connections = wonderCounts.get(wonder);
 			// Store unassigned wonders in emptyWonders
 			if (connections == null) {
 				emptyWonders.add(wonder);
