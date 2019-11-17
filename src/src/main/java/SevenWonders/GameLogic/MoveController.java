@@ -115,7 +115,7 @@ public class MoveController {
         for ( TradeAction trade : trades) {
             RESOURCE_TYPE resource = trade.getSelectedResource();
             if ( clonedResourceMap.containsKey( resource)) {
-                if ( clonedResourceMap.get( resource) <= 0) {
+                if ( clonedResourceMap.get( resource) <= 1) {
                     clonedResourceMap.remove( resource);
                 }
                 else {
