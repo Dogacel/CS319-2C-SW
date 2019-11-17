@@ -70,6 +70,7 @@ public class MoveController {
             }
         }
         /* Check the trade array, check if valid and if valid, reduce gold */
+        //TODO check neighbour cards
         for (TradeAction trade : move.getTrades()) {
             if ( trade.getSelectedResource() == RESOURCE_TYPE.BRICK || trade.getSelectedResource() == RESOURCE_TYPE.ORE ||
                     trade.getSelectedResource() == RESOURCE_TYPE.WOOD || trade.getSelectedResource() == RESOURCE_TYPE.STONE ) {
@@ -108,7 +109,9 @@ public class MoveController {
 
         /*to deep clone a map */
         for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
-            clonedResourceMap.put(entry.getKey(),entry.getValue());
+            if ( entry.getKey() != RESOURCE_TYPE.GOLD) {
+                clonedResourceMap.put(entry.getKey(),entry.getValue());
+            }
         }
 
         /*First assume all the trades, successful trades are a given and will not be checked*/
@@ -186,22 +189,17 @@ public class MoveController {
         Card card = choiceCards.get(begin);
         switch (card.getCardEffect().getEffectType()) {
             case ONE_OF_EACH_MANUFACTURED_GOODS:
-                if (recursive(choiceCards, begin, map, RESOURCE_TYPE.LOOM)) {
-                    return true;
-                } else if (recursive(choiceCards, begin, map, RESOURCE_TYPE.GLASS)) {
-                    return true;
-                } else if (recursive(choiceCards, begin, map, RESOURCE_TYPE.PAPYRUS)) {
+                if (recursive(choiceCards, begin, map, RESOURCE_TYPE.LOOM)
+                        || recursive(choiceCards, begin, map, RESOURCE_TYPE.GLASS)
+                        || recursive(choiceCards, begin, map, RESOURCE_TYPE.PAPYRUS)) {
                     return true;
                 }
                 break;
             case ONE_OF_EACH_RAW_MATERIAL:
-                if (recursive(choiceCards, begin, map, RESOURCE_TYPE.WOOD)) {
-                    return true;
-                } else if (recursive(choiceCards, begin, map, RESOURCE_TYPE.BRICK)) {
-                    return true;
-                } else if (recursive(choiceCards, begin, map, RESOURCE_TYPE.STONE)) {
-                    return true;
-                }else if (recursive(choiceCards, begin, map, RESOURCE_TYPE.ORE)) {
+                if (recursive(choiceCards, begin, map, RESOURCE_TYPE.WOOD)
+                        || recursive(choiceCards, begin, map, RESOURCE_TYPE.BRICK)
+                        || recursive(choiceCards, begin, map, RESOURCE_TYPE.STONE)
+                        || recursive(choiceCards, begin, map, RESOURCE_TYPE.ORE)) {
                     return true;
                 }
                 break;
@@ -278,12 +276,7 @@ public class MoveController {
      * @return true if player can upgrade wonder, false otherwise
      */
     private boolean playerCanBuildWonder(MoveModel moveModel, PlayerModel currentPlayer) {
-        if ( currentPlayer.getWonder().isUpgradeable()) {
-            if ( playerHasEnoughResources( currentPlayer.getWonder().getCurrentStage().getRequiredResources(), currentPlayer, moveModel.getTrades())) {
-                return true;
-            }
-        }
-        return false;
+        return currentPlayer.getWonder().isUpgradeable() && playerHasEnoughResources(currentPlayer.getWonder().getCurrentStage().getRequiredResources(), currentPlayer, moveModel.getTrades());
     }
 
     /* TODO

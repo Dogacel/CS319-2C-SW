@@ -9,7 +9,6 @@ public class Wonder {
     private WonderStage[] stages;
     private int currentStage;
     private God god;
-    private int wonderStageIndex;
 
     public Wonder(int id, String name, RESOURCE_TYPE resource, WonderStage[] stages, God god)
     {
@@ -19,7 +18,6 @@ public class Wonder {
         this.stages = stages;
         this.currentStage = 0;
         this.god = god;
-        this.wonderStageIndex = -1;
     }
 
     public int getId() {
