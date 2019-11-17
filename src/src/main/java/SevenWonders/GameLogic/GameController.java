@@ -1,6 +1,7 @@
 package SevenWonders.GameLogic;
 
 import SevenWonders.AssetManager;
+import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 
 public class GameController {
@@ -49,6 +50,11 @@ public class GameController {
 
         for(int i = 0; i < playerControllers.length; i++){
 
+            int cardCount = 0;
+            PlayerController myPlayerController = playerControllers[i];
+            PlayerController leftPlayerController = playerControllers[(i + 6) % 7];
+            PlayerController rightPlayerController = playerControllers[(i + 1) % 7];
+
             CardEffect effect = AssetManager.getInstance().getCardByID(
                     playerControllers[i].getCurrentMove().getSelectedCardID()).getCardEffect();
 
@@ -60,18 +66,65 @@ public class GameController {
                     playerControllers[i].setGold(effect.getGold() + playerControllers[i].getGold());
                     break;
                 case GET_MONEY_FOR_BROWN_CARD:
-                    //TODO
+                    cardCount = 0;
+                    for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
+                        if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
+                            cardCount++;
+                        }
+                    }
+                    for (Card card : leftPlayerController.getConstructionZone().getConstructedCards()) {
+                        if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
+                            cardCount++;
+                        }
+                    }
+                    for (Card card : rightPlayerController.getConstructionZone().getConstructedCards()) {
+                        if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
+                            cardCount++;
+                        }
+                    }
+                    myPlayerController.setGold(cardCount + myPlayerController.getGold());
                     break;
                 case GET_MONEY_FOR_GRAY_CARD:
-                    //TODO
-                    break;
-                case GET_MONEY_AND_VP_PER_WONDER:
-                    //TODO
+                    cardCount = 0;
+
+                    for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
+                        if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
+                            cardCount++;
+                        }
+                    }
+                    for (Card card : leftPlayerController.getConstructionZone().getConstructedCards()) {
+                        if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
+                            cardCount++;
+                        }
+                    }
+                    for (Card card : rightPlayerController.getConstructionZone().getConstructedCards()) {
+                        if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
+                            cardCount++;
+                        }
+                    }
+                    myPlayerController.setGold( cardCount * 2 + myPlayerController.getGold());
                     break;
                 case GET_MONEY_AND_VP_PER_BROWN:
-                    //TODO
-                    break;
+                    cardCount = 0;
+
+                    for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
+                        if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
+                            cardCount++;
+                        }
+                    }
+
+                    myPlayerController.setGold(cardCount + myPlayerController.getGold());
                 case GET_MONEY_AND_VP_PER_GRAY:
+                    cardCount = 0;
+
+                    for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
+                        if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
+                            cardCount++;
+                        }
+                    }
+                    myPlayerController.setGold( cardCount * 2 + myPlayerController.getGold());
+                    break;
+                case GET_MONEY_AND_VP_PER_WONDER:
                     //TODO
                     break;
                 case GET_MONEY_AND_VP_PER_YELLOW:
