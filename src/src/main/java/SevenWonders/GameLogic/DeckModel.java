@@ -18,8 +18,8 @@ public class DeckModel {
         this.cards = cards;
     }
 
-    public Card[][] getCards()
+    public Card[] getCardsOfAge(int age)
     {
-        return cards;
+        return cards[age];
     }
 }
