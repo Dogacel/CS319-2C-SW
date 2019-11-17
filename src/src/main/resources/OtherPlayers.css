@@ -1,0 +1,19 @@
+#player3{
+    -fx-background-image: url("/ui-images/otherPlayersBabylon.png");
+    -fx-background-radius: 100;
+}
+
+#player4{
+    -fx-background-image: url("/ui-images/otherPlayersBabylon.png");
+    -fx-background-radius: 100;
+}
+
+#player5{
+    -fx-background-image: url("/ui-images/otherPlayersBabylon.png");
+    -fx-background-radius: 100;
+}
+
+#player6{
+    -fx-background-image: url("/ui-images/otherPlayersBabylon.png");
+    -fx-background-radius: 100;
+}
