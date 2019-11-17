@@ -17,3 +17,8 @@
     -fx-background-image: url("/ui-images/otherPlayersBabylon.png");
     -fx-background-radius: 100;
 }
+
+#agePane{
+    -fx-background-color: black;
+}
+
