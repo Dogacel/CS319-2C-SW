@@ -23,8 +23,24 @@ public class MoveController {
     }
 
 
-    public boolean playerCanMakeMove(MoveModel moveModel, PlayerModel currentPlayer) {
-        Card selectedCard = fromIDToCard(moveModel.getSelectedCardID());
+    public boolean playerCanMakeMove(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours) {
+        ACTION_TYPE action = moveModel.getAction();
+        if ( !playerCanMakeTheTrade( moveModel, currentPlayer, neighbours)) {
+            return false;
+        }
+        switch (action) {
+            case DISCARD_CARD:
+                return playerCanDiscardCard( moveModel, currentPlayer);
+            case BUILD_CARD:
+                return playerCanPlayBuildCard(moveModel, currentPlayer);
+            case UPGRADE_WONDER:
+                return playerCanBuildWonder(moveModel, currentPlayer);
+            case USE_GOD_POWER:
+                //TODO add god power here
+                break;
+            default: break;
+        }
+        return false;
     }
 
     private boolean playerCanMakeTheTrade( MoveModel move, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours) {
@@ -87,7 +103,7 @@ public class MoveController {
         return true;
     }
 
-    private boolean playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, ArrayList<TradeAction> trades) {
+    private boolean playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades) {
         Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
 
         /*to deep clone a map */
@@ -108,7 +124,6 @@ public class MoveController {
                 }
             }
         }
-
         // If the trades were enough, just return true
         if ( clonedResourceMap.isEmpty()) {
             return true;
@@ -227,24 +242,48 @@ public class MoveController {
         return false;
     }
 
-    private boolean playerCanBuild(MoveModel moveModel, PlayerModel currentPlayer) {
-
+    private boolean checkConstructionZone(MoveModel moveModel, PlayerModel currentPlayer) {
+        for ( Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
+            if ( card.getId() == moveModel.getSelectedCardID()) {
+                return false;
+            }
+        }
+        return true;
     }
 
+    /**
+     * check if a player can build a card
+     * @param moveModel current move
+     * @param currentPlayer curren player
+     * @return true if player can build a card, false otherwise
+     */
     private boolean playerCanPlayBuildCard(MoveModel moveModel, PlayerModel currentPlayer) {
-
+         return checkConstructionZone( moveModel, currentPlayer) && playerHasEnoughResources( fromIDToCard(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades());
     }
 
+    /**
+     * Checks if the player can discard their selected cards
+     * @param moveModel current move
+     * @param currentPlayer current player
+     * @return true if player can discard, false otherwise
+     */
     private boolean playerCanDiscardCard(MoveModel moveModel, PlayerModel currentPlayer) {
-
+        return currentPlayer.getHand().contains(fromIDToCard(moveModel.getSelectedCardID()));
     }
 
-    private boolean playerCanBuildWonder(MoveModel moveModel, PlayerModel currentPlayer,Pair<PlayerModel, PlayerModel> neighbours) {
-        WonderStage currentStage = currentPlayer.getWonder().getCurrentStage(); //current stage of the wonder
-        Card selectedCard = fromIDToCard(moveModel.getSelectedCardID());
-        ConstructionZone currentCZ = currentPlayer.getConstructionZone();
-        Vector<Card> constructedCards = currentCZ.getConstructedCards();
-
+    /**
+     * Checks if player can upgrade their wonders
+     * @param moveModel current move
+     * @param currentPlayer current player
+     * @return true if player can upgrade wonder, false otherwise
+     */
+    private boolean playerCanBuildWonder(MoveModel moveModel, PlayerModel currentPlayer) {
+        if ( currentPlayer.getWonder().isUpgradeable()) {
+            if ( playerHasEnoughResources( currentPlayer.getWonder().getCurrentStage().getRequiredResources(), currentPlayer, moveModel.getTrades())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /* TODO
