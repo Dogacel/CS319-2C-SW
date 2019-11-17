@@ -12,7 +12,7 @@ public class PlayerModel {
     private int       id;
     private String    name;
     private int       gold;
-    private Card[]    hand;
+    private Vector<Card>    hand;
     private Wonder    wonder;
     private int       warPoints;
     private boolean   isReady;
@@ -49,7 +49,7 @@ public class PlayerModel {
 
     public MoveModel getCurrentMove() { return currentMove; }
 
-    public Card[] getHand() { return hand; }
+    public Vector<Card> getHand() { return hand; }
 
     public ConstructionZone getConstructionZone() { return constructionZone; }
 
@@ -63,7 +63,7 @@ public class PlayerModel {
 
     public void setCurrentMove(MoveModel currentMove) { this.currentMove = currentMove; }
 
-    public void setHand(Card[] hand) { this.hand = hand; }
+    public void setHand(Vector<Card> hand) { this.hand = hand; }
 
     public void addHero(String name, HERO_EFFECT_TYPE effect) {
 
