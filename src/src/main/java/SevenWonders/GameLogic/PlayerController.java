@@ -79,10 +79,9 @@ public class PlayerController {
 
     public void setGold(int gold){ player.setGold(gold); }
 
+    public ConstructionZone getConstructionZone() { return player.getConstructionZone(); }
+
     public int getGold(){ return player.getGold(); }
 
     public int getShields() { return player.getShields(); }
-
-
-
 }

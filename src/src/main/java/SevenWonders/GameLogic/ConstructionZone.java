@@ -36,4 +36,6 @@ public class ConstructionZone {
     {
         constructedCards.add(card);
     }
+
+    public Vector<Card> getConstructedCards(){ return constructedCards; }
 }
