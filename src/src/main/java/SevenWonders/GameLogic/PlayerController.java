@@ -2,6 +2,9 @@ package SevenWonders.GameLogic;
 
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
+import com.sun.javafx.geom.Vec2d;
+
+import java.util.Vector;
 
 public class PlayerController {
     private final int NO_OF_PLAYERS = 7;
@@ -79,9 +82,13 @@ public class PlayerController {
 
     public void setGold(int gold){ player.setGold(gold); }
 
+    public void setHand(Vector<Card> hand) { player.setHand(hand);}
+
     public ConstructionZone getConstructionZone() { return player.getConstructionZone(); }
 
-    public Wonder getWonder() { return getWonder(); }
+    public Wonder getWonder() { return player.getWonder(); }
+
+    public Vector<Card> getHand() { return player.getHand(); }
 
     public int getGold(){ return player.getGold(); }
 

@@ -4,6 +4,8 @@ import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 
+import java.util.Vector;
+
 public class GameController {
     private final int MAX_NO_OF_PLAYERS = 7;
 
@@ -44,12 +46,13 @@ public class GameController {
 
     public void makeMoves()
     {
-        for(int i = 0; i < playerControllers.length; i++ ) {
-            playerControllers[i].makeMove();
+        for (PlayerController playerController : playerControllers) {
+            playerController.makeMove();
         }
 
         for(int i = 0; i < playerControllers.length; i++){
-
+            //Check for possible updates in gold and shields of the player because of the played card
+            //Done using the move of the player, therefore the move is not deleted until the updates are performed
             int cardCount = 0;
             PlayerController myPlayerController = playerControllers[i];
             PlayerController leftPlayerController = playerControllers[(i + 6) % 7];
@@ -143,6 +146,8 @@ public class GameController {
 
             playerControllers[i].updateCurrentMove(null); //Clear the players move
         }
+        //TODO if age is over with this turn, do not shift cards and discard the last card
+        shiftCards();
 
     }
 
@@ -150,9 +155,30 @@ public class GameController {
         discardPileController.discardCard(card);
     }
 
-    public boolean shiftCardsRight()
+    private void shiftCards()
     {
-        //TODO Might not need this method, instead perform shift in GameController?
-        return model.getCurrentAge() == 2;
+        Vector<Card> tmp, tmp1; //Used for shifting purposes
+        tmp = playerControllers[0].getHand();
+
+        if (model.getCurrentAge() == 2 ) //If Age is 2, shift cards right
+        {
+            for( int i = 0; i < playerControllers.length; i++){
+                PlayerController myPlayerController = playerControllers[i];
+                PlayerController rightPlayerController = playerControllers[(i + 1) % 7];
+
+                tmp1 = rightPlayerController.getHand();
+                rightPlayerController.setHand(tmp);
+                tmp = tmp1;
+            }
+        }
+        else{ //If Age is not 2, shift cards left
+            for( int i = 0; i < playerControllers.length; i++){
+                PlayerController myPlayerController = playerControllers[i];
+                PlayerController rightPlayerController = playerControllers[(i + 1) % 7];
+
+                myPlayerController.setHand(rightPlayerController.getHand());
+            }
+            playerControllers[0].setHand(tmp);
+        }
     }
 }
