@@ -70,6 +70,16 @@ public class Client implements INetworkListener {
 		// TODO: Change view to game-play view
 	}
 
+	public void sendMakeMoveRequest(MoveModel move) {
+		MakeMoveRequest request = MakeMoveRequest.of(move);
+		sendRequest(request);
+	}
+
+	public void sendPlayerReadyRequest(boolean ready) {
+		PlayerReadyRequest request = PlayerReadyRequest.of(ready);
+		sendRequest(request);
+	}
+
 	private void onUpdateGameStateRequest(String message) {
 		UpdateGameStateRequest request = gson.fromJson(message, UpdateGameStateRequest.class);
 		// TODO: Implement interaction between UI and Client
@@ -77,11 +87,6 @@ public class Client implements INetworkListener {
 
 	public void sendGetReadyRequest(boolean ready) {
 		GetReadyRequest request = GetReadyRequest.of(ready);
-		sendRequest(request);
-	}
-
-	public void sendMakeMoveRequest(MoveModel move) {
-		MakeMoveRequest request = MakeMoveRequest.of(move);
 		sendRequest(request);
 	}
 

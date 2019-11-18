@@ -135,16 +135,28 @@ public class Server implements Runnable, INetworkListener {
 			case MAKE_MOVE:
 				parseMakeMoveRequest(message, sender);
 				break;
+			case PLAYER_READY:
+				parsePlayerReadyRequest(message, sender);
+				break;
 			default:
 				throw new UnsupportedOperationException();
 		}
 	}
+
 
 	private void sendLobbyUpdateRequests() {
 		LobbyUpdateRequest request = LobbyUpdateRequest.of(connectionHandlerList);
 		for (AbstractConnectionHandler handler : connectionHandlerList) {
 			sendRequest(request, handler);
 		}
+	}
+
+	private void parsePlayerReadyRequest(String message, AbstractConnectionHandler sender) {
+		PlayerReadyRequest request = gson.fromJson(message, PlayerReadyRequest.class);
+		
+		// TODO: GameController set player ready here
+
+		sendUpdateGameStateRequests();
 	}
 
 	private void sendUpdateGameStateRequests() {
