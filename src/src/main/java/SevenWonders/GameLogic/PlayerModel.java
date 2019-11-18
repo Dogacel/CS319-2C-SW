@@ -16,6 +16,7 @@ public class PlayerModel {
     private Wonder       wonder;
     private int          shields;
     private int          warPoints;
+    private int          lostWarNumber;
     private boolean      isReady;
     private MoveModel    currentMove;
     private Vector<Hero> heroes;
@@ -28,6 +29,7 @@ public class PlayerModel {
 
         this.wonder = wonder;
         this.warPoints = 0;
+        this.lostWarNumber = 0;
         this.isReady = false;
 
         this.hand = new Vector<>();
@@ -47,6 +49,8 @@ public class PlayerModel {
 
     public int getWarPoints() { return warPoints; }
 
+    public int getLostWarNumber() { return lostWarNumber; }
+
     public boolean isReady() { return isReady; }
 
     public MoveModel getCurrentMove() { return currentMove; }
@@ -62,6 +66,8 @@ public class PlayerModel {
     public void setGold(int gold) { this.gold = gold; }
 
     public void setWarPoints(int warPoints) { this.warPoints = warPoints; }
+
+    public void setLostWarNumber(int lostWarNumber) { this.lostWarNumber = lostWarNumber; }
 
     public void setReady(boolean ready) { isReady = ready; }
 

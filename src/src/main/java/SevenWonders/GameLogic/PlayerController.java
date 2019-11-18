@@ -85,6 +85,10 @@ public class PlayerController {
 
     public void setReady(boolean ready) { player.setReady(ready);}
 
+    public void setWarPoints(int warPoints) { player.setWarPoints(warPoints); }
+
+    public void setLostWarNumber(int lostWarNumber) { player.setLostWarNumber(lostWarNumber); }
+
     public ConstructionZone getConstructionZone() { return player.getConstructionZone(); }
 
     public Wonder getWonder() { return player.getWonder(); }
@@ -96,6 +100,10 @@ public class PlayerController {
     public int getGold(){ return player.getGold(); }
 
     public int getShields() { return player.getShields(); }
+
+    public int getWarPoints() { return player.getWarPoints(); }
+
+    public int getLostWarNumber() { return player.getLostWarNumber(); }
 
     public int getId() {
         return player.getId();
