@@ -19,11 +19,6 @@ public class AssetManager {
     Map<String, Image> imageMap;
     Map<String, Parent> sceneMap;
 
-    //constructor
-    private AssetManager() {
-
-    }
-
     //methods
 
     public void initialize() {
@@ -42,8 +37,6 @@ public class AssetManager {
             managerInstance = new AssetManager();
             managerInstance.initialize();
         }
-
-
         return managerInstance;
     }
 

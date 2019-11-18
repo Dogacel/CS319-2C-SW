@@ -20,7 +20,7 @@ public class SceneManager {
         return instance;
     }
 
-    public void changeScene(String sceneName) throws IOException {
+    public void changeScene(String sceneName) {
 
         Parent root = AssetManager.getInstance().getSceneByName(sceneName);
         Scene scene = stage.getScene();

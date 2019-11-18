@@ -32,16 +32,16 @@ public class GameplayController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Pane newLoadedPane =  (Pane) AssetManager.getInstance().getSceneByNameForce("PlayerView.fxml");
-        Pane newLoadedPane2 =  (Pane) AssetManager.getInstance().getSceneByNameForce("RightNeighborView.fxml");
-        Pane newLoadedPane3 = (Pane) AssetManager.getInstance().getSceneByNameForce("OtherPlayersView.fxml");
-        Pane newLoadedPane4 = (Pane) AssetManager.getInstance().getSceneByNameForce("CardView.fxml");
-        Pane newLoadedPane5 = (Pane) AssetManager.getInstance().getSceneByNameForce("LeftNeighborView.fxml");
-        this.neighborViewRightPane.getChildren().add(newLoadedPane2);
-        this.neighborViewLeftPane.getChildren().add(newLoadedPane5);
-        this.playerViewPane.getChildren().add(newLoadedPane);
-        this.otherPlayersViewPane.getChildren().add( newLoadedPane3);
-        this.cardViewPane.getChildren().add( newLoadedPane4);
+        Pane playerPane =  (Pane) AssetManager.getInstance().getSceneByNameForce("PlayerView.fxml");
+        Pane rightNeighborPane =  (Pane) AssetManager.getInstance().getSceneByNameForce("RightNeighborView.fxml");
+        Pane otherPlayersPane = (Pane) AssetManager.getInstance().getSceneByNameForce("OtherPlayersView.fxml");
+        Pane cardPane = (Pane) AssetManager.getInstance().getSceneByNameForce("CardView.fxml");
+        Pane leftNeighborPane = (Pane) AssetManager.getInstance().getSceneByNameForce("LeftNeighborView.fxml");
+        this.neighborViewRightPane.getChildren().add(playerPane);
+        this.neighborViewLeftPane.getChildren().add(rightNeighborPane);
+        this.playerViewPane.getChildren().add(otherPlayersPane);
+        this.otherPlayersViewPane.getChildren().add(cardPane);
+        this.cardViewPane.getChildren().add(leftNeighborPane);
     }
 
 }
