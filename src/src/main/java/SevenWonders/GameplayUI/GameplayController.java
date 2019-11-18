@@ -1,6 +1,7 @@
 package SevenWonders.GameplayUI;
 
 import SevenWonders.AssetManager;
+import SevenWonders.Network.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
@@ -10,6 +11,8 @@ import java.util.ResourceBundle;
 
 public class GameplayController implements Initializable{
     GameplayModel model;
+
+    Client client;
 
     @FXML
     Pane playerViewPane;
@@ -33,15 +36,23 @@ public class GameplayController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Pane playerPane =  (Pane) AssetManager.getInstance().getSceneByNameForce("PlayerView.fxml");
+        this.playerViewPane.getChildren().add(playerPane);
+
         Pane rightNeighborPane =  (Pane) AssetManager.getInstance().getSceneByNameForce("RightNeighborView.fxml");
+        this.neighborViewRightPane.getChildren().add(rightNeighborPane);
+
         Pane otherPlayersPane = (Pane) AssetManager.getInstance().getSceneByNameForce("OtherPlayersView.fxml");
+        this.otherPlayersViewPane.getChildren().add(otherPlayersPane);
+
         Pane cardPane = (Pane) AssetManager.getInstance().getSceneByNameForce("CardView.fxml");
+        this.cardViewPane.getChildren().add(cardPane);
+
         Pane leftNeighborPane = (Pane) AssetManager.getInstance().getSceneByNameForce("LeftNeighborView.fxml");
-        this.neighborViewRightPane.getChildren().add(playerPane);
-        this.neighborViewLeftPane.getChildren().add(rightNeighborPane);
-        this.playerViewPane.getChildren().add(otherPlayersPane);
-        this.otherPlayersViewPane.getChildren().add(cardPane);
-        this.cardViewPane.getChildren().add(leftNeighborPane);
+        this.neighborViewLeftPane.getChildren().add(leftNeighborPane);
+    }
+
+    public void setClient(Client client){
+        this.client = client;
     }
 
 }
