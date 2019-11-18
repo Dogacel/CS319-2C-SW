@@ -1,0 +1,9 @@
+.fill-btn {
+	-fx-background-image: url('ui-images/button.png');
+	-fx-background-size: cover;
+}
+
+.kick-button {
+	-fx-background-image: url('ui-images/kick.png');
+	-fx-background-size: 35px;
+}
