@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 public class MainMenuController implements Initializable{
@@ -22,34 +23,34 @@ public class MainMenuController implements Initializable{
     Button exitButton;
 
     @FXML
-    public void playButtonPressed( ActionEvent event) {
+    public void playButtonPressed( MouseEvent event) {
     }
     @FXML
-    public void playButtonReleased( ActionEvent event) {
+    public void playButtonReleased( MouseEvent event) {
         SceneManager.getInstance().changeScene("PlayMenu.fxml");
     }
     @FXML
-    public void settingsButtonPressed( ActionEvent event) {
+    public void settingsButtonPressed( MouseEvent event) {
 
     }
     @FXML
-    public void settingsButtonReleased( ActionEvent event) {
+    public void settingsButtonReleased( MouseEvent event) {
         SceneManager.getInstance().changeScene("Settings.fxml");
     }
     @FXML
-    public void tutorialButtonPressed( ActionEvent event) {
+    public void tutorialButtonPressed( MouseEvent event) {
 
     }
     @FXML
-    public void tutorialButtonReleased( ActionEvent event) {
+    public void tutorialButtonReleased( MouseEvent event) {
         SceneManager.getInstance().changeScene("Settings.fxml"); //TODO add tutorial
     }
     @FXML
-    public void exitButtonPressed( ActionEvent event) {
+    public void exitButtonPressed( MouseEvent event) {
 
     }
     @FXML
-    public void exitButtonReleased( ActionEvent event) {
+    public void exitButtonReleased( MouseEvent event) {
         Platform.exit();
         System.exit(0);
     }
