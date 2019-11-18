@@ -58,6 +58,7 @@ public class GameController {
             //TODO WarPoints system is due to change, change this also
             int winPoint = 0;
             int totalPoints = 0;
+            int totalLosses = 0;
             PlayerController myPlayerController = playerControllers[i];
             PlayerController leftPlayerController = playerControllers[(i + 6) % 7];
             PlayerController rightPlayerController = playerControllers[(i + 1) % 7];
@@ -82,12 +83,15 @@ public class GameController {
             }
             if( myPlayerController.getShields() < leftPlayerController.getShields()){ //Left defeats player
                 totalPoints -= 1;
+                totalLosses += 1;
             }
             if( myPlayerController.getShields() < rightPlayerController.getShields()){ //Right defeats player
                 totalPoints -= 1;
+                totalLosses += 1;
             }
 
-            //TODO myPlayerController.setWarPoints( myPlayerController.getWarPoints() + totalPoints);
+            myPlayerController.setWarPoints(myPlayerController.getWarPoints() + totalPoints);
+            myPlayerController.setLostWarNumber(myPlayerController.getLostWarNumber() + totalLosses);
         }
     }
 

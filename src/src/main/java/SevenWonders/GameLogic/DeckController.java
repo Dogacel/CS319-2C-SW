@@ -54,7 +54,8 @@ public class DeckController {
             }
         }
         //Creating the deck
-        File ageFile = new File(cardResourcesURL.getPath() + "/age_mapping.json");
+        URL ageFileResourceURL = getClass().getClassLoader().getResource("age_mapping.json");
+        File ageFile = new File(ageFileResourceURL.getPath());
         try {
             FileReader fileReader = new FileReader(ageFile.getAbsolutePath());
             BufferedReader reader = new BufferedReader(fileReader);
