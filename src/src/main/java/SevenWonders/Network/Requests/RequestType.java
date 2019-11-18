@@ -12,6 +12,7 @@ public enum RequestType {
 
     // Server to client
     UPDATE_GAME_STATE,
+    UPDATE_LOBBY,
     END_TURN,
     END_AGE,
     END_GAME,

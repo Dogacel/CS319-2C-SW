@@ -11,7 +11,7 @@ public class LobbyUpdateRequest extends Request {
 
     public static LobbyUpdateRequest of(Vector<AbstractConnectionHandler> handlers) {
         LobbyUpdateRequest lobbyUpdateRequest = new LobbyUpdateRequest();
-
+        lobbyUpdateRequest.requestType = RequestType.UPDATE_LOBBY;
         lobbyUpdateRequest.users = new User[handlers.size()];
         int count = 0;
         for (AbstractConnectionHandler handler : handlers) {
