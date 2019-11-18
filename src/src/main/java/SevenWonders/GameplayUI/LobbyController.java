@@ -95,7 +95,7 @@ public class LobbyController implements Initializable, ILobbyListener {
     @FXML
     public void backButtonPressed(MouseEvent event)
     {
-        SceneManager.getInstance().changeScene("MainMenu.fxml");
+        SceneManager.getInstance().changeScene("GameplayView.fxml");
     }
 
     @Override
