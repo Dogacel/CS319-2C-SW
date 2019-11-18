@@ -13,8 +13,8 @@ import java.util.Objects;
 import java.util.Random;
 
 public class DeckController {
-    final int NUMBER_OF_AGES = 3;
-    final int CARDS_PER_AGE = 49;
+    static final int NUMBER_OF_AGES = 3;
+    static final int CARDS_PER_AGE = 49;
 
     private DeckModel deckModel;
     private Map<Integer, Card> cardMap;
@@ -58,8 +58,9 @@ public class DeckController {
         try {
             FileReader fileReader = new FileReader(ageFile.getAbsolutePath());
             BufferedReader reader = new BufferedReader(fileReader);
+            int[][] arr = gson.fromJson(reader, int[][].class);
+
             for(int i = 0; i < 3; i++){
-                int[][] arr = gson.fromJson(reader, int[][].class);
                 for(int j = 0; j < arr[i].length; j++){
                     cards[i][j] = cardMap.get(arr[i][j]);
                 }

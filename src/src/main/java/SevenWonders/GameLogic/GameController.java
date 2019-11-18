@@ -35,7 +35,6 @@ public class GameController {
     }
 
     public void updateCurrentMove(int playerID, MoveModel move){
-
         playerControllers[playerID].updateCurrentMove(move);
     }
 
@@ -48,7 +47,7 @@ public class GameController {
 
             model.incrementCurrentTurn();
         }
-        if ( model.getCurrentAge() == 7) {
+        else{
             model.incrementCurrentAge();
             playEndOfAge();
         }
@@ -218,7 +217,7 @@ public class GameController {
 
                 myPlayerController.setHand(rightPlayerController.getHand());
             }
-            playerControllers[0].setHand(tmp);
+            playerControllers[playerControllers.length-1].setHand(tmp);
         }
     }
 
