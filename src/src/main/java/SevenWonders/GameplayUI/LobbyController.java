@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -39,6 +40,9 @@ public class LobbyController implements Initializable, ILobbyListener {
     public Button kickButton6;
     @FXML
     public Button kickButton7;
+
+    @FXML
+    public Label player1, player2, player3, player4, player5, player6, player7;
 
     public LobbyController()
     {
@@ -103,6 +107,7 @@ public class LobbyController implements Initializable, ILobbyListener {
 
         Platform.runLater(() -> {
             Client.getInstance().setLobbyListener(this);
+            Client.getInstance().sendGetReadyRequest(false);
         });
 //        if (!Client.getInstance().getInstance().getUser().isAdmin()) {
 //            // Set kick buttons visible
@@ -118,7 +123,24 @@ public class LobbyController implements Initializable, ILobbyListener {
 
     @Override
     public void onUpdateLobbyRequest(LobbyUpdateRequest request) {
-        userList = request.users;
+        Platform.runLater(() -> {
+            // TODO: Make an array
+            userList = request.users;
+            if (userList[0] != null)
+                player1.setText(userList[0].getUsername());
+            if (userList[1] != null)
+                player2.setText(userList[1].getUsername());
+            if (userList[2] != null)
+                player3.setText(userList[2].getUsername());
+            if (userList[3] != null)
+                player4.setText(userList[3].getUsername());
+            if (userList[4] != null)
+                player5.setText(userList[4].getUsername());
+            if (userList[5] != null)
+                player6.setText(userList[5].getUsername());
+            if (userList[6] != null)
+                player7.setText(userList[6].getUsername());
+        });
     }
 
     @Override

@@ -30,6 +30,7 @@ public class PlayMenuController implements  Initializable{
 
         Client.createClientInstance (ipInputField.getText(), 8080, nameInputField.getText());
         Client.getInstance().sendConnectRequest( nameInputField.getText());
+        Client.getInstance().makeAdmin();
         SceneManager.getInstance().changeScene("Lobby.fxml");
     }
     @FXML
