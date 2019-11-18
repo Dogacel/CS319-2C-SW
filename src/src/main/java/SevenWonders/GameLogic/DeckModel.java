@@ -13,7 +13,7 @@ public class DeckModel {
         cards = new Card[NUMBER_OF_AGES][CARDS_PER_AGE];
     }
 
-    private void setCards(Card[][] cards)
+    public void setCards(Card[][] cards)
     {
         this.cards = cards;
     }
