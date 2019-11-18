@@ -1,7 +1,4 @@
-package SevenWonders.userinterface.controller;
-
-import SevenWonders.userinterface.model.LobbyModel;
-import SevenWonders.userinterface.view.LobbyView;
+package SevenWonders.GameplayUI;
 
 public class LobbyController {
     private LobbyModel model;
