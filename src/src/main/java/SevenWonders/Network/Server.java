@@ -22,6 +22,17 @@ public class Server implements Runnable, INetworkListener {
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+	private static Server serverInstance;
+
+	public static Server createServerInstance() {
+		serverInstance = new Server();
+		return serverInstance;
+	}
+
+	public static Server getInstance() {
+		return serverInstance;
+	}
+
 	private Vector<AbstractConnectionHandler> connectionHandlerList;
 	private ServerSocket serverSocket;
 	private Thread worker;
