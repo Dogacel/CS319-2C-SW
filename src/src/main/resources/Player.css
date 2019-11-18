@@ -1,0 +1,49 @@
+#anchor{
+    -fx-background-image: url('ui-images/babylonwonderbar.png');
+}
+#readyButton{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: #828282;
+}
+
+#builtWonderButton{
+    -fx-background-image: url('ui-images/builtWonderButton.png');
+    -fx-background-radius: 100;
+}
+
+#builtCardButton{
+    -fx-background-image: url('ui-images/builtCardButton.png');
+    -fx-background-radius: 100;
+}
+
+#discardCardButton{
+    -fx-background-image: url('ui-images/discardCardButton.png');
+    -fx-background-radius: 100;
+}
+
+#godPowerButton{
+    -fx-background-image: url('ui-images/godPowerButton.png');
+    -fx-background-radius: 100;
+}
+
+#readyButton{
+    -fx-background-image: url('ui-images/tokens/ready.png');
+}
+
+#exitButton{
+    -fx-background-image: url('ui-images/exitButton.png');
+    -fx-background-color: transparent;
+}
+
+#settingsButton{
+    -fx-background-image: url('ui-images/settingsButton.png');
+    -fx-background-color: transparent;
+}
+
+#tutorialButton{
+    -fx-background-image: url('ui-images/tutorialButton.png');
+    -fx-background-color: transparent;
+}

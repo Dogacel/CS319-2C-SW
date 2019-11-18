@@ -19,14 +19,14 @@ public class AssetManager {
     Map<String, Image> imageMap;
     Map<String, Parent> sceneMap;
 
-    //constructor
-    private AssetManager() {
+    //methods
+
+    public void initialize() {
         imageMap = new HashMap<>();
         sceneMap = new HashMap<>();
         loadImages();
+        loadScenes();
     }
-
-    //methods
 
     /**
      * Static method to create a AssetManager instance
@@ -35,6 +35,7 @@ public class AssetManager {
     public static AssetManager getInstance() {
         if ( managerInstance == null) {
             managerInstance = new AssetManager();
+            managerInstance.initialize();
         }
         return managerInstance;
     }
@@ -61,7 +62,7 @@ public class AssetManager {
         File dir = new File(imageResourcesURL.getPath());
 
         for (File f : Objects.requireNonNull(dir.listFiles())) {
-            if( f.getName().matches(".*(\\.(png|jpg|jpeg))"))
+            if( f.getName().matches(".*(\\.(png|jpg|jpeg))") && !imageMap.containsKey(f.getName()))
                 imageMap.put(f.getName(), new Image("ui-images/" + f.getName()));
         }
     }
@@ -72,10 +73,10 @@ public class AssetManager {
         File dir = new File(sceneResourcesURL.getPath());
 
         for( File f : Objects.requireNonNull(dir.listFiles())) {
-            if( f.getName().endsWith(".fxml"))
+            if( f.getName().endsWith(".fxml") && !sceneMap.containsKey(f.getName()))
             {
                 try {
-                    sceneMap.put(f.getName(), FXMLLoader.load(getClass().getResource("fxml-scenes/" + f.getName())));
+                    sceneMap.put(f.getName(), FXMLLoader.load(getClass().getClassLoader().getResource("fxml-scenes/" + f.getName())));
                 }
                 catch ( IOException e){
                     e.printStackTrace();
@@ -86,5 +87,14 @@ public class AssetManager {
 
     public Parent getSceneByName(String sceneName) {
         return sceneMap.get(sceneName);
+    }
+
+    public Parent getSceneByNameForce(String sceneName) {
+        try {
+           return FXMLLoader.load(getClass().getClassLoader().getResource("fxml-scenes/" + sceneName));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
