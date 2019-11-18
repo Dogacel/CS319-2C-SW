@@ -25,9 +25,9 @@
          <children>
             <Label text="Label" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
             <Button id="player3" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-            <Button id="player4" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" text="Button" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-            <Button id="player5" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" text="Button" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-            <Button id="player6" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" text="Button" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+            <Button id="player5" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+            <Button id="player4" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+            <Button id="player6" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
             <Label text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
             <Label text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
             <Label text="Label" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
