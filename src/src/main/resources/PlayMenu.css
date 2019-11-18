@@ -1,0 +1,23 @@
+#playButton {
+    -fx-background-color: transparent;
+}
+
+#settingsButton {
+    -fx-background-color: transparent;
+}
+
+#tutorialButton {
+    -fx-background-color: transparent;
+}
+
+#exitButton {
+    -fx-background-color: transparent;
+}
+
+#playMenuGridPane {
+    -fx-background-image: url('ui-images/blackBar.png');
+}
+
+#anchor {
+    -fx-background-image: url('ui-images/background.jpg');
+}

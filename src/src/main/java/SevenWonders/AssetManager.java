@@ -37,7 +37,7 @@ public class AssetManager {
         loadImages();
         // loadScenes();
         loadCards();
-        loadWonders();
+        //loadWonders();
     }
 
     /**
@@ -117,8 +117,8 @@ public class AssetManager {
         }
     }
 
+    /*
     private void loadWonders(){
-
         URL wonderResourcesURL = getClass().getClassLoader().getResource("wonders");
         assert wonderResourcesURL != null;
         File dir = new File(wonderResourcesURL.getPath());
@@ -135,7 +135,7 @@ public class AssetManager {
                 }
             }
         }
-    }
+    }*/
 
     public Card[][] mapDeck() {
         //Creating the deck
