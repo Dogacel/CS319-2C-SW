@@ -1,0 +1,15 @@
+#mainMenuGridPane {
+    -fx-background-image: url('ui-images/black.png');
+}
+#playButton {
+    -fx-background-image: url('ui-images/button.png');
+}
+#settingsButton {
+    -fx-background-image: url('ui-images/button.png');
+}
+#tutorialButton {
+    -fx-background-image: url('ui-images/button.png');
+}
+#exitButton {
+    -fx-background-image: url('ui-images/button.png');
+}
