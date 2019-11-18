@@ -6,7 +6,8 @@ import javafx.stage.Stage;
 public class TestApplication extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage){
+        SceneManager.getInstance().changeScene("GameplayView.fxml");
         SceneManager.getInstance().show();
     }
 

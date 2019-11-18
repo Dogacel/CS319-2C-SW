@@ -1,0 +1,34 @@
+#player3{
+    -fx-background-image: url("/ui-images/otherPlayerHangingGardens.png");
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+#player4{
+    -fx-background-image: url("/ui-images/otherPlayerHangingGardens.png");
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+#player5{
+    -fx-background-image: url("/ui-images/otherPlayerHangingGardens.png");
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+#player6{
+    -fx-background-image: url("/ui-images/otherPlayerHangingGardens.png");
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+#borderPane{
+    -fx-background-image: url("/ui-images/ageImage.png");
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+#detailAnchor{
+    -fx-background-image: url("/ui-images/detailBg.png");
+}
+

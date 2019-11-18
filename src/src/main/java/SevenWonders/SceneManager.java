@@ -1,7 +1,9 @@
 package SevenWonders;
 
+import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,7 +20,7 @@ public class SceneManager {
         return instance;
     }
 
-    private void changeScene(String sceneName) throws IOException {
+    public void changeScene(String sceneName) {
 
         Parent root = AssetManager.getInstance().getSceneByName(sceneName);
         Scene scene = stage.getScene();
@@ -28,6 +30,8 @@ public class SceneManager {
         } else {
             scene.setRoot(root);
         }
+       Image image = new Image("ui-images/tokens/arrow.png");
+       scene.setCursor(new ImageCursor(image));
     }
 
     public void actOnExit() {
