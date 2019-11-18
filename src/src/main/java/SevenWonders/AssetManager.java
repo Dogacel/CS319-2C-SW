@@ -76,7 +76,7 @@ public class AssetManager {
             if( f.getName().endsWith(".fxml") && !sceneMap.containsKey(f.getName()))
             {
                 try {
-                    sceneMap.put(f.getName(), FXMLLoader.load(getClass().getClassLoader().getResource("fxml-scenes/" + f.getName())));
+                    sceneMap.put(f.getName(), FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml-scenes/" + f.getName()))));
                 }
                 catch ( IOException e){
                     e.printStackTrace();
@@ -91,7 +91,7 @@ public class AssetManager {
 
     public Parent getSceneByNameForce(String sceneName) {
         try {
-           return FXMLLoader.load(getClass().getClassLoader().getResource("fxml-scenes/" + sceneName));
+           return FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml-scenes/" + sceneName)));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
