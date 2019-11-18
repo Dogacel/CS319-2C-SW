@@ -1,67 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="640.0" stylesheets="@../WonderSelectionView.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.WonderSelectionViewController">
    <children>
-      <Pane layoutX="10.0" layoutY="35.0" prefHeight="270.0" prefWidth="620.0" stylesheets="@../WonderSelectionView.css">
+      <Pane id="pane" layoutY="35.0" prefHeight="290.0" prefWidth="640.0" stylesheets="@../WonderSelectionView.css">
          <children>
-            <HBox prefHeight="113.0" prefWidth="620.0">
+            <HBox layoutX="10.0" layoutY="20.0" prefHeight="113.0" prefWidth="620.0" spacing="5.0" stylesheets="@../WonderSelectionView.css">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="artemis" fitHeight="100.0" fitWidth="155.0" onMouseClicked="#artemisPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../ui-images/statueOfZeus.jpg" />
+                        <Image url="@../ui-images/artemisWonderSelect.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="100.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="colossus" fitHeight="100.0" fitWidth="155.0" onMouseClicked="#colossusPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../ui-images/colossusOfRhodes.jpg" />
+                        <Image url="@../ui-images/colossusWonderSelect.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="100.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="ghiza" fitHeight="100.0" fitWidth="155.0" onMouseClicked="#ghizaPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../ui-images/greatPyramidOfGhiza.jpg" />
+                        <Image url="@../ui-images/ghizaWonderSelect.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="100.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="babylon" fitHeight="100.0" fitWidth="155.0" onMouseClicked="#babylonPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../ui-images/babylon.jpg" />
-                     </image></ImageView>
-                  <RadioButton mnemonicParsing="false" text="RadioButton" />
-               </children>
-            </HBox>
-            <HBox layoutY="100.0" prefHeight="18.0" prefWidth="620.0">
-               <children>
-                  <Label contentDisplay="CENTER" prefWidth="155.0" text="Name" wrapText="true" />
-                  <Label contentDisplay="CENTER" prefWidth="155.0" text="Name" wrapText="true" />
-                  <Label contentDisplay="CENTER" prefHeight="20.0" prefWidth="155.0" text="Name" wrapText="true" />
-                  <Label contentDisplay="CENTER" prefWidth="155.0" text="Name" wrapText="true" />
-               </children>
-            </HBox>
-            <HBox layoutX="77.0" layoutY="130.0" prefHeight="100.0" prefWidth="465.0">
-               <children>
-                  <ImageView fitHeight="100.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../ui-images/mausoleumAtHalicarnassus.jpg" />
-                     </image></ImageView>
-                  <ImageView fitHeight="100.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../ui-images/lightHouseOfAlexandria.jpg" />
-                     </image></ImageView>
-                  <ImageView fitHeight="100.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../ui-images/templeOfArtemis.jpg" />
+                        <Image url="@../ui-images/babylonWonderSelect.png" />
                      </image></ImageView>
                </children>
             </HBox>
-            <HBox layoutX="77.0" layoutY="220.0" prefHeight="20.0" prefWidth="465.0">
+            <HBox id="labelPane" fillHeight="false" layoutX="10.0" layoutY="121.0" prefHeight="18.0" prefWidth="620.0" spacing="10.0" stylesheets="@../WonderSelectionView.css">
                <children>
-                  <Label contentDisplay="CENTER" prefWidth="155.0" text="Name" wrapText="true" />
-                  <Label contentDisplay="CENTER" prefHeight="20.0" prefWidth="155.0" text="Name" wrapText="true" />
-                  <Label contentDisplay="CENTER" prefWidth="155.0" text="Name" wrapText="true" />
+                  <Label id="wonder-name-label" contentDisplay="CENTER" prefWidth="155.0" text="Temple of Artemis" textAlignment="CENTER" textFill="#d3da4a" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></Label>
+                  <Label id="wonder-name-label" contentDisplay="CENTER" prefWidth="155.0" text="Colossus of Rhodes" textAlignment="CENTER" textFill="#d3da4a" wrapText="true">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font></Label>
+                  <Label id="wonder-name-label" contentDisplay="CENTER" prefHeight="20.0" prefWidth="155.0" text="Great Pyramid of Ghiza" textAlignment="CENTER" textFill="#d3da4a" wrapText="true">
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font></Label>
+                  <Label id="wonder-name-label" contentDisplay="CENTER" prefWidth="155.0" text="Hanging Gardens" textAlignment="CENTER" textFill="#d3da4a" wrapText="true">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font></Label>
+               </children>
+            </HBox>
+            <HBox layoutX="85.0" layoutY="150.0" prefHeight="100.0" prefWidth="465.0" spacing="10.0" stylesheets="@../WonderSelectionView.css">
+               <children>
+                  <ImageView id="halicarnassus" fitHeight="100.0" fitWidth="155.0" onMouseClicked="#halicarnassusPressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ui-images/halicarnassusWonderSelect.png" />
+                     </image></ImageView>
+                  <ImageView id="lighthouse" fitHeight="100.0" fitWidth="155.0" onMouseClicked="#lighthousePressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ui-images/lightHouseWonderSelect.png" />
+                     </image></ImageView>
+                  <ImageView id="statueOfZeus" fitHeight="100.0" fitWidth="155.0" onMouseClicked="#statueOfZeusPressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ui-images/statueOfZeus.png" />
+                     </image></ImageView>
+               </children>
+            </HBox>
+            <HBox id="labelPane" layoutX="87.0" layoutY="250.0" prefHeight="41.0" prefWidth="465.0" spacing="10.0" stylesheets="@../WonderSelectionView.css">
+               <children>
+                  <Label id="wonder-name-label" contentDisplay="CENTER" prefWidth="155.0" stylesheets="@../WonderSelectionView.css" text="Mausoleum at Halicarnassus" textAlignment="CENTER" textFill="#d3da4a" wrapText="true">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font></Label>
+                  <Label id="wonder-name-label" contentDisplay="CENTER" prefWidth="155.0" stylesheets="@../WonderSelectionView.css" text="Lighthouse of Alexandria" textAlignment="CENTER" textFill="#d3da4a" wrapText="true">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font></Label>
+                  <Label id="wonder-name-label" contentDisplay="CENTER" prefWidth="155.0" stylesheets="@../WonderSelectionView.css" text="Statue of Zeus" textAlignment="CENTER" textFill="#d3da4a" wrapText="true">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font></Label>
                </children>
             </HBox>
          </children>
       </Pane>
-      <Button layoutX="524.0" layoutY="305.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="109.0" text="SELECT" />
+      <Button id="button" layoutX="270.0" layoutY="320.0" mnemonicParsing="false" onAction="#selectButtonPressed" prefHeight="64.0" prefWidth="100.0" stylesheets="@../WonderSelectionView.css" text="SELECT" />
    </children>
 </AnchorPane>
