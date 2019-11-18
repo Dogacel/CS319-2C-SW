@@ -1,6 +1,6 @@
 package SevenWonders.GameplayUI;
 
-public class CardController {
+public class CardViewController {
 
     public CardViewModel model;
 
