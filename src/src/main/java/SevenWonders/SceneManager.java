@@ -21,7 +21,6 @@ public class SceneManager {
     }
 
     public void changeScene(String sceneName) {
-
         Parent root = AssetManager.getInstance().getSceneByName(sceneName);
         Scene scene = stage.getScene();
         if (scene == null) {

@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="1280.0" stylesheets="@../Player.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.GameplayUI.PlayerController">
+<AnchorPane id="anchor" fx:id="playerAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="1280.0" stylesheets="@../Player.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.GameplayUI.PlayerController">
    <children>
-      <GridPane gridLinesVisible="true" layoutX="56.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
+      <GridPane fx:id="brownAndGray" gridLinesVisible="true" layoutX="56.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -21,7 +21,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="197.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
+      <GridPane fx:id="blue" gridLinesVisible="true" layoutX="197.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,7 +32,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="337.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
+      <GridPane fx:id="yellow" gridLinesVisible="true" layoutX="337.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -53,7 +53,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="845.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
+      <GridPane fx:id="green" gridLinesVisible="true" layoutX="845.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -64,7 +64,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="985.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
+      <GridPane fx:id="red" gridLinesVisible="true" layoutX="985.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,7 +75,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="1125.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
+      <GridPane fx:id="purple" gridLinesVisible="true" layoutX="1125.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

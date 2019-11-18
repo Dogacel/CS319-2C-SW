@@ -1,14 +1,21 @@
 package SevenWonders.GameplayUI;
+import SevenWonders.GameLogic.GameController;
+import SevenWonders.GameLogic.PlayerModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PlayerController implements Initializable {
-    public PlayerModel model;
+
+    PlayerModel playerModel;
+
+    GameplayController gameplayController;
 
     @FXML
     Button readyButton;
@@ -34,9 +41,29 @@ public class PlayerController implements Initializable {
     @FXML
     Button exitButton;
 
+    @FXML
+    AnchorPane playerAnchor;
+
+    @FXML
+    GridPane brownAndGray;
+
+    @FXML
+    GridPane green;
+
+    @FXML
+    GridPane blue;
+
+    @FXML
+    GridPane purple;
+
+    @FXML
+    GridPane red;
+
+    @FXML
+    GridPane yellow;
 
     public PlayerController(){
-        this.model = new PlayerModel();
+        this.playerModel = gameplayController.getPlayer();
     }
 
     @FXML
@@ -121,5 +148,13 @@ public class PlayerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        createScene();
+    }
+
+    private void createScene(){
+        String wonder = playerModel.getWonder().toString().toLowerCase();
+
+        this.playerAnchor.setStyle("-fx-background-image: url('/ui-images/'" + wonder + "'.png')");
+        
     }
 }
