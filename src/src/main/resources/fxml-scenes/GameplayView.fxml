@@ -12,7 +12,13 @@
             <Pane fx:id="neighborViewLeftPane" prefHeight="568.0" prefWidth="300.0" />
             <Pane fx:id="neighborViewRightPane" layoutX="980.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="568.0" prefWidth="300.0" />
             <Pane fx:id="otherPlayersViewPane" layoutX="200.0" prefHeight="70.0" prefWidth="880.0" AnchorPane.topAnchor="0.0" />
-            <Pane fx:id="cardViewPane" layoutX="248.0" layoutY="95.0" prefHeight="340.0" prefWidth="780.0" />
+            <Pane fx:id="cardViewPane" layoutX="248.0" layoutY="95.0" prefHeight="340.0" prefWidth="780.0">
+               <children>
+                  <Pane fx:id="player3ViewPane" layoutX="315.0" layoutY="-35.0" prefHeight="300.0" prefWidth="150.0" />
+                  <Pane fx:id="player4ViewPane" layoutX="315.0" layoutY="-35.0" prefHeight="300.0" prefWidth="150.0" />
+                  <Pane fx:id="player5ViewPane" layoutX="315.0" layoutY="-35.0" prefHeight="300.0" prefWidth="150.0" />
+                  <Pane fx:id="player6ViewPane" layoutX="315.0" layoutY="-35.0" prefHeight="300.0" prefWidth="150.0" />
+               </children></Pane>
          </children>
       </AnchorPane>
    </children>
