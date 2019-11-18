@@ -1,16 +1,8 @@
-#playButton {
+#createGameButton {
     -fx-background-color: transparent;
 }
 
-#settingsButton {
-    -fx-background-color: transparent;
-}
-
-#tutorialButton {
-    -fx-background-color: transparent;
-}
-
-#exitButton {
+#joinGameButton {
     -fx-background-color: transparent;
 }
 
@@ -20,4 +12,14 @@
 
 #anchor {
     -fx-background-image: url('ui-images/background.jpg');
+}
+
+#nameInputField{
+    -fx-background-color: black;
+    -fx-border-color: white;
+}
+
+#ipInputField{
+    -fx-background-color: black;
+    -fx-border-color: white;
 }
