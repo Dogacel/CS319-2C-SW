@@ -94,7 +94,7 @@ public class GameplayController implements Initializable{
     }
 
     public PlayerModel getPlayer(){
-        return gameModel.getPlayerList()[ client.getId()];
+        return gameModel.getPlayerList()[client.getID()];
     }
 
 }

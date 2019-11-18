@@ -33,6 +33,7 @@ public class AssetManager {
         imageMap = new HashMap<>();
         sceneMap = new HashMap<>();
         cardMap = new HashMap<>();
+        wonderMap = new HashMap<>();
         loadImages();
         loadScenes();
         loadCards();

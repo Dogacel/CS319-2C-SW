@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchor" fx:id="playerAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="1280.0" stylesheets="@../Player.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.GameplayUI.PlayerController">
+<AnchorPane id="anchor" fx:id="playerAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="1280.0" stylesheets="@../Player.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="SevenWonders.GameplayUI.PlayerController">
    <children>
       <GridPane fx:id="brownAndGray" gridLinesVisible="true" layoutX="56.0" layoutY="178.0" prefHeight="155.0" prefWidth="140.0">
         <columnConstraints>
