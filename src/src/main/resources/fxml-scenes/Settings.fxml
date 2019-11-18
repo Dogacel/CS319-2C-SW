@@ -10,7 +10,7 @@
             <children>
                 <ImageView fitHeight="540.0" fitWidth="960.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@/SevenWonders/GameplayUI/images/babylon.jpg" />
+                        <Image url="@../ui-images/babylon.jpg" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="540.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" scaleX="2.5">
