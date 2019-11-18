@@ -1,0 +1,19 @@
+{
+  "id": 32,
+  "name": "Statue",
+  "color": "BLUE",
+  "requirements": {
+    "ORE": 2, 
+    "WOOD": 1
+  }, 
+  "buildingChain": [
+    "Theater"
+  ], 
+  "cardEffect": {
+    "cardType": "GIVE_VICTORY_POINTS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 4, 
+    "shields": 0
+  }
+}

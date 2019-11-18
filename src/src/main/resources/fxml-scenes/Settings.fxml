@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane fx:id="stackPane" prefHeight="540.0" prefWidth="960.0">
+            <children>
+                <ImageView fitHeight="540.0" fitWidth="960.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../ui-images/babylon.jpg" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="540.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" scaleX="2.5">
+                    <image>
+                        <Image url="@/ui-images/black.png" />
+                    </image>
+                </ImageView>
+                <GridPane maxHeight="540.0" maxWidth="400.0" minHeight="540.0" minWidth="400.0" prefHeight="540.0" prefWidth="400.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="135.0" minHeight="22.0" prefHeight="22.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="248.0" minHeight="135.0" prefHeight="248.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="135.0" minHeight="135.0" prefHeight="135.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="135.0" minHeight="135.0" prefHeight="135.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="135.0" minHeight="135.0" prefHeight="135.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Slider GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true" translateX="65.0" GridPane.rowIndex="1">
+                            <image>
+                                <Image url="@/ui-images/volume.png" />
+                            </image>
+                        </ImageView>
+                        <ChoiceBox prefHeight="26.0" prefWidth="157.0" translateX="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true" translateX="65.0" GridPane.rowIndex="2">
+                            <image>
+                                <Image url="@/ui-images/full_screen.png" />
+                            </image>
+                        </ImageView>
+                        <CheckBox mnemonicParsing="false" translateX="88.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ImageView fitHeight="58.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true" translateX="65.0" GridPane.rowIndex="3">
+                            <image>
+                                <Image url="@/ui-images/mute_music.jpg" />
+                            </image>
+                        </ImageView>
+                        <Button fx:id="button1" layoutX="165.0" layoutY="125.0" maxHeight="58.0" maxWidth="135.5" minHeight="50.0" minWidth="135.5" mnemonicParsing="false" prefHeight="61.0" prefWidth="135.5" scaleX="0.75" scaleY="0.75" styleClass="fill-btn" stylesheets="@/button-style.css" translateX="25.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                            <graphic>
+                                <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/ui-images/button.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="button2" layoutX="165.0" layoutY="125.0" maxHeight="58.0" maxWidth="135.5" minHeight="50.0" minWidth="135.5" mnemonicParsing="false" prefHeight="61.0" prefWidth="135.5" scaleX="0.75" scaleY="0.75" styleClass="fill-btn" stylesheets="@/button-style.css" translateX="25.0" GridPane.rowIndex="4">
+                            <graphic>
+                                <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/ui-images/button.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </GridPane>
+            </children>
+        </StackPane>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>

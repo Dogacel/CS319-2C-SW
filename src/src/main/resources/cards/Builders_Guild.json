@@ -1,0 +1,18 @@
+{
+  "id": 73,
+  "name": "Builders Guild",
+  "color": "PURPLE",
+  "requirements": {
+    "GLASS": 1, 
+    "STONE": 2, 
+    "BRICK": 2
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "BUILDERS_GUILD", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 1, 
+    "shields": 0
+  }
+}

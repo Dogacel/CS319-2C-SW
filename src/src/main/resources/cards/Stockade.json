@@ -1,0 +1,16 @@
+{
+  "id": 20, 
+  "name": "Stockade",
+  "color": "RED",
+  "requirements": {
+    "WOOD": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "GRANT_SHIELDS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 1
+  }
+}

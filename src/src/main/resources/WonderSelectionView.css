@@ -1,0 +1,19 @@
+#anchor{
+    -fx-background-image: url('ui-images/bg.jpg');
+}
+
+#pane{
+    -fx-background-image: url("ui-images/wonderSelectBG.png");
+
+}
+
+#wonder-name-label{
+    -fx-border-style: solid inside;
+    -fx-border-color: blue;
+}
+
+#button{
+        -fx-background-image: url("ui-images/shield.png");
+        -fx-border-style: solid inside;
+        -fx-border-color: blue;
+}

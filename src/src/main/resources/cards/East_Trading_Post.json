@@ -1,0 +1,14 @@
+{
+  "id": 17, 
+  "name": "East Trading Post",
+  "color": "YELLOW",
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "RIGHT_RAW_MATERIAL_TRADE_DISCOUNT", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

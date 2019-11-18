@@ -1,0 +1,16 @@
+{
+  "id": 11,
+  "name": "Press",
+  "color": "GRAY",
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "PRODUCE_MANUFACTURED_GOODS", 
+    "resources": {
+      "PAPYRUS" : 1
+    }, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

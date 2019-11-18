@@ -1,0 +1,16 @@
+{
+  "id": 10,
+  "name": "Glassworks",
+  "color": "GRAY",
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "PRODUCE_MANUFACTURED_GOODS", 
+    "resources": {
+      "GLASS" : 1
+    }, 
+    "gold": 0, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

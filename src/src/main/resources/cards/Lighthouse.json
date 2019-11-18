@@ -1,0 +1,19 @@
+{
+  "id": 52,
+  "name": "Lighthouse",
+  "color": "YELLOW",
+  "requirements": {
+    "GLASS": 1, 
+    "STONE": 1
+  }, 
+  "buildingChain": [
+    "Caravansery"
+  ], 
+  "cardEffect": {
+    "cardType": "GET_MONEY_AND_VP_PER_YELLOW", 
+    "resources": {}, 
+    "gold": 1, 
+    "victoryPoints": 1, 
+    "shields": 0
+  }
+}
