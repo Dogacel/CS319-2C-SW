@@ -2,8 +2,8 @@ package SevenWonders.GameLogic;
 
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
-import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 
+import javafx.util.Pair;
 import java.util.Vector;
 
 public class GameController {
@@ -13,7 +13,6 @@ public class GameController {
     private DiscardPileController discardPileController;
     private DeckController deckController;
     private GameModel model;
-
     public GameController(){
 
         model = new GameModel();
@@ -33,10 +32,9 @@ public class GameController {
     public boolean checkMoveIsValid(MoveModel move){
         int id = move.getPlayerID();
 
+        Pair<PlayerController, PlayerController> neighbors = new Pair<>(playerControllers[(id+1)%7], playerControllers[(id+8)%7]);
 
-        //TODO May change return MoveController.getInstance().playerCanMakeMove( move, playerControllers[id]);
-
-        return true; //TODO Placeholder
+        return MoveController.getInstance().playerCanMakeMove(move, playerControllers[id], neighbors);
     }
 
     public void updateCurrentMove(int playerID, MoveModel move){

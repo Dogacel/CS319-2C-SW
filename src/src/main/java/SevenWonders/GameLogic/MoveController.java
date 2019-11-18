@@ -5,7 +5,7 @@ import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 import javafx.util.Pair;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -23,7 +23,7 @@ public class MoveController {
     }
 
 
-    public boolean playerCanMakeMove(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours) {
+    public boolean playerCanMakeMove(MoveModel moveModel, PlayerController currentPlayer, Pair<PlayerController, PlayerController> neighbours) {
         ACTION_TYPE action = moveModel.getAction();
         if ( !playerCanMakeTheTrade( moveModel, currentPlayer, neighbours)) {
             return false;
@@ -43,7 +43,7 @@ public class MoveController {
         return false;
     }
 
-    private boolean playerCanMakeTheTrade( MoveModel move, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours) {
+    private boolean playerCanMakeTheTrade( MoveModel move, PlayerController currentPlayer, Pair<PlayerController, PlayerController> neighbours) {
         int goldOfCurrentPlayer = currentPlayer.getGold();
 
         /* boolean for understanding if there is a discount */
@@ -104,7 +104,7 @@ public class MoveController {
         return true;
     }
 
-    private boolean playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades) {
+    private boolean playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerController currentPlayer, Vector<TradeAction> trades) {
         Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
 
         /*to deep clone a map */
@@ -240,7 +240,7 @@ public class MoveController {
         return false;
     }
 
-    private boolean checkConstructionZone(MoveModel moveModel, PlayerModel currentPlayer) {
+    private boolean checkConstructionZone(MoveModel moveModel, PlayerController currentPlayer) {
         for ( Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
             if ( card.getId() == moveModel.getSelectedCardID()) {
                 return false;
@@ -255,7 +255,7 @@ public class MoveController {
      * @param currentPlayer curren player
      * @return true if player can build a card, false otherwise
      */
-    private boolean playerCanPlayBuildCard(MoveModel moveModel, PlayerModel currentPlayer) {
+    private boolean playerCanPlayBuildCard(MoveModel moveModel, PlayerController currentPlayer) {
          return checkConstructionZone( moveModel, currentPlayer) && playerHasEnoughResources( fromIDToCard(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades());
     }
 
@@ -265,7 +265,7 @@ public class MoveController {
      * @param currentPlayer current player
      * @return true if player can discard, false otherwise
      */
-    private boolean playerCanDiscardCard(MoveModel moveModel, PlayerModel currentPlayer) {
+    private boolean playerCanDiscardCard(MoveModel moveModel, PlayerController currentPlayer) {
         return currentPlayer.getHand().contains(fromIDToCard(moveModel.getSelectedCardID()));
     }
 
@@ -275,7 +275,7 @@ public class MoveController {
      * @param currentPlayer current player
      * @return true if player can upgrade wonder, false otherwise
      */
-    private boolean playerCanBuildWonder(MoveModel moveModel, PlayerModel currentPlayer) {
+    private boolean playerCanBuildWonder(MoveModel moveModel, PlayerController currentPlayer) {
         return currentPlayer.getWonder().isUpgradeable() && playerHasEnoughResources(currentPlayer.getWonder().getCurrentStage().getRequiredResources(), currentPlayer, moveModel.getTrades());
     }
 
@@ -283,11 +283,6 @@ public class MoveController {
     This method is for taking an ID and returning a Card object, maybe initialized somewhere else later.
      */
     public Card fromIDToCard(int cardID) {
-        return null;
-    }
-
-    //TODO implement this method, meybe somewhere else
-    public PlayerModel fromIDToPlayer(int playerID) {
         return null;
     }
 }

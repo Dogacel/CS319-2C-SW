@@ -95,4 +95,8 @@ public class PlayerController {
     public int getGold(){ return player.getGold(); }
 
     public int getShields() { return player.getShields(); }
+
+    public int getId() {
+        return player.getId();
+    }
 }
