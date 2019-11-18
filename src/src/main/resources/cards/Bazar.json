@@ -1,0 +1,14 @@
+{
+  "id": 37,
+  "name": "Bazar",
+  "color": "YELLOW",
+  "requirements": {}, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "GET_MONEY_FOR_GRAY_CARD", 
+    "resources": {}, 
+    "gold": 2, 
+    "victoryPoints": 0, 
+    "shields": 0
+  }
+}

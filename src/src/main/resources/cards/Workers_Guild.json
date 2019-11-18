@@ -1,0 +1,19 @@
+{
+  "id": 64,
+  "name": "Workers Guild",
+  "color": "PURPLE",
+  "requirements": {
+    "BRICK": 1, 
+    "ORE": 2, 
+    "STONE": 1, 
+    "WOOD": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "WORKERS_GUILD", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 1, 
+    "shields": 0
+  }
+}

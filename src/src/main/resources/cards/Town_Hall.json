@@ -1,0 +1,18 @@
+{
+  "id": 48,
+  "name": "Town Hall",
+  "color": "BLUE",
+  "requirements": {
+    "GLASS": 1, 
+    "STONE": 2, 
+    "ORE": 1
+  }, 
+  "buildingChain": [], 
+  "cardEffect": {
+    "cardType": "GIVE_VICTORY_POINTS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 6, 
+    "shields": 0
+  }
+}

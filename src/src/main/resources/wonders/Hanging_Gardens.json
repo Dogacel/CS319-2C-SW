@@ -1,0 +1,44 @@
+{
+  "wonderType" : "HANGING_GARDENS",
+  "resource" : "BRICK",
+  "stages" : [
+    {
+      "requiredResources" : {
+        "BRICK" : 2
+      },
+      "wonderEffect" : {
+        "effectType" : "GIVE_VICTORY_POINTS",
+        "victoryPoints" : 3,
+        "gold" : 0,
+        "shields" : 0
+      }
+    },
+    {
+      "requiredResources" : {
+        "WOOD" : 3
+      },
+      "wonderEffect" : {
+        "effectType" : "CHOOSE_ONE_SCIENCE",
+        "victoryPoints" : 0,
+        "gold" : 0,
+        "shields" : 0
+      }
+    },
+    {
+      "requiredResources" : {
+        "BRICK" : 4
+      },
+      "wonderEffect" : {
+        "effectType" : "GIVE_VICTORY_POINTS",
+        "victoryPoints" : 7,
+        "gold" : 0,
+        "shields" : 0
+      }
+    }
+  ],
+  "currentStage" : 0,
+  "god" : {
+    "godType" : "MARDUK",
+    "godPower" : "EARTHQUAKE"
+  }
+}

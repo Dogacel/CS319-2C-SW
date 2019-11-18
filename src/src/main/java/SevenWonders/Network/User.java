@@ -1,10 +1,13 @@
 package SevenWonders.Network;
 
-// TODO: Change wonder to enum
+import SevenWonders.GameLogic.Enums.WONDER_TYPE;
+
 class User {
 
     private String username;
-    private String selectedWonder;
+
+    private int id;
+    private WONDER_TYPE selectedWonder;
 
     private boolean isAdmin;
     private boolean isReady;
@@ -14,7 +17,7 @@ class User {
         this.username = username;
         this.isAdmin = false;
         this.isReady = false;
-        this.selectedWonder = "";
+        this.selectedWonder = WONDER_TYPE.COLOSSUS_OF_RHODES;
     }
 
     public String getUsername() {
@@ -23,6 +26,14 @@ class User {
 
     void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public boolean isAdmin() {
@@ -41,11 +52,11 @@ class User {
         isReady = ready;
     }
 
-    public String getSelectedWonder() {
+    public WONDER_TYPE getSelectedWonder() {
         return selectedWonder;
     }
 
-    public void setSelectedWonder(String selectedWonder) {
+    public void setSelectedWonder(WONDER_TYPE selectedWonder) {
         this.selectedWonder = selectedWonder;
     }
 }

@@ -9,14 +9,15 @@ public class PlayerModel {
 
     private final int MAX_CARDS_AT_HAND = 7;
 
-    private int       id;
-    private String    name;
-    private int       gold;
-    private Vector<Card>    hand;
-    private Wonder    wonder;
-    private int       warPoints;
-    private boolean   isReady;
-    private MoveModel currentMove;
+    private int          id;
+    private String       name;
+    private int          gold;
+    private Vector<Card> hand;
+    private Wonder       wonder;
+    private int          shields;
+    private int          warPoints;
+    private boolean      isReady;
+    private MoveModel    currentMove;
     private Vector<Hero> heroes;
     private ConstructionZone constructionZone;
     public PlayerModel(int id, String name, Wonder wonder)
@@ -29,6 +30,7 @@ public class PlayerModel {
         this.warPoints = 0;
         this.isReady = false;
 
+        this.hand = new Vector<>();
         this.heroes = new Vector<>();
 
         this.constructionZone = new ConstructionZone();
@@ -55,6 +57,8 @@ public class PlayerModel {
 
     public Vector<Hero> getHeroes() { return heroes; }
 
+    public int getShields() { return shields; }
+
     public void setGold(int gold) { this.gold = gold; }
 
     public void setWarPoints(int warPoints) { this.warPoints = warPoints; }
@@ -64,6 +68,8 @@ public class PlayerModel {
     public void setCurrentMove(MoveModel currentMove) { this.currentMove = currentMove; }
 
     public void setHand(Vector<Card> hand) { this.hand = hand; }
+
+    public void setShields(int shields) { this.shields = shields; }
 
     public void addHero(String name, HERO_EFFECT_TYPE effect) {
 

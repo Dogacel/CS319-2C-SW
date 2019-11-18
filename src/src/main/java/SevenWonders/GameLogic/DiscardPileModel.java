@@ -11,7 +11,7 @@ public class DiscardPileModel {
         cards = new Vector<>();
     }
 
-    public void updateDiscardPile(Card card)
+    public void discardCard(Card card)
     {
         cards.add(card);
     }

@@ -1,0 +1,20 @@
+{
+  "id": 50,
+  "name": "Senate",
+  "color": "BLUE",
+  "requirements": {
+    "STONE": 1, 
+    "ORE": 1, 
+    "WOOD": 2
+  }, 
+  "buildingChain": [
+    "Library"
+  ], 
+  "cardEffect": {
+    "cardType": "GIVE_VICTORY_POINTS", 
+    "resources": {}, 
+    "gold": 0, 
+    "victoryPoints": 6, 
+    "shields": 0
+  }
+}
