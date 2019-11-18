@@ -2,7 +2,7 @@ package SevenWonders.Network;
 
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 
-class User {
+public class User {
 
     private String username;
 
@@ -11,12 +11,13 @@ class User {
 
     private boolean isAdmin;
     private boolean isReady;
-
+    private boolean isBot;
 
     public User(String username) {
         this.username = username;
         this.isAdmin = false;
         this.isReady = false;
+        this.isBot = false;
         this.selectedWonder = WONDER_TYPE.COLOSSUS_OF_RHODES;
     }
 
@@ -50,6 +51,14 @@ class User {
 
     public void setReady(boolean ready) {
         isReady = ready;
+    }
+
+    public boolean isBot() {
+        return isBot;
+    }
+
+    public void setBot(boolean bot) {
+        isBot = bot;
     }
 
     public WONDER_TYPE getSelectedWonder() {

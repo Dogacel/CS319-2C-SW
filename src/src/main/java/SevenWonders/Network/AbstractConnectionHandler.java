@@ -1,10 +1,10 @@
 package SevenWonders.Network;
 
-abstract class AbstractConnectionHandler {
+public abstract class AbstractConnectionHandler {
     User user;
     INetworkListener listener;
 
-    User getUser() {
+    public User getUser() {
         return user;
     }
     

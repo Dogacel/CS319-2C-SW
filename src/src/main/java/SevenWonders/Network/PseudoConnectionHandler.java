@@ -11,6 +11,7 @@ public class PseudoConnectionHandler extends AbstractConnectionHandler {
         this.listener = listener;
         this.difficulty = difficulty;
         this.user = new User(username);
+        this.user.setBot(true);
     }
 
     public AI_DIFFICULTY getDifficulty() {
