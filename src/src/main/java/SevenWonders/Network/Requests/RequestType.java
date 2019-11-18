@@ -9,9 +9,11 @@ public enum RequestType {
     SELECT_WONDER,
     GET_READY,
     MAKE_MOVE,
+    PLAYER_READY,
 
     // Server to client
     UPDATE_GAME_STATE,
+    UPDATE_LOBBY,
     END_TURN,
     END_AGE,
     END_GAME,

@@ -90,7 +90,7 @@ public class Server implements Runnable, INetworkListener {
 
 		connectionHandlerList.remove(connectionHandler);
 		LOGGER.warning("Client disconnected : " + connectionHandler);
-
+			
 		connectionHandlerList.add(replacement);
 	}
 
@@ -100,7 +100,6 @@ public class Server implements Runnable, INetworkListener {
 	 */
 	private void disconnectClient(AbstractConnectionHandler connectionHandler) {
 		connectionHandler.disconnect();
-		onDisconnect(connectionHandler);
 	}
 
 	/**
@@ -135,14 +134,35 @@ public class Server implements Runnable, INetworkListener {
 			case MAKE_MOVE:
 				parseMakeMoveRequest(message, sender);
 				break;
+			case PLAYER_READY:
+				parsePlayerReadyRequest(message, sender);
+				break;
 			default:
 				throw new UnsupportedOperationException();
 		}
 	}
 
-	private void sendUpdateGameStateRequest(AbstractConnectionHandler receiver) {
+
+	private void sendLobbyUpdateRequests() {
+		LobbyUpdateRequest request = LobbyUpdateRequest.of(connectionHandlerList);
+		for (AbstractConnectionHandler handler : connectionHandlerList) {
+			sendRequest(request, handler);
+		}
+	}
+
+	private void parsePlayerReadyRequest(String message, AbstractConnectionHandler sender) {
+		PlayerReadyRequest request = gson.fromJson(message, PlayerReadyRequest.class);
+
+		// TODO: GameController set player ready here
+
+		sendUpdateGameStateRequests();
+	}
+
+	private void sendUpdateGameStateRequests() {
 		UpdateGameStateRequest request = UpdateGameStateRequest.of(gameModel);
-		sendRequest(request, receiver);
+		for (AbstractConnectionHandler handler : connectionHandlerList) {
+			sendRequest(request, handler);
+		}
 	}
 
 	private void sendRequest(Request request, AbstractConnectionHandler receiver) {
@@ -153,6 +173,9 @@ public class Server implements Runnable, INetworkListener {
 	private void parseGetReadyRequest(String message, AbstractConnectionHandler sender) {
 		GetReadyRequest request = gson.fromJson(message, GetReadyRequest.class);
 		sender.getUser().setReady(request.isReady);
+
+		sendLobbyUpdateRequests();
+
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			if (!connectionHandler.getUser().isReady()) {
 				return;
@@ -170,14 +193,14 @@ public class Server implements Runnable, INetworkListener {
 
 		gameController.playTurn();
 
-		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
-			sendUpdateGameStateRequest(connectionHandler);
-		}
+		sendUpdateGameStateRequests();
+
 	}
 
 	private void parseConnectRequest(String message, AbstractConnectionHandler sender) {
 		ConnectRequest request = gson.fromJson(message, ConnectRequest.class);
 		sender.getUser().setUsername(request.username);
+		sendLobbyUpdateRequests();
 	}
 
 	private void parseKickRequest(String message, AbstractConnectionHandler sender) {
@@ -187,11 +210,17 @@ public class Server implements Runnable, INetworkListener {
 		}
 
 		KickRequest request = gson.fromJson(message, KickRequest.class);
+		AbstractConnectionHandler found = null;
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			if (connectionHandler.getUser().getUsername().equals(request.username)) {
-				disconnectClient(connectionHandler);
+				found = connectionHandler;
 				break;
 			}
+		}
+
+		if (found != null) {
+			sendLobbyUpdateRequests();
+			disconnectClient(found);
 		}
 	}
 
@@ -201,6 +230,7 @@ public class Server implements Runnable, INetworkListener {
 			return;
 		}
 
+		gameModel = new GameModel();
 		gameController = new GameController(gameModel);
 
 		for (AbstractConnectionHandler connection : connectionHandlerList) {
@@ -208,9 +238,8 @@ public class Server implements Runnable, INetworkListener {
 			connection.getUser().setId(id);
 		}
 
-		for (AbstractConnectionHandler connection : connectionHandlerList) {
-			sendUpdateGameStateRequest(connection);
-		}
+		sendUpdateGameStateRequests();
+
 	}
 
 	private void parseAddAIPlayerRequest(String message, AbstractConnectionHandler sender) {
@@ -227,13 +256,15 @@ public class Server implements Runnable, INetworkListener {
 		AddAIPlayerRequest request = gson.fromJson(message, AddAIPlayerRequest.class);
 		PseudoConnectionHandler pseudoConnectionHandler = new PseudoConnectionHandler(this, request.difficulty, "name");
 		connectionHandlerList.add(pseudoConnectionHandler);
+
+		sendLobbyUpdateRequests();
 	}
 
 	private void parseMakeMoveRequest(String message, AbstractConnectionHandler sender) {
 		MakeMoveRequest request = gson.fromJson(message, MakeMoveRequest.class);
 		MoveModel move = request.move;
 		assert move.getPlayerID() == sender.getUser().getId();
-		if (gameController.checkMoveIsValid(move)) {
+		if (move != null && gameController.checkMoveIsValid(move)) {
 			gameController.updateCurrentMove(sender.getUser().getId(), move);
 		}
 	}
@@ -241,6 +272,8 @@ public class Server implements Runnable, INetworkListener {
 	private void parseWonderSelectRequest(String message, AbstractConnectionHandler sender) {
 		SelectWonderRequest request = gson.fromJson(message, SelectWonderRequest.class);
 		sender.getUser().setSelectedWonder(request.wonder);
+
+		sendLobbyUpdateRequests();
 	}
 
 	/*

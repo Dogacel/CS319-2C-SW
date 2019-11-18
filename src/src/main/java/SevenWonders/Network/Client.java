@@ -15,12 +15,11 @@ public class Client implements INetworkListener {
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-	private User user;
 	private Gson gson;
 	private ConnectionHandler connectionHandler;
 
 	public void makeAdmin() {
-		this.user.setAdmin(true);
+		this.connectionHandler.getUser().setAdmin(true);
 	}
 
 	public boolean isConnected() {
@@ -38,10 +37,11 @@ public class Client implements INetworkListener {
 			Socket socket = new Socket(IP, serverPort);
 			gson = new Gson();
 
-			this.user = new User(username);
 
 			connectionHandler = new ConnectionHandler(socket, this);
 			connectionHandler.startListening();
+
+			this.connectionHandler.getUser().setUsername(username);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -60,8 +60,24 @@ public class Client implements INetworkListener {
 		// TODO: Unimplemented
 	}
 
+
+	private void onUpdateLobbyRequest(String message) {
+		LobbyUpdateRequest request = gson.fromJson(message, LobbyUpdateRequest.class);
+		// TODO: Update lobby content
+	}
+
 	private void onStartGameRequest() {
 		// TODO: Change view to game-play view
+	}
+
+	public void sendMakeMoveRequest(MoveModel move) {
+		MakeMoveRequest request = MakeMoveRequest.of(move);
+		sendRequest(request);
+	}
+
+	public void sendPlayerReadyRequest(boolean ready) {
+		PlayerReadyRequest request = PlayerReadyRequest.of(ready);
+		sendRequest(request);
 	}
 
 	private void onUpdateGameStateRequest(String message) {
@@ -74,11 +90,6 @@ public class Client implements INetworkListener {
 		sendRequest(request);
 	}
 
-	public void sendMakeMoveRequest(MoveModel move) {
-		MakeMoveRequest request = MakeMoveRequest.of(move);
-		sendRequest(request);
-	}
-
 	// TODO: Update wonder
 	public void sendSelectWonderRequest(WONDER_TYPE wonder) {
 		SelectWonderRequest request = SelectWonderRequest.of(wonder);
@@ -87,7 +98,7 @@ public class Client implements INetworkListener {
 
 	// TODO: Update difficulty
 	public void sendAddAIPlayerRequest(AI_DIFFICULTY difficulty) {
-		if (!user.isAdmin()) {
+		if (!this.connectionHandler.getUser().isAdmin()) {
 			// Unauthorized
 			return;
 		}
@@ -97,7 +108,7 @@ public class Client implements INetworkListener {
 	}
 
 	public void sendStartGameRequest() {
-			if (!user.isAdmin()) {
+			if (!this.connectionHandler.getUser().isAdmin()) {
 			// Unauthorized
 			return;
 		}
@@ -107,7 +118,7 @@ public class Client implements INetworkListener {
 	}
 
 	public void sendKickRequest(String userToKick) {
-		if (!user.isAdmin()) {
+		if (!this.connectionHandler.getUser().isAdmin()) {
 			// Unauthorized
 			return;
 		}
@@ -148,6 +159,9 @@ public class Client implements INetworkListener {
 			case UPDATE_GAME_STATE:
 				onUpdateGameStateRequest(message);
 				break;
+			case UPDATE_LOBBY:
+				onUpdateLobbyRequest(message);
+				break;
 			case END_TURN:
 				onEndTurnRequest();
 				break;
@@ -162,7 +176,7 @@ public class Client implements INetworkListener {
         }
     }
 
-    public void disconnect() {
+	public void disconnect() {
 		connectionHandler.disconnect();
 	}
 

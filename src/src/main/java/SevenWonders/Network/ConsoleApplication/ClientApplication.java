@@ -1,6 +1,7 @@
 package SevenWonders.Network.ConsoleApplication;
 
 import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
+import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.Network.Client;
 import com.dosse.upnp.UPnP;
 
@@ -30,7 +31,7 @@ public class ClientApplication {
         in = sc.nextLine();
         while (!in.equals("exit") && c.isConnected()) {
             if (in.startsWith("wonder")) {
-                c.sendSelectWonderRequest(in.replaceFirst("wonder ", ""));
+                c.sendSelectWonderRequest(WONDER_TYPE.valueOf(in.replaceFirst("wonder ", "")));
             } else if (in.startsWith("start game")) {
                 c.sendStartGameRequest();
             } else if (in.startsWith("add ai")) {
