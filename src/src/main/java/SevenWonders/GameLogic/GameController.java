@@ -3,6 +3,7 @@ package SevenWonders.GameLogic;
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 
+import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import javafx.util.Pair;
 import java.util.Vector;
 
@@ -47,12 +48,48 @@ public class GameController {
 
             model.incrementCurrentTurn();
         }
-        if ( model.getCurrentAge() == 7)
+        if ( model.getCurrentAge() == 7) {
             model.incrementCurrentAge();
+            playEndOfAge();
+        }
     }
 
     private void playEndOfAge(){
+        for(int i = 0; i < playerControllers.length; i++){
+            //TODO WarPoints system is due to change, change this also
+            int winPoint = 0;
+            int totalPoints = 0;
+            PlayerController myPlayerController = playerControllers[i];
+            PlayerController leftPlayerController = playerControllers[(i + 6) % 7];
+            PlayerController rightPlayerController = playerControllers[(i + 1) % 7];
 
+            switch(model.getCurrentAge()){
+                case 1:
+                    winPoint = 1;
+                    break;
+                case 2:
+                    winPoint = 3;
+                    break;
+                case 3:
+                    winPoint = 5;
+                    break;
+            }
+
+            if( myPlayerController.getShields() > leftPlayerController.getShields()){ //Player defeats left
+                totalPoints += winPoint;
+            }
+            if( myPlayerController.getShields() > rightPlayerController.getShields()){ //Player defeats right
+                totalPoints += winPoint;
+            }
+            if( myPlayerController.getShields() < leftPlayerController.getShields()){ //Left defeats player
+                totalPoints -= 1;
+            }
+            if( myPlayerController.getShields() < rightPlayerController.getShields()){ //Right defeats player
+                totalPoints -= 1;
+            }
+
+            //TODO myPlayerController.setWarPoints( myPlayerController.getWarPoints() + totalPoints);
+        }
     }
 
     private void makeMoves()
@@ -69,15 +106,15 @@ public class GameController {
             PlayerController leftPlayerController = playerControllers[(i + 6) % 7];
             PlayerController rightPlayerController = playerControllers[(i + 1) % 7];
 
-            CardEffect effect = AssetManager.getInstance().getCardByID(
-                    playerControllers[i].getCurrentMove().getSelectedCardID()).getCardEffect();
+            CardEffect effect = deckController.getCardByID(
+                    myPlayerController.getCurrentMove().getSelectedCardID()).getCardEffect();
 
             switch (effect.getEffectType()){
                 case GRANT_SHIELDS:
-                    playerControllers[i].setShields(effect.getShields() + playerControllers[i].getShields());
+                    myPlayerController.setShields(effect.getShields() + myPlayerController.getShields());
                     break;
                 case GET_MONEY:
-                    playerControllers[i].setGold(effect.getGold() + playerControllers[i].getGold());
+                    myPlayerController.setGold(effect.getGold() + myPlayerController.getGold());
                     break;
                 case GET_MONEY_FOR_BROWN_CARD:
                     cardCount = 0;
@@ -139,7 +176,7 @@ public class GameController {
                     myPlayerController.setGold( cardCount * 2 + myPlayerController.getGold());
                     break;
                 case GET_MONEY_AND_VP_PER_WONDER:
-                    int goldToAdd = (playerControllers[i].getWonder().getCurrentStageIndex() + 1) * 3;
+                    int goldToAdd = (myPlayerController.getWonder().getCurrentStageIndex() + 1) * 3;
 
                     myPlayerController.setGold( goldToAdd + myPlayerController.getGold() );
                     break;
@@ -154,10 +191,9 @@ public class GameController {
                     myPlayerController.setGold( cardCount + myPlayerController.getGold());
                     break;
             }
-
-            playerControllers[i].updateCurrentMove(null); //Clear the players move
+            myPlayerController.setReady(false);
+            myPlayerController.updateCurrentMove(null); //Clear the players move
         }
-        //TODO if age is over with this turn, do not shift cards and discard the last card
     }
 
     private void shiftCards()
@@ -198,10 +234,18 @@ public class GameController {
         return true;
     }
 
-    public int addPlayer(String name, Wonder wonder){
-        PlayerModel model = new PlayerModel(playerCount, name, wonder); //playerCount corresponds to the id
-        
+    public void makePlayerReady(int id){ playerControllers[id].setReady(true); }
+
+    public int addPlayer(String name, WONDER_TYPE wonderType){
+    /*
+        TODO finish when wonder is complete
+        Wonder wonder = new Wonder();
+        PlayerModel model = new PlayerModel(playerCount, name, wonderType); //playerCount corresponds to the id
+
+        model.addPlayer(model);
         playerControllers[playerCount] = new PlayerController(model, this);
-        return playerCount;
+
+        playerCount++; */
+        return playerCount - 1; //Return the id of the added player
     }
 }
