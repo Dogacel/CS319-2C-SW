@@ -1,0 +1,44 @@
+{
+  "wonderType" : "GREAT_PYRAMID_OF_GIZA",
+  "resource" : "STONE",
+  "stages" : [
+    {
+      "requiredResources" : {
+        "STONE" : 2
+      },
+      "wonderEffect" : {
+        "effectType" : "GIVE_VICTORY_POINTS",
+        "victoryPoints" : 3,
+        "gold" : 0,
+        "shields" : 0
+      }
+    },
+    {
+      "requiredResources" : {
+        "WOOD" : 3
+      },
+      "wonderEffect" : {
+        "effectType" : "GIVE_VICTORY_POINTS",
+        "victoryPoints" : 5,
+        "gold" : 0,
+        "shields" : 0
+      }
+    },
+    {
+      "requiredResources" : {
+        "STONE" : 4
+      },
+      "wonderEffect" : {
+        "effectType" : "GIVE_VICTORY_POINTS",
+        "victoryPoints" : 7,
+        "gold" : 0,
+        "shields" : 0
+      }
+    }
+  ],
+  "currentStage" : 0,
+  "god" : {
+    "godType" : "SETH",
+    "godPower" : "FAMINE"
+  }
+}
