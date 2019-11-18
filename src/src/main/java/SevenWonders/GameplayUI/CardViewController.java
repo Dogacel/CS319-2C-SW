@@ -4,7 +4,7 @@ public class CardViewController {
 
     public CardViewModel model;
 
-    public CardController(){
+    public CardViewController Controller(){
         this.model = new CardViewModel();
     }
 }
