@@ -108,4 +108,6 @@ public class PlayerController {
     public int getId() {
         return player.getId();
     }
+
+    public PlayerModel getPlayer() { return player; }
 }

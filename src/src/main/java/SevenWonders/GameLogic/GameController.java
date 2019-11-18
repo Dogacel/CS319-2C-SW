@@ -24,6 +24,8 @@ public class GameController {
 
         this.discardPileController = new DiscardPileController( model.getDiscardPile());
         this.deckController = new DeckController(( model.getDeck()));
+
+        shuffleDecks();
     }
 
     public boolean checkMoveIsValid(MoveModel move){
@@ -109,7 +111,7 @@ public class GameController {
             PlayerController leftPlayerController = playerControllers[(i + 6) % 7];
             PlayerController rightPlayerController = playerControllers[(i + 1) % 7];
 
-            CardEffect effect = deckController.getCardByID(
+            CardEffect effect = AssetManager.getInstance().getCardByID(
                     myPlayerController.getCurrentMove().getSelectedCardID()).getCardEffect();
 
             switch (effect.getEffectType()){
@@ -240,15 +242,27 @@ public class GameController {
     public void makePlayerReady(int id){ playerControllers[id].setReady(true); }
 
     public int addPlayer(String name, WONDER_TYPE wonderType){
-    /*
-        TODO finish when wonder is complete
-        Wonder wonder = new Wonder();
-        PlayerModel model = new PlayerModel(playerCount, name, wonderType); //playerCount corresponds to the id
+        //playerCount corresponds to the id
+        PlayerModel playerModel = new PlayerModel(playerCount, name, AssetManager.getInstance().getWonderByType(wonderType));
 
-        model.addPlayer(model);
-        playerControllers[playerCount] = new PlayerController(model, this);
+        model.addPlayer(playerModel);
+        playerControllers[playerCount] = new PlayerController(playerModel, this);
 
-        playerCount++; */
+        playerCount++;
         return playerCount - 1; //Return the id of the added player
+    }
+
+    private void shuffleDecks(){ deckController.shuffleDecks(); }
+
+    public PlayerModel getPlayer(int id){
+        return playerControllers[id].getPlayer();
+    }
+
+    public PlayerModel getLeftPlayer(int id){
+        return playerControllers[(id + 6) % 7].getPlayer();
+    }
+
+    public PlayerModel getRightPlayer(int id){
+        return playerControllers[(id + 1) % 7].getPlayer();
     }
 }
