@@ -13,9 +13,9 @@ public class GameController {
     private DiscardPileController discardPileController;
     private DeckController deckController;
     private GameModel model;
-    public GameController(){
+    public GameController(GameModel model){
 
-        model = new GameModel();
+        this.model = model;
 
         this.playerControllers = new PlayerController[MAX_NO_OF_PLAYERS];
         PlayerModel[] players = model.getPlayerList();

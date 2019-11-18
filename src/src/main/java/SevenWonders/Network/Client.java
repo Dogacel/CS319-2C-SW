@@ -1,6 +1,7 @@
 package SevenWonders.Network;
 
 import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
+import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.Network.Requests.*;
 import com.google.gson.Gson;
@@ -79,7 +80,7 @@ public class Client implements INetworkListener {
 	}
 
 	// TODO: Update wonder
-	public void sendSelectWonderRequest(String wonder) {
+	public void sendSelectWonderRequest(WONDER_TYPE wonder) {
 		SelectWonderRequest request = SelectWonderRequest.of(wonder);
 		sendRequest(request);
 	}

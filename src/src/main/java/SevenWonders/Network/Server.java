@@ -2,6 +2,8 @@ package SevenWonders.Network;
 
 import SevenWonders.GameLogic.AIMoveGenerator;
 import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
+import SevenWonders.GameLogic.Enums.WONDER_TYPE;
+import SevenWonders.GameLogic.GameController;
 import SevenWonders.GameLogic.GameModel;
 import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.Network.Requests.*;
@@ -25,6 +27,7 @@ public class Server implements Runnable, INetworkListener {
 	private Thread worker;
 	private Gson gson;
 	private GameModel gameModel;
+	private GameController gameController;
 
 	public Server() {
 		connectionHandlerList = new Vector<>();
@@ -192,8 +195,8 @@ public class Server implements Runnable, INetworkListener {
 			// Unauthorized
 			return;
 		}
-		// TODO: Start game
-		gameModel = new GameModel();
+
+		gameController = new GameController(gameModel);
 
 		for (AbstractConnectionHandler connection : connectionHandlerList) {
 			sendUpdateGameStateRequest(connection);
@@ -218,8 +221,10 @@ public class Server implements Runnable, INetworkListener {
 
 	private void parseMakeMoveRequest(String message, AbstractConnectionHandler sender) {
 		MakeMoveRequest request = gson.fromJson(message, MakeMoveRequest.class);
-		// TODO: Implement make move functionality
-		// MoveController.isMoveValid ? => game.setMove(move, sender.getUser())
+		MoveModel move = request.move;
+		if (gameController.checkMoveIsValid(move)) {
+			gameController.updateCurrentMove(request.move.getPlayerID(), move);
+		}
 	}
 
 	private void parseWonderSelectRequest(String message, AbstractConnectionHandler sender) {
@@ -232,15 +237,13 @@ public class Server implements Runnable, INetworkListener {
 	 * TODO: Add a test
 	 */
 	private void distributeWonders() {
-		// TODO: Change to real wonders and update
-		String[] mockWonders = {"A", "B", "C", "D", "E", "F", "G"};
 
 		// Holds a list of clients want to choose that wonder
-		Map<String, Vector<AbstractConnectionHandler>> wonderCounts = new HashMap<>();
+		Map<WONDER_TYPE, Vector<AbstractConnectionHandler>> wonderCounts = new HashMap<>();
 
 		// Iterate over all clients and add them to list of clients that want a wonder
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
-			String wonder = connectionHandler.getUser().getSelectedWonder();
+			WONDER_TYPE wonder = connectionHandler.getUser().getSelectedWonder();
 			Vector<AbstractConnectionHandler> connections = wonderCounts.get(wonder);
 			if (connections == null) {
 				connections = new Vector<AbstractConnectionHandler>();
@@ -252,12 +255,12 @@ public class Server implements Runnable, INetworkListener {
 		}
 
 		// Store which client will have which wonder
-		Map<AbstractConnectionHandler, String> wonderUserMap = new HashMap<>();
-		Vector<String> emptyWonders = new Vector<>();
+		Map<AbstractConnectionHandler, WONDER_TYPE> wonderUserMap = new HashMap<>();
+		Vector<WONDER_TYPE> emptyWonders = new Vector<>();
 		Vector<AbstractConnectionHandler> unassignedUsers = new Vector<>();
 
 		// Iterate over all wonders and assign clients to wonders if only one client wants that wonder
-		for (String wonder : mockWonders) {
+		for (WONDER_TYPE wonder : WONDER_TYPE.values()) {
 			Vector<AbstractConnectionHandler> connections = wonderCounts.get(wonder);
 			// Store unassigned wonders in emptyWonders
 			if (connections == null) {
