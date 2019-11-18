@@ -5,15 +5,18 @@ import SevenWonders.Network.User;
 import SevenWonders.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
-public class LobbyController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LobbyController implements Initializable {
 
     private User[] userList;
     private LobbyModel model;
-    private Client client;
     // public LobbyView view;
     @FXML
     public Button readyButton;
@@ -42,7 +45,7 @@ public class LobbyController {
 
     public void setReady(boolean isReady)
     {
-        client.sendGetReadyRequest(isReady);
+        Client.getInstance().sendGetReadyRequest(isReady);
     }
 
     public void startGameAndChangeToGameView()
@@ -53,37 +56,37 @@ public class LobbyController {
     @FXML
     public void kickPlayer1(MouseEvent event)
     {
-        client.sendKickRequest(userList[0].getUsername());
+        Client.getInstance().sendKickRequest(userList[0].getUsername());
     }
     @FXML
     public void kickPlayer2(MouseEvent event)
     {
-        client.sendKickRequest(userList[1].getUsername());
+        Client.getInstance().sendKickRequest(userList[1].getUsername());
     }
     @FXML
     public void kickPlayer3(MouseEvent event)
     {
-        client.sendKickRequest(userList[2].getUsername());
+        Client.getInstance().sendKickRequest(userList[2].getUsername());
     }
     @FXML
     public void kickPlayer4(MouseEvent event)
     {
-        client.sendKickRequest(userList[3].getUsername());
+        Client.getInstance().sendKickRequest(userList[3].getUsername());
     }
     @FXML
     public void kickPlayer5(MouseEvent event)
     {
-        client.sendKickRequest(userList[4].getUsername());
+        Client.getInstance().sendKickRequest(userList[4].getUsername());
     }
     @FXML
     public void kickPlayer6(MouseEvent event)
     {
-        client.sendKickRequest(userList[5].getUsername());
+        Client.getInstance().sendKickRequest(userList[5].getUsername());
     }
     @FXML
     public void kickPlayer7(MouseEvent event)
     {
-        client.sendKickRequest(userList[6].getUsername());
+        Client.getInstance().sendKickRequest(userList[6].getUsername());
     }
 
     @FXML
@@ -98,22 +101,17 @@ public class LobbyController {
         SceneManager.getInstance().changeScene("MainMenu.fxml");
     }
 
-    public void setClient(Client client)
-    {
-        this.client = client;
-        if(false) // if not isAdmin
-        {
-            // Set kick buttons visible
-            kickButton1.setVisible(false);
-            kickButton2.setVisible(false);
-            kickButton3.setVisible(false);
-            kickButton4.setVisible(false);
-            kickButton5.setVisible(false);
-            kickButton6.setVisible(false);
-            kickButton7.setVisible(false);
-
-        }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+//        if (!Client.getInstance().getUser().isAdmin()) {
+//            // Set kick buttons visible
+//            kickButton1.setVisible(false);
+//            kickButton2.setVisible(false);
+//            kickButton3.setVisible(false);
+//            kickButton4.setVisible(false);
+//            kickButton5.setVisible(false);
+//            kickButton6.setVisible(false);
+//            kickButton7.setVisible(false);
+//        }
     }
-
-
 }

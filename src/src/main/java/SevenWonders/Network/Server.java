@@ -163,8 +163,25 @@ public class Server implements Runnable, INetworkListener {
 
 	private void parsePlayerReadyRequest(String message, AbstractConnectionHandler sender) {
 		PlayerReadyRequest request = gson.fromJson(message, PlayerReadyRequest.class);
+		// TODO: Complete
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
+			if (!connectionHandler.getUser().isReady()) {
+				return;
+			}
+		}
 
-		// TODO: GameController set player ready here
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
+			if (connectionHandler instanceof PseudoConnectionHandler) {
+				MoveModel aiMove = AIMoveGenerator.generateMove(gameModel, ((PseudoConnectionHandler) connectionHandler).getDifficulty());
+				if (gameController.checkMoveIsValid(aiMove)) {
+					gameController.updateCurrentMove(aiMove.getPlayerID(), aiMove);
+				}
+			}
+		}
+
+		gameController.playTurn();
+
+		sendUpdateGameStateRequests();
 
 		sendUpdateGameStateRequests();
 	}
@@ -186,26 +203,6 @@ public class Server implements Runnable, INetworkListener {
 		sender.getUser().setReady(request.isReady);
 
 		sendLobbyUpdateRequests();
-
-		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
-			if (!connectionHandler.getUser().isReady()) {
-				return;
-			}
-		}
-
-		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
-			if (connectionHandler instanceof PseudoConnectionHandler) {
-				MoveModel aiMove = AIMoveGenerator.generateMove(gameModel, ((PseudoConnectionHandler) connectionHandler).getDifficulty());
-				if (gameController.checkMoveIsValid(aiMove)) {
-					gameController.updateCurrentMove(aiMove.getPlayerID(), aiMove);
-				}
-			}
-		}
-
-		gameController.playTurn();
-
-		sendUpdateGameStateRequests();
-
 	}
 
 	private void parseConnectRequest(String message, AbstractConnectionHandler sender) {

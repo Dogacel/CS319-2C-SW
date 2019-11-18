@@ -23,10 +23,13 @@ public class PlayMenuController implements  Initializable{
     }
     @FXML
     public void createGameButtonReleased(MouseEvent event) {
-        Server server = new Server();
-        Thread serverThread = new Thread(server);
+        Server.createServerInstance();
+        Thread serverThread = new Thread(Server.getInstance());
         serverThread.start();
-        joinGameButtonReleased(event);
+
+        Client.createClientInstance (ipInputField.getText(), 8080, nameInputField.getText());
+        Client.getInstance().sendConnectRequest( nameInputField.getText());
+        SceneManager.getInstance().changeScene("Lobby.fxml");
     }
     @FXML
     public void joinGameButtonPressed( MouseEvent event) {
@@ -34,8 +37,8 @@ public class PlayMenuController implements  Initializable{
     }
     @FXML
     public void joinGameButtonReleased(MouseEvent event) {
-        Client client = new Client( ipInputField.getText(), 8080, nameInputField.getText()); //TODO maybe static client!
-        client.sendConnectRequest( nameInputField.getText());
+        Client.createClientInstance (ipInputField.getText(), 8080, nameInputField.getText());
+        Client.getInstance().sendConnectRequest( nameInputField.getText());
         SceneManager.getInstance().changeScene("Lobby.fxml");
     }
 
