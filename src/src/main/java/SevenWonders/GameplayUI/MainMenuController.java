@@ -1,7 +1,4 @@
-package SevenWonders.userinterface.controller;
-
-import SevenWonders.userinterface.model.MainMenuModel;
-import com.sun.tools.javac.Main;
+package SevenWonders.GameplayUI;
 
 public class MainMenuController {
     public MainMenuModel model;
