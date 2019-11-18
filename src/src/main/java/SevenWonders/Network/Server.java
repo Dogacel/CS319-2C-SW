@@ -90,7 +90,7 @@ public class Server implements Runnable, INetworkListener {
 
 		connectionHandlerList.remove(connectionHandler);
 		LOGGER.warning("Client disconnected : " + connectionHandler);
-
+			
 		connectionHandlerList.add(replacement);
 	}
 

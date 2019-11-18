@@ -15,12 +15,11 @@ public class Client implements INetworkListener {
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-	private User user;
 	private Gson gson;
 	private ConnectionHandler connectionHandler;
 
 	public void makeAdmin() {
-		this.user.setAdmin(true);
+		this.connectionHandler.getUser().setAdmin(true);
 	}
 
 	public boolean isConnected() {
@@ -38,10 +37,11 @@ public class Client implements INetworkListener {
 			Socket socket = new Socket(IP, serverPort);
 			gson = new Gson();
 
-			this.user = new User(username);
 
 			connectionHandler = new ConnectionHandler(socket, this);
 			connectionHandler.startListening();
+
+			this.connectionHandler.getUser().setUsername(username);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -98,7 +98,7 @@ public class Client implements INetworkListener {
 
 	// TODO: Update difficulty
 	public void sendAddAIPlayerRequest(AI_DIFFICULTY difficulty) {
-		if (!user.isAdmin()) {
+		if (!this.connectionHandler.getUser().isAdmin()) {
 			// Unauthorized
 			return;
 		}
@@ -108,7 +108,7 @@ public class Client implements INetworkListener {
 	}
 
 	public void sendStartGameRequest() {
-			if (!user.isAdmin()) {
+			if (!this.connectionHandler.getUser().isAdmin()) {
 			// Unauthorized
 			return;
 		}
@@ -118,7 +118,7 @@ public class Client implements INetworkListener {
 	}
 
 	public void sendKickRequest(String userToKick) {
-		if (!user.isAdmin()) {
+		if (!this.connectionHandler.getUser().isAdmin()) {
 			// Unauthorized
 			return;
 		}
