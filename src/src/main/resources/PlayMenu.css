@@ -1,0 +1,25 @@
+#createGameButton {
+    -fx-background-color: transparent;
+}
+
+#joinGameButton {
+    -fx-background-color: transparent;
+}
+
+#playMenuGridPane {
+    -fx-background-image: url('ui-images/blackBar.png');
+}
+
+#anchor {
+    -fx-background-image: url('ui-images/background.jpg');
+}
+
+#nameInputField{
+    -fx-background-color: black;
+    -fx-border-color: white;
+}
+
+#ipInputField{
+    -fx-background-color: black;
+    -fx-border-color: white;
+}

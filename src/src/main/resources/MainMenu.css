@@ -1,15 +1,24 @@
-#mainMenuGridPane {
-    -fx-background-image: url('ui-images/black.png');
-}
+
 #playButton {
-    -fx-background-image: url('ui-images/button.png');
+    -fx-background-color: transparent;
 }
+
 #settingsButton {
-    -fx-background-image: url('ui-images/button.png');
+    -fx-background-color: transparent;
 }
+
 #tutorialButton {
-    -fx-background-image: url('ui-images/button.png');
+    -fx-background-color: transparent;
 }
+
 #exitButton {
-    -fx-background-image: url('ui-images/button.png');
+    -fx-background-color: transparent;
+}
+
+#mainMenuGridPane {
+    -fx-background-image: url('ui-images/blackBar.png');
+}
+
+#anchor {
+    -fx-background-image: url('ui-images/background.jpg');
 }

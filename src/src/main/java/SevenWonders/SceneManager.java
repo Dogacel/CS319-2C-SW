@@ -1,5 +1,7 @@
 package SevenWonders;
 
+import SevenWonders.Network.Client;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +13,7 @@ import java.io.IOException;
 public class SceneManager {
     private static SceneManager instance = new SceneManager();
     private Stage stage;
+    public static Client client = Client.getInstance();
 
     private SceneManager() {
         stage = new Stage();

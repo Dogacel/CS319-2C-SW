@@ -33,10 +33,11 @@ public class AssetManager {
         imageMap = new HashMap<>();
         sceneMap = new HashMap<>();
         cardMap = new HashMap<>();
+        wonderMap = new HashMap<>();
         loadImages();
-        loadScenes();
+        // loadScenes();
         loadCards();
-        loadWonders();
+        //loadWonders();
     }
 
     /**
@@ -116,8 +117,8 @@ public class AssetManager {
         }
     }
 
+    /*
     private void loadWonders(){
-
         URL wonderResourcesURL = getClass().getClassLoader().getResource("wonders");
         assert wonderResourcesURL != null;
         File dir = new File(wonderResourcesURL.getPath());
@@ -134,7 +135,7 @@ public class AssetManager {
                 }
             }
         }
-    }
+    }*/
 
     public Card[][] mapDeck() {
         //Creating the deck
@@ -165,7 +166,13 @@ public class AssetManager {
     public Wonder getWonderByType(WONDER_TYPE wonderType){ return wonderMap.get(wonderType); }
 
     public Parent getSceneByName(String sceneName) {
-        return sceneMap.get(sceneName);
+        try {
+            return FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml-scenes/" + sceneName)));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        // return sceneMap.get(sceneName);
     }
 
     public Parent getSceneByNameForce(String sceneName) {
