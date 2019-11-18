@@ -1,4 +1,4 @@
-package SevenWonders;
+package SevenWonders.GameplayUI;
 
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 
