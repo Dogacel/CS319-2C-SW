@@ -18,10 +18,10 @@
             <RowConstraints maxHeight="286.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button id="playButton" fx:id="playButton" mnemonicParsing="false" onMousePressed="#playButtonPressed" onMouseReleased="#playButtonReleased" prefHeight="50.0" prefWidth="150.0" stylesheets="@../MainMenu.css" text="Button" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Button id="settingsButton" fx:id="settingsButton" mnemonicParsing="false" onMousePressed="#settingsButtonPressed" onMouseReleased="#settingsButtonReleased" prefHeight="50.0" prefWidth="150.0" stylesheets="@../MainMenu.css" text="Button" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Button id="tutorialButton" fx:id="tutorialButton" mnemonicParsing="false" onMousePressed="#tutorialButtonPressed" onMouseReleased="#tutorialButtonReleased" prefHeight="50.0" prefWidth="150.0" stylesheets="@../MainMenu.css" text="Button" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Button id="exitButton" fx:id="exitButton" mnemonicParsing="false" onMousePressed="#exitButtonPressed" onMouseReleased="#exitButtonReleased" prefHeight="50.0" prefWidth="150.0" stylesheets="@../MainMenu.css" text="Button" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Button id="createGameButton" fx:id="createGameButton" mnemonicParsing="false" onMousePressed="#settingsButtonPressed" onMouseReleased="#settingsButtonReleased" prefHeight="50.0" prefWidth="150.0" stylesheets="@../PlayMenu.css" text="Create Game" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Button id="joinGameButton" fx:id="joinGameButton" mnemonicParsing="false" onMousePressed="#tutorialButtonPressed" onMouseReleased="#tutorialButtonReleased" prefHeight="50.0" prefWidth="150.0" stylesheets="@../PlayMenu.css" text="Join Game" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <TextField id="nameInputField" fx:id="nameInputField" promptText="Please enter a name:" stylesheets="@../PlayMenu.css" GridPane.rowIndex="1" />
+            <TextField id="ipInputField" fx:id="ipInputField" promptText="Please enter IP address:" stylesheets="@../PlayMenu.css" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>
