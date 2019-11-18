@@ -24,10 +24,10 @@
         </rowConstraints>
          <children>
             <Label text="Label" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-            <Button id="player3" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-            <Button id="player5" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-            <Button id="player4" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-            <Button id="player6" mnemonicParsing="false" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+            <Button id="player3" fx:id="player3Button" mnemonicParsing="false" onMouseClicked="#player3ButtonClicked" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+            <Button id="player5" fx:id="player5Button" mnemonicParsing="false" onMouseClicked="#player5ButtonClicked" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+            <Button id="player4" fx:id="player4Button" mnemonicParsing="false" onMouseClicked="#player4ButtonClicked" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+            <Button id="player6" fx:id="player6Button" mnemonicParsing="false" onMouseClicked="#player6ButtonClicked" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
             <Label text="Label" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
             <Label text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
             <Label text="Label" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />

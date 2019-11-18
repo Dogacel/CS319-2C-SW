@@ -9,28 +9,34 @@
     -fx-text-fill: #828282;
 }
 
-#builtWonderButton{
-    -fx-background-image: url('ui-images/builtWonderButton.png');
-    -fx-background-radius: 100;
+#buildWonderButton{
+    -fx-background-image: url('ui-images/buildWonderButton.png');
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
 }
 
-#builtCardButton{
-    -fx-background-image: url('ui-images/builtCardButton.png');
-    -fx-background-radius: 100;
+#buildCardButton{
+    -fx-background-image: url('ui-images/buildCardButton.png');
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
 }
 
 #discardCardButton{
     -fx-background-image: url('ui-images/discardCardButton.png');
-    -fx-background-radius: 100;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
 }
 
 #godPowerButton{
     -fx-background-image: url('ui-images/godPowerButton.png');
-    -fx-background-radius: 100;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
 }
 
 #readyButton{
     -fx-background-image: url('ui-images/tokens/ready.png');
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
 }
 
 #exitButton{
@@ -40,10 +46,12 @@
 
 #settingsButton{
     -fx-background-image: url('ui-images/settingsButton.png');
+    -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
 
 #tutorialButton{
     -fx-background-image: url('ui-images/tutorialButton.png');
+    -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
