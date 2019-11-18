@@ -162,12 +162,17 @@ public class Server implements Runnable, INetworkListener {
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			if (connectionHandler instanceof PseudoConnectionHandler) {
 				MoveModel aiMove = AIMoveGenerator.generateMove(gameModel, ((PseudoConnectionHandler) connectionHandler).getDifficulty());
-				// TODO: Queue move for ai player
+				if (gameController.checkMoveIsValid(aiMove)) {
+					gameController.updateCurrentMove(aiMove.getPlayerID(), aiMove);
+				}
 			}
-
-			// TODO: Play the turn
 		}
 
+		gameController.playTurn();
+
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
+			sendUpdateGameStateRequest(connectionHandler);
+		}
 	}
 
 	private void parseConnectRequest(String message, AbstractConnectionHandler sender) {
@@ -199,6 +204,11 @@ public class Server implements Runnable, INetworkListener {
 		gameController = new GameController(gameModel);
 
 		for (AbstractConnectionHandler connection : connectionHandlerList) {
+			int id = gameController.addPlayer(connection.getUser().getUsername(), connection.getUser().getSelectedWonder());
+			connection.getUser().setId(id);
+		}
+
+		for (AbstractConnectionHandler connection : connectionHandlerList) {
 			sendUpdateGameStateRequest(connection);
 		}
 	}
@@ -222,8 +232,9 @@ public class Server implements Runnable, INetworkListener {
 	private void parseMakeMoveRequest(String message, AbstractConnectionHandler sender) {
 		MakeMoveRequest request = gson.fromJson(message, MakeMoveRequest.class);
 		MoveModel move = request.move;
+		assert move.getPlayerID() == sender.getUser().getId();
 		if (gameController.checkMoveIsValid(move)) {
-			gameController.updateCurrentMove(request.move.getPlayerID(), move);
+			gameController.updateCurrentMove(sender.getUser().getId(), move);
 		}
 	}
 
@@ -234,7 +245,6 @@ public class Server implements Runnable, INetworkListener {
 
 	/*
 	 * Distributes wonders to connected users.
-	 * TODO: Add a test
 	 */
 	private void distributeWonders() {
 
@@ -246,7 +256,7 @@ public class Server implements Runnable, INetworkListener {
 			WONDER_TYPE wonder = connectionHandler.getUser().getSelectedWonder();
 			Vector<AbstractConnectionHandler> connections = wonderCounts.get(wonder);
 			if (connections == null) {
-				connections = new Vector<AbstractConnectionHandler>();
+				connections = new Vector<>();
 				connections.add(connectionHandler);
 				wonderCounts.put(wonder, connections);
 			} else {

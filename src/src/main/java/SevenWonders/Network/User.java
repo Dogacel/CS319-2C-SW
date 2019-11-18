@@ -5,6 +5,8 @@ import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 class User {
 
     private String username;
+
+    private int id;
     private WONDER_TYPE selectedWonder;
 
     private boolean isAdmin;
@@ -24,6 +26,14 @@ class User {
 
     void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public boolean isAdmin() {
