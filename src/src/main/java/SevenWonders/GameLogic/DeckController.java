@@ -1,5 +1,6 @@
 package SevenWonders.GameLogic;
 
+import SevenWonders.AssetManager;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -17,14 +18,10 @@ public class DeckController {
     static final int CARDS_PER_AGE = 49;
 
     private DeckModel deckModel;
-    private Map<Integer, Card> cardMap;
-    private Gson gson;
 
     public DeckController(DeckModel model)
     {
         this.deckModel = model;
-        cardMap = new HashMap<>();
-        gson = new Gson();
         setCards();
     }
 
@@ -34,46 +31,8 @@ public class DeckController {
     }
 
     private void setCards(){
-        Card[][] cards = new Card[NUMBER_OF_AGES][CARDS_PER_AGE];
-
-        URL cardResourcesURL = getClass().getClassLoader().getResource("cards");
-        assert cardResourcesURL != null;
-        File dir = new File(cardResourcesURL.getPath());
-
-        //Mapping each card to its id
-        for (File f : Objects.requireNonNull(dir.listFiles())) {
-            if( f.getName().endsWith(".json") ) {
-                try {
-                    FileReader fileReader = new FileReader(f.getAbsolutePath());
-                    BufferedReader reader = new BufferedReader(fileReader);
-                    Card myCard = gson.fromJson(reader, Card.class);
-                    cardMap.put(myCard.getId(), myCard);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        //Creating the deck
-        URL ageFileResourceURL = getClass().getClassLoader().getResource("age_mapping.json");
-        File ageFile = new File(ageFileResourceURL.getPath());
-        try {
-            FileReader fileReader = new FileReader(ageFile.getAbsolutePath());
-            BufferedReader reader = new BufferedReader(fileReader);
-            int[][] arr = gson.fromJson(reader, int[][].class);
-
-            for(int i = 0; i < 3; i++){
-                for(int j = 0; j < arr[i].length; j++){
-                    cards[i][j] = cardMap.get(arr[i][j]);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        deckModel.setCards(cards);
+        deckModel.setCards(AssetManager.getInstance().mapDeck());
     }
-
-    public Card getCardByID(int id) { return cardMap.get(id); }
 
     public void shuffleDecks()
     {
