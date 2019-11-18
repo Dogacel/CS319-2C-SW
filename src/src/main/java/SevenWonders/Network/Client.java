@@ -60,6 +60,12 @@ public class Client implements INetworkListener {
 		// TODO: Unimplemented
 	}
 
+
+	private void onUpdateLobbyRequest(String message) {
+		LobbyUpdateRequest request = gson.fromJson(message, LobbyUpdateRequest.class);
+		// TODO: Update lobby content
+	}
+
 	private void onStartGameRequest() {
 		// TODO: Change view to game-play view
 	}
@@ -148,6 +154,9 @@ public class Client implements INetworkListener {
 			case UPDATE_GAME_STATE:
 				onUpdateGameStateRequest(message);
 				break;
+			case UPDATE_LOBBY:
+				onUpdateLobbyRequest(message);
+				break;
 			case END_TURN:
 				onEndTurnRequest();
 				break;
@@ -162,7 +171,7 @@ public class Client implements INetworkListener {
         }
     }
 
-    public void disconnect() {
+	public void disconnect() {
 		connectionHandler.disconnect();
 	}
 
