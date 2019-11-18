@@ -90,6 +90,8 @@ public class PlayerController {
 
     public Vector<Card> getHand() { return player.getHand(); }
 
+    public boolean isReady() { return player.isReady(); }
+
     public int getGold(){ return player.getGold(); }
 
     public int getShields() { return player.getShields(); }

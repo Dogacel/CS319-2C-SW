@@ -151,10 +151,6 @@ public class GameController {
 
     }
 
-    public void discardCard(Card card) {
-        discardPileController.discardCard(card);
-    }
-
     private void shiftCards()
     {
         Vector<Card> tmp, tmp1; //Used for shifting purposes
@@ -179,5 +175,17 @@ public class GameController {
             }
             playerControllers[0].setHand(tmp);
         }
+    }
+
+    public void discardCard(Card card) {
+        discardPileController.discardCard(card);
+    }
+
+    public boolean isEveryoneReady(){
+        for(PlayerController controller: playerControllers){
+            if (!controller.isReady())
+                return false;
+        }
+        return true;
     }
 }
