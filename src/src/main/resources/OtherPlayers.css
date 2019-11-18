@@ -32,3 +32,8 @@
     -fx-background-image: url("/ui-images/detailBg.png");
 }
 
+#closeButton{
+    -fx-background-image: url("/ui-images/closeButton.png");
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
