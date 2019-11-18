@@ -28,10 +28,6 @@ public class ConstructionZone {
 
         return true; //If no complication is found, card can be built.
     }
-    public Vector<Card> getConstructedCards() {
-        return constructedCards;
-    }
-
     public void buildCard(Card card)
     {
         constructedCards.add(card);

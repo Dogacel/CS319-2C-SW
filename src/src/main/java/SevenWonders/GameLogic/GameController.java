@@ -13,17 +13,13 @@ public class GameController {
     private DiscardPileController discardPileController;
     private DeckController deckController;
     private GameModel model;
+    private int playerCount;
     public GameController(GameModel model){
 
         this.model = model;
 
         this.playerControllers = new PlayerController[MAX_NO_OF_PLAYERS];
-        PlayerModel[] players = model.getPlayerList();
-
-        for ( int index = 0; index < MAX_NO_OF_PLAYERS; index++)
-        {
-            playerControllers[index] = new PlayerController( players[index], this);
-        }
+        playerCount = 0;
 
         this.discardPileController = new DiscardPileController( model.getDiscardPile());
         this.deckController = new DeckController(( model.getDeck()));
@@ -42,7 +38,24 @@ public class GameController {
         playerControllers[playerID].updateCurrentMove(move);
     }
 
-    public void makeMoves()
+    public void playTurn(){
+        makeMoves();
+        if( model.getCurrentTurn() < 7){
+
+            if (model.getCurrentTurn() != 6)
+                shiftCards();
+
+            model.incrementCurrentTurn();
+        }
+        if ( model.getCurrentAge() == 7)
+            model.incrementCurrentAge();
+    }
+
+    private void playEndOfAge(){
+
+    }
+
+    private void makeMoves()
     {
         for (PlayerController playerController : playerControllers) {
             playerController.makeMove();
@@ -126,7 +139,7 @@ public class GameController {
                     myPlayerController.setGold( cardCount * 2 + myPlayerController.getGold());
                     break;
                 case GET_MONEY_AND_VP_PER_WONDER:
-                    int goldToAdd = (playerControllers[i].getWonder().getCurrentStage() + 1) * 3;
+                    int goldToAdd = (playerControllers[i].getWonder().getCurrentStageIndex() + 1) * 3;
 
                     myPlayerController.setGold( goldToAdd + myPlayerController.getGold() );
                     break;
@@ -145,8 +158,6 @@ public class GameController {
             playerControllers[i].updateCurrentMove(null); //Clear the players move
         }
         //TODO if age is over with this turn, do not shift cards and discard the last card
-        shiftCards();
-
     }
 
     private void shiftCards()
@@ -185,5 +196,12 @@ public class GameController {
                 return false;
         }
         return true;
+    }
+
+    public int addPlayer(String name, Wonder wonder){
+        PlayerModel model = new PlayerModel(playerCount, name, wonder); //playerCount corresponds to the id
+        
+        playerControllers[playerCount] = new PlayerController(model, this);
+        return playerCount;
     }
 }

@@ -9,6 +9,7 @@ public class GameModel {
     private DiscardPileModel discardPile;
     private DeckModel deck;
     private PlayerModel[] playerList;
+    private int playerCount;
 
     public GameModel()
     {
@@ -17,6 +18,7 @@ public class GameModel {
         discardPile = new DiscardPileModel();
         deck = new DeckModel();
         playerList = new PlayerModel[NUMBER_OF_PLAYERS];
+        playerCount = 0;
     }
 
     public int getCurrentAge() { return currentAge; }
@@ -44,5 +46,11 @@ public class GameModel {
     public boolean isGameEnded()
     {
         return currentAge == 3 && currentTurn == 7;  //Might change according to design choices in GameController
+    }
+
+    public void addPlayer(PlayerModel model){
+
+        playerList[playerCount] = model;
+        playerCount++;
     }
 }
