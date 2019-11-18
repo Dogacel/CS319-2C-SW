@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane fx:id="stackPane" prefHeight="540.0" prefWidth="960.0">
+            <children>
+                <ImageView fitHeight="540.0" fitWidth="960.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/SevenWonders/userinterface/images/witcher.jpg" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="540.0" fitWidth="159.605" pickOnBounds="true" preserveRatio="true" translateX="-262.0">
+                    <image>
+                        <Image url="@/SevenWonders/userinterface/images/black.png" />
+                    </image>
+                </ImageView>
+                <VBox translateX="-50.0">
+                    <children>
+                        <Button fx:id="button1" layoutX="165.0" layoutY="125.0" maxHeight="58.0" maxWidth="135.5" minHeight="50.0" minWidth="135.5" mnemonicParsing="false" prefHeight="61.0" prefWidth="135.5" scaleX="0.75" scaleY="0.75" styleClass="fill-btn" stylesheets="@/SevenWonders/userinterface/stylesheets/button-style.css">
+                            <graphic>
+                                <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/SevenWonders/userinterface/images/button.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="10.0" maxHeight="58.0" maxWidth="135.5" minHeight="50.0" minWidth="135.5" mnemonicParsing="false" prefHeight="61.0" prefWidth="135.5" scaleX="0.75" scaleY="0.75" scaleZ="0.0" styleClass="fill-btn" stylesheets="@/SevenWonders/userinterface/stylesheets/button-style.css">
+                            <graphic>
+                                <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/SevenWonders/userinterface/images/button.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="68.0" maxHeight="58.0" maxWidth="135.5" minHeight="50.0" minWidth="135.5" mnemonicParsing="false" prefHeight="61.0" prefWidth="135.5" scaleX="0.75" scaleY="0.75" styleClass="fill-btn" stylesheets="@/SevenWonders/userinterface/stylesheets/button-style.css">
+                            <graphic>
+                                <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/SevenWonders/userinterface/images/button.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="126.0" maxHeight="58.0" maxWidth="135.5" minHeight="50.0" minWidth="135.5" mnemonicParsing="false" prefHeight="61.0" prefWidth="135.5" scaleX="0.75" scaleY="0.75" styleClass="fill-btn" stylesheets="@/SevenWonders/userinterface/stylesheets/button-style.css">
+                            <graphic>
+                                <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/SevenWonders/userinterface/images/button.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="184.0" maxHeight="58.0" maxWidth="135.5" minHeight="50.0" minWidth="135.5" mnemonicParsing="false" prefHeight="61.0" prefWidth="135.5" scaleX="0.75" scaleY="0.75" styleClass="fill-btn" stylesheets="@/SevenWonders/userinterface/stylesheets/button-style.css">
+                            <graphic>
+                                <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/SevenWonders/userinterface/images/button.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                    <StackPane.margin>
+                        <Insets left="200.0" top="50.0" />
+                    </StackPane.margin>
+                </VBox>
+            </children>
+        </StackPane>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>
