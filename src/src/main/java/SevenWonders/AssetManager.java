@@ -35,7 +35,7 @@ public class AssetManager {
         cardMap = new HashMap<>();
         wonderMap = new HashMap<>();
         loadImages();
-        loadScenes();
+        // loadScenes();
         loadCards();
         loadWonders();
     }
@@ -166,7 +166,13 @@ public class AssetManager {
     public Wonder getWonderByType(WONDER_TYPE wonderType){ return wonderMap.get(wonderType); }
 
     public Parent getSceneByName(String sceneName) {
-        return sceneMap.get(sceneName);
+        try {
+            return FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml-scenes/" + sceneName)));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        // return sceneMap.get(sceneName);
     }
 
     public Parent getSceneByNameForce(String sceneName) {

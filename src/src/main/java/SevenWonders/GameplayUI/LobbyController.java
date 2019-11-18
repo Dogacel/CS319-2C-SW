@@ -1,8 +1,11 @@
 package SevenWonders.GameplayUI;
 
 import SevenWonders.Network.Client;
+import SevenWonders.Network.ILobbyListener;
+import SevenWonders.Network.Requests.LobbyUpdateRequest;
 import SevenWonders.Network.User;
 import SevenWonders.SceneManager;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LobbyController implements Initializable {
+public class LobbyController implements Initializable, ILobbyListener {
 
     private User[] userList;
     private LobbyModel model;
@@ -42,15 +45,9 @@ public class LobbyController implements Initializable {
         this.model = new LobbyModel();
     }
 
-
     public void setReady(boolean isReady)
     {
         Client.getInstance().sendGetReadyRequest(isReady);
-    }
-
-    public void startGameAndChangeToGameView()
-    {
-        SceneManager.getInstance().changeScene("GameplayView.fxml");
     }
 
     @FXML
@@ -103,7 +100,11 @@ public class LobbyController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        if (!Client.getInstance().getUser().isAdmin()) {
+
+        Platform.runLater(() -> {
+            Client.getInstance().setLobbyListener(this);
+        });
+//        if (!Client.getInstance().getInstance().getUser().isAdmin()) {
 //            // Set kick buttons visible
 //            kickButton1.setVisible(false);
 //            kickButton2.setVisible(false);
@@ -113,5 +114,20 @@ public class LobbyController implements Initializable {
 //            kickButton6.setVisible(false);
 //            kickButton7.setVisible(false);
 //        }
+    }
+
+    @Override
+    public void onUpdateLobbyRequest(LobbyUpdateRequest request) {
+        userList = request.users;
+    }
+
+    @Override
+    public void onStartGameRequest() {
+        SceneManager.getInstance().changeScene("GameplayView.fxml");
+    }
+
+    @Override
+    public void onDisconnect() {
+        backButtonPressed(null);
     }
 }

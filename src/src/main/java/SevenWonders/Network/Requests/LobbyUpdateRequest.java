@@ -7,7 +7,7 @@ import java.util.Vector;
 
 public class LobbyUpdateRequest extends Request {
 
-    User[] users;
+    public User[] users;
 
     public static LobbyUpdateRequest of(Vector<AbstractConnectionHandler> handlers) {
         LobbyUpdateRequest lobbyUpdateRequest = new LobbyUpdateRequest();

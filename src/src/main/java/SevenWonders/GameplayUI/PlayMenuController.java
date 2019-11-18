@@ -2,6 +2,7 @@ package SevenWonders.GameplayUI;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.Server;
 import SevenWonders.SceneManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
@@ -44,6 +45,5 @@ public class PlayMenuController implements  Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }
