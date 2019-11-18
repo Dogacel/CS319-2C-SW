@@ -1,4 +1,4 @@
-package SevenWonders;
+package SevenWonders.GameplayUI;
 
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.Network.Client;
@@ -11,11 +11,11 @@ import java.util.ResourceBundle;
 
 public class WonderSelectionViewController implements Initializable {
     private WonderSelectionViewModel model;
-    private Client client;
+   // private Client client;
 
-    public WonderSelectionViewController( Client cl, WonderSelectionViewModel model){
-        this.model = model;
-        this.client = cl;
+    public WonderSelectionViewController(){
+        this.model = new WonderSelectionViewModel();
+     //   this.client = cl;
     }
 
     public void initialize(URL url, ResourceBundle rb){}
@@ -70,8 +70,9 @@ public class WonderSelectionViewController implements Initializable {
     }
 
     public void selectButtonPressed(){
-        if( model.getSelectedWonder() != null)
-            client.sendSelectWonderRequest( model.getSelectedWonder());
+        //if( model.getSelectedWonder() != null)
+        //client.sendSelectWonderRequest( model.getSelectedWonder());
+        System.out.println( model.getSelectedWonder());
     }
 
 }
