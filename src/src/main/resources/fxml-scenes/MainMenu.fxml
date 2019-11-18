@@ -11,10 +11,12 @@
             <children>
                 <ImageView fitHeight="540.0" fitWidth="960.0" pickOnBounds="true" preserveRatio="true">
                     <image>
+                        <Image url="@../ui-images/babylon.jpg" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="540.0" fitWidth="159.605" pickOnBounds="true" preserveRatio="true" translateX="-262.0">
                     <image>
+                    <Image url="@../ui-images/black.png" />
                     </image>
                 </ImageView>
                 <VBox translateX="-50.0">
@@ -23,6 +25,7 @@
                             <graphic>
                                 <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
+                                        <Image url="@../ui-images/button.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -31,6 +34,7 @@
                             <graphic>
                                 <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
+                                        <Image url="@../ui-images/button.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -39,6 +43,7 @@
                             <graphic>
                                 <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
+                                        <Image url="@../ui-images/button.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -47,6 +52,7 @@
                             <graphic>
                                 <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
+                                        <Image url="@../ui-images/button.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -55,6 +61,7 @@
                             <graphic>
                                 <ImageView fitHeight="61.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
+                                        <Image url="@../ui-images/button.png" />
                                     </image>
                                 </ImageView>
                             </graphic>

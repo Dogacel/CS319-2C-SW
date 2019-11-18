@@ -1,7 +1,4 @@
-package SevenWonders.userinterface.controller;
-
-import SevenWonders.userinterface.model.SettingsModel;
-import SevenWonders.userinterface.view.SettingsView;
+package SevenWonders.GameplayUI;
 
 public class SettingsController {
     public SettingsModel model;
