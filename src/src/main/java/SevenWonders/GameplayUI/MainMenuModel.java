@@ -1,4 +1,4 @@
-package SevenWonders.userinterface.model;
+package SevenWonders.GameplayUI;
 
 public class MainMenuModel {
     private String backgroundImage;
