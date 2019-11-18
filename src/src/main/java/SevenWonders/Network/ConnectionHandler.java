@@ -85,10 +85,11 @@ public class ConnectionHandler extends AbstractConnectionHandler implements Runn
                 // Our connection closed
             } else if (e instanceof EOFException) {
                 // Their connection closed
+                disconnect();
             } else {
                 e.printStackTrace();
+                disconnect();
             }
-            disconnect();
             return false;
         }
     }

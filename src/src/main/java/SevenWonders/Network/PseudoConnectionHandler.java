@@ -30,9 +30,7 @@ public class PseudoConnectionHandler extends AbstractConnectionHandler {
     }
 
     @Override
-    void sendMessage(String message) {
-        listener.receiveMessage(message, this);
-    }
+    void sendMessage(String message) { }
 
     @Override
     void disconnect() {

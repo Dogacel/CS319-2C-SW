@@ -100,7 +100,6 @@ public class Server implements Runnable, INetworkListener {
 	 */
 	private void disconnectClient(AbstractConnectionHandler connectionHandler) {
 		connectionHandler.disconnect();
-		onDisconnect(connectionHandler);
 	}
 
 	/**
@@ -153,7 +152,7 @@ public class Server implements Runnable, INetworkListener {
 
 	private void parsePlayerReadyRequest(String message, AbstractConnectionHandler sender) {
 		PlayerReadyRequest request = gson.fromJson(message, PlayerReadyRequest.class);
-		
+
 		// TODO: GameController set player ready here
 
 		sendUpdateGameStateRequests();
@@ -211,12 +210,17 @@ public class Server implements Runnable, INetworkListener {
 		}
 
 		KickRequest request = gson.fromJson(message, KickRequest.class);
+		AbstractConnectionHandler found = null;
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			if (connectionHandler.getUser().getUsername().equals(request.username)) {
-				disconnectClient(connectionHandler);
-				sendLobbyUpdateRequests();
+				found = connectionHandler;
 				break;
 			}
+		}
+
+		if (found != null) {
+			sendLobbyUpdateRequests();
+			disconnectClient(found);
 		}
 	}
 
@@ -226,6 +230,7 @@ public class Server implements Runnable, INetworkListener {
 			return;
 		}
 
+		gameModel = new GameModel();
 		gameController = new GameController(gameModel);
 
 		for (AbstractConnectionHandler connection : connectionHandlerList) {
