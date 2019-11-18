@@ -48,7 +48,7 @@ public class GameplayController implements Initializable{
 
     public GameplayController() {
         this.model = new GameplayModel();
-        this.client = new Client("serverAddress", 8080, "userName");
+      //  this.client = new Client("serverAddress", 8080, "userName");
     }
 
     @Override
@@ -93,8 +93,8 @@ public class GameplayController implements Initializable{
         this.player6ViewPane.getChildren().add(player6Pane);
     }
 
-    public PlayerModel getPlayer(){
-        return gameModel.getPlayerList()[ client.getId()];
-    }
+    //public PlayerModel getPlayer(){
+        //return gameModel.getPlayerList()[ client.getId()];
+   // }
 
 }

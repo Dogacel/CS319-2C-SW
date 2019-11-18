@@ -63,7 +63,7 @@ public class PlayerController implements Initializable {
     GridPane yellow;
 
     public PlayerController(){
-        this.playerModel = gameplayController.getPlayer();
+        //this.playerModel = gameplayController.getPlayer();
     }
 
     @FXML
@@ -152,9 +152,9 @@ public class PlayerController implements Initializable {
     }
 
     private void createScene(){
-        String wonder = playerModel.getWonder().toString().toLowerCase();
+//        String wonder = playerModel.getWonder().toString().toLowerCase();
 
-        this.playerAnchor.setStyle("-fx-background-image: url('/ui-images/'" + wonder + "'.png')");
+      //  this.playerAnchor.setStyle("-fx-background-image: url('/ui-images/'" + wonder + "'.png')");
         
     }
 }
