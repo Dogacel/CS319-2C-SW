@@ -15,8 +15,30 @@ public class Client implements INetworkListener {
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+	private static Client clientInstance;
+
+	private IGameListener gameListener;
+	private ILobbyListener lobbyListener;
+
+	public static Client createClientInstance(String serverAddress, int port, String username) {
+		clientInstance = new Client(serverAddress, port, username);
+		return clientInstance;
+	}
+
+	public static Client getInstance() {
+		return clientInstance;
+	}
+
 	private Gson gson;
 	private ConnectionHandler connectionHandler;
+
+	public User getUser() {
+		return this.connectionHandler.getUser();
+	}
+
+	public int getID() {
+		return this.connectionHandler.getUser().getId();
+	}
 
 	public void makeAdmin() {
 		this.connectionHandler.getUser().setAdmin(true);
@@ -37,7 +59,6 @@ public class Client implements INetworkListener {
 			Socket socket = new Socket(IP, serverPort);
 			gson = new Gson();
 
-
 			connectionHandler = new ConnectionHandler(socket, this);
 			connectionHandler.startListening();
 
@@ -49,25 +70,37 @@ public class Client implements INetworkListener {
 	}
 
 	private void onEndGameRequest() {
-		// TODO: Change to score view
+		if (gameListener != null)
+			gameListener.onEndGameRequest();
 	}
 
 	private void onEndAgeRequest() {
-		// TODO: Battle screen?
+		if (gameListener != null)
+			gameListener.onEndAgeRequest();
 	}
 
 	private void onEndTurnRequest() {
-		// TODO: Unimplemented
+		if (gameListener != null)
+			gameListener.onEndTurnRequest();
 	}
 
-
 	private void onUpdateLobbyRequest(String message) {
-		LobbyUpdateRequest request = gson.fromJson(message, LobbyUpdateRequest.class);
-		// TODO: Update lobby content
+		if (lobbyListener != null) {
+			LobbyUpdateRequest request = gson.fromJson(message, LobbyUpdateRequest.class);
+			lobbyListener.onUpdateLobbyRequest(request);
+		}
 	}
 
 	private void onStartGameRequest() {
-		// TODO: Change view to game-play view
+		if (lobbyListener != null)
+			lobbyListener.onStartGameRequest();
+	}
+
+	private void onUpdateGameStateRequest(String message) {
+		if (gameListener != null) {
+			UpdateGameStateRequest request = gson.fromJson(message, UpdateGameStateRequest.class);
+			gameListener.onUpdateGameStateRequest(request);
+		}
 	}
 
 	public void sendMakeMoveRequest(MoveModel move) {
@@ -78,11 +111,6 @@ public class Client implements INetworkListener {
 	public void sendPlayerReadyRequest(boolean ready) {
 		PlayerReadyRequest request = PlayerReadyRequest.of(ready);
 		sendRequest(request);
-	}
-
-	private void onUpdateGameStateRequest(String message) {
-		UpdateGameStateRequest request = gson.fromJson(message, UpdateGameStateRequest.class);
-		// TODO: Implement interaction between UI and Client
 	}
 
 	public void sendGetReadyRequest(boolean ready) {
@@ -180,8 +208,22 @@ public class Client implements INetworkListener {
 		connectionHandler.disconnect();
 	}
 
+	public void setLobbyListener(ILobbyListener listener) {
+		this.lobbyListener = listener;
+	}
+
+	public void setGameListener(IGameListener listener) {
+		this.lobbyListener = null;
+		this.gameListener = listener;
+	}
+
 	@Override
 	public void onDisconnect(AbstractConnectionHandler connection) {
+		if (lobbyListener != null) {
+			lobbyListener.onDisconnect();
+		} else if (gameListener != null) {
+			gameListener.onDisconnect();
+		}
 		LOGGER.warning("Disconnected!");
 	}
 }
