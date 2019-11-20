@@ -1,7 +1,10 @@
 package SevenWonders;
 
 import SevenWonders.GameLogic.Card;
+import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
+import SevenWonders.GameLogic.Enums.HERO_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
+import SevenWonders.GameLogic.Hero;
 import SevenWonders.GameLogic.Wonder;
 import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +13,7 @@ import javafx.scene.image.Image;
 
 import java.io.*;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 public class AssetManager {
@@ -27,6 +28,7 @@ public class AssetManager {
     Map<String, Parent> sceneMap;
     Map<Integer, Card> cardMap;
     Map<WONDER_TYPE, Wonder> wonderMap;
+    Map<HERO_EFFECT_TYPE, Vector<Hero>> heroMap;
 
     public void initialize() {
         gson = new Gson();
@@ -34,10 +36,12 @@ public class AssetManager {
         sceneMap = new HashMap<>();
         cardMap = new HashMap<>();
         wonderMap = new HashMap<>();
+        heroMap = new HashMap<>();
         loadImages();
         // loadScenes();
         loadCards();
         //loadWonders();
+        loadHeroes();
     }
 
     /**
@@ -135,7 +139,33 @@ public class AssetManager {
                 }
             }
         }
-    }*/
+    } */
+
+    private void loadHeroes(){
+        URL heroResourcesURL = getClass().getClassLoader().getResource("heroes");
+        assert heroResourcesURL != null;
+        File dir = new File(heroResourcesURL.getPath());
+
+        for (File f : Objects.requireNonNull(dir.listFiles())) {
+            if (f.getName().endsWith(".json")) {
+                try {
+                    FileReader fileReader = new FileReader(f.getAbsolutePath());
+                    BufferedReader reader = new BufferedReader(fileReader);
+                    Hero myHero = gson.fromJson(reader, Hero.class);
+                    if (heroMap.get(myHero.getHeroEffect()) == null){
+                        Vector<Hero> vectorToAdd = new Vector<>();
+                        vectorToAdd.add(myHero);
+                        heroMap.put(myHero.getHeroEffect(), vectorToAdd);
+                    }
+                    else{
+                        heroMap.get(myHero.getHeroEffect()).add(myHero);
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     public Card[][] mapDeck() {
         //Creating the deck
@@ -164,6 +194,13 @@ public class AssetManager {
     }
 
     public Wonder getWonderByType(WONDER_TYPE wonderType){ return wonderMap.get(wonderType); }
+
+    public Hero getRandomHeroByEffect(HERO_EFFECT_TYPE effect){
+        Random rand = new Random();
+        Vector<Hero> heroes = heroMap.get(effect);
+        
+        return heroes.get(rand.nextInt(heroes.size()));
+    }
 
     public Parent getSceneByName(String sceneName) {
         try {
