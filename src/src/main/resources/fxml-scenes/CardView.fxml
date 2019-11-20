@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane prefHeight="340.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.GameplayUI.CardViewController">
    <children>
-      <GridPane alignment="CENTER" gridLinesVisible="true" hgap="8.0" prefHeight="170.0" prefWidth="780.0">
+      <GridPane fx:id="gridPane1" alignment="CENTER" gridLinesVisible="true" hgap="8.0" prefHeight="170.0" prefWidth="780.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -23,7 +22,7 @@
             <Insets bottom="4.0" />
          </padding>
       </GridPane>
-      <GridPane alignment="CENTER" gridLinesVisible="true" hgap="8.0" layoutX="97.5" layoutY="170.0" prefHeight="170.0" prefWidth="585.0">
+      <GridPane fx:id="gridPane2" alignment="CENTER" gridLinesVisible="true" hgap="8.0" layoutX="97.5" layoutY="170.0" prefHeight="170.0" prefWidth="585.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

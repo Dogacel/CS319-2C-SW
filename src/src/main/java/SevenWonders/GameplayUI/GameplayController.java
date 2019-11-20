@@ -20,31 +20,8 @@ public class GameplayController implements Initializable{
     Client client;
 
     @FXML
-    Pane playerViewPane;
-
-    @FXML
-    Pane neighborViewRightPane;
-
-    @FXML
-    Pane neighborViewLeftPane;
-
-    @FXML
-    Pane otherPlayersViewPane;
-
-    @FXML
-    Pane cardViewPane;
-
-    @FXML
-    Pane player3ViewPane;
-
-    @FXML
-    Pane player4ViewPane;
-
-    @FXML
-    Pane player5ViewPane;
-
-    @FXML
-    Pane player6ViewPane;
+    Pane playerViewPane, neighborViewRightPane, neighborViewLeftPane, otherPlayersViewPane, cardViewPane, player3ViewPane, player4ViewPane
+            ,player5ViewPane, player6ViewPane;
 
     public GameplayController() {
         this.model = new GameplayModel();

@@ -18,49 +18,13 @@ public class PlayerController implements Initializable {
     GameplayController gameplayController;
 
     @FXML
-    Button readyButton;
-
-    @FXML
-    Button buildCardButton;
-
-    @FXML
-    Button buildWonderButton;
-
-    @FXML
-    Button discardButton;
-
-    @FXML
-    Button godPowerButton;
-
-    @FXML
-    Button settingsButton;
-
-    @FXML
-    Button tutorialButton;
-
-    @FXML
-    Button exitButton;
+    Button readyButton, buildCardButton, buildWonderButton, discardButton, godPowerButton,settingsButton,tutorialButton,exitButton;
 
     @FXML
     AnchorPane playerAnchor;
 
     @FXML
-    GridPane brownAndGray;
-
-    @FXML
-    GridPane green;
-
-    @FXML
-    GridPane blue;
-
-    @FXML
-    GridPane purple;
-
-    @FXML
-    GridPane red;
-
-    @FXML
-    GridPane yellow;
+    GridPane brownAndGray, green, blue, purple, red, yellow;
 
     public PlayerController(){
         // this.playerModel = gameplayController.getPlayer();
