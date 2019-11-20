@@ -11,4 +11,8 @@ public class God {
         this.godType = godType;
         this.godPower = godPower;
     }
+
+    public GOD_TYPE getGodType() { return  godType; }
+
+    public GOD_POWER_TYPE getGodPower() { return godPower; }
 }

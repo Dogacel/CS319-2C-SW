@@ -1,8 +1,5 @@
 package SevenWonders.GameLogic;
 
-import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
-
-import java.util.ArrayList;
 import java.util.Vector;
 
 public class PlayerModel {
@@ -77,9 +74,9 @@ public class PlayerModel {
 
     public void setShields(int shields) { this.shields = shields; }
 
-    public void addHero(String name, HERO_EFFECT_TYPE effect) {
+    public void addHero(Hero hero) {
 
-        heroes.add(new Hero(name, effect));
+        heroes.add(hero);
 
     }
 
