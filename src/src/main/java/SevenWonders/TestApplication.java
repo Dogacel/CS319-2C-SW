@@ -14,7 +14,9 @@ public class TestApplication extends Application {
             try {
                 stop();
                 Server.stopServerInstance();
-                Client.getInstance().disconnect();
+                if (Client.getInstance() != null) {
+                    Client.getInstance().disconnect();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

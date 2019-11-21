@@ -9,6 +9,7 @@ import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.Network.Requests.*;
 import com.google.gson.Gson;
 
+import java.net.SocketException;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -37,8 +38,13 @@ public class Server implements Runnable, INetworkListener {
 	}
 
 	public static void stopServerInstance() {
-		serverThread.interrupt();;
-		serverThread.stop();
+		if (serverThread != null) {
+			try {
+				serverInstance.serverSocket.close();
+			} catch (IOException e) {
+				// Don't care
+			}
+		}
 	}
 
 	public static Server getInstance() {
@@ -84,7 +90,14 @@ public class Server implements Runnable, INetworkListener {
 	private boolean acceptConnection() {
 		try {
 			if (connectionHandlerList.size() < 7) {
-				Socket s = serverSocket.accept();
+				Socket s;
+				try {
+					s = serverSocket.accept();
+				} catch (SocketException e) {
+					LOGGER.warning("Socket closed!");
+					return false;
+				}
+
 				LOGGER.info("New client connected : " + s);
 
 				AbstractConnectionHandler latestConnection = new ConnectionHandler(s, this);

@@ -205,7 +205,9 @@ public class Client implements INetworkListener {
     }
 
 	public void disconnect() {
-		connectionHandler.disconnect();
+		if (connectionHandler.isConnected()) {
+			connectionHandler.disconnect();
+		}
 	}
 
 	public void setLobbyListener(ILobbyListener listener) {
