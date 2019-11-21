@@ -340,6 +340,8 @@ public class Server implements Runnable, INetworkListener {
 			connection.getUser().setId(id);
 		}
 
+		gameController.dealCards();
+
 		sendUpdateGameStateRequests();
 	}
 

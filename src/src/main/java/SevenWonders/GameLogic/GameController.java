@@ -28,7 +28,6 @@ public class GameController {
         this.deckController = new DeckController(( model.getDeck()));
 
         shuffleDecks();
-        dealCards();
     }
 
     public boolean checkMoveIsValid(MoveModel move){
@@ -62,14 +61,17 @@ public class GameController {
         }
     }
 
-    private void dealCards(){
+    public void dealCards(){
         Card[] cards = deckController.getCurrentDeck(model.getCurrentAge());
-        Vector<Card> v = new Vector(Arrays.asList(cards));
 
         int start = 0;
         int end = 7;
         for( PlayerController playerController : playerControllers){
-            playerController.setHand( (Vector<Card>) v.subList(start, end)); //start inclusive, end exclusive
+            Card[] playerHand = new Card[7];
+            for (int i = start ; i < end ; i++) {
+                playerHand[i-start] = cards[i];
+            }
+            playerController.setHand(new Vector<Card>(Arrays.asList(playerHand))); //start inclusive, end exclusive
             start += 7;
             end += 7;
         }
