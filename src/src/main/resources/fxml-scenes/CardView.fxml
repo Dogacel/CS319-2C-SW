@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="340.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.GameplayUI.CardViewController">
+<AnchorPane prefHeight="340.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.CardViewController">
    <children>
       <GridPane fx:id="gridPane1" alignment="CENTER" gridLinesVisible="true" hgap="8.0" prefHeight="170.0" prefWidth="780.0">
         <columnConstraints>

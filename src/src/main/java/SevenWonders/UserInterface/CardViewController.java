@@ -1,13 +1,10 @@
-package SevenWonders.GameplayUI;
+package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Card;
-import SevenWonders.GameLogic.MoveModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
@@ -20,8 +17,6 @@ import java.util.Vector;
 
 public class CardViewController implements Initializable {
 
-    public CardViewModel model;
-
     GameplayController gameplayController;
 
     Map<Node, Integer> cardMap;
@@ -32,7 +27,6 @@ public class CardViewController implements Initializable {
     GridPane gridPane1, gridPane2;
 
     public CardViewController(){
-        this.model = new CardViewModel();
     }
 
     @Override
