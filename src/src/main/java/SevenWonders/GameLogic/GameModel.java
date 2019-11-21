@@ -49,8 +49,17 @@ public class GameModel {
     }
 
     public void addPlayer(PlayerModel model){
-
         playerList[playerCount] = model;
         playerCount++;
     }
+
+
+    public PlayerModel getLeftPlayer(int id){
+        return playerList[(id + 6) % 7];
+    }
+
+    public PlayerModel getRightPlayer(int id){
+        return playerList[(id + 1) % 7];
+    }
+
 }
