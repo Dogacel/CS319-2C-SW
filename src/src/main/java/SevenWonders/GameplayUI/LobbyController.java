@@ -23,26 +23,12 @@ public class LobbyController implements Initializable, ILobbyListener {
     private LobbyModel model;
     // public LobbyView view;
     @FXML
-    public Button readyButton;
-    @FXML
-    public Button backButton;
-    @FXML
-    public Button kickButton1;
-    @FXML
-    public Button kickButton2;
-    @FXML
-    public Button kickButton3;
-    @FXML
-    public Button kickButton4;
-    @FXML
-    public Button kickButton5;
-    @FXML
-    public Button kickButton6;
-    @FXML
-    public Button kickButton7;
+    public Button readyButton, backButton, kickButton1, kickButton2, kickButton3, kickButton4, kickButton5, kickButton6, kickButton7;
+    private Button[] buttons;
 
     @FXML
     public Label player1, player2, player3, player4, player5, player6, player7;
+    private Label[] players;
 
     public LobbyController()
     {
@@ -108,17 +94,10 @@ public class LobbyController implements Initializable, ILobbyListener {
         Platform.runLater(() -> {
             Client.getInstance().setLobbyListener(this);
             Client.getInstance().sendGetReadyRequest(false);
+            buttons = new Button[]{kickButton1,kickButton2,kickButton3,kickButton4,kickButton5,kickButton6,kickButton7};
+            players = new Label[]{player1,player2,player3,player4,player5,player6,player7};
         });
-//        if (!Client.getInstance().getInstance().getUser().isAdmin()) {
-//            // Set kick buttons visible
-//            kickButton1.setVisible(false);
-//            kickButton2.setVisible(false);
-//            kickButton3.setVisible(false);
-//            kickButton4.setVisible(false);
-//            kickButton5.setVisible(false);
-//            kickButton6.setVisible(false);
-//            kickButton7.setVisible(false);
-//        }
+
     }
 
     @Override
@@ -126,20 +105,19 @@ public class LobbyController implements Initializable, ILobbyListener {
         Platform.runLater(() -> {
             // TODO: Make an array
             userList = request.users;
-            if (userList[0] != null)
-                player1.setText(userList[0].getUsername());
-            if (userList[1] != null)
-                player2.setText(userList[1].getUsername());
-            if (userList[2] != null)
-                player3.setText(userList[2].getUsername());
-            if (userList[3] != null)
-                player4.setText(userList[3].getUsername());
-            if (userList[4] != null)
-                player5.setText(userList[4].getUsername());
-            if (userList[5] != null)
-                player6.setText(userList[5].getUsername());
-            if (userList[6] != null)
-                player7.setText(userList[6].getUsername());
+            for (int i = 0 ; i < 7 ; i++) {
+                if (userList[i] != null)
+                    players[i].setText(userList[i].getUsername());
+                else {
+                    players[i].setText("Empty");
+                }
+            }
+             if (!Client.getInstance().getUser().isAdmin()) {
+                // Set kick buttons visible
+                for (Button b : buttons) {
+                    b.setVisible(false);
+                }
+            }
         });
     }
 
@@ -150,6 +128,6 @@ public class LobbyController implements Initializable, ILobbyListener {
 
     @Override
     public void onDisconnect() {
-        backButtonPressed(null);
+        SceneManager.getInstance().changeScene("MainMenu.fxml");
     }
 }

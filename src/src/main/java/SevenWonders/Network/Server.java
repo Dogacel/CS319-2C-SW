@@ -23,10 +23,22 @@ public class Server implements Runnable, INetworkListener {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private static Server serverInstance;
+	private static Thread serverThread;
 
-	public static Server createServerInstance() {
+	private static Server createServerInstance() {
 		serverInstance = new Server();
 		return serverInstance;
+	}
+
+	public static void startServerInstance() {
+		createServerInstance();
+		serverThread = new Thread(serverInstance);
+		serverThread.start();
+	}
+
+	public static void stopServerInstance() {
+		serverThread.interrupt();;
+		serverThread.stop();
 	}
 
 	public static Server getInstance() {
@@ -95,14 +107,16 @@ public class Server implements Runnable, INetworkListener {
 
 	@Override
 	public void onDisconnect(AbstractConnectionHandler connectionHandler) {
-		PseudoConnectionHandler replacement = new PseudoConnectionHandler(this, AI_DIFFICULTY.MEDIUM, "");
-		replacement.user = connectionHandler.user;
-		replacement.user.setUsername(replacement.user.getUsername()+" Bot");
+		if (gameModel != null) {
+			PseudoConnectionHandler replacement = new PseudoConnectionHandler(this, AI_DIFFICULTY.MEDIUM, "");
+			replacement.user = connectionHandler.user;
+			replacement.user.setUsername(replacement.user.getUsername()+" Bot");
+			connectionHandlerList.add(replacement);
+		}
 
 		connectionHandlerList.remove(connectionHandler);
 		LOGGER.warning("Client disconnected : " + connectionHandler);
-			
-		connectionHandlerList.add(replacement);
+
 	}
 
 	/**
@@ -227,8 +241,8 @@ public class Server implements Runnable, INetworkListener {
 		}
 
 		if (found != null) {
-			sendLobbyUpdateRequests();
 			disconnectClient(found);
+			sendLobbyUpdateRequests();
 		}
 	}
 

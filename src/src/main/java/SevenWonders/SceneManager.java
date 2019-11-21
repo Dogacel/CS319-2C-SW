@@ -11,14 +11,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SceneManager {
-    private static SceneManager instance = new SceneManager();
+    private static SceneManager instance;
     private Stage stage;
     public static Client client = Client.getInstance();
 
-    private SceneManager() {
-        stage = new Stage();
+    private SceneManager(Stage firstStage) {
+        stage = firstStage;
     }
 
+    public static void initialize(Stage firstStage) {
+        instance = new SceneManager(firstStage);
+    }
     public static SceneManager getInstance() {
         return instance;
     }
