@@ -54,17 +54,17 @@ public class GameplayController implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
         addPlayerPane();
 
-        Pane rightNeighborPane =  (Pane) AssetManager.getInstance().getSceneByNameForce("RightNeighborView.fxml");
-        this.neighborViewRightPane.getChildren().add(rightNeighborPane);
+        Pane neighborPane = (Pane) AssetManager.getInstance().getSceneByNameForce("NeighborView.fxml");
+        this.neighborViewRightPane.getChildren().add(neighborPane);
+
+
+        this.neighborViewLeftPane.getChildren().add(neighborPane);
 
         Pane otherPlayersPane = (Pane) AssetManager.getInstance().getSceneByNameForce("OtherPlayersView.fxml");
         this.otherPlayersViewPane.getChildren().add(otherPlayersPane);
 
         Pane cardPane = (Pane) AssetManager.getInstance().getSceneByNameForce("CardView.fxml");
         this.cardViewPane.getChildren().add(cardPane);
-
-        Pane leftNeighborPane = (Pane) AssetManager.getInstance().getSceneByNameForce("LeftNeighborView.fxml");
-        this.neighborViewLeftPane.getChildren().add(leftNeighborPane);
     }
 
     private void addPlayerPane(){
@@ -97,7 +97,11 @@ public class GameplayController implements Initializable{
     }
 
     public PlayerModel getRightPlayer(){
-        return gameModel.getPlayerList()
+        return gameModel.getRightPlayer( getPlayer().getId());
+    }
+
+    public PlayerModel getLeftPlayer(){
+        return gameModel.getLeftPlayer( getPlayer().getId());
     }
 
     public Client getClient(){
