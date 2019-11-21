@@ -33,7 +33,7 @@ public class CardViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         cardMap = new HashMap<>();
         try {
-            updateHand();
+            updateScene();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class CardViewController implements Initializable {
         selectedCardID = cardMap.get(source);
     }
 
-    private void updateHand() throws FileNotFoundException {
+    private void updateScene() throws FileNotFoundException {
         Vector<Card> hand = gameplayController.getPlayer().getHand();
         int index = 0;
         for (Node node : gridPane1.getChildren()) {
