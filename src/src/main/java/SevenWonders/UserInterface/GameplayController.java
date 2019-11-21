@@ -6,7 +6,9 @@ import SevenWonders.GameLogic.PlayerModel;
 import SevenWonders.Network.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
+import javafx.util.Pair;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -24,7 +26,9 @@ public class GameplayController implements Initializable{
     CardViewController cardViewController;
     OtherPlayersController otherPlayersController;
     OtherPlayersDetailController otherPlayersDetailController;
-    NeighborController neighborController;
+    NeighborController leftNeighborController, rightNeighborController;
+
+    Pair<Parent, Object> pair;
 
     @FXML
     Pane playerViewPane, neighborViewRightPane, neighborViewLeftPane, otherPlayersViewPane, cardViewPane, player3ViewPane, player4ViewPane
@@ -38,9 +42,10 @@ public class GameplayController implements Initializable{
     public void updateGameModel(GameModel gameModel) throws FileNotFoundException {
         playerController.updateScene();
         cardViewController.updateScene();
-        otherPlayersController.updateScene();
-        otherPlayersDetailController.updateScene();
-        neighborController.updateScene();
+        //otherPlayersController.updateScene();
+        //otherPlayersDetailController.updateScene();
+        leftNeighborController.updateScene();
+        rightNeighborController.updateScene();
     }
 
     public static GameplayController getInstance() {
@@ -52,44 +57,32 @@ public class GameplayController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        addPlayerPane();
+        pair = AssetManager.getInstance().getSceneAndController("PlayerView.fxml");
+        Pane playerPane =  (Pane) pair.getKey();
+        playerController = (PlayerController) pair.getValue();
+        this.playerViewPane.getChildren().add(playerPane);
 
-        Pane neighborPane = (Pane) AssetManager.getInstance().getSceneByNameForce("NeighborView.fxml");
-        this.neighborViewRightPane.getChildren().add(neighborPane);
+        pair = AssetManager.getInstance().getSceneAndController("NeighborView.fxml");
+        Pane rightNeighborPane = (Pane) pair.getKey();
+        rightNeighborController = (NeighborController) pair.getValue();
+        rightNeighborController.setNeighbor( getRightPlayer());
+        this.neighborViewRightPane.getChildren().add(rightNeighborPane);
 
+        pair = AssetManager.getInstance().getSceneAndController("NeighborView.fxml");
+        Pane leftNeighborPane = (Pane) pair.getKey();
+        leftNeighborController = (NeighborController) pair.getValue();
+        leftNeighborController.setNeighbor( getLeftPlayer());
+        this.neighborViewRightPane.getChildren().add(leftNeighborPane);
 
-        this.neighborViewLeftPane.getChildren().add(neighborPane);
-
-        Pane otherPlayersPane = (Pane) AssetManager.getInstance().getSceneByNameForce("OtherPlayersView.fxml");
+        pair = AssetManager.getInstance().getSceneAndController("OtherPlayersView.fxml");
+        Pane otherPlayersPane = (Pane) pair.getKey();
+        otherPlayersController = (OtherPlayersController) pair.getValue();
         this.otherPlayersViewPane.getChildren().add(otherPlayersPane);
 
-        Pane cardPane = (Pane) AssetManager.getInstance().getSceneByNameForce("CardView.fxml");
+        pair = AssetManager.getInstance().getSceneAndController("CardView.fxml");
+        Pane cardPane = (Pane)  pair.getKey();
+        cardViewController = (CardViewController) pair.getValue();
         this.cardViewPane.getChildren().add(cardPane);
-    }
-
-    private void addPlayerPane(){
-        Pane playerPane =  (Pane) AssetManager.getInstance().getSceneByNameForce("PlayerView.fxml");
-        this.playerViewPane.getChildren().add(playerPane);
-    }
-
-    public void player3ButtonClicked(){
-        Pane player3Pane = (Pane) AssetManager.getInstance().getSceneByNameForce("OtherPlayersDetailView.fxml");
-        this.player3ViewPane.getChildren().add(player3Pane);
-    }
-
-    public void player4ButtonClicked(){
-        Pane player4Pane = (Pane) AssetManager.getInstance().getSceneByNameForce("OtherPlayersDetailView.fxml");
-        this.player4ViewPane.getChildren().add(player4Pane);
-    }
-
-    public void player5ButtonClicked(){
-        Pane player5Pane = (Pane) AssetManager.getInstance().getSceneByNameForce("OtherPlayersDetailView.fxml");
-        this.player5ViewPane.getChildren().add(player5Pane);
-    }
-
-    public void player6ButtonClicked(){
-        Pane player6Pane = (Pane) AssetManager.getInstance().getSceneByNameForce("OtherPlayersDetailView.fxml");
-        this.player6ViewPane.getChildren().add(player6Pane);
     }
 
     public PlayerModel getPlayer(){
