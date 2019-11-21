@@ -2,8 +2,10 @@ package SevenWonders.GameplayUI;
 
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.Network.Client;
+import SevenWonders.SceneManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 import javax.swing.text.html.ImageView;
 import java.net.URL;
@@ -23,6 +25,9 @@ public class WonderSelectionViewController implements Initializable {
 
     @FXML
     ImageView artemis, colossus, ghiza, babylon, halicarnassus, lighthouse, statueOfZeus;
+
+    @FXML
+    Button button;
 
     public void artemisPressed(){
         model.setSelectedWonder( WONDER_TYPE.TEMPLE_OF_ARTEMIS);
@@ -53,9 +58,10 @@ public class WonderSelectionViewController implements Initializable {
     }
 
     public void selectButtonPressed(){
-        if( model.getSelectedWonder() != null)
-            client.sendSelectWonderRequest( model.getSelectedWonder());
+        if( model.getSelectedWonder() != null) {
+            client.sendSelectWonderRequest(model.getSelectedWonder());
+            button.setDisable(false);
+        }
         System.out.println( model.getSelectedWonder());
     }
-
 }
