@@ -29,7 +29,7 @@ public class PlayMenuController implements  Initializable{
         Client.createClientInstance (ipInputField.getText(), 8080, nameInputField.getText());
         Client.getInstance().sendConnectRequest( nameInputField.getText());
         Client.getInstance().makeAdmin();
-        SceneManager.getInstance().changeScene("NewLobby.fxml");
+        SceneManager.getInstance().changeScene("Lobby.fxml");
     }
     @FXML
     public void joinGameButtonPressed( MouseEvent event) {
@@ -39,7 +39,7 @@ public class PlayMenuController implements  Initializable{
     public void joinGameButtonReleased(MouseEvent event) {
         Client.createClientInstance (ipInputField.getText(), 8080, nameInputField.getText());
         Client.getInstance().sendConnectRequest( nameInputField.getText());
-        SceneManager.getInstance().changeScene("NewLobby.fxml");
+        SceneManager.getInstance().changeScene("Lobby.fxml");
     }
 
     @Override

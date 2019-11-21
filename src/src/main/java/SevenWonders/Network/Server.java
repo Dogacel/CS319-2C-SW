@@ -229,7 +229,7 @@ public class Server implements Runnable, INetworkListener {
 		GetReadyRequest request = gson.fromJson(message, GetReadyRequest.class);
 		sender.getUser().setReady(request.isReady);
 
-		sendLobbyUpdateRequests();
+		sendLobbyUpdateRequests();;
 	}
 
 	private void parseConnectRequest(String message, AbstractConnectionHandler sender) {
@@ -289,7 +289,8 @@ public class Server implements Runnable, INetworkListener {
 		}
 
 		AddAIPlayerRequest request = gson.fromJson(message, AddAIPlayerRequest.class);
-		PseudoConnectionHandler pseudoConnectionHandler = new PseudoConnectionHandler(this, request.difficulty, "name");
+		PseudoConnectionHandler pseudoConnectionHandler = new PseudoConnectionHandler(this, request.difficulty, request.difficulty.toString() + " BOT");
+		pseudoConnectionHandler.getUser().setReady(true);
 		connectionHandlerList.add(pseudoConnectionHandler);
 
 		sendLobbyUpdateRequests();
