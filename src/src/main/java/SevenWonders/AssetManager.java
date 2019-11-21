@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Pair;
 
 import java.io.*;
 import java.net.URL;
@@ -179,6 +180,17 @@ public class AssetManager {
     public Parent getSceneByNameForce(String sceneName) {
         try {
            return FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml-scenes/" + sceneName)));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Pair<Parent, Object> getSceneAndController(String sceneName){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent parent = fxmlLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml-scenes/" + sceneName)));
+            return new Pair<>( parent, fxmlLoader.getController());
         } catch (IOException e) {
             e.printStackTrace();
             return null;
