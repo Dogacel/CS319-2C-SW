@@ -1,5 +1,9 @@
-package SevenWonders.GameplayUI;
-import SevenWonders.GameLogic.GameController;
+package SevenWonders.UserInterface;
+import SevenWonders.AssetManager;
+import SevenWonders.GameLogic.Card;
+import SevenWonders.GameLogic.Enums.ACTION_TYPE;
+import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
+import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.GameLogic.PlayerModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -16,6 +21,8 @@ public class PlayerController implements Initializable {
     PlayerModel playerModel;
 
     GameplayController gameplayController;
+
+    CardViewController cardController;
 
     @FXML
     Button readyButton, buildCardButton, buildWonderButton, discardButton, godPowerButton,settingsButton,tutorialButton,exitButton;
@@ -27,7 +34,7 @@ public class PlayerController implements Initializable {
     GridPane brownAndGray, green, blue, purple, red, yellow;
 
     public PlayerController(){
-        // this.playerModel = gameplayController.getPlayer();
+        this.playerModel = gameplayController.getPlayer();
     }
 
     @FXML
@@ -38,6 +45,7 @@ public class PlayerController implements Initializable {
     @FXML
     private void buildCardButtonReleased(MouseEvent event) {
         buildCardButton.setStyle("-fx-background-image: url('/ui-images/buildCardButton.png')");
+        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCardID(), ACTION_TYPE.BUILD_CARD));
     }
 
     @FXML
@@ -48,6 +56,7 @@ public class PlayerController implements Initializable {
     @FXML
     private void buildWonderButtonReleased(MouseEvent event) {
         buildWonderButton.setStyle("-fx-background-image: url('/ui-images/buildWonderButton.png')");
+        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCardID(), ACTION_TYPE.UPGRADE_WONDER));
     }
 
     @FXML
@@ -58,6 +67,7 @@ public class PlayerController implements Initializable {
     @FXML
     private void discardButtonReleased(MouseEvent event) {
         discardButton.setStyle("-fx-background-image: url('/ui-images/discardCardButton.png')");
+        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCardID(), ACTION_TYPE.DISCARD_CARD));
     }
 
     @FXML
@@ -68,6 +78,7 @@ public class PlayerController implements Initializable {
     @FXML
     private void godPowerButtonReleased(MouseEvent event) {
         godPowerButton.setStyle("-fx-background-image: url('/ui-images/godPowerButton.png')");
+        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCardID(), ACTION_TYPE.USE_GOD_POWER));
     }
 
     @FXML
@@ -108,17 +119,45 @@ public class PlayerController implements Initializable {
     @FXML
     private void readyButtonReleased(MouseEvent event) {
         readyButton.setStyle("-fx-background-image: url('/ui-images/tokens/ready.png')");
+        gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        createScene();
+        try {
+            updateScene();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void createScene(){
-//        String wonder = playerModel.getWonder().toString().toLowerCase();
-//
-//        this.playerAnchor.setStyle("-fx-background-image: url('/ui-images/'" + wonder + "'.png')");
-        
+    public void updateScene() throws FileNotFoundException {
+        String wonder = playerModel.getWonder().toString().toLowerCase();
+        this.playerAnchor.setStyle("-fx-background-image: url('/ui-images/'" + wonder + "'.png')");
+
+        int columnIndex = 0;
+        int rowIndex = 0;
+        for(Card card: playerModel.getConstructionZone().getConstructedCards()){
+            CARD_COLOR_TYPE color = card.getColor();
+            if(color == CARD_COLOR_TYPE.BROWN || color == CARD_COLOR_TYPE.GRAY)
+                brownAndGray.add((AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+            else if(color == CARD_COLOR_TYPE.RED)
+                red.add((AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+            else if(color == CARD_COLOR_TYPE.BLUE)
+                blue.add((AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+            else if(color == CARD_COLOR_TYPE.GREEN)
+                green.add((AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+            else if(color == CARD_COLOR_TYPE.PURPLE)
+                purple.add((AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+            else if( color == CARD_COLOR_TYPE.YELLOW)
+                yellow.add((AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+
+            if (columnIndex == 1) {
+                columnIndex = 0;
+                rowIndex++;
+            }
+            columnIndex++;
+            }
+        }
     }
 }
