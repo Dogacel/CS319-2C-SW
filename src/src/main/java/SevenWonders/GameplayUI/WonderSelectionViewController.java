@@ -2,44 +2,35 @@ package SevenWonders.GameplayUI;
 
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.Network.Client;
+import SevenWonders.Network.ILobbyListener;
+import SevenWonders.Network.Requests.LobbyUpdateRequest;
+import SevenWonders.SceneManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 import javax.swing.text.html.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class WonderSelectionViewController implements Initializable {
+
+public class WonderSelectionViewController implements Initializable, ILobbyListener {
     private WonderSelectionViewModel model;
-   // private Client client;
+    private Client client;
 
     public WonderSelectionViewController(){
         this.model = new WonderSelectionViewModel();
-     //   this.client = cl;
     }
 
-    public void initialize(URL url, ResourceBundle rb){}
+    public void initialize(URL url, ResourceBundle rb){
+        client = Client.getInstance();
+    }
 
     @FXML
-    ImageView artemis;
+    ImageView artemis, colossus, ghiza, babylon, halicarnassus, lighthouse, statueOfZeus;
 
     @FXML
-    ImageView colossus;
-
-    @FXML
-    ImageView ghiza;
-
-    @FXML
-    ImageView babylon;
-
-    @FXML
-    ImageView halicarnassus;
-
-    @FXML
-    ImageView lighthouse;
-
-    @FXML
-    ImageView statueOfZeus;
+    Button button;
 
     public void artemisPressed(){
         model.setSelectedWonder( WONDER_TYPE.TEMPLE_OF_ARTEMIS);
@@ -70,9 +61,23 @@ public class WonderSelectionViewController implements Initializable {
     }
 
     public void selectButtonPressed(){
-        //if( model.getSelectedWonder() != null)
-        //client.sendSelectWonderRequest( model.getSelectedWonder());
+        if( model.getSelectedWonder() != null) {
+            client.sendSelectWonderRequest(model.getSelectedWonder());
+        }
         System.out.println( model.getSelectedWonder());
     }
 
+    @Override
+    public void onUpdateLobbyRequest(LobbyUpdateRequest request) {
+    }
+
+    @Override
+    public void onStartGameRequest() {
+        SceneManager.getInstance().changeScene("GameplayView.fxml");
+    }
+
+    @Override
+    public void onDisconnect() {
+        SceneManager.getInstance().changeScene("MainMenu.fxml");
+    }
 }

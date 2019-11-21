@@ -15,8 +15,10 @@ public class LobbyUpdateRequest extends Request {
         lobbyUpdateRequest.users = new User[7];
         int count = 0;
         for (AbstractConnectionHandler handler : handlers) {
-            lobbyUpdateRequest.users[count] = handler.getUser();
-            count++;
+            if (count < 7) {
+                lobbyUpdateRequest.users[count] = handler.getUser();
+                count++;
+            }
         }
 
         return lobbyUpdateRequest;

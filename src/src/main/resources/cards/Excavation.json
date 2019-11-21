@@ -1,0 +1,19 @@
+{
+  "id": 6,
+  "name": "Excavation",
+  "color": "BROWN",
+  "requirements": {
+    "GOLD": 1
+  },
+  "buildingChain": [],
+  "cardEffect": {
+    "cardType": "PRODUCE_ONE_OF_TWO",
+    "resources": {
+      "STONE" : 1,
+      "BRICK" : 1
+    },
+    "gold": 0,
+    "victoryPoints": 0,
+    "shields": 0
+  }
+}

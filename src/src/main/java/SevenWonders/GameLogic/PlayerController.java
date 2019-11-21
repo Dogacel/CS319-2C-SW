@@ -2,6 +2,7 @@ package SevenWonders.GameLogic;
 
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
+import SevenWonders.GameLogic.Enums.GOD_POWER_TYPE;
 
 import java.util.Vector;
 
@@ -68,6 +69,41 @@ public class PlayerController {
                 break;
             case USE_GOD_POWER:
                 //TODO Add God Power
+
+                GOD_POWER_TYPE powerType = player.getWonder().getGod().getGodPower();
+
+                switch(powerType){
+                    case EXTRA_WAR_TOKENS:
+
+                        break;
+
+                    case TRADE_WITH_ANY:
+
+
+                        break;
+
+                    case VP_EACH_TURN:
+
+
+                        break;
+
+                    case EARTHQUAKE:
+
+                        break;
+
+                    case BLOCK_AND_DESTROY_CARD:
+
+                        break;
+
+                    case FORESIGHT:
+
+                        break;
+
+                    case FAMINE:
+
+                        break;
+                }
+
                 break;
 
         }

@@ -37,6 +37,8 @@ public class LobbyController implements Initializable, ILobbyListener {
     @FXML
     private Button readyButton;
 
+    @FXML
+    private Label ipaddress;
 
     @FXML
     private ChoiceBox<String> choice;
@@ -48,17 +50,15 @@ public class LobbyController implements Initializable, ILobbyListener {
     @FXML
     public void readyButtonPressed(MouseEvent event)
     {
-        if (Client.getInstance().getUser().isAdmin()) {
-            Client.getInstance().sendStartGameRequest();
-        } else {
-            Client.getInstance().sendGetReadyRequest(!Client.getInstance().getUser().isReady());
-        }
+        Client.getInstance().sendGetReadyRequest(!Client.getInstance().getUser().isReady());
     }
 
     @FXML
     public void backButtonPressed(MouseEvent event)
     {
-        SceneManager.getInstance().changeScene("GameplayView.fxml");
+        Server.stopServerInstance();
+        Client.getInstance().disconnect();
+        SceneManager.getInstance().changeScene("MainMenu.fxml");
     }
 
     @Override
@@ -70,6 +70,7 @@ public class LobbyController implements Initializable, ILobbyListener {
             if (Client.getInstance().getUser().isAdmin()) {
                 readyButton.setText("Start game");
             }
+            ipaddress.setText(Client.getInstance().getIP());
         });
 
     }
@@ -110,6 +111,19 @@ public class LobbyController implements Initializable, ILobbyListener {
                 kick.setOnMouseClicked((event) -> {
                     Client.getInstance().sendKickRequest(user.getUsername());
                 });
+            }
+
+            boolean everyoneReady = true;
+            for (User user : userList) {
+                if (user == null || !user.isReady()) {
+                    everyoneReady = false;
+                    break;
+                }
+            }
+
+            if (everyoneReady) {
+                Client.getInstance().sendGetReadyRequest(false);
+                SceneManager.getInstance().changeScene("WonderSelectionView.fxml");
             }
         });
     }

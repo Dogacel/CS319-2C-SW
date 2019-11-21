@@ -3,7 +3,9 @@ Stone Pit.none.none.
 Clay Pool.none.none.
 Ore Vein.none.none.
 Tree Farm.1_GOLD.none.
+Excavation.1_GOLD.none.
 Clay Pit.1_GOLD.none.
+Timber Yard.1_GOLD.none.
 Forest Cave.1_GOLD.none.
 Mine.1_GOLD.none.
 Loom.none.none.
