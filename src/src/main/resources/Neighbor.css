@@ -1,7 +1,3 @@
-#anchorRight{
-    -fx-background-image: url('ui-images/neighborBarRight.png');
-}
-
-#anchorLeft{
-    -fx-background-image: url('ui-images/neighborBarLeft.png');
+#anchor{
+    -fx-background-image: url('ui-images/neighborBg.png');
 }
