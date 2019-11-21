@@ -180,7 +180,6 @@ public class Server implements Runnable, INetworkListener {
 		}
 	}
 
-
 	private void sendLobbyUpdateRequests() {
 		LobbyUpdateRequest request = LobbyUpdateRequest.of(connectionHandlerList);
 		for (AbstractConnectionHandler handler : connectionHandlerList) {
@@ -308,8 +307,40 @@ public class Server implements Runnable, INetworkListener {
 	private void parseWonderSelectRequest(String message, AbstractConnectionHandler sender) {
 		SelectWonderRequest request = gson.fromJson(message, SelectWonderRequest.class);
 		sender.getUser().setSelectedWonder(request.wonder);
+		sender.getUser().setReady(true);
 
-		sendLobbyUpdateRequests();
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
+			if (!connectionHandler.getUser().isReady()) {
+				return;
+			}
+		}
+
+		sendStartGameRequests();
+	}
+
+	private void sendStartGameRequests() {
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
+			StartGameRequest request = StartGameRequest.of();
+			sendRequest(request, connectionHandler);
+		}
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+
+		}
+
+		distributeWonders();
+
+		gameModel = new GameModel();
+		gameController = new GameController(gameModel);
+
+		for (AbstractConnectionHandler connection : connectionHandlerList) {
+			int id = gameController.addPlayer(connection.getUser().getUsername(), connection.getUser().getSelectedWonder());
+			connection.getUser().setId(id);
+		}
+
+		sendUpdateGameStateRequests();
 	}
 
 	/*
@@ -368,5 +399,10 @@ public class Server implements Runnable, INetworkListener {
 		for (int i = 0 ; i < unassignedUsers.size() ; i++) {
 			wonderUserMap.put(unassignedUsers.get(i), emptyWonders.get(i));
 		}
+
+		wonderUserMap.forEach((conn, wonder) -> {
+			conn.getUser().setSelectedWonder(wonder);
+			System.out.println(conn.getUser().getUsername() + " : " + conn.getUser().getSelectedWonder().toString());
+		});
 	}
 }

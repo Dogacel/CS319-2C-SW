@@ -2,6 +2,8 @@ package SevenWonders.GameplayUI;
 
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.Network.Client;
+import SevenWonders.Network.ILobbyListener;
+import SevenWonders.Network.Requests.LobbyUpdateRequest;
 import SevenWonders.SceneManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,7 +13,8 @@ import javax.swing.text.html.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class WonderSelectionViewController implements Initializable {
+
+public class WonderSelectionViewController implements Initializable, ILobbyListener {
     private WonderSelectionViewModel model;
     private Client client;
 
@@ -60,8 +63,21 @@ public class WonderSelectionViewController implements Initializable {
     public void selectButtonPressed(){
         if( model.getSelectedWonder() != null) {
             client.sendSelectWonderRequest(model.getSelectedWonder());
-            button.setDisable(false);
         }
         System.out.println( model.getSelectedWonder());
+    }
+
+    @Override
+    public void onUpdateLobbyRequest(LobbyUpdateRequest request) {
+    }
+
+    @Override
+    public void onStartGameRequest() {
+        SceneManager.getInstance().changeScene("GameplayView.fxml");
+    }
+
+    @Override
+    public void onDisconnect() {
+        SceneManager.getInstance().changeScene("MainMenu.fxml");
     }
 }
