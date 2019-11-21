@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.*;
 import java.net.URL;
@@ -23,7 +24,7 @@ public class AssetManager {
 
     private Gson gson;
 
-    Map<String, Image> imageMap;
+    Map<String, ImageView> imageMap;
     Map<String, Parent> sceneMap;
     Map<Integer, Card> cardMap;
     Map<WONDER_TYPE, Wonder> wonderMap;
@@ -57,7 +58,7 @@ public class AssetManager {
      * @param imageId String ID of an image
      * @return the matching image for that ID
      */
-    public Image getImage(String imageId) throws FileNotFoundException {
+    public ImageView getImage(String imageId) throws FileNotFoundException {
         if (imageMap.containsKey(imageId)) {
             return imageMap.get(imageId);
         } else {
@@ -75,7 +76,7 @@ public class AssetManager {
 
         for (File f : Objects.requireNonNull(dir.listFiles())) {
             if( f.getName().matches(".*(\\.(png|jpg|jpeg))") && !imageMap.containsKey(f.getName()))
-                imageMap.put(f.getName(), new Image("ui-images/" + f.getName()));
+                imageMap.put(f.getName(), new ImageView("ui-images/" + f.getName()));
         }
     }
 
