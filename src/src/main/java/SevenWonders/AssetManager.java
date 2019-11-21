@@ -119,8 +119,7 @@ public class AssetManager {
             }
         }
     }
-
-
+  
     private void loadWonders(){
         URL wonderResourcesURL = getClass().getClassLoader().getResource("wonders");
         assert wonderResourcesURL != null;

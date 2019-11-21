@@ -22,7 +22,7 @@ public class SceneManager {
 
     public static void initialize(Stage firstStage) {
         instance = new SceneManager(firstStage);
-        Font.loadFont(SceneManager.getInstance().getClass().getClassLoader().getResource("Assassin$.ttf").toExternalForm(), 60);
+        Font.loadFont(SceneManager.getInstance().getClass().getClassLoader().getResource("fonts/Assassin$.ttf").toExternalForm(), 60);
     }
     public static SceneManager getInstance() {
         return instance;

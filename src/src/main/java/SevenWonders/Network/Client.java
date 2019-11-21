@@ -169,6 +169,10 @@ public class Client implements INetworkListener {
 		connectionHandler.sendMessage(message);
 	}
 
+	public String getIP() {
+		return this.connectionHandler.getIP();
+	}
+
 	/**
 	 * Called when client receives a message from the client.
 	 * This method should parse the given request depending on its type.

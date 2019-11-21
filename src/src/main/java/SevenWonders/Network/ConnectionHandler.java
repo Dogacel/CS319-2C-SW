@@ -3,6 +3,7 @@ package SevenWonders.Network;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 public class ConnectionHandler extends AbstractConnectionHandler implements Runnable {
@@ -13,6 +14,19 @@ public class ConnectionHandler extends AbstractConnectionHandler implements Runn
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
 
+    public String getIP() {
+        try {
+
+        URL whatismyip = new URL("http://checkip.amazonaws.com");
+        BufferedReader in = new BufferedReader(new InputStreamReader(
+                whatismyip.openStream()));
+
+        return in.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "DISCONNECTED!";
+        }
+    }
 
     private Thread worker;
 
