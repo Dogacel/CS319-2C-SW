@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960" prefWidth="1280" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="960" fitWidth="1280" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ui-images/background.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="960.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0">
+               <image>
+                  <Image url="@../ui-images/blackBar.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet," translateY="-200.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text fill="#ebb7b7" layoutX="480.0" layoutY="498.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tutorial" translateY="-350.0">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Text>
+         </children>
+      </StackPane>
+      <Button mnemonicParsing="false" scaleX="2.0" scaleY="2.0" text="Back" translateX="600.0" translateY="200.0" />
+   </children>
+</GridPane>
