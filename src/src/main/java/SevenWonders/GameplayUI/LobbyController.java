@@ -79,7 +79,10 @@ public class LobbyController implements Initializable, ILobbyListener {
     @FXML
     public void readyButtonPressed(MouseEvent event)
     {
+
         setReady(true);
+        
+
     }
 
     @FXML

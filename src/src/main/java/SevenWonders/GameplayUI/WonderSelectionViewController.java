@@ -11,35 +11,18 @@ import java.util.ResourceBundle;
 
 public class WonderSelectionViewController implements Initializable {
     private WonderSelectionViewModel model;
-   // private Client client;
+    private Client client;
 
     public WonderSelectionViewController(){
         this.model = new WonderSelectionViewModel();
-     //   this.client = cl;
     }
 
-    public void initialize(URL url, ResourceBundle rb){}
+    public void initialize(URL url, ResourceBundle rb){
+        client = Client.getInstance();
+    }
 
     @FXML
-    ImageView artemis;
-
-    @FXML
-    ImageView colossus;
-
-    @FXML
-    ImageView ghiza;
-
-    @FXML
-    ImageView babylon;
-
-    @FXML
-    ImageView halicarnassus;
-
-    @FXML
-    ImageView lighthouse;
-
-    @FXML
-    ImageView statueOfZeus;
+    ImageView artemis, colossus, ghiza, babylon, halicarnassus, lighthouse, statueOfZeus;
 
     public void artemisPressed(){
         model.setSelectedWonder( WONDER_TYPE.TEMPLE_OF_ARTEMIS);
@@ -70,8 +53,8 @@ public class WonderSelectionViewController implements Initializable {
     }
 
     public void selectButtonPressed(){
-        //if( model.getSelectedWonder() != null)
-        //client.sendSelectWonderRequest( model.getSelectedWonder());
+        if( model.getSelectedWonder() != null)
+            client.sendSelectWonderRequest( model.getSelectedWonder());
         System.out.println( model.getSelectedWonder());
     }
 

@@ -53,7 +53,7 @@ public class GameplayController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        addPlayerPane();
+        //addPlayerPane();
 
         Pane rightNeighborPane =  (Pane) AssetManager.getInstance().getSceneByNameForce("RightNeighborView.fxml");
         this.neighborViewRightPane.getChildren().add(rightNeighborPane);
