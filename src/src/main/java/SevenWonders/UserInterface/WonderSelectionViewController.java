@@ -1,4 +1,4 @@
-package SevenWonders.GameplayUI;
+package SevenWonders.UserInterface;
 
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.Network.Client;

@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 
 public class NeighborController {
 
-    PlayerModel neıghbor;
+    PlayerModel neighbor;
 
     @FXML
     ImageView neighborIcon;
@@ -20,12 +20,13 @@ public class NeighborController {
     GridPane resourcesGrid;
 
     public NeighborController() {
-
-        updateScene();
     }
 
     public void updateScene(){
 
     }
 
+    public void setNeighbor( PlayerModel neighbor){
+        this.neighbor = neighbor;
+    }
 }

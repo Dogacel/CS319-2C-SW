@@ -33,7 +33,6 @@ public class PlayerController {
 
     public PlayerController() throws FileNotFoundException {
         this.playerModel = GameplayController.getInstance().getPlayer();
-        updateScene();
     }
 
     @FXML

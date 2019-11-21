@@ -35,7 +35,7 @@ public class GameplayController implements Initializable{
             ,player5ViewPane, player6ViewPane;
 
     public GameplayController() {
-        gameModel = new GameModel();
+        gameModel = null;
         client = Client.getInstance();
     }
 
@@ -44,8 +44,14 @@ public class GameplayController implements Initializable{
         cardViewController.updateScene();
         //otherPlayersController.updateScene();
         //otherPlayersDetailController.updateScene();
+
+
+        leftNeighborController.setNeighbor( getLeftPlayer());
+        rightNeighborController.setNeighbor( getRightPlayer());
+
         leftNeighborController.updateScene();
         rightNeighborController.updateScene();
+
     }
 
     public static GameplayController getInstance() {
@@ -65,14 +71,12 @@ public class GameplayController implements Initializable{
         pair = AssetManager.getInstance().getSceneAndController("NeighborView.fxml");
         Pane rightNeighborPane = (Pane) pair.getKey();
         rightNeighborController = (NeighborController) pair.getValue();
-        rightNeighborController.setNeighbor( getRightPlayer());
         this.neighborViewRightPane.getChildren().add(rightNeighborPane);
 
         pair = AssetManager.getInstance().getSceneAndController("NeighborView.fxml");
         Pane leftNeighborPane = (Pane) pair.getKey();
         leftNeighborController = (NeighborController) pair.getValue();
-        leftNeighborController.setNeighbor( getLeftPlayer());
-        this.neighborViewRightPane.getChildren().add(leftNeighborPane);
+        this.neighborViewLeftPane.getChildren().add(leftNeighborPane);
 
         pair = AssetManager.getInstance().getSceneAndController("OtherPlayersView.fxml");
         Pane otherPlayersPane = (Pane) pair.getKey();
@@ -86,10 +90,13 @@ public class GameplayController implements Initializable{
     }
 
     public PlayerModel getPlayer(){
-        return gameModel.getPlayerList()[client.getID()];
+        if( gameModel != null)
+            return gameModel.getPlayerList()[client.getID()];
+        return null;
     }
 
     public PlayerModel getRightPlayer(){
+
         return gameModel.getRightPlayer( getPlayer().getId());
     }
 

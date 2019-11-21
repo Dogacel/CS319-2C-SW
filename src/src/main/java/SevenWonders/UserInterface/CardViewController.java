@@ -32,11 +32,6 @@ public class CardViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cardMap = new HashMap<>();
-        try {
-            updateScene();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
