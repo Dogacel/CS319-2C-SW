@@ -195,6 +195,8 @@ public class GameController {
                     myPlayerController.setGold( cardCount + myPlayerController.getGold());
                     break;
             }
+
+            //TODO Pay back neighbours that myPlayer made trade with
             myPlayerController.setReady(false);
             myPlayerController.updateCurrentMove(null); //Clear the players move
         }
