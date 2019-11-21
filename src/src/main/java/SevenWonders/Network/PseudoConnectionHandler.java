@@ -34,6 +34,6 @@ public class PseudoConnectionHandler extends AbstractConnectionHandler {
 
     @Override
     void disconnect() {
-
+        listener.onDisconnect(this);
     }
 }
