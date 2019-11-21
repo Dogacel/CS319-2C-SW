@@ -5,6 +5,8 @@ import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import javafx.util.Pair;
+
+import java.util.Arrays;
 import java.util.Vector;
 
 public class GameController {
@@ -26,6 +28,7 @@ public class GameController {
         this.deckController = new DeckController(( model.getDeck()));
 
         shuffleDecks();
+        dealCards();
     }
 
     public boolean checkMoveIsValid(MoveModel move){
@@ -52,6 +55,23 @@ public class GameController {
         else{
             model.incrementCurrentAge();
             playEndOfAge();
+
+            if (model.getCurrentAge() <= 3){
+                dealCards();
+            }
+        }
+    }
+
+    private void dealCards(){
+        Card[] cards = deckController.getCurrentDeck(model.getCurrentAge());
+        Vector<Card> v = new Vector(Arrays.asList(cards));
+
+        int start = 0;
+        int end = 7;
+        for( PlayerController playerController : playerControllers){
+            playerController.setHand( (Vector<Card>) v.subList(start, end)); //start inclusive, end exclusive
+            start += 7;
+            end += 7;
         }
     }
 
