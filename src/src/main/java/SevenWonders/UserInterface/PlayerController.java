@@ -16,11 +16,9 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PlayerController implements Initializable {
+public class PlayerController {
 
     PlayerModel playerModel;
-
-    GameplayController gameplayController;
 
     CardViewController cardController;
 
@@ -33,8 +31,9 @@ public class PlayerController implements Initializable {
     @FXML
     GridPane brownAndGray, green, blue, purple, red, yellow;
 
-    public PlayerController(){
-        this.playerModel = gameplayController.getPlayer();
+    public PlayerController() throws FileNotFoundException {
+        this.playerModel = GameplayController.getInstance().getPlayer();
+        updateScene();
     }
 
     @FXML
@@ -119,16 +118,7 @@ public class PlayerController implements Initializable {
     @FXML
     private void readyButtonReleased(MouseEvent event) {
         readyButton.setStyle("-fx-background-image: url('/ui-images/tokens/ready.png')");
-        gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            updateScene();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        GameplayController.getInstance().getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
     }
 
     public void updateScene() throws FileNotFoundException {
@@ -157,7 +147,6 @@ public class PlayerController implements Initializable {
                 rowIndex++;
             }
             columnIndex++;
-            }
         }
     }
 }
