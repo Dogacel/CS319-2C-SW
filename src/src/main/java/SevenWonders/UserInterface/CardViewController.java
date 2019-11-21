@@ -45,7 +45,7 @@ public class CardViewController implements Initializable {
         selectedCardID = cardMap.get(source);
     }
 
-    private void updateScene() throws FileNotFoundException {
+    public void updateScene() throws FileNotFoundException {
         Vector<Card> hand = gameplayController.getPlayer().getHand();
         int index = 0;
         for (Node node : gridPane1.getChildren()) {
@@ -70,7 +70,6 @@ public class CardViewController implements Initializable {
             }
         }
     }
-
     public int getSelectedCardID(){
         return selectedCardID;
     }
