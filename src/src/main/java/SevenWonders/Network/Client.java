@@ -26,9 +26,6 @@ public class Client implements INetworkListener {
 	}
 
 	public static Client getInstance() {
-		if (clientInstance == null) {
-			System.err.println("NE OLUYOR");
-		}
 		return clientInstance;
 	}
 
@@ -208,7 +205,9 @@ public class Client implements INetworkListener {
     }
 
 	public void disconnect() {
-		connectionHandler.disconnect();
+		if (connectionHandler.isConnected()) {
+			connectionHandler.disconnect();
+		}
 	}
 
 	public void setLobbyListener(ILobbyListener listener) {

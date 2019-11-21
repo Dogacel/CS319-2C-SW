@@ -24,9 +24,7 @@ public class PlayMenuController implements  Initializable{
     }
     @FXML
     public void createGameButtonReleased(MouseEvent event) {
-        Server.createServerInstance();
-        Thread serverThread = new Thread(Server.getInstance());
-        serverThread.start();
+        Server.startServerInstance();
 
         Client.createClientInstance (ipInputField.getText(), 8080, nameInputField.getText());
         Client.getInstance().sendConnectRequest( nameInputField.getText());
