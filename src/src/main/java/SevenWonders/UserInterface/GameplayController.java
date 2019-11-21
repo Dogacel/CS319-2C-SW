@@ -1,4 +1,4 @@
-package SevenWonders.GameplayUI;
+package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.GameModel;
@@ -6,9 +6,9 @@ import SevenWonders.GameLogic.PlayerModel;
 import SevenWonders.Network.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,11 +20,27 @@ public class GameplayController implements Initializable{
 
     Client client;
 
+    PlayerController playerController;
+    CardViewController cardViewController;
+    OtherPlayersController otherPlayersController;
+    OtherPlayersDetailController otherPlayersDetailController;
+    NeighborController neighborController;
+
     @FXML
     Pane playerViewPane, neighborViewRightPane, neighborViewLeftPane, otherPlayersViewPane, cardViewPane, player3ViewPane, player4ViewPane
             ,player5ViewPane, player6ViewPane;
 
     public GameplayController() {
+        gameModel = new GameModel();
+        client = Client.getInstance();
+    }
+
+    public void updateGameModel(GameModel gameModel) throws FileNotFoundException {
+        playerController.updateScene();
+        cardViewController.updateScene();
+        otherPlayersController.updateScene();
+        otherPlayersDetailController.updateScene();
+        neighborController.updateScene();
     }
 
     public static GameplayController getInstance() {
@@ -78,6 +94,10 @@ public class GameplayController implements Initializable{
 
     public PlayerModel getPlayer(){
         return gameModel.getPlayerList()[client.getID()];
+    }
+
+    public PlayerModel getRightPlayer(){
+        return gameModel.getPlayerList()
     }
 
     public Client getClient(){
