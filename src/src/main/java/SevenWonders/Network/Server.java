@@ -9,6 +9,7 @@ import SevenWonders.GameLogic.MoveModel;
 import SevenWonders.Network.Requests.*;
 import com.google.gson.Gson;
 
+import java.net.SocketException;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -23,10 +24,27 @@ public class Server implements Runnable, INetworkListener {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private static Server serverInstance;
+	private static Thread serverThread;
 
-	public static Server createServerInstance() {
+	private static Server createServerInstance() {
 		serverInstance = new Server();
 		return serverInstance;
+	}
+
+	public static void startServerInstance() {
+		createServerInstance();
+		serverThread = new Thread(serverInstance);
+		serverThread.start();
+	}
+
+	public static void stopServerInstance() {
+		if (serverThread != null) {
+			try {
+				serverInstance.serverSocket.close();
+			} catch (IOException e) {
+				// Don't care
+			}
+		}
 	}
 
 	public static Server getInstance() {
@@ -72,7 +90,14 @@ public class Server implements Runnable, INetworkListener {
 	private boolean acceptConnection() {
 		try {
 			if (connectionHandlerList.size() < 7) {
-				Socket s = serverSocket.accept();
+				Socket s;
+				try {
+					s = serverSocket.accept();
+				} catch (SocketException e) {
+					LOGGER.warning("Socket closed!");
+					return false;
+				}
+
 				LOGGER.info("New client connected : " + s);
 
 				AbstractConnectionHandler latestConnection = new ConnectionHandler(s, this);
@@ -95,14 +120,16 @@ public class Server implements Runnable, INetworkListener {
 
 	@Override
 	public void onDisconnect(AbstractConnectionHandler connectionHandler) {
-		PseudoConnectionHandler replacement = new PseudoConnectionHandler(this, AI_DIFFICULTY.MEDIUM, "");
-		replacement.user = connectionHandler.user;
-		replacement.user.setUsername(replacement.user.getUsername()+" Bot");
+		if (gameModel != null) {
+			PseudoConnectionHandler replacement = new PseudoConnectionHandler(this, AI_DIFFICULTY.MEDIUM, "");
+			replacement.user = connectionHandler.user;
+			replacement.user.setUsername(replacement.user.getUsername()+" Bot");
+			connectionHandlerList.add(replacement);
+		}
 
 		connectionHandlerList.remove(connectionHandler);
 		LOGGER.warning("Client disconnected : " + connectionHandler);
-			
-		connectionHandlerList.add(replacement);
+
 	}
 
 	/**
@@ -202,7 +229,7 @@ public class Server implements Runnable, INetworkListener {
 		GetReadyRequest request = gson.fromJson(message, GetReadyRequest.class);
 		sender.getUser().setReady(request.isReady);
 
-		sendLobbyUpdateRequests();
+		sendLobbyUpdateRequests();;
 	}
 
 	private void parseConnectRequest(String message, AbstractConnectionHandler sender) {
@@ -227,8 +254,8 @@ public class Server implements Runnable, INetworkListener {
 		}
 
 		if (found != null) {
-			sendLobbyUpdateRequests();
 			disconnectClient(found);
+			sendLobbyUpdateRequests();
 		}
 	}
 
@@ -262,7 +289,8 @@ public class Server implements Runnable, INetworkListener {
 		}
 
 		AddAIPlayerRequest request = gson.fromJson(message, AddAIPlayerRequest.class);
-		PseudoConnectionHandler pseudoConnectionHandler = new PseudoConnectionHandler(this, request.difficulty, "name");
+		PseudoConnectionHandler pseudoConnectionHandler = new PseudoConnectionHandler(this, request.difficulty, request.difficulty.toString() + " BOT");
+		pseudoConnectionHandler.getUser().setReady(true);
 		connectionHandlerList.add(pseudoConnectionHandler);
 
 		sendLobbyUpdateRequests();
