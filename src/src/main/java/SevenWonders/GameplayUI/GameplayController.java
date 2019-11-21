@@ -13,7 +13,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GameplayController implements Initializable{
-    GameplayModel model;
+
+    private static GameplayController gameplayControllerInstance = null;
 
     GameModel gameModel;
 
@@ -24,8 +25,13 @@ public class GameplayController implements Initializable{
             ,player5ViewPane, player6ViewPane;
 
     public GameplayController() {
-        this.model = new GameplayModel();
-      //  this.client = new Client("serverAddress", 8080, "userName");
+    }
+
+    public static GameplayController getInstance() {
+        if ( gameplayControllerInstance == null) {
+            gameplayControllerInstance = new GameplayController();
+        }
+        return gameplayControllerInstance;
     }
 
     @Override
@@ -72,6 +78,10 @@ public class GameplayController implements Initializable{
 
     public PlayerModel getPlayer(){
         return gameModel.getPlayerList()[client.getID()];
+    }
+
+    public Client getClient(){
+        return client;
     }
 
 }
