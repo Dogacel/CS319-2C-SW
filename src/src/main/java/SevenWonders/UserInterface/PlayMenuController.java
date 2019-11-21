@@ -1,11 +1,9 @@
-package SevenWonders.GameplayUI;
+package SevenWonders.UserInterface;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.Server;
 import SevenWonders.SceneManager;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 

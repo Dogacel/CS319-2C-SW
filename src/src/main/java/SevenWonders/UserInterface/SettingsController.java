@@ -1,4 +1,4 @@
-package SevenWonders.GameplayUI;
+package SevenWonders.UserInterface;
 
 public class SettingsController {
     public SettingsModel model;

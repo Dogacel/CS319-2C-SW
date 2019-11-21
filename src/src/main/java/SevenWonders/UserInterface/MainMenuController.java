@@ -1,15 +1,13 @@
-package SevenWonders.GameplayUI;
+package SevenWonders.UserInterface;
 import SevenWonders.SceneManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.event.ActionEvent;
 import javafx.application.Platform;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 
 public class MainMenuController implements Initializable{
 

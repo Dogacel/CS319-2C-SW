@@ -1,6 +1,5 @@
-package SevenWonders.GameplayUI;
+package SevenWonders.UserInterface;
 
-import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -8,26 +7,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class OtherPlayersController {
-    OtherPlayersModel model;
     GameplayController gameplayController;
 
     @FXML
     ImageView ageIcon;
 
     @FXML
-    Button player3Button;
-
-    @FXML
-    Button player4Button;
-
-    @FXML
-    Button player5Button;
-
-    @FXML
-    Button player6Button;
+    Button player3Button, player4Button, player5Button, player6Button;
 
     public OtherPlayersController(){
-        this.model = new OtherPlayersModel();
     }
 /*
     private void setClickedStyle(Button button, String imageName){

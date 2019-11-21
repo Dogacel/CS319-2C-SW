@@ -1,4 +1,4 @@
-package SevenWonders.GameplayUI;
+package SevenWonders.UserInterface;
 
 import SevenWonders.Network.Client;
 import SevenWonders.Network.ILobbyListener;
@@ -6,10 +6,8 @@ import SevenWonders.Network.Requests.LobbyUpdateRequest;
 import SevenWonders.Network.User;
 import SevenWonders.SceneManager;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -20,7 +18,6 @@ import java.util.ResourceBundle;
 public class LobbyController implements Initializable, ILobbyListener {
 
     private User[] userList;
-    private LobbyModel model;
     // public LobbyView view;
     @FXML
     public Button readyButton;
@@ -46,7 +43,6 @@ public class LobbyController implements Initializable, ILobbyListener {
 
     public LobbyController()
     {
-        this.model = new LobbyModel();
     }
 
     public void setReady(boolean isReady)
