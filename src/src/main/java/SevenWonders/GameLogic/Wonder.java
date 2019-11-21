@@ -5,7 +5,6 @@ import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 
 public class Wonder {
-    //TODO loading of the wonders should be done
     private WONDER_TYPE wonderType;
     private RESOURCE_TYPE resource;
     private WonderStage[] stages;

@@ -2,7 +2,6 @@ package SevenWonders;
 
 import SevenWonders.GameLogic.Card;
 import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
-import SevenWonders.GameLogic.Enums.HERO_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Hero;
 import SevenWonders.GameLogic.Wonder;
@@ -40,7 +39,7 @@ public class AssetManager {
         loadImages();
         // loadScenes();
         loadCards();
-        //loadWonders();
+        loadWonders();
         loadHeroes();
     }
 
@@ -121,7 +120,7 @@ public class AssetManager {
         }
     }
 
-    /*
+
     private void loadWonders(){
         URL wonderResourcesURL = getClass().getClassLoader().getResource("wonders");
         assert wonderResourcesURL != null;
@@ -139,7 +138,7 @@ public class AssetManager {
                 }
             }
         }
-    } */
+    }
 
     private void loadHeroes(){
         URL heroResourcesURL = getClass().getClassLoader().getResource("heroes");
