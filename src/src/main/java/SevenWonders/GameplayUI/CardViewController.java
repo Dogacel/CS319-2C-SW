@@ -2,6 +2,7 @@ package SevenWonders.GameplayUI;
 
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Card;
+import SevenWonders.GameLogic.MoveModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -25,12 +26,13 @@ public class CardViewController implements Initializable {
 
     Map<Node, Integer> cardMap;
 
+    private int selectedCardID;
+
     @FXML
     GridPane gridPane1, gridPane2;
 
     public CardViewController(){
         this.model = new CardViewModel();
-
     }
 
     @Override
@@ -46,7 +48,7 @@ public class CardViewController implements Initializable {
     @FXML
     private void mouseClicked(MouseEvent e) {
         Node source = (Node)e.getSource();
-        int a = cardMap.get(source);
+        selectedCardID = cardMap.get(source);
     }
 
     private void updateHand() throws FileNotFoundException {
@@ -65,7 +67,7 @@ public class CardViewController implements Initializable {
 
         for (Node node : gridPane2.getChildren()) {
             if( hand.get(index) != null) {
-                node = AssetManager.getInstance().getImage(hand.get(index).getName().toLowerCase());
+                node = AssetManager.getInstance().getImage(hand.get(index).getName().toLowerCase() + ".png");
                 cardMap.put(node, hand.get(index).getId());
                 index++;
             }
@@ -75,4 +77,7 @@ public class CardViewController implements Initializable {
         }
     }
 
+    public int getSelectedCardID(){
+        return selectedCardID;
+    }
 }
