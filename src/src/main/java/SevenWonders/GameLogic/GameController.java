@@ -57,7 +57,6 @@ public class GameController {
 
     private void playEndOfAge(){
         for(int i = 0; i < playerControllers.length; i++){
-            //TODO WarPoints system is due to change, change this also
             int winPoint = 0;
             int totalPoints = 0;
             int totalLosses = 0;
@@ -196,6 +195,8 @@ public class GameController {
                     myPlayerController.setGold( cardCount + myPlayerController.getGold());
                     break;
             }
+
+            //TODO Pay back neighbours that myPlayer made trade with
             myPlayerController.setReady(false);
             myPlayerController.updateCurrentMove(null); //Clear the players move
         }
