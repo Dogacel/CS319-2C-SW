@@ -1,95 +1,58 @@
 package SevenWonders.UserInterface;
 
+import SevenWonders.AssetManager;
+import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.ILobbyListener;
 import SevenWonders.Network.Requests.LobbyUpdateRequest;
+import SevenWonders.Network.Server;
 import SevenWonders.Network.User;
 import SevenWonders.SceneManager;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 public class LobbyController implements Initializable, ILobbyListener {
 
+    @FXML
+    private VBox playerVBox;
+
+    @FXML
+    private Button readyButton;
+
+
+    @FXML
+    private ChoiceBox<String> choice;
+
     private User[] userList;
-    // public LobbyView view;
-    @FXML
-    public Button readyButton;
-    @FXML
-    public Button backButton;
-    @FXML
-    public Button kickButton1;
-    @FXML
-    public Button kickButton2;
-    @FXML
-    public Button kickButton3;
-    @FXML
-    public Button kickButton4;
-    @FXML
-    public Button kickButton5;
-    @FXML
-    public Button kickButton6;
-    @FXML
-    public Button kickButton7;
+    private Vector<Parent> userGridList;
 
-    @FXML
-    public Label player1, player2, player3, player4, player5, player6, player7;
-
-    public LobbyController()
-    {
-    }
-
-    public void setReady(boolean isReady)
-    {
-        Client.getInstance().sendGetReadyRequest(isReady);
-    }
-
-    @FXML
-    public void kickPlayer1(MouseEvent event)
-    {
-        Client.getInstance().sendKickRequest(userList[0].getUsername());
-    }
-    @FXML
-    public void kickPlayer2(MouseEvent event)
-    {
-        Client.getInstance().sendKickRequest(userList[1].getUsername());
-    }
-    @FXML
-    public void kickPlayer3(MouseEvent event)
-    {
-        Client.getInstance().sendKickRequest(userList[2].getUsername());
-    }
-    @FXML
-    public void kickPlayer4(MouseEvent event)
-    {
-        Client.getInstance().sendKickRequest(userList[3].getUsername());
-    }
-    @FXML
-    public void kickPlayer5(MouseEvent event)
-    {
-        Client.getInstance().sendKickRequest(userList[4].getUsername());
-    }
-    @FXML
-    public void kickPlayer6(MouseEvent event)
-    {
-        Client.getInstance().sendKickRequest(userList[5].getUsername());
-    }
-    @FXML
-    public void kickPlayer7(MouseEvent event)
-    {
-        Client.getInstance().sendKickRequest(userList[6].getUsername());
-    }
 
     @FXML
     public void readyButtonPressed(MouseEvent event)
     {
-        setReady(true);
+        if (Client.getInstance().getUser().isAdmin()) {
+            Client.getInstance().sendStartGameRequest();
+        } else {
+            Client.getInstance().sendGetReadyRequest(!Client.getInstance().getUser().isReady());
+        }
     }
 
     @FXML
@@ -104,17 +67,23 @@ public class LobbyController implements Initializable, ILobbyListener {
         Platform.runLater(() -> {
             Client.getInstance().setLobbyListener(this);
             Client.getInstance().sendGetReadyRequest(false);
+            if (Client.getInstance().getUser().isAdmin()) {
+                readyButton.setText("Start game");
+            }
         });
-//        if (!Client.getInstance().getInstance().getUser().isAdmin()) {
-//            // Set kick buttons visible
-//            kickButton1.setVisible(false);
-//            kickButton2.setVisible(false);
-//            kickButton3.setVisible(false);
-//            kickButton4.setVisible(false);
-//            kickButton5.setVisible(false);
-//            kickButton6.setVisible(false);
-//            kickButton7.setVisible(false);
-//        }
+
+    }
+
+    public void addAIButtonPressed(MouseEvent event) {
+        AI_DIFFICULTY difficulty = AI_DIFFICULTY.valueOf(choice.getValue());
+        Client.getInstance().sendAddAIPlayerRequest(difficulty);
+    }
+
+    public void fillAIButtonPressed(MouseEvent event) {
+        AI_DIFFICULTY difficulty = AI_DIFFICULTY.valueOf(choice.getValue());
+        for (int i = 0 ; i < 7 ; i++) {
+            Client.getInstance().sendAddAIPlayerRequest(difficulty);
+        }
     }
 
     @Override
@@ -122,20 +91,26 @@ public class LobbyController implements Initializable, ILobbyListener {
         Platform.runLater(() -> {
             // TODO: Make an array
             userList = request.users;
-            if (userList[0] != null)
-                player1.setText(userList[0].getUsername());
-            if (userList[1] != null)
-                player2.setText(userList[1].getUsername());
-            if (userList[2] != null)
-                player3.setText(userList[2].getUsername());
-            if (userList[3] != null)
-                player4.setText(userList[3].getUsername());
-            if (userList[4] != null)
-                player5.setText(userList[4].getUsername());
-            if (userList[5] != null)
-                player6.setText(userList[5].getUsername());
-            if (userList[6] != null)
-                player7.setText(userList[6].getUsername());
+            playerVBox.getChildren().clear();
+            for (User user : userList) {
+                if (user == null)
+                    continue;
+                Parent root = AssetManager.getInstance().getSceneByNameForce("LobbyPlayerGrid.fxml");
+                playerVBox.getChildren().add(root);
+                Label name = (Label) root.lookup("#name");
+                Label ready = (Label) root.lookup("#ready");
+                Button kick = (Button) root.lookup("#kick");
+
+                if (!Client.getInstance().getUser().isAdmin() || user.isAdmin()) {
+                    kick.setVisible(false);
+                }
+
+                name.setText(user.getUsername());
+                ready.setText(user.isReady() ? "Ready" : "Not ready");
+                kick.setOnMouseClicked((event) -> {
+                    Client.getInstance().sendKickRequest(user.getUsername());
+                });
+            }
         });
     }
 
@@ -146,6 +121,7 @@ public class LobbyController implements Initializable, ILobbyListener {
 
     @Override
     public void onDisconnect() {
-        backButtonPressed(null);
+        SceneManager.getInstance().changeScene("MainMenu.fxml");
     }
 }
+
