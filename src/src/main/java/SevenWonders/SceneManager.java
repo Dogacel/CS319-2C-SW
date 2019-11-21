@@ -6,6 +6,7 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class SceneManager {
 
     public static void initialize(Stage firstStage) {
         instance = new SceneManager(firstStage);
+        Font.loadFont(SceneManager.getInstance().getClass().getClassLoader().getResource("Assassin$.ttf").toExternalForm(), 60);
     }
     public static SceneManager getInstance() {
         return instance;
