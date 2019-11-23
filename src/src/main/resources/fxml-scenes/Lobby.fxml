@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" stylesheets="@../PlayMenu.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.LobbyController">
+<AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" stylesheets="@../css/PlayMenu.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.LobbyController">
     <children>
-        <GridPane id="playMenuGridPane" layoutX="171.0" prefHeight="960.0" prefWidth="334.0" stylesheets="@../PlayMenu.css">
+        <GridPane id="playMenuGridPane" layoutX="171.0" prefHeight="960.0" prefWidth="334.0" stylesheets="@../css/PlayMenu.css">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints />
@@ -32,11 +32,11 @@
             </rowConstraints>
             <children>
 
-                <Button id="createGameButton" fx:id="readyButton" mnemonicParsing="false" onMouseReleased="#readyButtonPressed" prefHeight="50.0" prefWidth="250.0" stylesheets="@../PlayMenu.css" text="READY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                <Button id="createGameButton" fx:id="readyButton" mnemonicParsing="false" onMouseReleased="#readyButtonPressed" prefHeight="50.0" prefWidth="250.0" stylesheets="@../css/PlayMenu.css" text="READY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Assassin$" size="28.0" />
                     </font></Button>
-                <Button id="joinGameButton" mnemonicParsing="false" onMouseReleased="#backButtonPressed" prefHeight="50.0" prefWidth="250.0" stylesheets="@../PlayMenu.css" text="EXIT" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                <Button id="joinGameButton" mnemonicParsing="false" onMouseReleased="#backButtonPressed" prefHeight="50.0" prefWidth="250.0" stylesheets="@../css/PlayMenu.css" text="EXIT" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Assassin$" size="28.0" />
                     </font></Button>
@@ -53,11 +53,11 @@
                               </FXCollections>
                           </items>
                       </ChoiceBox>
-                   <Button id="joinGameButton" mnemonicParsing="false" onMouseReleased="#addAIButtonPressed" prefHeight="50.0" prefWidth="160.0" stylesheets="@../PlayMenu.css" text="ADD" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                   <Button id="joinGameButton" mnemonicParsing="false" onMouseReleased="#addAIButtonPressed" prefHeight="50.0" prefWidth="160.0" stylesheets="@../css/PlayMenu.css" text="ADD" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                        <font>
                            <Font name="Assassin$" size="28.0" />
                        </font></Button>
-                   <Button id="joinGameButton" mnemonicParsing="false" onMouseReleased="#fillAIButtonPressed" prefHeight="50.0" prefWidth="160.0" stylesheets="@../PlayMenu.css" text="FILL" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                   <Button id="joinGameButton" mnemonicParsing="false" onMouseReleased="#fillAIButtonPressed" prefHeight="50.0" prefWidth="160.0" stylesheets="@../css/PlayMenu.css" text="FILL" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                        <font>
                            <Font name="Assassin$" size="28.0" />
                        </font></Button>

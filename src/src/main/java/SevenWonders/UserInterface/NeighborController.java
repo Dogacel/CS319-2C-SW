@@ -22,8 +22,8 @@ public class NeighborController {
     public NeighborController() {
     }
 
-    public void updateScene(){
-
+    public void updateScene(PlayerModel player){
+        neighborName.setText(player.getName());
     }
 
     public void setNeighbor( PlayerModel neighbor){

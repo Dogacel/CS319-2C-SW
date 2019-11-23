@@ -130,7 +130,9 @@ public class LobbyController implements Initializable, ILobbyListener {
 
     @Override
     public void onStartGameRequest() {
-        SceneManager.getInstance().changeScene("GameplayView.fxml");
+        Platform.runLater(() -> {
+            SceneManager.getInstance().changeScene("GameplayView.fxml");
+        });
     }
 
     @Override

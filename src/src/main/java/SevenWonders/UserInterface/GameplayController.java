@@ -4,6 +4,8 @@ import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.GameModel;
 import SevenWonders.GameLogic.PlayerModel;
 import SevenWonders.Network.Client;
+import SevenWonders.Network.IGameListener;
+import SevenWonders.Network.Requests.UpdateGameStateRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -14,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameplayController implements Initializable{
+public class GameplayController implements Initializable, IGameListener {
 
     private static GameplayController gameplayControllerInstance = null;
 
@@ -37,20 +39,22 @@ public class GameplayController implements Initializable{
     public GameplayController() {
         gameModel = null;
         client = Client.getInstance();
+        client.setGameListener(this);
     }
 
-    public void updateGameModel(GameModel gameModel) throws FileNotFoundException {
-        playerController.updateScene();
-        cardViewController.updateScene();
+    public void updateGameModel(GameModel gameModel) {
+        PlayerModel me = gameModel.getPlayerList()[client.getID()];
+
+        playerController.updateScene(me);
+        cardViewController.updateScene(me.getHand());
+
+
+
         //otherPlayersController.updateScene();
         //otherPlayersDetailController.updateScene();
 
-
-        leftNeighborController.setNeighbor( getLeftPlayer());
-        rightNeighborController.setNeighbor( getRightPlayer());
-
-        leftNeighborController.updateScene();
-        rightNeighborController.updateScene();
+        //leftNeighborController.updateScene(gameModel.getLeftPlayer(client.getID()));
+        //rightNeighborController.updateScene(gameModel.getRightPlayer(client.getID()));
 
     }
 
@@ -108,4 +112,28 @@ public class GameplayController implements Initializable{
         return client;
     }
 
+    @Override
+    public void onUpdateGameStateRequest(UpdateGameStateRequest request) {
+        this.updateGameModel(request.newGameModel);
+    }
+
+    @Override
+    public void onEndGameRequest() {
+
+    }
+
+    @Override
+    public void onEndAgeRequest() {
+
+    }
+
+    @Override
+    public void onEndTurnRequest() {
+
+    }
+
+    @Override
+    public void onDisconnect() {
+
+    }
 }

@@ -1,5 +1,5 @@
 #anchor{
-    -fx-background-image: url('ui-images/babylonwonderbar.png');
+    -fx-background-image: url('../images/ui-images/babylonwonderbar.png');
 }
 #readyButton{
     -fx-border-color: transparent;
@@ -10,48 +10,48 @@
 }
 
 #buildWonderButton{
-    -fx-background-image: url('ui-images/buildWonderButton.png');
+    -fx-background-image: url('../images/ui-images/buildWonderButton.png');
     -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
 
 #buildCardButton{
-    -fx-background-image: url('ui-images/buildCardButton.png');
+    -fx-background-image: url('../images/ui-images/buildCardButton.png');
     -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
 
 #discardCardButton{
-    -fx-background-image: url('ui-images/discardCardButton.png');
+    -fx-background-image: url('../images/ui-images/discardCardButton.png');
     -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
 
 #godPowerButton{
-    -fx-background-image: url('ui-images/godPowerButton.png');
+    -fx-background-image: url('../images/ui-images/godPowerButton.png');
     -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
 
 #readyButton{
-    -fx-background-image: url('ui-images/tokens/ready.png');
+    -fx-background-image: url('../images/ui-images/tokens/ready.png');
     -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
 
 #exitButton{
-    -fx-background-image: url('ui-images/exitButton.png');
+    -fx-background-image: url('../images/ui-images/exitButton.png');
     -fx-background-color: transparent;
 }
 
 #settingsButton{
-    -fx-background-image: url('ui-images/settingsButton.png');
+    -fx-background-image: url('../images/ui-images/settingsButton.png');
     -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
 
 #tutorialButton{
-    -fx-background-image: url('ui-images/tutorialButton.png');
+    -fx-background-image: url('../images/ui-images/tutorialButton.png');
     -fx-background-radius: 0;
     -fx-background-color: transparent;
 }

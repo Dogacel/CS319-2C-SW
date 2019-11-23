@@ -16,9 +16,9 @@
 }
 
 #mainMenuGridPane {
-    -fx-background-image: url('ui-images/blackBar.png');
+    -fx-background-image: url('../images/ui-images/blackBar.png');
 }
 
 #anchor {
-    -fx-background-image: url('ui-images/background.jpg');
+    -fx-background-image: url('../images/ui-images/background.jpg');
 }
