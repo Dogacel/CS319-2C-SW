@@ -36,6 +36,8 @@ public class PlayerController {
 
     }
 
+    // TODO: Remove all set styles inside button presses
+
     @FXML
     private void buildCardButtonPressed(MouseEvent event) {
         buildCardButton.setStyle("-fx-background-image: url('/images/ui-images/buildCardButtonClicked.png')");

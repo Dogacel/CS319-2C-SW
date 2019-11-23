@@ -1,19 +1,5 @@
+@import "button-style.css"
 
-#playButton {
-    -fx-background-color: transparent;
-}
-
-#settingsButton {
-    -fx-background-color: transparent;
-}
-
-#tutorialButton {
-    -fx-background-color: transparent;
-}
-
-#exitButton {
-    -fx-background-color: transparent;
-}
 
 #mainMenuGridPane {
     -fx-background-image: url('../images/ui-images/blackBar.png');
