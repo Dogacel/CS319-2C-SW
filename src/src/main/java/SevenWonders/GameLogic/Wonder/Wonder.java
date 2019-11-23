@@ -1,8 +1,8 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Wonder;
 
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
-import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.God;
 
 public class Wonder {
     private WONDER_TYPE wonderType;

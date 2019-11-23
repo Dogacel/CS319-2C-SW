@@ -1,21 +1,16 @@
 package SevenWonders.UserInterface;
 import SevenWonders.AssetManager;
-import SevenWonders.GameLogic.Card;
+import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
-import SevenWonders.GameLogic.MoveModel;
-import SevenWonders.GameLogic.PlayerModel;
+import SevenWonders.GameLogic.Move.MoveModel;
+import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class PlayerController {
 

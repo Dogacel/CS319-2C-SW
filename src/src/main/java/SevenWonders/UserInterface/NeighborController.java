@@ -1,6 +1,6 @@
 package SevenWonders.UserInterface;
 
-import SevenWonders.GameLogic.PlayerModel;
+import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;

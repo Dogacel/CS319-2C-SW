@@ -1,4 +1,4 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Wonder;
 
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;

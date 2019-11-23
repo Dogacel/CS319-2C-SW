@@ -1,8 +1,12 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Player;
 
 import SevenWonders.AssetManager;
+import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Enums.GOD_POWER_TYPE;
+import SevenWonders.GameLogic.Game.GameController;
+import SevenWonders.GameLogic.Move.MoveModel;
+import SevenWonders.GameLogic.Wonder.Wonder;
 
 import java.util.Vector;
 

@@ -1,16 +1,8 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Deck;
 
 import SevenWonders.AssetManager;
-import com.google.gson.Gson;
+import SevenWonders.GameLogic.Deck.Card.Card;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 
 public class DeckController {

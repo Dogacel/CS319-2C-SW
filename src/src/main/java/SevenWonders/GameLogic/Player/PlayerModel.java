@@ -1,4 +1,9 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Player;
+
+import SevenWonders.GameLogic.Deck.Card.Card;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
+import SevenWonders.GameLogic.Move.MoveModel;
+import SevenWonders.GameLogic.Wonder.Wonder;
 
 import java.util.Vector;
 
@@ -10,12 +15,12 @@ public class PlayerModel {
     private String       name;
     private int          gold;
     private Vector<Card> hand;
-    private Wonder       wonder;
+    private Wonder wonder;
     private int          shields;
     private int          warPoints;
     private int          lostWarNumber;
     private boolean      isReady;
-    private MoveModel    currentMove;
+    private MoveModel currentMove;
     private Vector<Hero> heroes;
     private ConstructionZone constructionZone;
     public PlayerModel(int id, String name, Wonder wonder)

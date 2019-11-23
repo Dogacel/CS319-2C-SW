@@ -1,8 +1,8 @@
 package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
-import SevenWonders.GameLogic.GameModel;
-import SevenWonders.GameLogic.PlayerModel;
+import SevenWonders.GameLogic.Game.GameModel;
+import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.IGameListener;
 import SevenWonders.Network.Requests.UpdateGameStateRequest;
@@ -12,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

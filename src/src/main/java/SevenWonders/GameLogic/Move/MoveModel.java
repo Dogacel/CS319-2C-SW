@@ -1,9 +1,7 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Move;
 
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
 import java.util.Vector;
 
 public class MoveModel {

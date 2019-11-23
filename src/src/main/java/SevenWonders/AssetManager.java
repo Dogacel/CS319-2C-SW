@@ -1,10 +1,10 @@
 package SevenWonders;
 
-import SevenWonders.GameLogic.Card;
+import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
-import SevenWonders.GameLogic.Hero;
-import SevenWonders.GameLogic.Wonder;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
+import SevenWonders.GameLogic.Wonder.Wonder;
 import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

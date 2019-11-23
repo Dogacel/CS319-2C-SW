@@ -1,9 +1,16 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Game;
 
 import SevenWonders.AssetManager;
+import SevenWonders.GameLogic.Deck.Card.Card;
+import SevenWonders.GameLogic.Deck.Card.CardEffect;
+import SevenWonders.GameLogic.Deck.DeckController;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
+import SevenWonders.GameLogic.Move.MoveController;
+import SevenWonders.GameLogic.Move.MoveModel;
+import SevenWonders.GameLogic.Player.PlayerController;
+import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.util.Pair;
 
 import java.util.Arrays;

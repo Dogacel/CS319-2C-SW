@@ -1,4 +1,6 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Game;
+
+import SevenWonders.GameLogic.Deck.Card.Card;
 
 public class DiscardPileController {
     private DiscardPileModel discardPile;

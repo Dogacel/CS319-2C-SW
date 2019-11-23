@@ -1,8 +1,11 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Move;
 
+import SevenWonders.GameLogic.Deck.Card.Card;
+import SevenWonders.GameLogic.Deck.Card.CardEffect;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+import SevenWonders.GameLogic.Player.PlayerController;
 import javafx.util.Pair;
 
 
@@ -280,7 +283,7 @@ public class MoveController {
     }
 
     /* TODO
-    This method is for taking an ID and returning a Card object, maybe initialized somewhere else later.
+    This method is for taking an ID and returning a Deck object, maybe initialized somewhere else later.
      */
     public Card fromIDToCard(int cardID) {
         return null;

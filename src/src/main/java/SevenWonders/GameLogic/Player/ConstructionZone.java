@@ -1,5 +1,6 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Player;
 
+import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 
 import java.util.Vector;

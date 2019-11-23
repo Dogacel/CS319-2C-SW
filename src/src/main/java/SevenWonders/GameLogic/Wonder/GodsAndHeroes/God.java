@@ -1,4 +1,4 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Wonder.GodsAndHeroes;
 
 import SevenWonders.GameLogic.Enums.GOD_POWER_TYPE;
 import SevenWonders.GameLogic.Enums.GOD_TYPE;

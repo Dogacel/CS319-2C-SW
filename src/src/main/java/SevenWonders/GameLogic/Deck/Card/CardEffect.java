@@ -1,4 +1,4 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Deck.Card;
 
 import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;

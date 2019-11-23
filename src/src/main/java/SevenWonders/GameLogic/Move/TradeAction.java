@@ -1,4 +1,4 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Move;
 
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 

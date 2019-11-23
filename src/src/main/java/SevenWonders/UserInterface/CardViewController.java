@@ -1,21 +1,16 @@
 package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
-import SevenWonders.GameLogic.Card;
+import SevenWonders.GameLogic.Deck.Card.Card;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
 

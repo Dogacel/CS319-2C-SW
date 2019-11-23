@@ -1,4 +1,7 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Game;
+
+import SevenWonders.GameLogic.Deck.DeckModel;
+import SevenWonders.GameLogic.Player.PlayerModel;
 
 public class GameModel {
 

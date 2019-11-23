@@ -1,4 +1,6 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Game;
+
+import SevenWonders.GameLogic.Deck.Card.Card;
 
 import java.util.Vector;
 

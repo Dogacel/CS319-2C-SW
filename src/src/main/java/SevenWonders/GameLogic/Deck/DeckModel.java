@@ -1,6 +1,7 @@
-package SevenWonders.GameLogic;
+package SevenWonders.GameLogic.Deck;
 
 
+import SevenWonders.GameLogic.Deck.Card.Card;
 
 public class DeckModel {
 
