@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.CardViewController">
    <children>
-      <HBox fx:id="hbox1" alignment="CENTER" prefHeight="250.0" prefWidth="656.0" />
-      <HBox fx:id="hbox2" alignment="CENTER" layoutY="250.0" prefHeight="250.0" prefWidth="656.0" />
+      <HBox fx:id="hbox1" alignment="CENTER" prefHeight="250.0" prefWidth="656.0" spacing="5"/>
+      <HBox fx:id="hbox2" alignment="CENTER" layoutY="250.0" prefHeight="250.0" prefWidth="656.0" spacing="5"/>
    </children>
 </AnchorPane>
