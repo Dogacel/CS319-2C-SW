@@ -231,9 +231,8 @@ public class AssetManager {
 
     public Pair<Parent, Object> getSceneAndController(String sceneName){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            InputStream fis = getClass().getClassLoader().getResourceAsStream("fxml-scenes/" + sceneName);
-            Parent parent = fxmlLoader.load(fis);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml-scenes/" + sceneName));
+            Parent parent = fxmlLoader.load();
             return new Pair<>( parent, fxmlLoader.getController());
         } catch (IOException e) {
             e.printStackTrace();
