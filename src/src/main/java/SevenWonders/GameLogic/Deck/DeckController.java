@@ -28,7 +28,7 @@ public class DeckController {
 
     public void shuffleDecks()
     {
-        for ( int i = 0; i < 3; i++){
+        for ( int i = 1; i <= 3; i++){
 
             Card[] cardsOfAge = deckModel.getCardsOfAge(i);
             for (int j = cardsOfAge.length - 1; j > 0; j--)

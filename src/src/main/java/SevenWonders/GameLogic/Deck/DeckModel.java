@@ -21,6 +21,6 @@ public class DeckModel {
 
     public Card[] getCardsOfAge(int age)
     {
-        return cards[age];
+        return cards[age - 1];
     }
 }
