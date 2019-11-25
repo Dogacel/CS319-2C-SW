@@ -18,7 +18,7 @@ public class CardViewController implements Initializable {
 
     GameplayController gameplayController;
 
-    private int selectedCardID;
+    private Card selectedCard;
 
     @FXML
     HBox hbox1, hbox2;
@@ -43,6 +43,10 @@ public class CardViewController implements Initializable {
                     ImageView imageView = new ImageView(
                         AssetManager.getInstance().getImage(hand.get(i).getName().replaceAll(" ", "").toLowerCase() + ".png")
                     );
+                    Card c = hand.get(i);
+                    imageView.setOnMouseClicked((e) ->  {
+                        selectedCard = c;
+                    });
                     hbox1.getChildren().add(imageView);
                 }
             }
@@ -52,13 +56,17 @@ public class CardViewController implements Initializable {
                     ImageView imageView = new ImageView(
                         AssetManager.getInstance().getImage(hand.get(i).getName().replaceAll(" ", "").toLowerCase() + ".png")
                     );
+                    Card c = hand.get(i);
+                    imageView.setOnMouseClicked((e) ->  {
+                        selectedCard = c;
+                    });
                     hbox2.getChildren().add(imageView);
                 }
             }
         });
     }
 
-    public int getSelectedCardID(){
-        return selectedCardID;
+    public Card getSelectedCard(){
+        return selectedCard;
     }
 }

@@ -41,7 +41,7 @@ public class PlayerController {
     @FXML
     private void buildCardButtonReleased(MouseEvent event) {
         buildCardButton.setStyle("-fx-background-image: url('/images/ui-images/buildCardButton.png')");
-        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCardID(), ACTION_TYPE.BUILD_CARD));
+        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCard().getId(), ACTION_TYPE.BUILD_CARD));
     }
 
     @FXML
@@ -52,7 +52,7 @@ public class PlayerController {
     @FXML
     private void buildWonderButtonReleased(MouseEvent event) {
         buildWonderButton.setStyle("-fx-background-image: url('/images/ui-images/buildWonderButton.png')");
-        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCardID(), ACTION_TYPE.UPGRADE_WONDER));
+        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCard().getId(), ACTION_TYPE.UPGRADE_WONDER));
     }
 
     @FXML
@@ -63,7 +63,7 @@ public class PlayerController {
     @FXML
     private void discardButtonReleased(MouseEvent event) {
         discardButton.setStyle("-fx-background-image: url('/images/ui-images/discardCardButton.png')");
-        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCardID(), ACTION_TYPE.DISCARD_CARD));
+        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCard().getId(), ACTION_TYPE.DISCARD_CARD));
     }
 
     @FXML
@@ -74,7 +74,7 @@ public class PlayerController {
     @FXML
     private void godPowerButtonReleased(MouseEvent event) {
         godPowerButton.setStyle("-fx-background-image: url('/images/ui-images/godPowerButton.png')");
-        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCardID(), ACTION_TYPE.USE_GOD_POWER));
+        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardController.getSelectedCard().getId(), ACTION_TYPE.USE_GOD_POWER));
     }
 
     @FXML
