@@ -1,1 +1,3 @@
-@import "Components.css"
+#anchor {
+    -fx-background-image: url('../images/ui-images/background.jpg');
+}
