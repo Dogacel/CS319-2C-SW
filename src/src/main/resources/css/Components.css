@@ -1,0 +1,30 @@
+.button, .text-field, .choice-box {
+    -fx-background-color: transparent;
+
+    -fx-font-family: "Assassin$";
+    -fx-font-size: 30px;
+    -fx-text-fill: rgb(255,255,255);
+
+    -fx-pref-width: 300px;
+    -fx-pref-height: 50px;
+}
+
+.button:hover {
+    -fx-background-color: rgba(100, 100, 100, 0.4);
+}
+
+.button:pressed {
+    -fx-background-color: rgba(100, 100, 100, 0.2);
+}
+
+.choice-box {
+    -fx-font-size: 18px;
+}
+
+#menuGridPane {
+    -fx-background-image: url('../images/ui-images/blackBar.png');
+}
+
+#anchor {
+    -fx-background-image: url('../images/ui-images/background.jpg');
+}

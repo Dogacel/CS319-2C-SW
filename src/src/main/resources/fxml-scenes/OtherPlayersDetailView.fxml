@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="detailAnchor" prefHeight="390.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.OtherPlayersDetailController">
+<AnchorPane id="detailAnchor" prefHeight="390.0" prefWidth="150.0" stylesheets="@../css/OtherPlayers.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.OtherPlayersDetailController">
    <children>
       <Pane layoutY="100.0" prefHeight="290.0" prefWidth="200.0" visible="false">
          <children>
@@ -21,17 +21,17 @@
                <children>
                   <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../ui-images/tokens/victory1.png" />
+                        <Image url="/images/tokens/victory1.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../ui-images/tokens/buy.png" />
+                        <Image url="/images/tokens/buy.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="31.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../ui-images/tokens/zeus.png" />
+                        <Image url="/images/tokens/zeus.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="warLabel" text="Label" GridPane.columnIndex="1" />
@@ -39,7 +39,7 @@
                   <Label fx:id="godLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <GridPane id="leftNeighborResources" fx:id="resourcesGrid" layoutX="30.0" layoutY="140.0" prefHeight="120.0" prefWidth="140.0" stylesheets="@../Neighbor.css">
+            <GridPane id="leftNeighborResources" fx:id="resourcesGrid" layoutX="30.0" layoutY="140.0" prefHeight="120.0" prefWidth="140.0" stylesheets="@../css/Neighbor.css">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -51,7 +51,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <Button id="closeButton" fx:id="closeButton" layoutX="165.0" layoutY="3.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../OtherPlayers.css" />
+            <Button id="closeButton" fx:id="closeButton" layoutX="165.0" layoutY="3.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/OtherPlayers.css" />
          </children>
       </Pane>
       <GridPane layoutY="10.0" prefHeight="90.0" prefWidth="200.0">
@@ -65,7 +65,7 @@
         </rowConstraints>
          <children>
             <Label fx:id="playerNameLabel" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Button id="player3" fx:id="playerButton" mnemonicParsing="false" onMouseClicked="#player3ButtonClicked" prefHeight="70.0" prefWidth="150.0" stylesheets="@../OtherPlayers.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Button id="player3" fx:id="playerButton" mnemonicParsing="false" onMouseClicked="#player3ButtonClicked" prefHeight="70.0" prefWidth="150.0" stylesheets="@../css/OtherPlayers.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>

@@ -44,17 +44,15 @@ public class LobbyController implements Initializable, ILobbyListener {
     private ChoiceBox<String> choice;
 
     private User[] userList;
-    private Vector<Parent> userGridList;
-
 
     @FXML
-    public void readyButtonPressed(MouseEvent event)
+    public void readyButtonClicked(MouseEvent event)
     {
         Client.getInstance().sendGetReadyRequest(!Client.getInstance().getUser().isReady());
     }
 
     @FXML
-    public void backButtonPressed(MouseEvent event)
+    public void backButtonClicked(MouseEvent event)
     {
         Server.stopServerInstance();
         Client.getInstance().disconnect();
@@ -75,12 +73,12 @@ public class LobbyController implements Initializable, ILobbyListener {
 
     }
 
-    public void addAIButtonPressed(MouseEvent event) {
+    public void addAIButtonClicked(MouseEvent event) {
         AI_DIFFICULTY difficulty = AI_DIFFICULTY.valueOf(choice.getValue());
         Client.getInstance().sendAddAIPlayerRequest(difficulty);
     }
 
-    public void fillAIButtonPressed(MouseEvent event) {
+    public void fillAIButtonClicked(MouseEvent event) {
         AI_DIFFICULTY difficulty = AI_DIFFICULTY.valueOf(choice.getValue());
         for (int i = 0 ; i < 7 ; i++) {
             Client.getInstance().sendAddAIPlayerRequest(difficulty);
@@ -130,7 +128,9 @@ public class LobbyController implements Initializable, ILobbyListener {
 
     @Override
     public void onStartGameRequest() {
-        SceneManager.getInstance().changeScene("GameplayView.fxml");
+        Platform.runLater(() -> {
+            SceneManager.getInstance().changeScene("GameplayView.fxml");
+        });
     }
 
     @Override
@@ -138,4 +138,3 @@ public class LobbyController implements Initializable, ILobbyListener {
         SceneManager.getInstance().changeScene("MainMenu.fxml");
     }
 }
-

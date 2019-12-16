@@ -2,7 +2,7 @@ package SevenWonders.Network;
 
 import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
-import SevenWonders.GameLogic.MoveModel;
+import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.Network.Requests.*;
 import com.google.gson.Gson;
 

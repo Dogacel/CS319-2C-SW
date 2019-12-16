@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="anchor" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="200.0" stylesheets="@../Neighbor.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.NeighborController">
+<AnchorPane id="anchor" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="200.0" stylesheets="@../css/Neighbor.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.NeighborController">
    <children>
-      <GridPane layoutX="45.0" layoutY="14.0" prefHeight="110.0" prefWidth="110.0" stylesheets="@../Neighbor.css">
+      <GridPane layoutX="45.0" layoutY="14.0" prefHeight="110.0" prefWidth="110.0" stylesheets="@../css/Neighbor.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
@@ -21,7 +21,7 @@
             <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ImageView fx:id="neighborIcon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('ui-images/neighborGhiza.png');" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ImageView fx:id="neighborIcon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('../images/ui-images/neighborGhiza.png');" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Label fx:id="neighborName" alignment="BASELINE_LEFT" contentDisplay="TOP" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
@@ -40,17 +40,17 @@
                <children>
                   <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../ui-images/tokens/victory1.png" />
+                        <Image url="/images/tokens/victory1.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../ui-images/tokens/buy.png" />
+                        <Image url="/images/tokens/buy.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="31.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../ui-images/tokens/zeus.png" />
+                        <Image url="/images/tokens/zeus.png" />
                      </image>
                   </ImageView>
                   <Label text="Label" GridPane.columnIndex="1" />

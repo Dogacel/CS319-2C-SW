@@ -1,15 +1,14 @@
 package SevenWonders;
 
-import SevenWonders.GameLogic.Card;
+import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
-import SevenWonders.GameLogic.Hero;
-import SevenWonders.GameLogic.Wonder;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
+import SevenWonders.GameLogic.Wonder.Wonder;
 import com.google.gson.Gson;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -25,7 +24,7 @@ public class AssetManager {
 
     private Gson gson;
 
-    Map<String, ImageView> imageMap;
+    Map<String, Image> imageMap;
     Map<String, Parent> sceneMap;
     Map<Integer, Card> cardMap;
     Map<WONDER_TYPE, Wonder> wonderMap;
@@ -62,11 +61,11 @@ public class AssetManager {
      * @param imageId String ID of an image
      * @return the matching image for that ID
      */
-    public ImageView getImage(String imageId) throws FileNotFoundException {
+    public Image getImage(String imageId) {
         if (imageMap.containsKey(imageId)) {
             return imageMap.get(imageId);
         } else {
-            throw new FileNotFoundException(imageId);
+            return null;
         }
     }
 
@@ -74,13 +73,22 @@ public class AssetManager {
      * Loads all images from a file to the program for efficiency.
      */
     private void loadImages() {
-        URL imageResourcesURL = getClass().getClassLoader().getResource("ui-images");
+        URL imageResourcesURL = getClass().getClassLoader().getResource("images/ui-images");
         assert imageResourcesURL != null;
         File dir = new File(imageResourcesURL.getPath());
 
         for (File f : Objects.requireNonNull(dir.listFiles())) {
             if( f.getName().matches(".*(\\.(png|jpg|jpeg))") && !imageMap.containsKey(f.getName()))
-                imageMap.put(f.getName(), new ImageView("ui-images/" + f.getName()));
+                imageMap.put(f.getName(), new Image("/images/ui-images/" + f.getName()));
+        }
+
+        imageResourcesURL = getClass().getClassLoader().getResource("images/cards");
+        assert imageResourcesURL != null;
+        dir = new File(imageResourcesURL.getPath());
+
+        for (File f : Objects.requireNonNull(dir.listFiles())) {
+            if( f.getName().matches(".*(\\.(png|jpg|jpeg))") && !imageMap.containsKey(f.getName()))
+                imageMap.put(f.getName(), new Image("/images/cards/" + f.getName()));
         }
     }
 
@@ -104,7 +112,7 @@ public class AssetManager {
 
     private void loadCards() {
 
-        URL cardResourcesURL = getClass().getClassLoader().getResource("cards");
+        URL cardResourcesURL = getClass().getClassLoader().getResource("game-objects/cards");
         assert cardResourcesURL != null;
         File dir = new File(cardResourcesURL.getPath());
 
@@ -123,7 +131,7 @@ public class AssetManager {
     }
   
     private void loadWonders(){
-        URL wonderResourcesURL = getClass().getClassLoader().getResource("wonders");
+        URL wonderResourcesURL = getClass().getClassLoader().getResource("game-objects/wonders");
         assert wonderResourcesURL != null;
         File dir = new File(wonderResourcesURL.getPath());
 
@@ -142,7 +150,7 @@ public class AssetManager {
     }
 
     private void loadHeroes(){
-        URL heroResourcesURL = getClass().getClassLoader().getResource("heroes");
+        URL heroResourcesURL = getClass().getClassLoader().getResource("game-objects/heroes");
         assert heroResourcesURL != null;
         File dir = new File(heroResourcesURL.getPath());
 
@@ -171,7 +179,7 @@ public class AssetManager {
         //Creating the deck
         Card[][] cards = new Card[NUMBER_OF_AGES][CARDS_PER_AGE];
 
-        URL ageFileResourceURL = getClass().getClassLoader().getResource("age_mapping.json");
+        URL ageFileResourceURL = getClass().getClassLoader().getResource("game-objects/age_mapping.json");
         File ageFile = new File(ageFileResourceURL.getPath());
         try {
             FileReader fileReader = new FileReader(ageFile.getAbsolutePath());
@@ -223,8 +231,8 @@ public class AssetManager {
 
     public Pair<Parent, Object> getSceneAndController(String sceneName){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            Parent parent = fxmlLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxml-scenes/" + sceneName)));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml-scenes/" + sceneName));
+            Parent parent = fxmlLoader.load();
             return new Pair<>( parent, fxmlLoader.getController());
         } catch (IOException e) {
             e.printStackTrace();

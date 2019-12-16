@@ -1,6 +1,6 @@
 package SevenWonders.Network.Requests;
 
-import SevenWonders.GameLogic.MoveModel;
+import SevenWonders.GameLogic.Move.MoveModel;
 
 public class MakeMoveRequest extends Request {
 

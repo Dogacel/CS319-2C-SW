@@ -12,67 +12,44 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" stylesheets="@../PlayMenu.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.LobbyController">
-    <children>
-        <GridPane id="playMenuGridPane" layoutX="171.0" prefHeight="768.0" prefWidth="334.0" stylesheets="@../PlayMenu.css">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+<AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" stylesheets="@../css/PlayMenu.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.LobbyController">
+    <GridPane id="menuGridPane" layoutX="171.0" prefHeight="960.0" prefWidth="334.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints />
             <ColumnConstraints />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="364.0" minHeight="10.0" prefHeight="278.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="219.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="279.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="348.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="286.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="364.0" minHeight="10.0" prefHeight="278.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="219.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="279.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="348.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="286.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <Label fx:id="ipaddress" text="IP Address" GridPane.rowIndex="1" />
+        <Button onMouseClicked="#readyButtonClicked" text="READY" GridPane.rowIndex="2" />
+        <HBox alignment="CENTER">
+                <ChoiceBox fx:id="choice" prefHeight="26.0" minWidth="100.0" value="MEDIUM">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="EASY" />
+                            <String fx:value="MEDIUM" />
+                            <String fx:value="HARD" />
+                            <String fx:value="CHEATER" />
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
+                <Button onMouseClicked="#addAIButtonClicked" text="ADD" GridPane.rowIndex="2" />
+                <Button onMouseClicked="#fillAIButtonClicked" text="FILL" GridPane.rowIndex="2" />
+        </HBox>
+        <Button onMouseClicked="#backButtonClicked" text="EXIT" GridPane.rowIndex="4" />
+    </GridPane>
 
-                <Button id="createGameButton" fx:id="readyButton" mnemonicParsing="false" onMouseReleased="#readyButtonPressed" prefHeight="50.0" prefWidth="250.0" stylesheets="@../PlayMenu.css" text="READY" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Assassin$" size="28.0" />
-                    </font></Button>
-                <Button id="joinGameButton" mnemonicParsing="false" onMouseReleased="#backButtonPressed" prefHeight="50.0" prefWidth="250.0" stylesheets="@../PlayMenu.css" text="EXIT" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Assassin$" size="28.0" />
-                    </font></Button>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <children>
-      
-                      <ChoiceBox fx:id="choice" prefWidth="150.0" value="MEDIUM">
-                          <items>
-                              <FXCollections fx:factory="observableArrayList">
-                                  <String fx:value="EASY" />
-                                  <String fx:value="MEDIUM" />
-                                  <String fx:value="HARD" />
-                                  <String fx:value="CHEATER" />
-                              </FXCollections>
-                          </items>
-                      </ChoiceBox>
-                   <Button id="joinGameButton" mnemonicParsing="false" onMouseReleased="#addAIButtonPressed" prefHeight="50.0" prefWidth="160.0" stylesheets="@../PlayMenu.css" text="ADD" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                       <font>
-                           <Font name="Assassin$" size="28.0" />
-                       </font></Button>
-                   <Button id="joinGameButton" mnemonicParsing="false" onMouseReleased="#fillAIButtonPressed" prefHeight="50.0" prefWidth="160.0" stylesheets="@../PlayMenu.css" text="FILL" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                       <font>
-                           <Font name="Assassin$" size="28.0" />
-                       </font></Button>
-               </children>
-            </HBox>
-            <Label fx:id="ipaddress" alignment="CENTER" contentDisplay="CENTER" text="IP Address" textFill="#ebff00" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            </children>
-        </GridPane>
-      <VBox fx:id="playerVBox" alignment="CENTER" layoutX="652.0" layoutY="115.0" prefHeight="539.0" prefWidth="614.0" style="-fx-background-color: rgba(0,0,0,0.4);">
-         <opaqueInsets>
+    <VBox fx:id="playerVBox" alignment="CENTER" layoutX="652.0" layoutY="115.0" prefHeight="539.0" prefWidth="614.0" style="-fx-background-color: rgba(0,0,0,0.4);">
+        <opaqueInsets>
             <Insets />
-         </opaqueInsets></VBox>
-    </children>
+        </opaqueInsets>
+    </VBox>
 </AnchorPane>

@@ -1,17 +1,17 @@
 package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
-import SevenWonders.GameLogic.Card;
+import SevenWonders.GameLogic.Deck.Card.Card;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -19,53 +19,78 @@ public class CardViewController implements Initializable {
 
     GameplayController gameplayController;
 
-    Map<Node, Integer> cardMap;
-
-    private int selectedCardID;
+    private Card selectedCard;
+    private ImageView focusedView;
 
     @FXML
-    GridPane gridPane1, gridPane2;
+    HBox hbox1, hbox2;
 
     public CardViewController(){
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cardMap = new HashMap<>();
     }
 
     @FXML
     private void mouseClicked(MouseEvent e) {
-        Node source = (Node)e.getSource();
-        selectedCardID = cardMap.get(source);
+        Node source = (Node) e.getTarget();;
+        // TODO: Add listener
     }
 
-    public void updateScene() throws FileNotFoundException {
-        Vector<Card> hand = gameplayController.getPlayer().getHand();
-        int index = 0;
-        for (Node node : gridPane1.getChildren()) {
-            if( hand.get(index) != null) {
-                node = AssetManager.getInstance().getImage(hand.get(index).getName().toLowerCase());
-                cardMap.put(node, hand.get(index).getId());
-                index++;
+    public void updateScene(Vector<Card> hand) {
+        Platform.runLater(() -> {
+            for (int i = 0 ; i < 4 ; i++) {
+                if (hand.get(i) != null) {
+                    ImageView imageView = new ImageView(
+                        AssetManager.getInstance().getImage(hand.get(i).getName().replaceAll(" ", "").toLowerCase() + ".png")
+                    );
+                    imageView.setScaleX(0.9);
+                    imageView.setScaleY(0.9);
+                    Card c = hand.get(i);
+                    imageView.setOnMouseClicked((e) ->  {
+                        if (focusedView != null) {
+                            focusedView.setScaleX(0.9);
+                            focusedView.setScaleY(0.9);
+                        }
+                        if (focusedView != imageView) {
+                            selectedCard = c;
+                            focusedView = imageView;
+                            imageView.setScaleX(1);
+                            imageView.setScaleY(1);
+                        }
+                    });
+                    hbox1.getChildren().add(imageView);
+                }
             }
-            else{
-                break;
-            }
-        }
 
-        for (Node node : gridPane2.getChildren()) {
-            if( hand.get(index) != null) {
-                node = AssetManager.getInstance().getImage(hand.get(index).getName().toLowerCase() + ".png");
-                cardMap.put(node, hand.get(index).getId());
-                index++;
+            for (int i = 4 ; i < 7 ; i++) {
+                if (hand.get(i) != null) {
+                    ImageView imageView = new ImageView(
+                        AssetManager.getInstance().getImage(hand.get(i).getName().replaceAll(" ", "").toLowerCase() + ".png")
+                    );
+                    imageView.setScaleX(0.95);
+                    imageView.setScaleY(0.95);
+                    Card c = hand.get(i);
+                    imageView.setOnMouseClicked((e) ->  {
+                        if (focusedView != null) {
+                            focusedView.setScaleX(0.95);
+                            focusedView.setScaleY(0.95);
+                        }
+                        if (focusedView != imageView) {
+                            selectedCard = c;
+                            focusedView = imageView;
+                            imageView.setScaleX(1);
+                            imageView.setScaleY(1);
+                        }
+                    });
+                    hbox2.getChildren().add(imageView);
+                }
             }
-            else{
-                break;
-            }
-        }
+        });
     }
-    public int getSelectedCardID(){
-        return selectedCardID;
+
+    public Card getSelectedCard(){
+        return selectedCard;
     }
 }

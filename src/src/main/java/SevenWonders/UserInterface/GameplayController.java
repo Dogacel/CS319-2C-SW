@@ -1,22 +1,22 @@
 package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
-import SevenWonders.GameLogic.GameModel;
-import SevenWonders.GameLogic.PlayerModel;
+import SevenWonders.GameLogic.Game.GameModel;
+import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.Network.Client;
+import SevenWonders.Network.IGameListener;
+import SevenWonders.Network.Requests.UpdateGameStateRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameplayController implements Initializable{
+public class GameplayController implements Initializable, IGameListener {
 
-    private static GameplayController gameplayControllerInstance = null;
 
     GameModel gameModel;
 
@@ -37,29 +37,25 @@ public class GameplayController implements Initializable{
     public GameplayController() {
         gameModel = null;
         client = Client.getInstance();
+        client.setGameListener(this);
     }
 
-    public void updateGameModel(GameModel gameModel) throws FileNotFoundException {
-        playerController.updateScene();
-        cardViewController.updateScene();
+    public void updateGameModel(GameModel gameModel) {
+        PlayerModel me = gameModel.getPlayerList()[client.getID()];
+
+        playerController.updateScene(me);
+        cardViewController.updateScene(me.getHand());
+
+
+
         //otherPlayersController.updateScene();
         //otherPlayersDetailController.updateScene();
 
-
-        leftNeighborController.setNeighbor( getLeftPlayer());
-        rightNeighborController.setNeighbor( getRightPlayer());
-
-        leftNeighborController.updateScene();
-        rightNeighborController.updateScene();
+        //leftNeighborController.updateScene(gameModel.getLeftPlayer(client.getID()));
+        //rightNeighborController.updateScene(gameModel.getRightPlayer(client.getID()));
 
     }
 
-    public static GameplayController getInstance() {
-        if ( gameplayControllerInstance == null) {
-            gameplayControllerInstance = new GameplayController();
-        }
-        return gameplayControllerInstance;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,16 +63,19 @@ public class GameplayController implements Initializable{
         Pane playerPane =  (Pane) pair.getKey();
         playerController = (PlayerController) pair.getValue();
         this.playerViewPane.getChildren().add(playerPane);
+        playerController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("NeighborView.fxml");
         Pane rightNeighborPane = (Pane) pair.getKey();
         rightNeighborController = (NeighborController) pair.getValue();
         this.neighborViewRightPane.getChildren().add(rightNeighborPane);
+        //rightNeighborController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("NeighborView.fxml");
         Pane leftNeighborPane = (Pane) pair.getKey();
         leftNeighborController = (NeighborController) pair.getValue();
         this.neighborViewLeftPane.getChildren().add(leftNeighborPane);
+        //leftNeighborController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("OtherPlayersView.fxml");
         Pane otherPlayersPane = (Pane) pair.getKey();
@@ -87,6 +86,8 @@ public class GameplayController implements Initializable{
         Pane cardPane = (Pane)  pair.getKey();
         cardViewController = (CardViewController) pair.getValue();
         this.cardViewPane.getChildren().add(cardPane);
+        cardViewController.gameplayController = this;
+        playerController.cardController = cardViewController;
     }
 
     public PlayerModel getPlayer(){
@@ -108,4 +109,28 @@ public class GameplayController implements Initializable{
         return client;
     }
 
+    @Override
+    public void onUpdateGameStateRequest(UpdateGameStateRequest request) {
+        this.updateGameModel(request.newGameModel);
+    }
+
+    @Override
+    public void onEndGameRequest() {
+
+    }
+
+    @Override
+    public void onEndAgeRequest() {
+
+    }
+
+    @Override
+    public void onEndTurnRequest() {
+
+    }
+
+    @Override
+    public void onDisconnect() {
+
+    }
 }
