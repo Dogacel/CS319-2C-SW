@@ -13,6 +13,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" stylesheets="@../css/PlayMenu.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.LobbyController">
     <GridPane id="menuGridPane" layoutX="171.0" prefHeight="960.0" prefWidth="334.0">
         <columnConstraints>
@@ -44,7 +46,17 @@
                 <Button onMouseClicked="#addAIButtonClicked" text="ADD" GridPane.rowIndex="2" />
                 <Button onMouseClicked="#fillAIButtonClicked" text="FILL" GridPane.rowIndex="2" />
         </HBox>
-        <Button onMouseClicked="#backButtonClicked" text="EXIT" GridPane.rowIndex="4" />
+        <Button centerShape="false" layoutX="27.0" layoutY="701.0" maxHeight="75.0" maxWidth="75.0" minHeight="75.0" minWidth="75.0" onMouseClicked="#backButtonClicked" prefHeight="75.0" prefWidth="75.0" translateX="-125.0" GridPane.rowIndex="5">
+
+            <graphic>
+                <ImageView accessibleRole="BUTTON" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/ui-images/back_button.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+
+        </Button>
     </GridPane>
 
     <VBox fx:id="playerVBox" alignment="CENTER" layoutX="652.0" layoutY="115.0" prefHeight="539.0" prefWidth="614.0" style="-fx-background-color: rgba(0,0,0,0.4);">
