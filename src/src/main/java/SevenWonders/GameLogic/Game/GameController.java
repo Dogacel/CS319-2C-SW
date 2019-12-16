@@ -53,8 +53,7 @@ public class GameController {
         makeMoves();
         if( model.getCurrentTurn() < 6){
 
-            if (model.getCurrentTurn() != 5)
-                shiftCards();
+            shiftCards();
 
             model.incrementCurrentTurn();
         }
