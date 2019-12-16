@@ -5,21 +5,19 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class SettingsController {
-
+public class TutorialController {
     @FXML
     Button closeButton;
 
     @FXML
-    AnchorPane settingsAnchor;
+    AnchorPane tutorialAnchor;
 
     @FXML
     public void closeButtonClicked( MouseEvent event) {
-        settingsAnchor.setVisible(false);
+        tutorialAnchor.setVisible(false);
     }
 
-    @FXML
     public void updateScene() {
-        settingsAnchor.setVisible(true);
+        tutorialAnchor.setVisible(true);
     }
 }
