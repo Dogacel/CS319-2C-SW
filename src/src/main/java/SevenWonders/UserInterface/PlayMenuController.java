@@ -29,4 +29,11 @@ public class PlayMenuController {
         Client.getInstance().sendConnectRequest( nameInputField.getText());
         SceneManager.getInstance().changeScene("Lobby.fxml");
     }
+
+    @FXML
+    public void backButtonClicked(MouseEvent mouseEvent) {
+        SceneManager.getInstance().changeScene("MainMenu.fxml");
+    }
+
+
 }
