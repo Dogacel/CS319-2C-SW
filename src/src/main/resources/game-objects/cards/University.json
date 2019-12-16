@@ -11,7 +11,7 @@
     "Library"
   ], 
   "cardEffect": {
-    "cardType": "SCIENCE_WRITINGS", 
+    "effectType": "SCIENCE_WRITINGS",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 0, 

@@ -10,7 +10,7 @@
     "Apothecary"
   ], 
   "cardEffect": {
-    "cardType": "SCIENCE_DRAWINGS", 
+    "effectType": "SCIENCE_DRAWINGS",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 0, 

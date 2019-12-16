@@ -8,7 +8,7 @@
   }, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "GET_MONEY_AND_VP_PER_GRAY", 
+    "effectType": "GET_MONEY_AND_VP_PER_GRAY",
     "resources": {}, 
     "gold": 2, 
     "victoryPoints": 2, 

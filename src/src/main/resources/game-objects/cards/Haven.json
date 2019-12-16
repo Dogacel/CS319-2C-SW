@@ -11,7 +11,7 @@
     "Forum"
   ], 
   "cardEffect": {
-    "cardType": "GET_MONEY_AND_VP_PER_BROWN", 
+    "effectType": "GET_MONEY_AND_VP_PER_BROWN",
     "resources": {}, 
     "gold": 1, 
     "victoryPoints": 1, 

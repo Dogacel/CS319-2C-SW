@@ -11,7 +11,7 @@
     "Laboratory"
   ], 
   "cardEffect": {
-    "cardType": "SCIENCE_MECHANICS", 
+    "effectType": "SCIENCE_MECHANICS",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 0, 

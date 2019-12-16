@@ -9,7 +9,7 @@
   }, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "PHILOSOPHERS_GUILD", 
+    "effectType": "PHILOSOPHERS_GUILD",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 1, 

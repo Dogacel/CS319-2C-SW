@@ -10,7 +10,7 @@
   }, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "WORKERS_GUILD", 
+    "effectType": "WORKERS_GUILD",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 1, 

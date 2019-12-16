@@ -7,7 +7,7 @@
   }, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "PRODUCE_ONE_OF_TWO", 
+    "effectType": "PRODUCE_ONE_OF_TWO",
     "resources": {
       "ORE" : 1,
       "STONE" : 1

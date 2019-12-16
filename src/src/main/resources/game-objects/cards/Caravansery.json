@@ -9,7 +9,7 @@
     "Marketplace"
   ], 
   "cardEffect": {
-    "cardType": "ONE_OF_EACH_RAW_MATERIAL", 
+    "effectType": "ONE_OF_EACH_RAW_MATERIAL",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 0, 

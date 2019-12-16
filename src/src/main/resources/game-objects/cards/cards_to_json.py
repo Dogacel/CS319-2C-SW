@@ -33,7 +33,7 @@ with open("cards.txt") as cards:
         id = id + 1
 
         cardEffect = {
-            "cardType" : "",
+            "cardEffect" : "",
             "victoryPoints" : 0,
             "gold" : 0,
             "shields" : 0,

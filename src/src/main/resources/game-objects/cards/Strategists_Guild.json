@@ -9,7 +9,7 @@
   }, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "STRATEGISTS_GUILD", 
+    "effectType": "STRATEGISTS_GUILD",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 1, 

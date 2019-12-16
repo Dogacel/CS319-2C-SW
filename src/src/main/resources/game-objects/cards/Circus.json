@@ -10,7 +10,7 @@
     "Training Ground"
   ], 
   "cardEffect": {
-    "cardType": "GRANT_SHIELDS", 
+    "effectType": "GRANT_SHIELDS",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 0, 

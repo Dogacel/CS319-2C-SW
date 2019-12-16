@@ -5,7 +5,7 @@
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "PRODUCE_MANUFACTURED_GOODS", 
+    "effectType": "PRODUCE_MANUFACTURED_GOODS",
     "resources": {
       "PAPYRUS" : 1
     }, 
