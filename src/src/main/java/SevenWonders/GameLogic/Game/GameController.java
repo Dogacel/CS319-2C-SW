@@ -51,9 +51,9 @@ public class GameController {
 
     public void playTurn(){
         makeMoves();
-        if( model.getCurrentTurn() < 7){
+        if( model.getCurrentTurn() < 6){
 
-            if (model.getCurrentTurn() != 6)
+            if (model.getCurrentTurn() != 5)
                 shiftCards();
 
             model.incrementCurrentTurn();
@@ -150,7 +150,6 @@ public class GameController {
                     myPlayerController.setGold(effect.getGold() + myPlayerController.getGold());
                     break;
                 case GET_MONEY_FOR_BROWN_CARD:
-                    cardCount = 0;
                     for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
                         if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
                             cardCount++;
@@ -169,8 +168,6 @@ public class GameController {
                     myPlayerController.setGold(cardCount + myPlayerController.getGold());
                     break;
                 case GET_MONEY_FOR_GRAY_CARD:
-                    cardCount = 0;
-
                     for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
                         if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
                             cardCount++;
@@ -189,8 +186,6 @@ public class GameController {
                     myPlayerController.setGold( cardCount * 2 + myPlayerController.getGold());
                     break;
                 case GET_MONEY_AND_VP_PER_BROWN:
-                    cardCount = 0;
-
                     for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
                         if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
                             cardCount++;
@@ -198,9 +193,8 @@ public class GameController {
                     }
 
                     myPlayerController.setGold(cardCount + myPlayerController.getGold());
+                    break;
                 case GET_MONEY_AND_VP_PER_GRAY:
-                    cardCount = 0;
-
                     for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
                         if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
                             cardCount++;
@@ -214,8 +208,6 @@ public class GameController {
                     myPlayerController.setGold( goldToAdd + myPlayerController.getGold() );
                     break;
                 case GET_MONEY_AND_VP_PER_YELLOW:
-                    cardCount = 0;
-
                     for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
                         if (card.getColor() == CARD_COLOR_TYPE.YELLOW) {
                             cardCount++;

@@ -42,7 +42,7 @@ public class CardViewController implements Initializable {
         Platform.runLater(() -> {
             hbox1.getChildren().clear();
             hbox2.getChildren().clear();
-            for (int i = 0 ; i < 4 ; i++) {
+            for (int i = 0 ; i < 4 && i < hand.size() ; i++) {
                 if (hand.get(i) != null) {
                     ImageView imageView = new ImageView(
                         AssetManager.getInstance().getImage(hand.get(i).getName().replaceAll(" ", "").toLowerCase() + ".png")
@@ -66,7 +66,7 @@ public class CardViewController implements Initializable {
                 }
             }
 
-            for (int i = 4 ; i < 7 ; i++) {
+            for (int i = 4 ; i < 7 && i < hand.size() ; i++) {
                 if (hand.get(i) != null) {
                     ImageView imageView = new ImageView(
                         AssetManager.getInstance().getImage(hand.get(i).getName().replaceAll(" ", "").toLowerCase() + ".png")
