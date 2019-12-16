@@ -28,10 +28,11 @@
     -fx-background-color: transparent;
 }
 
+/*
 #detailAnchor{
     -fx-background-image: url('../images/ui-images/detailBg.png');
 }
-
+*/
 #closeButton{
     -fx-background-image: url('../images/ui-images/closeButton.png');
     -fx-background-radius: 0;
