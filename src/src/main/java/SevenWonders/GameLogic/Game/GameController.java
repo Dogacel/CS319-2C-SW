@@ -59,11 +59,15 @@ public class GameController {
             model.incrementCurrentTurn();
         }
         else{
-            model.incrementCurrentAge();
+            discardLastCards();
             playEndOfAge();
+            if (!model.isGameEnded()) {
+                model.incrementCurrentAge();
 
-            if (model.getCurrentAge() <= 3){
-                dealCards();
+
+                if (model.getCurrentAge() <= 3) {
+                    dealCards();
+                }
             }
         }
     }
@@ -81,6 +85,10 @@ public class GameController {
             playerController.setHand(new Vector<Card>(Arrays.asList(playerHand))); //start inclusive, end exclusive
             start += 7;
             end += 7;
+        }
+
+        for(Card card: playerControllers[0].getHand()){
+            System.out.println("Card Name: " + card.getName());
         }
     }
 
@@ -248,6 +256,17 @@ public class GameController {
                 myPlayerController.setHand(rightPlayerController.getHand());
             }
             playerControllers[playerControllers.length-1].setHand(tmp);
+        }
+
+        for(Card card: playerControllers[0].getHand()){
+            System.out.println("Card Name: " + card.getName());
+        }
+    }
+
+    private void discardLastCards(){
+        for (PlayerController playerController: playerControllers){
+            discardCard(playerController.getHand().get(0));
+            playerController.getHand().clear();
         }
     }
 

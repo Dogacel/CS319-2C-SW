@@ -51,7 +51,7 @@ public class GameModel {
 
     public boolean isGameEnded()
     {
-        return currentAge == 3 && currentTurn == 7;  //Might change according to design choices in GameController
+        return currentAge == 3 && currentTurn == 6;  //Might change according to design choices in GameController
     }
 
     public void addPlayer(PlayerModel model){
