@@ -40,6 +40,8 @@ public class CardViewController implements Initializable {
 
     public void updateScene(Vector<Card> hand) {
         Platform.runLater(() -> {
+            hbox1.getChildren().clear();
+            hbox2.getChildren().clear();
             for (int i = 0 ; i < 4 ; i++) {
                 if (hand.get(i) != null) {
                     ImageView imageView = new ImageView(
