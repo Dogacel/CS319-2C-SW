@@ -2,6 +2,7 @@ package SevenWonders.GameLogic.Game;
 
 import SevenWonders.GameLogic.Deck.DeckModel;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import com.google.gson.annotations.Expose;
 
 public class GameModel {
 
@@ -10,7 +11,9 @@ public class GameModel {
     private int currentAge;
     private int currentTurn;
     private DiscardPileModel discardPile;
-    private DeckModel deck;
+
+    private transient DeckModel deck;
+
     private PlayerModel[] playerList;
     private int playerCount;
 
