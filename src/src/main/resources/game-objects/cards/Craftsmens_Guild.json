@@ -8,7 +8,7 @@
   }, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "CRAFTSMENS_GUILD", 
+    "effectType": "CRAFTSMENS_GUILD",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 2, 

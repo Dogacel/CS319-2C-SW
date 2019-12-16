@@ -9,7 +9,7 @@
   }, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "MAGISTRATES_GUILD", 
+    "effectType": "MAGISTRATES_GUILD",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 1, 

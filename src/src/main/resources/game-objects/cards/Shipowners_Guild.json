@@ -9,7 +9,7 @@
   }, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "SHIPOWNERS_GUILD", 
+    "effectType": "SHIPOWNERS_GUILD",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 1, 

@@ -10,7 +10,7 @@
     "Dispensary"
   ], 
   "cardEffect": {
-    "cardType": "GET_MONEY_AND_VP_PER_WONDER", 
+    "effectType": "GET_MONEY_AND_VP_PER_WONDER",
     "resources": {}, 
     "gold": 3, 
     "victoryPoints": 1, 

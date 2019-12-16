@@ -29,6 +29,12 @@ public class PlayerController {
 
     public void makeMove(){
         MoveModel move = player.getCurrentMove();
+
+        if (move == null) {
+            move = new MoveModel(player.getId(), player.getHand().firstElement().getId(), ACTION_TYPE.DISCARD_CARD);
+            player.setCurrentMove(move);
+        }
+
         ACTION_TYPE action = move.getAction();
 
         switch (action){

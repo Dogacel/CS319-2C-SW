@@ -5,7 +5,7 @@
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "MANUFACTURED_GOODS_TRADE_DISCOUNT", 
+    "effectType": "MANUFACTURED_GOODS_TRADE_DISCOUNT",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 0, 

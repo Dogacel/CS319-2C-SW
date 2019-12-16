@@ -13,7 +13,7 @@
   }, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "GIVE_VICTORY_POINTS", 
+    "effectType": "GIVE_VICTORY_POINTS",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 8, 

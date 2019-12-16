@@ -5,7 +5,7 @@
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "PRODUCE_RAW_MATERIAL", 
+    "effectType": "PRODUCE_RAW_MATERIAL",
     "resources": {
       "STONE" : 1
     }, 

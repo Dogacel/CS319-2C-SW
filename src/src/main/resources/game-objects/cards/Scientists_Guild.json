@@ -9,7 +9,7 @@
   }, 
   "buildingChain": [], 
   "cardEffect": {
-    "cardType": "SCIENTISTS_GUILD",
+    "effectType": "SCIENTISTS_GUILD",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 0, 

@@ -5,6 +5,7 @@ import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -117,37 +118,42 @@ public class PlayerController {
     @FXML
     private void readyButtonReleased(MouseEvent event) {
         readyButton.setStyle("-fx-background-image: url('/images/ui-images/tokens/ready.png')");
-        gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
+        if (playerModel.getCurrentMove()!= null) {
+            gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
+            gameplayController.getClient().sendPlayerReadyRequest(true);
+        }
     }
 
     public void updateScene(PlayerModel playerModel) {
-        this.playerModel = playerModel;
-        String wonder = playerModel.getWonder().getWonderType().toString().toLowerCase();
-        this.playerAnchor.setStyle("-fx-background-image: url('/images/ui-images/" + wonder + ".png')");
+        Platform.runLater(() -> {
+            this.playerModel = playerModel;
+            String wonder = playerModel.getWonder().getWonderType().toString().toLowerCase();
+            this.playerAnchor.setStyle("-fx-background-image: url('/images/ui-images/" + wonder + ".png')");
 
-        int columnIndex = 0;
-        int rowIndex = 0;
-        for(Card card: playerModel.getConstructionZone().getConstructedCards()){
-            CARD_COLOR_TYPE color = card.getColor();
+            int columnIndex = 0;
+            int rowIndex = 0;
+            for(Card card: playerModel.getConstructionZone().getConstructedCards()){
+                CARD_COLOR_TYPE color = card.getColor();
 
-            if(color == CARD_COLOR_TYPE.BROWN || color == CARD_COLOR_TYPE.GRAY)
-                brownAndGray.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
-            else if(color == CARD_COLOR_TYPE.RED)
-                red.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
-            else if(color == CARD_COLOR_TYPE.BLUE)
-                blue.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
-            else if(color == CARD_COLOR_TYPE.GREEN)
-                green.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
-            else if(color == CARD_COLOR_TYPE.PURPLE)
-                purple.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
-            else if( color == CARD_COLOR_TYPE.YELLOW)
-                yellow.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+                if(color == CARD_COLOR_TYPE.BROWN || color == CARD_COLOR_TYPE.GRAY)
+                    brownAndGray.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+                else if(color == CARD_COLOR_TYPE.RED)
+                    red.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+                else if(color == CARD_COLOR_TYPE.BLUE)
+                    blue.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+                else if(color == CARD_COLOR_TYPE.GREEN)
+                    green.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+                else if(color == CARD_COLOR_TYPE.PURPLE)
+                    purple.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
+                else if( color == CARD_COLOR_TYPE.YELLOW)
+                    yellow.add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")), columnIndex, rowIndex);
 
-            if (columnIndex == 1) {
-                columnIndex = 0;
-                rowIndex++;
+                if (columnIndex == 1) {
+                    columnIndex = 0;
+                    rowIndex++;
+                }
+                columnIndex++;
             }
-            columnIndex++;
-        }
+        });
     }
 }

@@ -10,7 +10,7 @@
     "West Trading Post"
   ], 
   "cardEffect": {
-    "cardType": "ONE_OF_EACH_MANUFACTURED_GOODS", 
+    "effectType": "ONE_OF_EACH_MANUFACTURED_GOODS",
     "resources": {}, 
     "gold": 0, 
     "victoryPoints": 0, 
