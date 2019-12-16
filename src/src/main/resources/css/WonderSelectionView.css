@@ -7,13 +7,9 @@
 
 }
 
-#wonder-name-label{
-    -fx-border-style: solid inside;
-    -fx-border-color: blue;
-}
 
 #button{
-        -fx-background-image: url('../images/ui-images/shield.png');
+        -fx-background-image: url('@../images/ui-images/shield.png');
         -fx-border-style: solid inside;
         -fx-border-color: blue;
 }
