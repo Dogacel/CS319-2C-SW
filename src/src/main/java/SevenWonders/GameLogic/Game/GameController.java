@@ -4,6 +4,7 @@ import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Deck.Card.CardEffect;
 import SevenWonders.GameLogic.Deck.DeckController;
+import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
@@ -141,79 +142,81 @@ public class GameController {
             CardEffect effect = AssetManager.getInstance().getCardByID(
                     myPlayerController.getCurrentMove().getSelectedCardID()).getCardEffect();
 
-            switch (effect.getEffectType()){
-                case GRANT_SHIELDS:
-                    myPlayerController.setShields(effect.getShields() + myPlayerController.getShields());
-                    break;
-                case GET_MONEY:
-                    myPlayerController.setGold(effect.getGold() + myPlayerController.getGold());
-                    break;
-                case GET_MONEY_FOR_BROWN_CARD:
-                    for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
-                        if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
-                            cardCount++;
+            if (myPlayerController.getCurrentMove().getAction() == ACTION_TYPE.BUILD_CARD) {
+                switch (effect.getEffectType()) {
+                    case GRANT_SHIELDS:
+                        myPlayerController.setShields(effect.getShields() + myPlayerController.getShields());
+                        break;
+                    case GET_MONEY:
+                        myPlayerController.setGold(effect.getGold() + myPlayerController.getGold());
+                        break;
+                    case GET_MONEY_FOR_BROWN_CARD:
+                        for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
+                            if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
+                                cardCount++;
+                            }
                         }
-                    }
-                    for (Card card : leftPlayerController.getConstructionZone().getConstructedCards()) {
-                        if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
-                            cardCount++;
+                        for (Card card : leftPlayerController.getConstructionZone().getConstructedCards()) {
+                            if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
+                                cardCount++;
+                            }
                         }
-                    }
-                    for (Card card : rightPlayerController.getConstructionZone().getConstructedCards()) {
-                        if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
-                            cardCount++;
+                        for (Card card : rightPlayerController.getConstructionZone().getConstructedCards()) {
+                            if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
+                                cardCount++;
+                            }
                         }
-                    }
-                    myPlayerController.setGold(cardCount + myPlayerController.getGold());
-                    break;
-                case GET_MONEY_FOR_GRAY_CARD:
-                    for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
-                        if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
-                            cardCount++;
+                        myPlayerController.setGold(cardCount + myPlayerController.getGold());
+                        break;
+                    case GET_MONEY_FOR_GRAY_CARD:
+                        for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
+                            if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
+                                cardCount++;
+                            }
                         }
-                    }
-                    for (Card card : leftPlayerController.getConstructionZone().getConstructedCards()) {
-                        if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
-                            cardCount++;
+                        for (Card card : leftPlayerController.getConstructionZone().getConstructedCards()) {
+                            if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
+                                cardCount++;
+                            }
                         }
-                    }
-                    for (Card card : rightPlayerController.getConstructionZone().getConstructedCards()) {
-                        if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
-                            cardCount++;
+                        for (Card card : rightPlayerController.getConstructionZone().getConstructedCards()) {
+                            if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
+                                cardCount++;
+                            }
                         }
-                    }
-                    myPlayerController.setGold( cardCount * 2 + myPlayerController.getGold());
-                    break;
-                case GET_MONEY_AND_VP_PER_BROWN:
-                    for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
-                        if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
-                            cardCount++;
+                        myPlayerController.setGold(cardCount * 2 + myPlayerController.getGold());
+                        break;
+                    case GET_MONEY_AND_VP_PER_BROWN:
+                        for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
+                            if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
+                                cardCount++;
+                            }
                         }
-                    }
 
-                    myPlayerController.setGold(cardCount + myPlayerController.getGold());
-                    break;
-                case GET_MONEY_AND_VP_PER_GRAY:
-                    for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
-                        if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
-                            cardCount++;
+                        myPlayerController.setGold(cardCount + myPlayerController.getGold());
+                        break;
+                    case GET_MONEY_AND_VP_PER_GRAY:
+                        for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
+                            if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
+                                cardCount++;
+                            }
                         }
-                    }
-                    myPlayerController.setGold( cardCount * 2 + myPlayerController.getGold());
-                    break;
-                case GET_MONEY_AND_VP_PER_WONDER:
-                    int goldToAdd = (myPlayerController.getWonder().getCurrentStageIndex() + 1) * 3;
+                        myPlayerController.setGold(cardCount * 2 + myPlayerController.getGold());
+                        break;
+                    case GET_MONEY_AND_VP_PER_WONDER:
+                        int goldToAdd = (myPlayerController.getWonder().getCurrentStageIndex() + 1) * 3;
 
-                    myPlayerController.setGold( goldToAdd + myPlayerController.getGold() );
-                    break;
-                case GET_MONEY_AND_VP_PER_YELLOW:
-                    for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
-                        if (card.getColor() == CARD_COLOR_TYPE.YELLOW) {
-                            cardCount++;
+                        myPlayerController.setGold(goldToAdd + myPlayerController.getGold());
+                        break;
+                    case GET_MONEY_AND_VP_PER_YELLOW:
+                        for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
+                            if (card.getColor() == CARD_COLOR_TYPE.YELLOW) {
+                                cardCount++;
+                            }
                         }
-                    }
-                    myPlayerController.setGold( cardCount + myPlayerController.getGold());
-                    break;
+                        myPlayerController.setGold(cardCount + myPlayerController.getGold());
+                        break;
+                }
             }
 
             //TODO Pay back neighbours that myPlayer made trade with
