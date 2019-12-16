@@ -1,5 +1,6 @@
 package SevenWonders.GameLogic.Move;
 
+import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Deck.Card.CardEffect;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
@@ -259,7 +260,7 @@ public class MoveController {
      * @return true if player can build a card, false otherwise
      */
     private boolean playerCanPlayBuildCard(MoveModel moveModel, PlayerController currentPlayer) {
-         return checkConstructionZone( moveModel, currentPlayer) && playerHasEnoughResources( fromIDToCard(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades());
+         return checkConstructionZone( moveModel, currentPlayer) && playerHasEnoughResources( AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades());
     }
 
     /**
@@ -269,7 +270,7 @@ public class MoveController {
      * @return true if player can discard, false otherwise
      */
     private boolean playerCanDiscardCard(MoveModel moveModel, PlayerController currentPlayer) {
-        return currentPlayer.getHand().contains(fromIDToCard(moveModel.getSelectedCardID()));
+        return currentPlayer.getHand().contains(AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()));
     }
 
     /**
@@ -280,12 +281,5 @@ public class MoveController {
      */
     private boolean playerCanBuildWonder(MoveModel moveModel, PlayerController currentPlayer) {
         return currentPlayer.getWonder().isUpgradeable() && playerHasEnoughResources(currentPlayer.getWonder().getCurrentStage().getRequiredResources(), currentPlayer, moveModel.getTrades());
-    }
-
-    /* TODO
-    This method is for taking an ID and returning a Deck object, maybe initialized somewhere else later.
-     */
-    public Card fromIDToCard(int cardID) {
-        return null;
     }
 }
