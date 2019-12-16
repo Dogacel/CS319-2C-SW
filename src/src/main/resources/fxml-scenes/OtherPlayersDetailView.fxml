@@ -4,9 +4,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="detailAnchor" prefHeight="390.0" prefWidth="150.0" stylesheets="@../css/OtherPlayers.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.OtherPlayersDetailController">
+<AnchorPane id="detailAnchor" prefHeight="440.0" prefWidth="213.3" stylesheets="@../css/OtherPlayers.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.OtherPlayersDetailController">
    <children>
-      <Pane layoutY="100.0" prefHeight="290.0" prefWidth="200.0" visible="false">
+      <Pane layoutY="100.0" prefHeight="340.0" prefWidth="213.3" visible="false">
          <children>
             <GridPane layoutX="37.0" prefHeight="120.0" prefWidth="127.0">
                <columnConstraints>
@@ -21,17 +21,17 @@
                <children>
                   <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="/images/tokens/victory1.png" />
+                        <Image url="@../images/tokens/victory1.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="/images/tokens/buy.png" />
+                        <Image url="@../images/tokens/buy.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="31.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="/images/tokens/zeus.png" />
+                        <Image url="@../images/tokens/zeus.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="warLabel" text="Label" GridPane.columnIndex="1" />
@@ -54,7 +54,7 @@
             <Button id="closeButton" fx:id="closeButton" layoutX="165.0" layoutY="3.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/OtherPlayers.css" />
          </children>
       </Pane>
-      <GridPane layoutY="10.0" prefHeight="90.0" prefWidth="200.0">
+      <GridPane prefHeight="90.0" prefWidth="213.3">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -64,8 +64,8 @@
             <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="playerNameLabel" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Button id="player3" fx:id="playerButton" mnemonicParsing="false" onMouseClicked="#player3ButtonClicked" prefHeight="70.0" prefWidth="150.0" stylesheets="@../css/OtherPlayers.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label id="playerNameLabel" fx:id="playerNameLabel" text="Label" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Button id="player3" fx:id="playerButton" mnemonicParsing="false" onMouseClicked="#player3ButtonClicked" prefHeight="150.0" prefWidth="213.3" stylesheets="@../css/OtherPlayers.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>
