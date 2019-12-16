@@ -118,6 +118,7 @@ public class PlayerController {
     private void readyButtonReleased(MouseEvent event) {
         readyButton.setStyle("-fx-background-image: url('/images/ui-images/tokens/ready.png')");
         gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
+        gameplayController.getClient().sendPlayerReadyRequest(true);
     }
 
     public void updateScene(PlayerModel playerModel) {
