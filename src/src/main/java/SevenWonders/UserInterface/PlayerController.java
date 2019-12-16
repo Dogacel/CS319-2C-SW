@@ -18,6 +18,8 @@ public class PlayerController {
 
     CardViewController cardController;
 
+    GameplayController gameplayController;
+
     @FXML
     Button readyButton, buildCardButton, buildWonderButton, discardButton, godPowerButton,settingsButton,tutorialButton,exitButton;
 
@@ -115,10 +117,11 @@ public class PlayerController {
     @FXML
     private void readyButtonReleased(MouseEvent event) {
         readyButton.setStyle("-fx-background-image: url('/images/ui-images/tokens/ready.png')");
-        GameplayController.getInstance().getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
+        gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
     }
 
     public void updateScene(PlayerModel playerModel) {
+        this.playerModel = playerModel;
         String wonder = playerModel.getWonder().getWonderType().toString().toLowerCase();
         this.playerAnchor.setStyle("-fx-background-image: url('/images/ui-images/" + wonder + ".png')");
 

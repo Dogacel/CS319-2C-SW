@@ -17,7 +17,6 @@ import java.util.ResourceBundle;
 
 public class GameplayController implements Initializable, IGameListener {
 
-    private static GameplayController gameplayControllerInstance = null;
 
     GameModel gameModel;
 
@@ -57,12 +56,6 @@ public class GameplayController implements Initializable, IGameListener {
 
     }
 
-    public static GameplayController getInstance() {
-        if ( gameplayControllerInstance == null) {
-            gameplayControllerInstance = new GameplayController();
-        }
-        return gameplayControllerInstance;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -70,16 +63,19 @@ public class GameplayController implements Initializable, IGameListener {
         Pane playerPane =  (Pane) pair.getKey();
         playerController = (PlayerController) pair.getValue();
         this.playerViewPane.getChildren().add(playerPane);
+        playerController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("NeighborView.fxml");
         Pane rightNeighborPane = (Pane) pair.getKey();
         rightNeighborController = (NeighborController) pair.getValue();
         this.neighborViewRightPane.getChildren().add(rightNeighborPane);
+        //rightNeighborController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("NeighborView.fxml");
         Pane leftNeighborPane = (Pane) pair.getKey();
         leftNeighborController = (NeighborController) pair.getValue();
         this.neighborViewLeftPane.getChildren().add(leftNeighborPane);
+        //leftNeighborController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("OtherPlayersView.fxml");
         Pane otherPlayersPane = (Pane) pair.getKey();
@@ -90,6 +86,8 @@ public class GameplayController implements Initializable, IGameListener {
         Pane cardPane = (Pane)  pair.getKey();
         cardViewController = (CardViewController) pair.getValue();
         this.cardViewPane.getChildren().add(cardPane);
+        cardViewController.gameplayController = this;
+        playerController.cardController = cardViewController;
     }
 
     public PlayerModel getPlayer(){
