@@ -40,7 +40,6 @@ public class GameplayToolbarController {
     @FXML
     private void readyButtonClicked(MouseEvent event) {
         if (playerModel.getCurrentMove()!= null) {
-            System.out.println(playerModel.getCurrentMove().toString());
             gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
             gameplayController.getClient().sendPlayerReadyRequest(true);
         }
