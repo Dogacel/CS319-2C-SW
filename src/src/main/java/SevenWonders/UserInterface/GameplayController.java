@@ -7,6 +7,7 @@ import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.IGameListener;
 import SevenWonders.Network.Requests.UpdateGameStateRequest;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -39,12 +40,13 @@ public class GameplayController implements Initializable, IGameListener {
     }
 
     public void updateGameModel(GameModel gameModel) {
-        PlayerModel me = gameModel.getPlayerList()[client.getID()];
+        Platform.runLater(() -> {
+            PlayerModel me = gameModel.getPlayerList()[client.getID()];
 
-        cardViewController.updateScene(me.getHand());
-        constructionZoneController.updateScene(me);
-
-        //otherPlayersController.updateScene();
+            cardViewController.updateScene(me.getHand());
+            constructionZoneController.updateScene(me);
+            //otherPlayersController.updateScene();
+        });
     }
 
 
