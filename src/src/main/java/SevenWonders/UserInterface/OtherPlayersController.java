@@ -29,16 +29,18 @@ public class OtherPlayersController implements Initializable {
         PlayerModel[] allPlayers = gameplayController.gameModel.getPlayerList();
         int columnIndex = 1;
         for ( PlayerModel player: allPlayers) {
+
             if ( player.getId() != gameplayController.client.getID()) {
 
                 Parent root = AssetManager.getInstance().getSceneByNameForce("OtherPlayersDetailView.fxml");
-
                 Label moneyLabel = (Label) root.lookup("#moneyLabel");
                 Label warLabel = (Label) root.lookup("#warLabel");
                 Label godLabel = (Label) root.lookup("#godLabel");
                 Label playerNameLabel = (Label) root.lookup("#playerNameLabel");
-                Button closeButton = (Button) root.lookup("#closeButton"); //Buna da listener ekleriz
+                ImageView otherWonderImage = (ImageView) root.lookup("#otherWonderImage");
 
+
+                otherWonderImage.setImage(AssetManager.getInstance().getImage("altar.png"));
                 moneyLabel.setText("" + player.getGold());
                 warLabel.setText("" + player.getShields());
                 godLabel.setText("" + player.getWonder().getGod().getGodType());    //Player's god status should be accessed
