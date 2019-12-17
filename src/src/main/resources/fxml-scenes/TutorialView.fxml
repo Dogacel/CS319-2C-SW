@@ -9,9 +9,9 @@
    <children>
       <Pane prefHeight="600.0" prefWidth="600.0">
          <children>
-            <Button fx:id="closeButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#closeButtonClicked" prefHeight="40.0" prefWidth="40.0" style="-fx-background-image: url('/images/ui-images/close.png'); -fx-background-color: transparent;" />
-            <Button fx:id="leftButton" layoutX="10.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#leftButtonClicked" prefHeight="63.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-image: url('/images/ui-images/leftArrow.png');" />
-            <Button fx:id="rightButton" layoutX="540.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#rightButtonClicked" prefHeight="63.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-image: url('/images/ui-images/rightArrow.png');" />
+            <Button id="closeButton" fx:id="closeButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#closeButtonClicked" prefHeight="40.0" prefWidth="40.0" stylesheets="@../css/TutorialView.css" />
+            <Button id="leftButton"  fx:id="leftButton" layoutX="10.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#leftButtonClicked" prefHeight="63.0" prefWidth="50.0" stylesheets="@../css/TutorialView.css" />
+            <Button id="rightButton" fx:id="rightButton" layoutX="540.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#rightButtonClicked" prefHeight="63.0" prefWidth="50.0" stylesheets="@../css/TutorialView.css" />
             <Label fx:id="tutorialTextLabel" contentDisplay="CENTER" layoutX="130.0" layoutY="300.0" nodeOrientation="RIGHT_TO_LEFT" text="TUTORIAL TEXT WILL BE HERE" textFill="WHITE">
                <font>
                   <Font size="23.0" />
