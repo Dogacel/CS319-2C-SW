@@ -33,6 +33,11 @@ public class ConstructionZoneController {
     }
 
     private void updatePlayerConstruction(PlayerModel playerModel){
+        brown.getChildren().clear();
+        gray.getChildren().clear();
+        blue.getChildren().clear();
+        red.getChildren().clear();
+        yellowAndPurple.getChildren().clear();
         for(Card card: playerModel.getConstructionZone().getConstructedCards()){
             CARD_COLOR_TYPE color = card.getColor();
 
