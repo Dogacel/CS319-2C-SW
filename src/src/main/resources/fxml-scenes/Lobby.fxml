@@ -31,7 +31,7 @@
             <RowConstraints maxHeight="286.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <Label fx:id="ipaddress" text="IP Address" GridPane.rowIndex="1" />
-        <Button onMouseClicked="#readyButtonClicked" text="READY" GridPane.rowIndex="2" />
+        <Button fx:id="readyButton" onMouseClicked="#readyButtonClicked" text="READY" GridPane.rowIndex="2" />
         <HBox alignment="CENTER">
                 <ChoiceBox fx:id="choice" prefHeight="26.0" minWidth="100.0" value="MEDIUM">
                     <items>
