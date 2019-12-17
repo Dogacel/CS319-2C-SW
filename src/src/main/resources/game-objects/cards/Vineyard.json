@@ -5,7 +5,7 @@
   "requirements": {}, 
   "buildingChain": [], 
   "cardEffect": {
-    "effectType": "GET_MONEY_FOR_BROWN",
+    "effectType": "GET_MONEY_FOR_BROWN_CARD",
     "resources": {}, 
     "gold": 1, 
     "victoryPoints": 0, 
