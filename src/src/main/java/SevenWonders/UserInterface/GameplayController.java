@@ -45,6 +45,8 @@ public class GameplayController implements Initializable, IGameListener {
 
         playerController.updateScene(me);
         cardViewController.updateScene(me.getHand());
+        constructionZoneController.updateScene(me);
+        gameplayToolbarController.updateScene(me);
 
 
 
