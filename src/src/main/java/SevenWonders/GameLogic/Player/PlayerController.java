@@ -3,10 +3,13 @@ package SevenWonders.GameLogic.Player;
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
+import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.GOD_POWER_TYPE;
+import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Wonder.Wonder;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.Vector;
 
@@ -53,7 +56,25 @@ public class PlayerController {
                 }
                 break;
             case BUILD_CARD:
-                player.getConstructionZone().buildCard(AssetManager.getInstance().getCardByID(move.getSelectedCardID()));
+                Card playedCard = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
+                player.getConstructionZone().buildCard(playedCard);
+
+                String type = "";
+
+                if (playedCard.getColor() == CARD_COLOR_TYPE.RED)
+                    type = "red";
+                else if (playedCard.getColor() == CARD_COLOR_TYPE.BLUE)
+                    type = "blue";
+                else if (playedCard.getColor() == CARD_COLOR_TYPE.GREEN)
+                    type = "green";
+                else if (playedCard.getColor() == CARD_COLOR_TYPE.YELLOW)
+                    type = "yellow";
+                else if (playedCard.getColor() == CARD_COLOR_TYPE.BROWN)
+                    type = "brown";
+
+                MediaPlayer mediaPlayer = new MediaPlayer(AssetManager.getInstance().getSoundByType(type));
+                mediaPlayer.play();
+
 
                 for (Card card : player.getHand())
                 {
