@@ -61,11 +61,11 @@ public class GameplayController implements Initializable, IGameListener {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        pair = AssetManager.getInstance().getSceneAndController("PlayerView.fxml");
-        Pane playerPane =  (Pane) pair.getKey();
-        playerController = (PlayerController) pair.getValue();
-        this.playerViewPane.getChildren().add(playerPane);
-        playerController.gameplayController = this;
+        pair = AssetManager.getInstance().getSceneAndController("GameplayToolbarView.fxml");
+        Pane gameplayToolbarPane = (Pane) pair.getKey();
+        gameplayToolbarController = (GameplayToolbarController) pair.getValue();
+        this.gameplayToolbarPane.getChildren().add(gameplayToolbarPane);
+        gameplayToolbarController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("NeighborView.fxml");
         Pane rightNeighborPane = (Pane) pair.getKey();
@@ -89,7 +89,14 @@ public class GameplayController implements Initializable, IGameListener {
         cardViewController = (CardViewController) pair.getValue();
         this.cardViewPane.getChildren().add(cardPane);
         cardViewController.gameplayController = this;
-        playerController.cardController = cardViewController;
+
+        pair = AssetManager.getInstance().getSceneAndController("ConstructionZoneView.fxml");
+        Pane constructionZonePane = (Pane) pair.getKey();
+        constructionZoneController = (ConstructionZoneController) pair.getValue();
+        this.constructionZonePane.getChildren().add(constructionZonePane);
+        constructionZoneController.gameplayController = this;
+
+        gameplayToolbarController.cardViewController = cardViewController;
     }
 
     public PlayerModel getPlayer(){
