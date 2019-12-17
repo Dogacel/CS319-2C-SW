@@ -23,7 +23,7 @@ public class CardViewController implements Initializable {
     private ImageView focusedView;
 
     @FXML
-    HBox hbox1, hbox2;
+    HBox cardBox;
 
     public CardViewController(){
     }
@@ -32,41 +32,10 @@ public class CardViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    @FXML
-    private void mouseClicked(MouseEvent e) {
-        Node source = (Node) e.getTarget();;
-        // TODO: Add listener
-    }
-
     public void updateScene(Vector<Card> hand) {
         Platform.runLater(() -> {
-            hbox1.getChildren().clear();
-            hbox2.getChildren().clear();
-            for (int i = 0 ; i < 4 && i < hand.size() ; i++) {
-                if (hand.get(i) != null) {
-                    ImageView imageView = new ImageView(
-                        AssetManager.getInstance().getImage(hand.get(i).getName().replaceAll(" ", "").toLowerCase() + ".png")
-                    );
-                    imageView.setScaleX(0.9);
-                    imageView.setScaleY(0.9);
-                    Card c = hand.get(i);
-                    imageView.setOnMouseClicked((e) ->  {
-                        if (focusedView != null) {
-                            focusedView.setScaleX(0.9);
-                            focusedView.setScaleY(0.9);
-                        }
-                        if (focusedView != imageView) {
-                            selectedCard = c;
-                            focusedView = imageView;
-                            imageView.setScaleX(1);
-                            imageView.setScaleY(1);
-                        }
-                    });
-                    hbox1.getChildren().add(imageView);
-                }
-            }
-
-            for (int i = 4 ; i < 7 && i < hand.size() ; i++) {
+            cardBox.getChildren().clear();
+            for (int i = 0 ; i < hand.size() ; i++) {
                 if (hand.get(i) != null) {
                     ImageView imageView = new ImageView(
                         AssetManager.getInstance().getImage(hand.get(i).getName().replaceAll(" ", "").toLowerCase() + ".png")
@@ -86,7 +55,7 @@ public class CardViewController implements Initializable {
                             imageView.setScaleY(1);
                         }
                     });
-                    hbox2.getChildren().add(imageView);
+                    cardBox.getChildren().add(imageView);
                 }
             }
         });
