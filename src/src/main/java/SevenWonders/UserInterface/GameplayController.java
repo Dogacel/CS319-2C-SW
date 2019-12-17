@@ -2,6 +2,7 @@ package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Game.GameModel;
+import SevenWonders.GameLogic.Player.ConstructionZone;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.IGameListener;
@@ -17,22 +18,19 @@ import java.util.ResourceBundle;
 
 public class GameplayController implements Initializable, IGameListener {
 
-
     GameModel gameModel;
 
     Client client;
 
-    PlayerController playerController;
     CardViewController cardViewController;
     OtherPlayersController otherPlayersController;
-    OtherPlayersDetailController otherPlayersDetailController;
-    NeighborController leftNeighborController, rightNeighborController;
+    ConstructionZoneController constructionZoneController;
+    GameplayToolbarController gameplayToolbarController;
 
     Pair<Parent, Object> pair;
 
     @FXML
-    Pane playerViewPane, neighborViewRightPane, neighborViewLeftPane, otherPlayersViewPane, cardViewPane, player3ViewPane, player4ViewPane
-            ,player5ViewPane, player6ViewPane;
+    Pane constructionZonePane, otherPlayersViewPane, cardViewPane, gameplayToolbarPane;
 
     public GameplayController() {
         gameModel = null;
@@ -43,19 +41,10 @@ public class GameplayController implements Initializable, IGameListener {
     public void updateGameModel(GameModel gameModel) {
         PlayerModel me = gameModel.getPlayerList()[client.getID()];
 
-        playerController.updateScene(me);
         cardViewController.updateScene(me.getHand());
         constructionZoneController.updateScene(me);
-        gameplayToolbarController.updateScene(me);
-
-
 
         //otherPlayersController.updateScene();
-        //otherPlayersDetailController.updateScene();
-
-        //leftNeighborController.updateScene(gameModel.getLeftPlayer(client.getID()));
-        //rightNeighborController.updateScene(gameModel.getRightPlayer(client.getID()));
-
     }
 
 
@@ -65,19 +54,6 @@ public class GameplayController implements Initializable, IGameListener {
         Pane gameplayToolbarPane = (Pane) pair.getKey();
         gameplayToolbarController = (GameplayToolbarController) pair.getValue();
         this.gameplayToolbarPane.getChildren().add(gameplayToolbarPane);
-        gameplayToolbarController.gameplayController = this;
-
-        pair = AssetManager.getInstance().getSceneAndController("NeighborView.fxml");
-        Pane rightNeighborPane = (Pane) pair.getKey();
-        rightNeighborController = (NeighborController) pair.getValue();
-        this.neighborViewRightPane.getChildren().add(rightNeighborPane);
-        //rightNeighborController.gameplayController = this;
-
-        pair = AssetManager.getInstance().getSceneAndController("NeighborView.fxml");
-        Pane leftNeighborPane = (Pane) pair.getKey();
-        leftNeighborController = (NeighborController) pair.getValue();
-        this.neighborViewLeftPane.getChildren().add(leftNeighborPane);
-        //leftNeighborController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("OtherPlayersView.fxml");
         Pane otherPlayersPane = (Pane) pair.getKey();
@@ -88,14 +64,15 @@ public class GameplayController implements Initializable, IGameListener {
         Pane cardPane = (Pane)  pair.getKey();
         cardViewController = (CardViewController) pair.getValue();
         this.cardViewPane.getChildren().add(cardPane);
-        cardViewController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("ConstructionZoneView.fxml");
         Pane constructionZonePane = (Pane) pair.getKey();
         constructionZoneController = (ConstructionZoneController) pair.getValue();
         this.constructionZonePane.getChildren().add(constructionZonePane);
-        constructionZoneController.gameplayController = this;
 
+        constructionZoneController.gameplayController = this;
+        cardViewController.gameplayController = this;
+        gameplayToolbarController.gameplayController = this;
         gameplayToolbarController.cardViewController = cardViewController;
     }
 
