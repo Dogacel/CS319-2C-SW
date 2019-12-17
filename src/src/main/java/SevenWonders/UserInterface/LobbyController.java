@@ -56,7 +56,7 @@ public class LobbyController implements Initializable, ILobbyListener {
     {
         Server.stopServerInstance();
         Client.getInstance().disconnect();
-        SceneManager.getInstance().changeScene("MainMenu.fxml");
+        SceneManager.getInstance().changeScene("PlayMenu.fxml");
     }
 
     @Override
