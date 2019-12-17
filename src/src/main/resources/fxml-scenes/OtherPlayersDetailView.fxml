@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane id="detailAnchor" prefHeight="440.0" prefWidth="213.3" stylesheets="@../css/OtherPlayers.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.OtherPlayersDetailController">
    <children>
@@ -34,7 +36,7 @@
                         <Image url="@../images/tokens/zeus.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="warLabel" text="Label" GridPane.columnIndex="1" />
+                  <Label fx:id="warLabel" text="SELAMLAR" GridPane.columnIndex="1" />
                   <Label fx:id="moneyLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label fx:id="godLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
@@ -59,13 +61,18 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints />
-          <RowConstraints prefHeight="70.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="27.0" minHeight="22.0" prefHeight="27.0" />
+          <RowConstraints maxHeight="74.0" minHeight="69.0" prefHeight="69.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label id="playerNameLabel" fx:id="playerNameLabel" text="Label" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Button id="player3" fx:id="playerButton" mnemonicParsing="false" onMouseClicked="#player3ButtonClicked" prefHeight="150.0" prefWidth="213.3" stylesheets="@../css/OtherPlayers.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label id="playerNameLabel" fx:id="playerNameLabel" text="Label" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="26.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="2.0" />
+               </GridPane.margin></Label>
+            <ImageView id="otherWonderImage" fitHeight="80.0" fitWidth="217.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>
