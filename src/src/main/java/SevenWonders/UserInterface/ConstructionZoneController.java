@@ -4,6 +4,7 @@ import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
@@ -23,9 +24,11 @@ public class ConstructionZoneController {
     public ConstructionZoneController() {}
 
     public void updateScene(PlayerModel playerModel) {
-        updatePlayerConstruction(playerModel);
-        updateLeftNeighborConstruction();
-        updateRightNeighborConstruction();
+        Platform.runLater(() -> {
+            updatePlayerConstruction(playerModel);
+            //updateLeftNeighborConstruction();
+            //updateRightNeighborConstruction();
+        });
     }
 
     private void updatePlayerConstruction(PlayerModel playerModel){
