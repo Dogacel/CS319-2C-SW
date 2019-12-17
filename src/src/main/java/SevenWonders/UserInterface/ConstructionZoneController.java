@@ -27,8 +27,8 @@ public class ConstructionZoneController {
     public void updateScene(PlayerModel playerModel) {
         Platform.runLater(() -> {
             updatePlayerConstruction(playerModel);
-            //updateLeftNeighborConstruction();
-            //updateRightNeighborConstruction();
+            updateLeftNeighborConstruction();
+            updateRightNeighborConstruction();
         });
     }
 
@@ -42,17 +42,17 @@ public class ConstructionZoneController {
             CARD_COLOR_TYPE color = card.getColor();
 
             if(color == CARD_COLOR_TYPE.BROWN)
-                brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")));
+                brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
             else if(color == CARD_COLOR_TYPE.GRAY)
-                gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")));
+                gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
             else if(color == CARD_COLOR_TYPE.BLUE)
-                blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")));
+                blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
             else if(color == CARD_COLOR_TYPE.GREEN)
-                green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")));
+                green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
             else if(color == CARD_COLOR_TYPE.RED)
-                red.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")));
+                red.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
             else if( (color == CARD_COLOR_TYPE.YELLOW) || (color == CARD_COLOR_TYPE.PURPLE))
-                yellowAndPurple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini.png")));
+                yellowAndPurple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
         }
     }
 
@@ -70,17 +70,17 @@ public class ConstructionZoneController {
             CARD_COLOR_TYPE color = card.getColor();
 
             if(color == CARD_COLOR_TYPE.BROWN)
-                brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
             else if(color == CARD_COLOR_TYPE.GRAY)
-                gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
             else if(color == CARD_COLOR_TYPE.BLUE)
-                blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
             else if(color == CARD_COLOR_TYPE.GREEN)
-                green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
             else if(color == CARD_COLOR_TYPE.PURPLE)
-                purple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                purple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
             else if( color == CARD_COLOR_TYPE.YELLOW)
-                yellow.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                yellow.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
         }
     }
 
@@ -98,17 +98,17 @@ public class ConstructionZoneController {
             CARD_COLOR_TYPE color = card.getColor();
 
             if(color == CARD_COLOR_TYPE.BROWN)
-                brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
             else if(color == CARD_COLOR_TYPE.GRAY)
-                gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
             else if(color == CARD_COLOR_TYPE.BLUE)
-                blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
             else if(color == CARD_COLOR_TYPE.GREEN)
-                green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
             else if(color == CARD_COLOR_TYPE.PURPLE)
-                purple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                purple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
             else if( color == CARD_COLOR_TYPE.YELLOW)
-                yellow.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().toLowerCase() + "_mini_neighbor.png")));
+                yellow.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
         }
     }
 }

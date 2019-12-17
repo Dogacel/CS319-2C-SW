@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
 public class GameplayController implements Initializable, IGameListener {
@@ -41,6 +42,7 @@ public class GameplayController implements Initializable, IGameListener {
 
     public void updateGameModel(GameModel gameModel) {
         Platform.runLater(() -> {
+            this.gameModel = gameModel;
             PlayerModel me = gameModel.getPlayerList()[client.getID()];
 
             cardViewController.updateScene(me.getHand());
