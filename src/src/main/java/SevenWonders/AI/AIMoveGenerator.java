@@ -7,19 +7,36 @@ import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Move.TradeAction;
-import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.GameLogic.ScoreController;
-import com.google.gson.Gson;
 import javafx.util.Pair;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 import java.util.Vector;
 
 public class AIMoveGenerator {
 
+    private static double upgradeWonderScore(MoveModel move, PlayerModel me, GameModel game) {
+
+        if(move.getAction() != ACTION_TYPE.UPGRADE_WONDER) {return 0;}
+
+        int currentStageIndex = me.getWonder().getCurrentStageIndex();
+        if(currentStageIndex == 3) {return 0;}
+
+        int currentAge = game.getCurrentAge();
+
+        if(currentAge == 1) {
+            return 8.0 - (currentStageIndex * 2.5);
+        }
+
+        else if(currentAge == 2) {
+            return 7.5 - (currentStageIndex * 1.25);
+        }
+        else {
+            return 20.0;
+        }
+
+
+    }
     private static double discardScore(MoveModel move) {
         if(move.getAction() == ACTION_TYPE.DISCARD_CARD) {
             return 2.0;
@@ -27,7 +44,7 @@ public class AIMoveGenerator {
         return 0.0;
     }
 
-    private static double commercialScore(MoveModel move, PlayerModel me, GameModel game) {
+    private static double commercialScore(MoveModel move, PlayerModel me) {
         Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
 
 
@@ -234,9 +251,10 @@ public class AIMoveGenerator {
         score += scienceScore(move, me, game);
         score += militaryScore(move, me, game);
         score += civilianScore(move, me, game);
-        score += commercialScore(move, me, game);
+        score += commercialScore(move, me);
         score += resourceScore(move, me, game);
         score += discardScore(move);
+        score += upgradeWonderScore(move, me, game);
 
         return score;
     }
