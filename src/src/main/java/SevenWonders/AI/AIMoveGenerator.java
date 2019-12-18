@@ -242,6 +242,22 @@ public class AIMoveGenerator {
         return score;
     }
 
+    public static double guildScore(MoveModel move, PlayerModel me, GameModel game) {
+        double score = 0.0;
+        Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
+
+        if (move.getAction() != ACTION_TYPE.BUILD_CARD) return 0;
+        if (card.getColor() != CARD_COLOR_TYPE.PURPLE) return 0;
+
+
+        game.getPlayerList()[me.getId()].getConstructionZone().getConstructedCards().add(card);
+        score += ScoreController.calculateScore(me.getId(), game);
+        game.getPlayerList()[me.getId()].getConstructionZone().getConstructedCards().remove(card);
+
+
+        return score;
+    }
+
     public static double evaluateMove(MoveModel move, PlayerModel me, GameModel game) {
         double score = 0.0;
 
@@ -250,6 +266,7 @@ public class AIMoveGenerator {
         score += civilianScore(move, me, game);
         score += commercialScore(move, me);
         score += resourceScore(move, me, game);
+        score += guildScore(move, me, game);
         score += discardScore(move);
         score += upgradeWonderScore(move, me, game);
 
@@ -289,6 +306,7 @@ public class AIMoveGenerator {
         for (MoveModel move : moves) {
             System.out.println(me.getName() + " : " + move.getSelectedCardID() + " " + move.getAction().toString());
         }
-        return moves.get((int) getAccuracyIndex(difficulty) * moves.size());
+        return moves.get(0);
+        // return moves.get((int) getAccuracyIndex(difficulty) * moves.size());
     }
 }
