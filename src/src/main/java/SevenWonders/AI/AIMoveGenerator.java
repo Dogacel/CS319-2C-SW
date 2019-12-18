@@ -2,10 +2,7 @@ package SevenWonders.AI;
 
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
-import SevenWonders.GameLogic.Enums.ACTION_TYPE;
-import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
-import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
-import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
+import SevenWonders.GameLogic.Enums.*;
 import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
@@ -16,6 +13,8 @@ import SevenWonders.GameLogic.ScoreController;
 import com.google.gson.Gson;
 import javafx.util.Pair;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Vector;
 
@@ -94,6 +93,38 @@ public class AIMoveGenerator {
         }
 
         return points;
+    }
+
+    private static double resourceScore(MoveModel move, PlayerModel me, GameModel game) {
+        double score = 0.0;
+
+        Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
+        if (move.getAction() == ACTION_TYPE.BUILD_CARD && (card.getColor() != CARD_COLOR_TYPE.BROWN || card.getColor() != CARD_COLOR_TYPE.GRAY)) return 0.0;
+        if (move.getAction() != ACTION_TYPE.UPGRADE_WONDER || move.getAction() != ACTION_TYPE.BUILD_CARD) return 0.0;
+
+        if (move.getAction() == ACTION_TYPE.UPGRADE_WONDER && me.getWonder().getCurrentStage().getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.ONE_OF_EACH_RAW_MATERIAL) {
+            return 2.0 * (4 - game.getCurrentAge());
+        }
+
+        if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_ONE_OF_TWO) {
+            if (MoveController.getInstance().playerHasEnoughResources(card.getCardEffect().getResources(), me, new Vector<TradeAction>())) {
+                score += 2.0;
+            } else {
+                score += 3.5;
+            }
+        }
+
+        if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_MANUFACTURED_GOODS || card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_RAW_MATERIAL) {
+            if (MoveController.getInstance().playerHasEnoughResources(card.getCardEffect().getResources(), me, new Vector<TradeAction>())) {
+                score -= 1.0;
+            } else {
+                score += 2.5;
+            }
+        }
+
+        score += (6 - game.getCurrentAge() * 3) - game.getCurrentTurn() / 2.0;
+
+        return score;
     }
 
     private static double scienceScore(MoveModel move, PlayerModel me, GameModel game) {
