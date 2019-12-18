@@ -4,6 +4,7 @@ import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.Network.Requests.*;
+import com.dosse.upnp.UPnP;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class Client implements INetworkListener {
 	private ILobbyListener lobbyListener;
 
 	public static Client createClientInstance(String serverAddress, int port, String username) {
+		UPnP.openPortTCP(8080);
 		clientInstance = new Client(serverAddress, port, username);
 		return clientInstance;
 	}

@@ -7,6 +7,7 @@ import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.Network.Requests.*;
+import com.dosse.upnp.UPnP;
 import com.google.gson.Gson;
 
 import java.net.SocketException;
@@ -27,6 +28,7 @@ public class Server implements Runnable, INetworkListener {
 	private static Thread serverThread;
 
 	private static Server createServerInstance() {
+		UPnP.openPortTCP(8080);
 		serverInstance = new Server();
 		return serverInstance;
 	}
@@ -197,6 +199,12 @@ public class Server implements Runnable, INetworkListener {
 		}
 
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
+			if (connectionHandler instanceof  ConnectionHandler) {
+				connectionHandler.getUser().setReady(false);
+			}
+		}
+
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			if (connectionHandler instanceof PseudoConnectionHandler) {
 				MoveModel aiMove = AIMoveGenerator.generateMove(gameModel.getPlayerList()[connectionHandler.getUser().getId()], ((PseudoConnectionHandler) connectionHandler).getDifficulty());
 				if (gameController.checkMoveIsValid(aiMove)) {
@@ -338,6 +346,9 @@ public class Server implements Runnable, INetworkListener {
 		for (AbstractConnectionHandler connection : connectionHandlerList) {
 			int id = gameController.addPlayer(connection.getUser().getUsername(), connection.getUser().getSelectedWonder());
 			connection.getUser().setId(id);
+			if (connection instanceof ConnectionHandler) {
+				connection.getUser().setReady(false);
+			}
 		}
 
 		gameController.dealCards();
