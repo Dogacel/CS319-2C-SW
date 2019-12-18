@@ -193,6 +193,7 @@ public class Server implements Runnable, INetworkListener {
 	private void parsePlayerReadyRequest(String message, AbstractConnectionHandler sender) {
 		PlayerReadyRequest request = gson.fromJson(message, PlayerReadyRequest.class);
 		// TODO: Complete
+		sender.getUser().setReady(true);
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			if (!connectionHandler.getUser().isReady()) {
 				return;
