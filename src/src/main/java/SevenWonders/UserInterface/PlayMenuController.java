@@ -17,7 +17,7 @@ public class PlayMenuController {
     public void createGameButtonClicked(MouseEvent event) {
         Server.startServerInstance();
 
-        Client.createClientInstance (ipInputField.getText(), 8080, nameInputField.getText());
+        Client.createClientInstance (ipInputField.getText(), 18232, nameInputField.getText());
         Client.getInstance().sendConnectRequest( nameInputField.getText());
         Client.getInstance().makeAdmin();
         SceneManager.getInstance().changeScene("Lobby.fxml");
@@ -25,7 +25,7 @@ public class PlayMenuController {
 
     @FXML
     public void joinGameButtonClicked(MouseEvent event) {
-        Client.createClientInstance (ipInputField.getText(), 8080, nameInputField.getText());
+        Client.createClientInstance (ipInputField.getText(), 18232, nameInputField.getText());
         Client.getInstance().sendConnectRequest( nameInputField.getText());
         SceneManager.getInstance().changeScene("Lobby.fxml");
     }

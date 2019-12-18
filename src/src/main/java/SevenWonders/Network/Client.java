@@ -22,7 +22,6 @@ public class Client implements INetworkListener {
 	private ILobbyListener lobbyListener;
 
 	public static Client createClientInstance(String serverAddress, int port, String username) {
-		UPnP.openPortTCP(8080);
 		clientInstance = new Client(serverAddress, port, username);
 		return clientInstance;
 	}
