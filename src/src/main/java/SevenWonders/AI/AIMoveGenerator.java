@@ -174,6 +174,8 @@ public class AIMoveGenerator {
         score += scienceScore(move, me, game);
         score += militaryScore(move, me, game);
         score += civilianScore(move, me, game);
+        score += resourceScore(move, me, game);
+
         return score;
     }
 
