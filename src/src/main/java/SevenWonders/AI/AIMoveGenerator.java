@@ -20,6 +20,13 @@ import java.util.Vector;
 
 public class AIMoveGenerator {
 
+    private static double discardScore(MoveModel move) {
+        if(move.getAction() == ACTION_TYPE.DISCARD_CARD) {
+            return 2.0;
+        }
+        return 0.0;
+    }
+
     private static double commercialScore(MoveModel move, PlayerModel me, GameModel game) {
         Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
 
@@ -229,6 +236,7 @@ public class AIMoveGenerator {
         score += civilianScore(move, me, game);
         score += commercialScore(move, me, game);
         score += resourceScore(move, me, game);
+        score += discardScore(move);
 
         return score;
     }
