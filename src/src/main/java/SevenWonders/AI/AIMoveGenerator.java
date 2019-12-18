@@ -176,12 +176,9 @@ public class AIMoveGenerator {
         double score = 0.0;
 
         Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
-        if (move.getAction() == ACTION_TYPE.BUILD_CARD && (card.getColor() != CARD_COLOR_TYPE.BROWN || card.getColor() != CARD_COLOR_TYPE.GRAY)) return 0.0;
-        if (move.getAction() != ACTION_TYPE.UPGRADE_WONDER || move.getAction() != ACTION_TYPE.BUILD_CARD) return 0.0;
+        if (move.getAction() == ACTION_TYPE.BUILD_CARD && (card.getColor() != CARD_COLOR_TYPE.BROWN && card.getColor() != CARD_COLOR_TYPE.GRAY)) return 0.0;
+        if (move.getAction() != ACTION_TYPE.BUILD_CARD) return 0.0;
 
-        if (move.getAction() == ACTION_TYPE.UPGRADE_WONDER && me.getWonder().getCurrentStage().getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.ONE_OF_EACH_RAW_MATERIAL) {
-            return 2.0 * (4 - game.getCurrentAge());
-        }
 
         if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_ONE_OF_TWO) {
             if (MoveController.getInstance().playerHasEnoughResources(card.getCardEffect().getResources(), me, new Vector<TradeAction>())) {
@@ -272,7 +269,7 @@ public class AIMoveGenerator {
         }
 
         moves.sort((moveModel, t1) -> {
-            return (int) (evaluateMove(moveModel, me, game) - evaluateMove(t1, me, game));
+            return (int) (-100.0 * evaluateMove(moveModel, me, game) + 100.0 * evaluateMove(t1, me, game));
         });
         return moves;
     }
@@ -289,6 +286,9 @@ public class AIMoveGenerator {
 
     public static MoveModel generateMove(PlayerModel me, GameModel game, AI_DIFFICULTY difficulty) {
         Vector<MoveModel> moves = generateBestMoveListSorted(me, game);
+        for (MoveModel move : moves) {
+            System.out.println(me.getName() + " : " + move.getSelectedCardID() + " " + move.getAction().toString());
+        }
         return moves.get((int) getAccuracyIndex(difficulty) * moves.size());
     }
 }
