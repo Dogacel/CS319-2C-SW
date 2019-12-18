@@ -21,6 +21,36 @@ import java.util.Vector;
 
 public class AIMoveGenerator {
 
+
+    private static double civilianScore(MoveModel move, PlayerModel me, GameModel game) {
+        Card card = AssetManager.getInstance().getCardByID((move.getSelectedCardID()));
+        if(card.getColor() != CARD_COLOR_TYPE.BLUE) {return 0;}
+        if(move.getAction() != ACTION_TYPE.BUILD_CARD) {return 0;}
+
+        double points = card.getCardEffect().getVictoryPoints();
+
+        int playedBlues = 0;
+        for (PlayerModel player : game.getPlayerList()) {
+            if (player.getId() != me.getId()) {
+                for (Card card1 : player.getConstructionZone().getConstructedCards()) {
+                    if (card1.getColor() == CARD_COLOR_TYPE.BLUE)
+                        playedBlues++;
+                }
+            }
+            else {
+                for (Card card1 : player.getConstructionZone().getConstructedCards()) {
+                    if (card1.getColor() == CARD_COLOR_TYPE.BLUE)
+                        playedBlues--;
+                }
+            }
+        }
+
+        points -= (0.20 * playedBlues);
+
+        return points;
+
+    }
+
     private static double militaryScore(MoveModel move, PlayerModel me, GameModel game) {
 
         Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
@@ -112,6 +142,7 @@ public class AIMoveGenerator {
 
         score += scienceScore(move, me, game);
         score += militaryScore(move, me, game);
+        score += civilianScore(move, me, game);
         return score;
     }
 
