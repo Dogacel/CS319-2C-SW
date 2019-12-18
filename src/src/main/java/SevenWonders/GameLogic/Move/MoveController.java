@@ -4,6 +4,7 @@ import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Deck.Card.CardEffect;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
+import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 import SevenWonders.GameLogic.Player.PlayerController;
@@ -109,49 +110,11 @@ public class MoveController {
         return true;
     }
 
-    public int playerTradeCost(Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
-        boolean leftDiscount = false, rightDiscount = false, goodDiscount = false;
-        for (Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
-            if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.LEFT_RAW_MATERIAL_TRADE_DISCOUNT) {
-                leftDiscount = true;
-            } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.RIGHT_RAW_MATERIAL_TRADE_DISCOUNT) {
-                rightDiscount = true;
-            } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.MANUFACTURED_GOODS_TRADE_DISCOUNT) {
-                goodDiscount = true;
-            }
-        }
-
-        for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
-            if (entry.getKey() == RESOURCE_TYPE.BRICK ||
-                    entry.getKey() == RESOURCE_TYPE.STONE ||
-                    entry.getKey() == RESOURCE_TYPE.ORE ||
-                    entry.getKey() == RESOURCE_TYPE.WOOD
-            ) {
-                if (leftDiscount) {
-                    int count = 0;
-                    if (neighbors.getKey().getWonder().getResource() == entry.getKey()) {
-                        count++;
-                    }
-                    for (Card card : neighbors.getKey().getConstructionZone().getConstructedCards())  {
-                        if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PROD)
-                    }
-                } else if (rightDiscount) {
-
-                }
-            } else if (entry.getKey() == RESOURCE_TYPE.LOOM ||
-                    entry.getKey() == RESOURCE_TYPE.PAPYRUS ||
-                    entry.getKey() == RESOURCE_TYPE.GLASS
-            ) {
-                if (goodDiscount) {
-
-                }
-            }
-        }
-
-        return -1;
+    public boolean playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades) {
+        return playerResourceCost(requiredResources, currentPlayer, trades) == 0;
     }
 
-    public boolean playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades) {
+    public int playerResourceCost( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades) {
         Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
 
         /*to deep clone a map */
@@ -176,7 +139,7 @@ public class MoveController {
         }
         // If the trades were enough, just return true
         if ( clonedResourceMap.isEmpty()) {
-            return true;
+            return 0;
         }
 
         /*check for all the non-choice cards to see if we have enough resources for user action*/
@@ -203,7 +166,7 @@ public class MoveController {
         }
         /*If the non-choice cards provide enough resources, return true*/
         if ( clonedResourceMap.isEmpty()) {
-            return true;
+            return 0;
         }
         //If non-choice cards are not enough, must look at choice cards
         Vector<Card> choiceCards = new Vector<>();
@@ -221,6 +184,51 @@ public class MoveController {
         return playerHasEnoughResourcesWitChoiceCards( choiceCards, choiceCards.size() - 1, clonedResourceMap);
     }
 
+    public int minimumTradeCost(Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
+        boolean leftDiscount = false, rightDiscount = false, goodDiscount = false;
+        for (Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
+            if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.LEFT_RAW_MATERIAL_TRADE_DISCOUNT) {
+                leftDiscount = true;
+            } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.RIGHT_RAW_MATERIAL_TRADE_DISCOUNT) {
+                rightDiscount = true;
+            } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.MANUFACTURED_GOODS_TRADE_DISCOUNT) {
+                goodDiscount = true;
+            }
+        }
+
+
+        for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
+            if (entry.getKey() == RESOURCE_TYPE.BRICK ||
+                    entry.getKey() == RESOURCE_TYPE.STONE ||
+                    entry.getKey() == RESOURCE_TYPE.ORE ||
+                    entry.getKey() == RESOURCE_TYPE.WOOD
+            ) {
+                if (leftDiscount) {
+                    int count = 0;
+                    if (neighbors.getKey().getWonder().getResource() == entry.getKey()) {
+                        count++;
+                    }
+                    for (Card card : neighbors.getKey().getConstructionZone().getConstructedCards())  {
+                        if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
+
+                        }
+                    }
+                } else if (rightDiscount) {
+
+                }
+            } else if (entry.getKey() == RESOURCE_TYPE.LOOM ||
+                    entry.getKey() == RESOURCE_TYPE.PAPYRUS ||
+                    entry.getKey() == RESOURCE_TYPE.GLASS
+            ) {
+                if (goodDiscount) {
+
+                }
+            }
+        }
+
+        return -1;
+    }
+
     /**
      *  A recursive method for understanding if choice cards provide enough resources.
      * @param choiceCards all the choice cards that the user have in their constructionZone
@@ -228,38 +236,36 @@ public class MoveController {
      * @param map resources that user requires to perform given action
      * @return true if choice cards provide necessary resources, false if not.
      */
-    private boolean playerHasEnoughResourcesWitChoiceCards(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map) {
+    private int playerHasEnoughResourcesWitChoiceCards(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map) {
         if (begin == -1) {
             // gold ?
-            return map.isEmpty();
+            return map.isEmpty() ? 0 : 999; // Implement minimumTradeCost(map);
         }
         Card card = choiceCards.get(begin);
         switch (card.getCardEffect().getEffectType()) {
             case ONE_OF_EACH_MANUFACTURED_GOODS:
-                if (recursive(choiceCards, begin, map, RESOURCE_TYPE.LOOM)
-                        || recursive(choiceCards, begin, map, RESOURCE_TYPE.GLASS)
-                        || recursive(choiceCards, begin, map, RESOURCE_TYPE.PAPYRUS)) {
-                    return true;
-                }
-                break;
+                int loomCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.LOOM);
+                int glassCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.GLASS);
+                int papyrusCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.PAPYRUS);
+                return Math.min(loomCost, Math.min(glassCost, papyrusCost));
             case ONE_OF_EACH_RAW_MATERIAL:
-                if (recursive(choiceCards, begin, map, RESOURCE_TYPE.WOOD)
-                        || recursive(choiceCards, begin, map, RESOURCE_TYPE.BRICK)
-                        || recursive(choiceCards, begin, map, RESOURCE_TYPE.STONE)
-                        || recursive(choiceCards, begin, map, RESOURCE_TYPE.ORE)) {
-                    return true;
-                }
-                break;
+                int woodCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.WOOD);
+                int brickCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.BRICK);
+                int stoneCost =  recursive(choiceCards, begin, map, RESOURCE_TYPE.STONE);
+                int oreCost =  recursive(choiceCards, begin, map, RESOURCE_TYPE.ORE);
+                return Math.min(Math.min(woodCost, brickCost), Math.min(stoneCost, oreCost));
             case PRODUCE_ONE_OF_TWO:
                 Map<RESOURCE_TYPE, Integer> tempMap = card.getCardEffect().getResources();
-               for (var k : tempMap.keySet()) {
-                   if (recursive(choiceCards, begin, map, k)) {
-                       return true;
+                int bestCost = 999;
+                for (var k : tempMap.keySet()) {
+                   int cost = recursive(choiceCards, begin, map, k);
+                   if (bestCost > cost) {
+                       bestCost = cost;
                    }
-               }
-                break;
+                }
+                return bestCost;
         }
-    return false;
+        return 999;
     }
 
     /**
@@ -270,21 +276,18 @@ public class MoveController {
      * @param resource_type
      * @return
      */
-    private boolean recursive(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map, RESOURCE_TYPE resource_type) {
+    private int recursive(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map, RESOURCE_TYPE resource_type) {
         int resourceCount = map.getOrDefault(resource_type, 0);
         if (resourceCount > 1) {
             map.put(resource_type, resourceCount-1);
         } else if (resourceCount == 1 || resourceCount == 0){
             map.remove(resource_type);
         }
-        boolean isPossible  = playerHasEnoughResourcesWitChoiceCards(choiceCards, begin-1, map);
+        int cost  = playerHasEnoughResourcesWitChoiceCards(choiceCards, begin-1, map);
         if (resourceCount > 0){
             map.put(resource_type, resourceCount);
         }
-        if (isPossible) {
-            return true;
-        }
-        return false;
+        return cost;
     }
 
     private boolean checkConstructionZone(MoveModel moveModel, PlayerModel currentPlayer) {
