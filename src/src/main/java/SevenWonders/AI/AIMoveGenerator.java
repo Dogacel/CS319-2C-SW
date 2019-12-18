@@ -20,9 +20,62 @@ import java.util.Vector;
 
 public class AIMoveGenerator {
 
+    private static double commercialScore(MoveModel move, PlayerModel me, GameModel game) {
+        Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
+
+
+        if(card.getColor() != CARD_COLOR_TYPE.YELLOW) {return 0;}
+        if(move.getAction() != ACTION_TYPE.BUILD_CARD) {return 0;}
+
+        double points = 0;
+
+        if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.GET_MONEY) {
+            points += 2.0;
+        }
+        else if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.LEFT_RAW_MATERIAL_TRADE_DISCOUNT) {
+            points += 2.0;
+        }
+        else if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.RIGHT_RAW_MATERIAL_TRADE_DISCOUNT) {
+            points += 2.0;
+        }
+        else if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.MANUFACTURED_GOODS_TRADE_DISCOUNT) {
+            points += 4.0;
+        }
+        else if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.GET_MONEY_FOR_BROWN_CARD) {
+            points += 3.5;
+        }
+        else if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.GET_MONEY_FOR_GRAY_CARD) {
+            points += 3.5;
+        }
+        else if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.ONE_OF_EACH_RAW_MATERIAL) {
+            points += 4.5;
+        }
+        else if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.ONE_OF_EACH_MANUFACTURED_GOODS) {
+            points += 4.5;
+        }
+        else if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.GET_MONEY_AND_VP_PER_WONDER) {
+            points += 6.0;
+        }
+        else if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.GET_MONEY_AND_VP_PER_BROWN) {
+            points += 6.0;
+        }
+        else if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.GET_MONEY_AND_VP_PER_GRAY) {
+            points += 6.0;
+        }
+        else if(card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.GET_MONEY_AND_VP_PER_YELLOW) {
+            points += 6.0;
+        }
+
+        for (Card card1 : me.getConstructionZone().getConstructedCards()) {
+            if (card1.getColor() == CARD_COLOR_TYPE.YELLOW){points -= 1.5;}
+        }
+
+        return points;
+    }
+
 
     private static double civilianScore(MoveModel move, PlayerModel me, GameModel game) {
-        Card card = AssetManager.getInstance().getCardByID((move.getSelectedCardID()));
+        Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
         if(card.getColor() != CARD_COLOR_TYPE.BLUE) {return 0;}
         if(move.getAction() != ACTION_TYPE.BUILD_CARD) {return 0;}
 
@@ -174,6 +227,7 @@ public class AIMoveGenerator {
         score += scienceScore(move, me, game);
         score += militaryScore(move, me, game);
         score += civilianScore(move, me, game);
+        score += commercialScore(move, me, game);
         score += resourceScore(move, me, game);
 
         return score;
