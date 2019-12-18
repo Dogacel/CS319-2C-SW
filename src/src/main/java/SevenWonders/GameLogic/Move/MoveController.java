@@ -122,7 +122,7 @@ public class MoveController {
         for ( TradeAction trade : trades) {
             RESOURCE_TYPE resource = trade.getSelectedResource();
             if ( clonedResourceMap.containsKey( resource)) {
-                if ( clonedResourceMap.get( resource) <= 1) {
+                if ( clonedResourceMap.get(resource) <= 1) {
                     clonedResourceMap.remove( resource);
                 }
                 else {
@@ -144,7 +144,7 @@ public class MoveController {
                 case PRODUCE_RAW_MATERIAL:
                 case PRODUCE_MANUFACTURED_GOODS:
                     for (Map.Entry<RESOURCE_TYPE, Integer> entry : effect.getResources().entrySet()) {
-                        int numberOfResources = clonedResourceMap.getOrDefault( entry.getKey(), 0);
+                        int numberOfResources = clonedResourceMap.getOrDefault(entry.getKey(), 0);
                         if (numberOfResources > 0) {
                             int valueToBePut = clonedResourceMap.get(entry.getKey()) - numberOfResources;
                             if (valueToBePut <= 0) {
@@ -216,7 +216,7 @@ public class MoveController {
                }
                 break;
         }
-    return true;
+    return false;
     }
 
     /**
@@ -228,7 +228,7 @@ public class MoveController {
      * @return
      */
     private boolean recursive(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map, RESOURCE_TYPE resource_type) {
-        int resourceCount = map.get(resource_type);
+        int resourceCount = map.getOrDefault(resource_type, 0);
         if (resourceCount > 1) {
             map.put(resource_type, resourceCount-1);
         } else if (resourceCount == 1 || resourceCount == 0){
