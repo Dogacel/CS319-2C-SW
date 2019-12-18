@@ -1,13 +1,17 @@
 package SevenWonders.GameLogic;
 
+import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
+import SevenWonders.GameLogic.Game.GameModel;
+import SevenWonders.GameLogic.Player.PlayerModel;
+import SevenWonders.GameLogic.Wonder.Wonder;
 
 public class ScoreController {
     
     // TODO: Optimize
-    public int calculateScore(int playerID, GameModel model) {
+    public static int calculateScore(int playerID, GameModel model) {
         PlayerModel myPlayer = model.getPlayerList()[playerID];
         PlayerModel left = model.getPlayerList()[(playerID + 6) % 7];
         PlayerModel right = model.getPlayerList()[(playerID + 1) % 7];
@@ -25,18 +29,18 @@ public class ScoreController {
         return score;
     }
 
-    private int calculateMilitaryConflicts(PlayerModel playerModel) {
+    private static int calculateMilitaryConflicts(PlayerModel playerModel) {
         return playerModel.getWarPoints();
     }
 
-    private int calculateTreasuryContents(PlayerModel playerModel) {
+    private static int calculateTreasuryContents(PlayerModel playerModel) {
         return playerModel.getGold() / 3;
     }
 
-    private int calculateWonders(PlayerModel playerModel) {
+    private static int calculateWonders(PlayerModel playerModel) {
         Wonder wonder = playerModel.getWonder();
         int score = 0;
-        for (int i = 0 ; i < wonder.getCurrentStage() ; i++) {
+        for (int i = 0 ; i < wonder.getCurrentStageIndex() ; i++) {
             if (wonder.getStages()[i].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.GIVE_VICTORY_POINTS) {
                 score += wonder.getStages()[i].getWonderEffect().getVictoryPoints();
             }
@@ -44,7 +48,7 @@ public class ScoreController {
         return score;
     }
 
-    private int calculateCivilianStructures(PlayerModel playerModel) {
+    private static int calculateCivilianStructures(PlayerModel playerModel) {
         int score = 0;
         for (Card card : playerModel.getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.BLUE) {
@@ -54,7 +58,7 @@ public class ScoreController {
         return score;
     }
 
-    private int calculateScientificStructures(PlayerModel playerModel) {
+    private static int calculateScientificStructures(PlayerModel playerModel) {
         int drawings = 0, mechanics = 0, writings = 0;
         for (Card card : playerModel.getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.GREEN) {
@@ -76,7 +80,7 @@ public class ScoreController {
         return drawings*drawings + mechanics*mechanics + writings*writings + Math.min(drawings, Math.min(mechanics, writings))*7;
     }
 
-    private int calculateCommercialStructures(PlayerModel playerModel) {
+    private static int calculateCommercialStructures(PlayerModel playerModel) {
         int score = 0;
         for (Card card : playerModel.getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.YELLOW) {
@@ -91,7 +95,7 @@ public class ScoreController {
                         score += countColor(playerModel, CARD_COLOR_TYPE.GRAY) * card.getCardEffect().getVictoryPoints();
                         break;
                     case GET_MONEY_AND_VP_PER_WONDER:
-                        score += playerModel.getWonder().getCurrentStage() * card.getCardEffect().getVictoryPoints();
+                        score += playerModel.getWonder().getCurrentStageIndex() * card.getCardEffect().getVictoryPoints();
                         break;
                 }
             }
@@ -99,7 +103,7 @@ public class ScoreController {
         return score;
     }
 
-    private int calculateGuilds(PlayerModel playerModel, PlayerModel left, PlayerModel right) {
+    private static int calculateGuilds(PlayerModel playerModel, PlayerModel left, PlayerModel right) {
         int score = 0;
         for (Card card : playerModel.getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.PURPLE) {
@@ -145,9 +149,9 @@ public class ScoreController {
                         break;
                     case BUILDERS_GUILD:
                         score += card.getCardEffect().getVictoryPoints() *
-                                (playerModel.getWonder().getCurrentStage()+
-                                left.getWonder().getCurrentStage()+
-                                right.getWonder().getCurrentStage());
+                                (playerModel.getWonder().getCurrentStageIndex()+
+                                left.getWonder().getCurrentStageIndex()+
+                                right.getWonder().getCurrentStageIndex());
                         break;
                 }
             }
@@ -155,7 +159,7 @@ public class ScoreController {
         return score;
     }
 
-    private int countColor(PlayerModel playerModel, CARD_COLOR_TYPE color) {
+    private static int countColor(PlayerModel playerModel, CARD_COLOR_TYPE color) {
         int count = 0;
         for (Card card : playerModel.getConstructionZone().getConstructedCards()) {
             if (card.getColor() == color) {

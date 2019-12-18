@@ -9,13 +9,18 @@ import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import SevenWonders.GameLogic.ScoreController;
+import com.google.gson.Gson;
 import javafx.util.Pair;
 
 import java.util.Random;
 import java.util.Vector;
 
 public class AIMoveGenerator {
+
     private static double evaluateMove(MoveModel move, PlayerModel me, GameModel game) {
+
+
         return 0.0;
     }
 
