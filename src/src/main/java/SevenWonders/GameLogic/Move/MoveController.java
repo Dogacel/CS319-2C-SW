@@ -109,6 +109,48 @@ public class MoveController {
         return true;
     }
 
+    public int playerTradeCost(Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
+        boolean leftDiscount = false, rightDiscount = false, goodDiscount = false;
+        for (Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
+            if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.LEFT_RAW_MATERIAL_TRADE_DISCOUNT) {
+                leftDiscount = true;
+            } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.RIGHT_RAW_MATERIAL_TRADE_DISCOUNT) {
+                rightDiscount = true;
+            } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.MANUFACTURED_GOODS_TRADE_DISCOUNT) {
+                goodDiscount = true;
+            }
+        }
+
+        for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
+            if (entry.getKey() == RESOURCE_TYPE.BRICK ||
+                    entry.getKey() == RESOURCE_TYPE.STONE ||
+                    entry.getKey() == RESOURCE_TYPE.ORE ||
+                    entry.getKey() == RESOURCE_TYPE.WOOD
+            ) {
+                if (leftDiscount) {
+                    int count = 0;
+                    if (neighbors.getKey().getWonder().getResource() == entry.getKey()) {
+                        count++;
+                    }
+                    for (Card card : neighbors.getKey().getConstructionZone().getConstructedCards())  {
+                        if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PROD)
+                    }
+                } else if (rightDiscount) {
+
+                }
+            } else if (entry.getKey() == RESOURCE_TYPE.LOOM ||
+                    entry.getKey() == RESOURCE_TYPE.PAPYRUS ||
+                    entry.getKey() == RESOURCE_TYPE.GLASS
+            ) {
+                if (goodDiscount) {
+
+                }
+            }
+        }
+
+        return -1;
+    }
+
     public boolean playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades) {
         Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
 
