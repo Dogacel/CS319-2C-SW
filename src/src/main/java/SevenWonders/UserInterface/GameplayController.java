@@ -7,6 +7,7 @@ import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.IGameListener;
 import SevenWonders.Network.Requests.UpdateGameStateRequest;
+import SevenWonders.SoundManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,6 +39,8 @@ public class GameplayController implements Initializable, IGameListener {
         gameModel = null;
         client = Client.getInstance();
         client.setGameListener(this);
+        SoundManager.getInstance().stopMenuMusic();
+        SoundManager.getInstance().playAgeOneMusic();
     }
 
     public void updateGameModel(GameModel gameModel) {

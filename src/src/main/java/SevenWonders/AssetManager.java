@@ -16,8 +16,6 @@ import java.io.*;
 import java.net.URL;
 import java.util.*;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 public class AssetManager {
     //properties
@@ -32,7 +30,6 @@ public class AssetManager {
     Map<Integer, Card> cardMap;
     Map<WONDER_TYPE, Wonder> wonderMap;
     Map<HERO_EFFECT_TYPE, Vector<Hero>> heroMap;
-    Map<String, Media> soundMap;
 
     public void initialize() {
         gson = new Gson();
@@ -41,13 +38,11 @@ public class AssetManager {
         cardMap = new HashMap<>();
         wonderMap = new HashMap<>();
         heroMap = new HashMap<>();
-        soundMap = new HashMap<>();
         loadImages();
         // loadScenes();
         loadCards();
         loadWonders();
         loadHeroes();
-        loadSounds();
     }
 
     /**
@@ -181,37 +176,6 @@ public class AssetManager {
         }
     }
 
-    private void loadSounds() {
-        URL soundResourcesURL = getClass().getClassLoader().getResource("sounds");
-        assert soundResourcesURL != null;
-        File dir = new File(soundResourcesURL.getPath());
-
-        for (File f : Objects.requireNonNull(dir.listFiles())) {
-            if (f.getName().endsWith(".mp3")) {
-                String type = "";
-                if (f.getName().equals("red_card.mp3"))
-                    type = "red";
-                else if (f.getName().equals("blue_card.mp3"))
-                    type = "blue";
-                else if (f.getName().equals("yellow_card.mp3"))
-                    type = "yellow";
-                else if (f.getName().equals("green_card.mp3"))
-                    type = "green";
-                else if (f.getName().equals("brown_card.mp3"))
-                    type = "brown";
-                else if (f.getName().equals("wonder_upgrade.mp3"))
-                    type = "wonder_upgrade";
-                else if (f.getName().equals("battles.mp3"))
-                    type = "battles";
-
-
-                Media sound = new Media(f.toURI().toString());
-
-                soundMap.put(type, sound);
-            }
-        }
-    }
-
     public Card[][] mapDeck() {
         //Creating the deck
         Card[][] cards = new Card[NUMBER_OF_AGES][CARDS_PER_AGE];
@@ -275,13 +239,5 @@ public class AssetManager {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public Media getSoundByType(String type){
-        if (soundMap.get(type) == null )
-        {
-            System.out.println("it is null");
-        }
-        return soundMap.get(type);
     }
 }

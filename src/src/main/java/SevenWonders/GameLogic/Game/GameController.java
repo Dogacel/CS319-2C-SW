@@ -12,6 +12,7 @@ import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import SevenWonders.SoundManager;
 import javafx.util.Pair;
 
 import java.util.Arrays;
@@ -63,11 +64,26 @@ public class GameController {
             playEndOfAge();
             if (!model.isGameEnded()) {
                 model.incrementCurrentAge();
-
+                if (model.getCurrentAge() == 2)
+                {
+                    SoundManager.getInstance().stopAgeOneMusic();
+                    SoundManager.getInstance().playBattleSound();
+                    SoundManager.getInstance().playAgeTwoMusic();
+                }
+                else if (model.getCurrentAge() == 3)
+                {
+                    SoundManager.getInstance().stopAgeTwoMusic();
+                    SoundManager.getInstance().playBattleSound();
+                    SoundManager.getInstance().playAgeThreeMusic();
+                }
 
                 if (model.getCurrentAge() <= 3) {
                     dealCards();
                 }
+            }
+            else{
+                SoundManager.getInstance().stopAgeThreeMusic();
+                SoundManager.getInstance().playBattleSound();
             }
         }
     }

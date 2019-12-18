@@ -9,6 +9,8 @@ import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Wonder.Wonder;
+import SevenWonders.Network.Client;
+import SevenWonders.SoundManager;
 import javafx.scene.media.MediaPlayer;
 
 import java.util.Vector;
@@ -43,7 +45,9 @@ public class PlayerController {
         switch (action){
             case DISCARD_CARD:
                 gameController.discardCard(AssetManager.getInstance().getCardByID(move.getSelectedCardID()));
-
+                System.out.println("In discard: " + AssetManager.getInstance().getCardByID(move.getSelectedCardID()).getName() + "id: " + this.getId());
+                if (Client.getInstance().getID() == player.getId())
+                    SoundManager.getInstance().playDiscardSound();
                 player.setGold(player.getGold() + DISCARD_REWARD);
 
                 for (Card card : player.getHand())
@@ -58,24 +62,30 @@ public class PlayerController {
             case BUILD_CARD:
                 Card playedCard = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
                 player.getConstructionZone().buildCard(playedCard);
+                if (Client.getInstance().getID() == player.getId()) {
+                    String type = "";
 
-                String type = "";
+                    if (playedCard.getColor() == CARD_COLOR_TYPE.RED)
+                        type = "red";
+                    else if (playedCard.getColor() == CARD_COLOR_TYPE.BLUE)
+                        type = "blue";
+                    else if (playedCard.getColor() == CARD_COLOR_TYPE.GREEN)
+                        type = "green";
+                    else if (playedCard.getColor() == CARD_COLOR_TYPE.YELLOW)
+                        type = "yellow";
+                    else if (playedCard.getColor() == CARD_COLOR_TYPE.BROWN)
+                        type = "brown";
+                    else if (playedCard.getColor() == CARD_COLOR_TYPE.GRAY) {
+                        if (playedCard.getCardEffect().getResources().get(RESOURCE_TYPE.PAPYRUS) != null)
+                            type = "papyrus";
+                        else if (playedCard.getCardEffect().getResources().get(RESOURCE_TYPE.GLASS) != null)
+                            type = "glass";
+                        else if (playedCard.getCardEffect().getResources().get(RESOURCE_TYPE.LOOM) != null)
+                            type = "loom";
+                    }
 
-                if (playedCard.getColor() == CARD_COLOR_TYPE.RED)
-                    type = "red";
-                else if (playedCard.getColor() == CARD_COLOR_TYPE.BLUE)
-                    type = "blue";
-                else if (playedCard.getColor() == CARD_COLOR_TYPE.GREEN)
-                    type = "green";
-                else if (playedCard.getColor() == CARD_COLOR_TYPE.YELLOW)
-                    type = "yellow";
-                else if (playedCard.getColor() == CARD_COLOR_TYPE.BROWN)
-                    type = "brown";
-
-                MediaPlayer mediaPlayer = new MediaPlayer(AssetManager.getInstance().getSoundByType(type));
-                mediaPlayer.play();
-
-
+                    SoundManager.getInstance().playCardSound(type);
+                }
                 for (Card card : player.getHand())
                 {
                     if (card.getId() == move.getSelectedCardID()) {
