@@ -8,7 +8,7 @@
 
 <AnchorPane id="detailAnchor" prefHeight="440.0" prefWidth="213.3" stylesheets="@../css/OtherPlayers.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.OtherPlayersDetailController">
    <children>
-      <Pane layoutY="100.0" prefHeight="340.0" prefWidth="213.3" visible="false">
+      <Pane id="outerPane" fx:id="outerPane" layoutY="100.0" prefHeight="340.0" prefWidth="213.3" stylesheets="@../css/OtherPlayers.css" visible="false">
          <children>
             <GridPane layoutX="37.0" prefHeight="120.0" prefWidth="127.0">
                <columnConstraints>
@@ -56,24 +56,76 @@
             <Button id="closeButton" fx:id="closeButton" layoutX="165.0" layoutY="3.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" stylesheets="@../css/OtherPlayers.css" />
          </children>
       </Pane>
-      <GridPane prefHeight="90.0" prefWidth="213.3">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="27.0" minHeight="22.0" prefHeight="27.0" />
-          <RowConstraints maxHeight="74.0" minHeight="69.0" prefHeight="69.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <Pane id="topPane" fx:id="topPane" prefHeight="89.0" prefWidth="214.0">
          <children>
-            <Label id="playerNameLabel" fx:id="playerNameLabel" text="Label" textAlignment="JUSTIFY" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="26.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets top="2.0" />
-               </GridPane.margin></Label>
-            <ImageView id="otherWonderImage" fitHeight="80.0" fitWidth="217.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+            <GridPane id="outerGrid" maxHeight="90.0" maxWidth="214.0" prefHeight="89.0" prefWidth="214.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="91.0" minHeight="0.0" prefHeight="16.0" />
+                <RowConstraints maxHeight="91.0" minHeight="0.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="74.0" minHeight="1.0" prefHeight="37.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label id="playerNameLabel" fx:id="playerNameLabel" alignment="CENTER" prefHeight="21.0" prefWidth="213.0" stylesheets="@../css/OtherPlayers.css" text="Label" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="2.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <GridPane GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="99.0" minWidth="10.0" prefWidth="99.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="44.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="37.0" minHeight="37.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <StackPane prefHeight="101.0" prefWidth="133.0">
+                           <children>
+                              <ImageView id="coinImageView" fx:id="coinImageView" fitHeight="37.0" fitWidth="37.0" layoutX="5.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                              <Label id="coinLabel" fx:id="coinLabel" alignment="CENTER" text="Label" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </StackPane>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
+                           <children>
+                              <ImageView id="shieldImageView" fx:id="shieldImageView" fitHeight="37.0" fitWidth="37.0" layoutX="48.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                              <Label id="shieldLabel" fx:id="shieldLabel" text="Label" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.rowIndex="2">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label id="wonderStage1" fx:id="wonderStage1" layoutX="17.0" prefHeight="37.0" prefWidth="37.0" />
+                        <Label id="wonderStage2" fx:id="wonderStage2" layoutX="17.0" prefHeight="37.0" prefWidth="37.0" GridPane.columnIndex="1" />
+                        <Label id="wonderStage3" fx:id="wonderStage3" layoutX="17.0" prefHeight="37.0" prefWidth="37.0" GridPane.columnIndex="2" />
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
          </children>
-      </GridPane>
+      </Pane>
    </children>
 </AnchorPane>

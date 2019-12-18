@@ -28,13 +28,31 @@
     -fx-background-color: transparent;
 }
 
-/*
+
 #detailAnchor{
-    -fx-background-image: url('../images/ui-images/detailBg.png');
+   /* -fx-background-image: url('../images/ui-images/detailBg.png'); */
 }
-*/
+
+#outerPane{
+    -fx-background-color: transparent;
+}
+
+#topPane{
+    /*-fx-background-color: yellow;*/
+    -fx-background-image: url('../images/ui-images/ghiza.png');
+    -fx-background-size: 214 89;
+}
+
 #closeButton{
     -fx-background-image: url('../images/ui-images/closeButton.png');
     -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
+
+#playerNameLabel .text {
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-stroke-width: 1px;
+}
+
+
