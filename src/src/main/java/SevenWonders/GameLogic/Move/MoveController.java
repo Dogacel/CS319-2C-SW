@@ -7,6 +7,7 @@ import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 import SevenWonders.GameLogic.Player.PlayerController;
+import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.util.Pair;
 
 
@@ -27,7 +28,7 @@ public class MoveController {
     }
 
 
-    public boolean playerCanMakeMove(MoveModel moveModel, PlayerController currentPlayer, Pair<PlayerController, PlayerController> neighbours) {
+    public boolean playerCanMakeMove(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours) {
         ACTION_TYPE action = moveModel.getAction();
         if ( !playerCanMakeTheTrade( moveModel, currentPlayer, neighbours)) {
             return false;
@@ -47,7 +48,7 @@ public class MoveController {
         return false;
     }
 
-    private boolean playerCanMakeTheTrade( MoveModel move, PlayerController currentPlayer, Pair<PlayerController, PlayerController> neighbours) {
+    private boolean playerCanMakeTheTrade( MoveModel move, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours) {
         int goldOfCurrentPlayer = currentPlayer.getGold();
 
         /* boolean for understanding if there is a discount */
@@ -108,7 +109,7 @@ public class MoveController {
         return true;
     }
 
-    private boolean playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerController currentPlayer, Vector<TradeAction> trades) {
+    private boolean playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades) {
         Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
 
         /*to deep clone a map */
@@ -244,7 +245,7 @@ public class MoveController {
         return false;
     }
 
-    private boolean checkConstructionZone(MoveModel moveModel, PlayerController currentPlayer) {
+    private boolean checkConstructionZone(MoveModel moveModel, PlayerModel currentPlayer) {
         for ( Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
             if ( card.getId() == moveModel.getSelectedCardID()) {
                 return false;
@@ -259,7 +260,7 @@ public class MoveController {
      * @param currentPlayer curren player
      * @return true if player can build a card, false otherwise
      */
-    private boolean playerCanPlayBuildCard(MoveModel moveModel, PlayerController currentPlayer) {
+    private boolean playerCanPlayBuildCard(MoveModel moveModel, PlayerModel currentPlayer) {
          return checkConstructionZone( moveModel, currentPlayer) && playerHasEnoughResources( AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades());
     }
 
@@ -269,7 +270,7 @@ public class MoveController {
      * @param currentPlayer current player
      * @return true if player can discard, false otherwise
      */
-    private boolean playerCanDiscardCard(MoveModel moveModel, PlayerController currentPlayer) {
+    private boolean playerCanDiscardCard(MoveModel moveModel, PlayerModel currentPlayer) {
         return currentPlayer.getHand().contains(AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()));
     }
 
@@ -279,7 +280,7 @@ public class MoveController {
      * @param currentPlayer current player
      * @return true if player can upgrade wonder, false otherwise
      */
-    private boolean playerCanBuildWonder(MoveModel moveModel, PlayerController currentPlayer) {
+    private boolean playerCanBuildWonder(MoveModel moveModel, PlayerModel currentPlayer) {
         return currentPlayer.getWonder().isUpgradeable() && playerHasEnoughResources(currentPlayer.getWonder().getCurrentStage().getRequiredResources(), currentPlayer, moveModel.getTrades());
     }
 }
