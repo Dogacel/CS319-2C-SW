@@ -58,7 +58,7 @@ public class ScoreController {
         return score;
     }
 
-    private static int calculateScientificStructures(PlayerModel playerModel) {
+    public static int calculateScientificStructures(PlayerModel playerModel) {
         int drawings = 0, mechanics = 0, writings = 0;
         for (Card card : playerModel.getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.GREEN) {
@@ -159,7 +159,7 @@ public class ScoreController {
         return score;
     }
 
-    private static int countColor(PlayerModel playerModel, CARD_COLOR_TYPE color) {
+    public static int countColor(PlayerModel playerModel, CARD_COLOR_TYPE color) {
         int count = 0;
         for (Card card : playerModel.getConstructionZone().getConstructedCards()) {
             if (card.getColor() == color) {

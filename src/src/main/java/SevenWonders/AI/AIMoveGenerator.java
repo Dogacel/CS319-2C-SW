@@ -1,8 +1,11 @@
 package SevenWonders.AI;
 
+import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
+import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
+import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
 import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
@@ -18,10 +21,53 @@ import java.util.Vector;
 
 public class AIMoveGenerator {
 
-    private static double evaluateMove(MoveModel move, PlayerModel me, GameModel game) {
+    private static double scienceScore(MoveModel move, PlayerModel me, GameModel game) {
+        double score = 0.0;
+        Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
 
+        if (!(move.getAction() == ACTION_TYPE.UPGRADE_WONDER &&
+                me.getWonder().getCurrentStage().getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.CHOOSE_ONE_SCIENCE) &&
+                !(card.getColor() == CARD_COLOR_TYPE.GREEN && move.getAction() == ACTION_TYPE.BUILD_CARD)) {
+            return 0;
+        }
 
-        return 0.0;
+        int playedGreens = -1;
+        for (Card card1 : me.getHand()) {
+            if (card1.getColor() == CARD_COLOR_TYPE.GREEN)
+                playedGreens++;
+        }
+
+        for (PlayerModel player : game.getPlayerList()) {
+            if (player.getId() != me.getId()) {
+                for (Card card1 : player.getConstructionZone().getConstructedCards()) {
+                    if (card1.getColor() == CARD_COLOR_TYPE.GREEN)
+                        playedGreens++;
+                }
+            }
+        }
+
+        score -= playedGreens / 2.0;
+        score -= ScoreController.calculateScore(me.getId(), game);
+
+        if (move.getAction() == ACTION_TYPE.UPGRADE_WONDER) {
+            game.getPlayerList()[me.getId()].getWonder().upgradeStage();
+            score += ScoreController.calculateScore(me.getId(), game);
+            game.getPlayerList()[me.getId()].getWonder().downgradeStage();
+        } else {
+            game.getPlayerList()[me.getId()].getConstructionZone().getConstructedCards().add(card);
+            score += ScoreController.calculateScore(me.getId(), game);
+            game.getPlayerList()[me.getId()].getConstructionZone().getConstructedCards().remove(card);
+        }
+
+        return score;
+    }
+
+    public static double evaluateMove(MoveModel move, PlayerModel me, GameModel game) {
+        double score = 0.0;
+
+        score += scienceScore(move, me, game);
+
+        return score;
     }
 
     private static Vector<MoveModel> generateBestMoveListSorted(PlayerModel me, GameModel game) {
