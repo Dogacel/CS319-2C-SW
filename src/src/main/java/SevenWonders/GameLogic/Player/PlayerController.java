@@ -45,9 +45,10 @@ public class PlayerController {
         switch (action){
             case DISCARD_CARD:
                 gameController.discardCard(AssetManager.getInstance().getCardByID(move.getSelectedCardID()));
-                System.out.println("In discard: " + AssetManager.getInstance().getCardByID(move.getSelectedCardID()).getName() + "id: " + this.getId());
+
                 if (Client.getInstance().getID() == player.getId())
                     SoundManager.getInstance().playDiscardSound();
+
                 player.setGold(player.getGold() + DISCARD_REWARD);
 
                 for (Card card : player.getHand())
@@ -98,7 +99,8 @@ public class PlayerController {
             case UPGRADE_WONDER:
 
                 player.getWonder().upgradeStage();
-
+                if (Client.getInstance().getID() == player.getId())
+                    SoundManager.getInstance().playWonderSound();
                 for (Card card : player.getHand())
                 {
                     if (card.getId() == move.getSelectedCardID()) {

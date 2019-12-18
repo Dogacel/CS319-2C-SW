@@ -20,6 +20,7 @@ public class SoundManager {
     MediaPlayer ageOne;
     MediaPlayer cardSound;
     MediaPlayer discardSound;
+    MediaPlayer wonderSound;
 
 
     public void initialize(){
@@ -30,6 +31,7 @@ public class SoundManager {
         ageOne = new MediaPlayer(soundMap.get("age_one"));
         battleMusic = new MediaPlayer(soundMap.get("battles"));
         discardSound = new MediaPlayer(soundMap.get("discard"));
+        wonderSound = new MediaPlayer(soundMap.get("wonder_upgrade"));
     }
 
     public static SoundManager getInstance() {
@@ -97,8 +99,14 @@ public class SoundManager {
 
     public void playDiscardSound(){ discardSound.play(); discardSound.seek(Duration.ZERO); }
 
+    public void playWonderSound(){
+        wonderSound.play();
+        wonderSound.seek(Duration.ZERO);
+    }
+
     public void playBattleSound(){
         battleMusic.play();
+        battleMusic.seek(Duration.ZERO);
     }
 
     public void playAgeOneMusic(){
