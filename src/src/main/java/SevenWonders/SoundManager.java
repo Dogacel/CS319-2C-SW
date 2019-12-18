@@ -21,6 +21,7 @@ public class SoundManager {
     MediaPlayer cardSound;
     MediaPlayer discardSound;
     MediaPlayer wonderSound;
+    MediaPlayer startTheGame;
 
 
     public void initialize(){
@@ -32,6 +33,7 @@ public class SoundManager {
         battleMusic = new MediaPlayer(soundMap.get("battles"));
         discardSound = new MediaPlayer(soundMap.get("discard"));
         wonderSound = new MediaPlayer(soundMap.get("wonder_upgrade"));
+        startTheGame = new MediaPlayer(soundMap.get("start"));
     }
 
     public static SoundManager getInstance() {
@@ -72,10 +74,13 @@ public class SoundManager {
                     type = "wonder_upgrade";
                 else if (f.getName().equals("battles.mp3"))
                     type = "battles";
+                else if (f.getName().equals("start.mp3"))
+                    type = "start";
                 else if (f.getName().equals("menu_music.mp3"))
                     type = "menu";
                 else if (f.getName().equals("age_one.mp3"))
                     type = "age_one";
+
 
                 Media sound = new Media(f.toURI().toString());
 
@@ -98,6 +103,11 @@ public class SoundManager {
     }
 
     public void playDiscardSound(){ discardSound.play(); discardSound.seek(Duration.ZERO); }
+
+    public void startTheGameAlready(){
+        startTheGame.play();
+        startTheGame.seek(Duration.ZERO);
+    }
 
     public void playWonderSound(){
         wonderSound.play();
