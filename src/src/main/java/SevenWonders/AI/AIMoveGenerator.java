@@ -21,6 +21,51 @@ import java.util.Vector;
 
 public class AIMoveGenerator {
 
+    private static double militaryScore(MoveModel move, PlayerModel me, GameModel game) {
+
+        Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
+        if(card.getColor() != CARD_COLOR_TYPE.RED) {return 0;}
+        if(move.getAction() != ACTION_TYPE.BUILD_CARD) {return 0;}
+
+        double points = 0.0;
+        int shields = me.getShields();
+        int shieldsToGain = card.getCardEffect().getShields();
+        int currentAge = game.getCurrentAge();
+        int rightNeighborShields = game.getRightPlayer(me.getId()).getShields();
+        int leftNeighborShields = game.getLeftPlayer(me.getId()).getShields();
+
+
+        // LEFT
+
+        if(leftNeighborShields > shields && (shields + shieldsToGain) > leftNeighborShields) {
+            points += (2 *(currentAge));
+        }
+
+        else if(leftNeighborShields == shields) {
+            points += ((2 *(currentAge)) - 1);
+        }
+
+        else if(leftNeighborShields < shields) {
+            points += shieldsToGain;
+        }
+
+        // RIGHT
+
+        if(rightNeighborShields > shields && (shields + shieldsToGain) > rightNeighborShields) {
+            points += (2 * (currentAge));
+        }
+
+        else if(rightNeighborShields == shields) {
+            points += ((2 *(currentAge)) - 1);
+        }
+
+        else if(rightNeighborShields < shields) {
+            points += shieldsToGain;
+        }
+
+        return points;
+    }
+
     private static double scienceScore(MoveModel move, PlayerModel me, GameModel game) {
         double score = 0.0;
         Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
@@ -66,7 +111,7 @@ public class AIMoveGenerator {
         double score = 0.0;
 
         score += scienceScore(move, me, game);
-
+        score += militaryScore(move, me, game);
         return score;
     }
 
