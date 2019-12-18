@@ -328,8 +328,9 @@ public class Server implements Runnable, INetworkListener {
 	}
 
 	private void sendStartGameRequests() {
+		int index = 0;
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
-			StartGameRequest request = StartGameRequest.of();
+			StartGameRequest request = StartGameRequest.of(index++);
 			sendRequest(request, connectionHandler);
 		}
 
