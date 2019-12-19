@@ -7,20 +7,28 @@ import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.util.logging.Logger;
+
 public class ConstructionZoneController {
     
     GameplayController gameplayController;
+    ImageView focusedView;
+    private Card selectedCard;
 
     @FXML
-    Pane rightNeighborConstructionPane, leftNeighborConstructionPane;
+    VBox brown, gray, blue, green, red, yellowAndPurple, leftNeighborConstructionPane, rightNeighborConstructionPane;
 
     @FXML
-    VBox brown, gray, blue, green, red, yellowAndPurple;
+    GridPane constructionGrid;
+
+    VBox brownNeighbor, grayNeighbor, blueNeighbor, greenNeighbor, yellowNeighbor, purpleNeighbor;
 
     public ConstructionZoneController() {}
 
@@ -32,6 +40,7 @@ public class ConstructionZoneController {
         });
     }
 
+
     private void updatePlayerConstruction(PlayerModel playerModel){
         brown.getChildren().clear();
         gray.getChildren().clear();
@@ -42,74 +51,116 @@ public class ConstructionZoneController {
         for(Card card: playerModel.getConstructionZone().getConstructedCards()){
             CARD_COLOR_TYPE color = card.getColor();
 
-            if(color == CARD_COLOR_TYPE.BROWN)
-                brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
-            else if(color == CARD_COLOR_TYPE.GRAY)
-                gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
-            else if(color == CARD_COLOR_TYPE.BLUE)
-                blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
-            else if(color == CARD_COLOR_TYPE.GREEN)
-                green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
-            else if(color == CARD_COLOR_TYPE.RED)
-                red.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
-            else if( (color == CARD_COLOR_TYPE.YELLOW) || (color == CARD_COLOR_TYPE.PURPLE))
-                yellowAndPurple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png")));
-        }
+            for(Card card: playerModel.getConstructionZone().getConstructedCards()){
+                CARD_COLOR_TYPE color = card.getColor();
+                ImageView imageView = new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png"));
+                imageView.setOnMouseClicked((e) -> {
+                    Logger.getGlobal().info("aaaaaaa");
+                    if (focusedView != imageView) {
+                        selectedCard = card;
+                        focusedView = imageView;
+                        imageView.setScaleX(1.5);
+                        imageView.setScaleY(1.5);
+                    }
+                });
+
+                if(color == CARD_COLOR_TYPE.BROWN)
+                    brown.getChildren().add(imageView);
+                else if(color == CARD_COLOR_TYPE.GRAY)
+                    gray.getChildren().add(imageView);
+                else if(color == CARD_COLOR_TYPE.BLUE)
+                    blue.getChildren().add(imageView);
+                else if(color == CARD_COLOR_TYPE.GREEN)
+                    green.getChildren().add(imageView);
+                else if(color == CARD_COLOR_TYPE.RED)
+                    red.getChildren().add(imageView);
+                else if( (color == CARD_COLOR_TYPE.YELLOW) || (color == CARD_COLOR_TYPE.PURPLE))
+                    yellowAndPurple.getChildren().add(imageView);
+            }
+        });
     }
 
     private void updateLeftNeighborConstruction(){
+        leftNeighborConstructionPane.getChildren().clear();
         Parent root = AssetManager.getInstance().getSceneByName("NeighborConstructionView.fxml");
-        leftNeighborConstructionPane = (Pane) root;
-        VBox brown = (VBox) root.lookup("#brown");
-        VBox gray = (VBox) root.lookup("#gray");
-        VBox blue = (VBox) root.lookup("#blue");
-        VBox green = (VBox) root.lookup("#green");
-        VBox yellow = (VBox) root.lookup("#yellow");
-        VBox purple = (VBox) root.lookup("#purple");
+        leftNeighborConstructionPane.getChildren().add(root);
+        brownNeighbor = (VBox) root.lookup("#brown");
+        grayNeighbor = (VBox) root.lookup("#gray");
+        blueNeighbor = (VBox) root.lookup("#blue");
+        greenNeighbor = (VBox) root.lookup("#green");
+        yellowNeighbor = (VBox) root.lookup("#yellow");
+        purpleNeighbor = (VBox) root.lookup("#purple");
 
         for(Card card: gameplayController.getLeftPlayer().getConstructionZone().getConstructedCards()){
             CARD_COLOR_TYPE color = card.getColor();
+            ImageView imageView = new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png"));
+            imageView.setOnMouseClicked((e) -> {
+                if (focusedView != null) {
+                    focusedView.setScaleX(0.95);
+                    focusedView.setScaleY(0.95);
+                }
+                if (focusedView != imageView) {
+                    selectedCard = card;
+                    focusedView = imageView;
+                    imageView.setScaleX(1);
+                    imageView.setScaleY(1);
+                }
+            });
 
             if(color == CARD_COLOR_TYPE.BROWN)
-                brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                brownNeighbor.getChildren().add(imageView);
             else if(color == CARD_COLOR_TYPE.GRAY)
-                gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                grayNeighbor.getChildren().add(imageView);
             else if(color == CARD_COLOR_TYPE.BLUE)
-                blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                blueNeighbor.getChildren().add(imageView);
             else if(color == CARD_COLOR_TYPE.GREEN)
-                green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                greenNeighbor.getChildren().add(imageView);
             else if(color == CARD_COLOR_TYPE.PURPLE)
-                purple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                purpleNeighbor.getChildren().add(imageView);
             else if( color == CARD_COLOR_TYPE.YELLOW)
-                yellow.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                yellowNeighbor.getChildren().add(imageView);
         }
     }
 
     private void updateRightNeighborConstruction(){
+        rightNeighborConstructionPane.getChildren().clear();
         Parent root = AssetManager.getInstance().getSceneByName("NeighborConstructionView.fxml");
-        rightNeighborConstructionPane = (Pane) root;
-        VBox brown = (VBox) root.lookup("#brown");
-        VBox gray = (VBox) root.lookup("#gray");
-        VBox blue = (VBox) root.lookup("#blue");
-        VBox green = (VBox) root.lookup("#green");
-        VBox yellow = (VBox) root.lookup("#yellow");
-        VBox purple = (VBox) root.lookup("#purple");
+        rightNeighborConstructionPane.getChildren().add(root);
+        brownNeighbor = (VBox) root.lookup("#brown");
+        grayNeighbor = (VBox) root.lookup("#gray");
+        blueNeighbor = (VBox) root.lookup("#blue");
+        greenNeighbor = (VBox) root.lookup("#green");
+        yellowNeighbor = (VBox) root.lookup("#yellow");
+        purpleNeighbor = (VBox) root.lookup("#purple");
 
         for(Card card: gameplayController.getRightPlayer().getConstructionZone().getConstructedCards()){
             CARD_COLOR_TYPE color = card.getColor();
+            ImageView imageView = new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png"));
+            imageView.setOnMouseClicked((e) -> {
+                if (focusedView != null) {
+                    focusedView.setScaleX(1);
+                    focusedView.setScaleY(1);
+                }
+                if (focusedView != imageView) {
+                    selectedCard = card;
+                    focusedView = imageView;
+                    imageView.setScaleX(1.05);
+                    imageView.setScaleY(1.05);
+                }
+            });
 
             if(color == CARD_COLOR_TYPE.BROWN)
-                brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                brownNeighbor.getChildren().add(imageView);
             else if(color == CARD_COLOR_TYPE.GRAY)
-                gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                grayNeighbor.getChildren().add(imageView);
             else if(color == CARD_COLOR_TYPE.BLUE)
-                blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                blueNeighbor.getChildren().add(imageView);
             else if(color == CARD_COLOR_TYPE.GREEN)
-                green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                greenNeighbor.getChildren().add(imageView);
             else if(color == CARD_COLOR_TYPE.PURPLE)
-                purple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                purpleNeighbor.getChildren().add(imageView);
             else if( color == CARD_COLOR_TYPE.YELLOW)
-                yellow.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                yellowNeighbor.getChildren().add(imageView);
         }
     }
 }
