@@ -1,7 +1,10 @@
 package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
+import SevenWonders.GameLogic.Deck.Card.Card;
+import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import SevenWonders.Network.Client;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,6 +32,8 @@ public class OtherPlayersController implements Initializable {
     }
     public void updateScene( PlayerModel playerModel){
         Platform.runLater(() -> {
+            otherPlayersPane.getChildren().clear();
+
             PlayerModel[] allPlayers = gameplayController.gameModel.getPlayerList();
             int columnIndex = 1;
             for ( PlayerModel player: allPlayers) {
@@ -90,19 +95,61 @@ public class OtherPlayersController implements Initializable {
 
                     GridPane outerGrid = (GridPane) root.lookup("#otherConstruction");
                     Parent constructionRoot = AssetManager.getInstance().getSceneByNameForce("NeighborConstructionView.fxml");
-
-
+                    Pane outerPane = (Pane) root.lookup("#outerPane");
+                    outerPane.setStyle("");
 
                     if ( player.getId() == gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getId()) {
                         otherPlayersPane.add(root, 0, 0);
+
                     }
                     else if ( player.getId() == gameplayController.gameModel.getRightPlayer(gameplayController.client.getID()).getId()) {
                         otherPlayersPane.add(root, 5, 0);
                     }
                     else{
+                        topPane.setOnMouseClicked((event) -> {
+                            if (outerPane.isVisible()) {
+                                outerPane.setVisible(false);
+                            }
+                            else {
+                                outerPane.setVisible(true);
+                            }
+                        });
                         otherPlayersPane.add(root, columnIndex ,0);
-                        //outerGrid.add(constructionRoot,0,0);
+                        outerGrid.add(constructionRoot,0,0);
                         columnIndex++;
+                    }
+
+                    //initialize construction zone areas
+                    VBox brown = (VBox) constructionRoot.lookup("#brown");
+                    VBox gray = (VBox)constructionRoot.lookup("#gray");
+                    VBox blue = (VBox)constructionRoot.lookup("#blue");
+                    VBox green = (VBox)constructionRoot.lookup("#green");
+                    VBox yellow = (VBox)constructionRoot.lookup("#yellow");
+                    VBox purple = (VBox)constructionRoot.lookup("#purple");
+
+                    brown.getChildren().clear();
+                    gray.getChildren().clear();
+                    blue.getChildren().clear();
+                    green.getChildren().clear();
+                    yellow.getChildren().clear();
+                    purple.getChildren().clear();
+
+                    for(Card card: player.getConstructionZone().getConstructedCards()){
+                        CARD_COLOR_TYPE color = card.getColor();
+
+                        if(color == CARD_COLOR_TYPE.BROWN) {
+                            brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                        }
+                        else if(color == CARD_COLOR_TYPE.GRAY)
+                            gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                        else if(color == CARD_COLOR_TYPE.BLUE)
+                            blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                        else if(color == CARD_COLOR_TYPE.GREEN)
+                            green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                        else if( (color == CARD_COLOR_TYPE.YELLOW))
+                            yellow.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                        else if( color == CARD_COLOR_TYPE.PURPLE)
+                            purple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
                     }
                 }
             }
