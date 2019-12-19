@@ -9,7 +9,7 @@
       <AnchorPane fx:id="gameplayAnchorPane" stylesheets="@../css/Gameplay.css">
          <children>
             <Pane fx:id="constructionZonePane" layoutY="150.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="1280.0" />
-            <Pane fx:id="otherPlayersViewPane" prefHeight="650.0" prefWidth="1280.0" AnchorPane.topAnchor="0.0" />
+            <Pane fx:id="otherPlayersViewPane" prefHeight="100.0" prefWidth="1280.0" AnchorPane.topAnchor="0.0" />
             <Pane fx:id="cardViewPane" layoutY="740.0" prefHeight="220.0" prefWidth="1280.0" />
             <Pane fx:id="gameplayToolbarPane" layoutY="650.0" prefHeight="90.0" prefWidth="1280.0" />
          </children>
