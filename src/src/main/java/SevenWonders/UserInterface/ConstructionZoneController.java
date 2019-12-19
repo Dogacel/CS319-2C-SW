@@ -45,7 +45,6 @@ public class ConstructionZoneController {
             brown.getChildren().clear();
             gray.getChildren().clear();
             blue.getChildren().clear();
-            green.getChildren().clear();
             red.getChildren().clear();
             yellowAndPurple.getChildren().clear();
 
