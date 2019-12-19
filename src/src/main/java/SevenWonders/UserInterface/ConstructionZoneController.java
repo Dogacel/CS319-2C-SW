@@ -6,6 +6,7 @@ import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -102,6 +103,7 @@ public class ConstructionZoneController {
                 }
             });
 
+            ImageView imageView = new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png"));
             if(color == CARD_COLOR_TYPE.BROWN)
                 brownNeighbor.getChildren().add(imageView);
             else if(color == CARD_COLOR_TYPE.GRAY)

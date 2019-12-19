@@ -9,6 +9,9 @@ import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.Network.Requests.*;
 import com.dosse.upnp.UPnP;
 import com.google.gson.Gson;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.net.SocketException;
 import java.util.logging.Logger;
@@ -26,6 +29,8 @@ public class Server implements Runnable, INetworkListener {
 
 	private static Server serverInstance;
 	private static Thread serverThread;
+
+	private ServerView view;
 
 	private static Server createServerInstance() {
 		System.out.println(UPnP.getExternalIP());
@@ -70,6 +75,18 @@ public class Server implements Runnable, INetworkListener {
 			worker = new Thread(this);
 		} catch (IOException exception) {
 			exception.printStackTrace();
+		}
+
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServerView.fxml"));
+			Scene scene = new Scene(loader.load(), 600, 800);
+			Stage stage = new Stage();
+			stage.setTitle("Server Debug");
+			stage.setScene(scene);
+			stage.show();
+			view = loader.getController();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -311,6 +328,7 @@ public class Server implements Runnable, INetworkListener {
 		if (move != null && gameController.checkMoveIsValid(move)) {
 			gameController.updateCurrentMove(sender.getUser().getId(), move);
 		}
+		view.update(this.gameModel);
 	}
 
 	private void parseWonderSelectRequest(String message, AbstractConnectionHandler sender) {
