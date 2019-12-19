@@ -1,3 +1,27 @@
 #gameplayAnchorPane {
     -fx-background-image: url('../images/ui-images/bg.jpg');
 }
+
+/*TODO Birlestir kodlari*/
+
+#wonder1Pane {
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18);
+    -fx-border-radius: 10px;
+}
+
+#wonder2Pane {
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18);
+    -fx-border-radius: 10px;
+}
+
+#wonder3Pane {
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color:linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18);
+    -fx-border-radius: 10px;
+
+}

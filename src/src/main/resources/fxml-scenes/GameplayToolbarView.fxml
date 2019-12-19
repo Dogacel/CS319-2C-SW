@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,8 +17,8 @@
    <children>
       <GridPane prefHeight="90.0" prefWidth="1280.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="439.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="420.0" minWidth="10.0" prefWidth="415.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
@@ -65,7 +66,7 @@
                   <HBox fx:id="victoryPointsHBox" prefHeight="90.0" prefWidth="335.0" />
                </children>
             </GridPane>
-            <GridPane fx:id="wonderGrid" prefHeight="90.0" prefWidth="374.0">
+            <GridPane fx:id="wonderGrid" hgap="3.0" stylesheets="@../css/Gameplay.css">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -74,13 +75,13 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
-               <GridPane.margin>
-                  <Insets right="20.0" />
-               </GridPane.margin>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" radius="20.625" spread="0.42" width="63.5" />
+               </effect>
                <children>
-                  <ImageView fx:id="wonder1" fitHeight="95.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="wonder2" fitHeight="93.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-                  <ImageView fitHeight="99.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+                  <BorderPane fx:id="wonder1Pane" prefHeight="200.0" prefWidth="200.0" />
+                  <BorderPane fx:id="wonder2Pane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <BorderPane fx:id="wonder3Pane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
                </children>
             </GridPane>
          </children>
