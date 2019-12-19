@@ -260,10 +260,17 @@ public class GameController {
             {
                 PlayerController tradedPlayer = playerControllers[trade.getTradedPlayerID()];
 
-                 if((hasRightRawDiscount || hasLeftRawDiscount )&& (trade.getSelectedResource() == RESOURCE_TYPE.WOOD ||
+                 if((hasRightRawDiscount && tradedPlayer.getId() == getRightPlayer(trade.getPlayerID()).getId() )&& (trade.getSelectedResource() == RESOURCE_TYPE.WOOD ||
                                             trade.getSelectedResource() == RESOURCE_TYPE.ORE ||
                                             trade.getSelectedResource() == RESOURCE_TYPE.STONE ||
                                             trade.getSelectedResource() == RESOURCE_TYPE.BRICK) )
+                 {
+                     myPlayerController.setGold(myPlayerController.getGold() - 1);
+                     tradedPlayer.setGold( tradedPlayer.getGold() + 1);
+                 } else if((hasLeftRawDiscount && tradedPlayer.getId() == getLeftPlayer(trade.getPlayerID()).getId() )&& (trade.getSelectedResource() == RESOURCE_TYPE.WOOD ||
+                         trade.getSelectedResource() == RESOURCE_TYPE.ORE ||
+                         trade.getSelectedResource() == RESOURCE_TYPE.STONE ||
+                         trade.getSelectedResource() == RESOURCE_TYPE.BRICK) )
                  {
                      myPlayerController.setGold(myPlayerController.getGold() - 1);
                      tradedPlayer.setGold( tradedPlayer.getGold() + 1);

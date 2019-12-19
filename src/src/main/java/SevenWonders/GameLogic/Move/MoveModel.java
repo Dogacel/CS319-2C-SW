@@ -18,7 +18,7 @@ public class MoveModel {
         Card card = AssetManager.getInstance().getCardByID(selectedCardID);
         result += action.name() + " " + card.getName() + "\n";
         for (TradeAction trade : trades) {
-            result += "Trade: " + trade.getSelectedResource().name() + "\n";
+            result += "Trade: " + trade.getSelectedResource().name() + " to " + trade.getTradedPlayerID() + "\n";
         }
         return result;
     }
