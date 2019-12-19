@@ -181,7 +181,7 @@ public class AIMoveGenerator {
 
 
         if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_ONE_OF_TWO) {
-            if (MoveController.getInstance().playerHasEnoughResources(card.getCardEffect().getResources(), me, new Vector<TradeAction>())) {
+            if (MoveController.getInstance().playerHasEnoughResources(card.getCardEffect().getResources(), me, new Vector<TradeAction>()).getKey()) {
                 score += 2.0;
             } else {
                 score += 3.5;
@@ -189,7 +189,7 @@ public class AIMoveGenerator {
         }
 
         if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_MANUFACTURED_GOODS || card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_RAW_MATERIAL) {
-            if (MoveController.getInstance().playerHasEnoughResources(card.getCardEffect().getResources(), me, new Vector<TradeAction>())) {
+            if (MoveController.getInstance().playerHasEnoughResources(card.getCardEffect().getResources(), me, new Vector<TradeAction>()).getKey()) {
                 score -= 1.0;
             } else {
                 score += 2.5;
@@ -279,13 +279,13 @@ public class AIMoveGenerator {
             for (ACTION_TYPE at : ACTION_TYPE.values()) {
                 MoveModel move = new MoveModel(me.getId(), card.getId(), at);
                 Pair<PlayerModel, PlayerModel> neighbors = new Pair<>(game.getLeftPlayer(me.getId()), game.getRightPlayer(me.getId()));
-                if (MoveController.getInstance().playerCanMakeMove(move, me, neighbors, true)) {
-                    if (MoveController.autoTrades != null) {
-                        for (TradeAction t : MoveController.autoTrades) {
+                var x = MoveController.getInstance().playerCanMakeMove(move, me, neighbors, true);
+                if (x.getKey()) {
+                    if (x.getValue() != null) {
+                        for (TradeAction t : x.getValue()) {
                             move.addTrade(t);
                         }
                     }
-                    MoveController.autoTrades = null;
                     moves.add(move);
                 }
             }

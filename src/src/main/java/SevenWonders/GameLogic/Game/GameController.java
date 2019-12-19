@@ -10,6 +10,7 @@ import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
+import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.GameLogic.ScoreController;
@@ -44,7 +45,11 @@ public class GameController {
 
         Pair<PlayerModel, PlayerModel> neighbors = new Pair<>(playerControllers[(id+1)%7].getPlayer(), playerControllers[(id+6)%7].getPlayer());
 
-        return MoveController.getInstance().playerCanMakeMove(move, playerControllers[id].getPlayer(), neighbors, false);
+        var m = MoveController.getInstance().playerCanMakeMove(move, playerControllers[id].getPlayer(), neighbors, true);
+        for (TradeAction t : m.getValue()) {
+            move.addTrade(t);
+        }
+        return m.getKey();
     }
 
     public void updateCurrentMove(int playerID, MoveModel move){
