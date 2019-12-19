@@ -212,13 +212,14 @@ public class Server implements Runnable, INetworkListener {
 		// TODO: Complete
 		sender.getUser().setReady(true);
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
-			if (!connectionHandler.getUser().isReady()) {
-				return;
-			}
+			if (connectionHandler instanceof  ConnectionHandler)
+				if (!connectionHandler.getUser().isReady()) {
+					return;
+				}
 		}
 
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
-			if (connectionHandler instanceof  ConnectionHandler) {
+			if (connectionHandler instanceof ConnectionHandler) {
 				connectionHandler.getUser().setReady(false);
 			}
 		}
@@ -231,6 +232,8 @@ public class Server implements Runnable, INetworkListener {
 				}
 			}
 		}
+
+		view.update(this.gameModel);
 
 		gameController.playTurn();
 
@@ -328,7 +331,6 @@ public class Server implements Runnable, INetworkListener {
 		if (move != null && gameController.checkMoveIsValid(move)) {
 			gameController.updateCurrentMove(sender.getUser().getId(), move);
 		}
-		view.update(this.gameModel);
 	}
 
 	private void parseWonderSelectRequest(String message, AbstractConnectionHandler sender) {

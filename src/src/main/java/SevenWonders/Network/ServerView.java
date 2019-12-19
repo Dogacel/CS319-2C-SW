@@ -2,6 +2,7 @@ package SevenWonders.Network;
 
 import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -13,7 +14,10 @@ public class ServerView {
     @FXML
     VBox clientsVBox;
 
-    public void update(GameModel game) {
+    private static Gson gson = new Gson();
+
+    public void update(GameModel gameModel) {
+        GameModel game = gson.fromJson(gson.toJson(gameModel), GameModel.class);
         Platform.runLater(() -> {
             clientsVBox.getChildren().clear();
             for (PlayerModel player : game.getPlayerList()) {

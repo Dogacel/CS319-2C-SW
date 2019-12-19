@@ -103,7 +103,6 @@ public class ConstructionZoneController {
                 }
             });
 
-            ImageView imageView = new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png"));
             if(color == CARD_COLOR_TYPE.BROWN)
                 brownNeighbor.getChildren().add(imageView);
             else if(color == CARD_COLOR_TYPE.GRAY)
