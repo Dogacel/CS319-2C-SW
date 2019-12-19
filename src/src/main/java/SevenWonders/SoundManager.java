@@ -54,41 +54,41 @@ public class SoundManager {
         File dir = new File(soundResourcesURL.getPath());
 
         for (File f : Objects.requireNonNull(dir.listFiles())) {
-            if (f.getName().endsWith(".mp3")) {
+            if (f.getName().endsWith(".wav")) {
                 String type = "";
-                if (f.getName().equals("red_card.mp3"))
+                if (f.getName().equals("red_card.wav"))
                     type = "red";
-                else if (f.getName().equals("blue_card.mp3"))
+                else if (f.getName().equals("blue_card.wav"))
                     type = "blue";
-                else if (f.getName().equals("yellow_card.mp3"))
+                else if (f.getName().equals("yellow_card.wav"))
                     type = "yellow";
-                else if (f.getName().equals("green_card.mp3"))
+                else if (f.getName().equals("green_card.wav"))
                     type = "green";
-                else if (f.getName().equals("brown_card.mp3"))
+                else if (f.getName().equals("brown_card.wav"))
                     type = "brown";
-                else if (f.getName().equals("purple_card.mp3"))
+                else if (f.getName().equals("purple_card.wav"))
                     type = "purple";
-                else if (f.getName().equals("papyrus.mp3"))
+                else if (f.getName().equals("papyrus.wav"))
                     type = "papyrus";
-                else if (f.getName().equals("glass.mp3"))
+                else if (f.getName().equals("glass.wav"))
                     type = "glass";
-                else if (f.getName().equals("loom.mp3"))
+                else if (f.getName().equals("loom.wav"))
                     type = "loom";
-                else if (f.getName().equals("discard.mp3"))
+                else if (f.getName().equals("discard.wav"))
                     type = "discard";
-                else if (f.getName().equals("wonder_upgrade.mp3"))
+                else if (f.getName().equals("wonder_upgrade.wav"))
                     type = "wonder_upgrade";
-                else if (f.getName().equals("battles.mp3"))
+                else if (f.getName().equals("battles.wav"))
                     type = "battles";
-                else if (f.getName().equals("start.mp3"))
+                else if (f.getName().equals("start.wav"))
                     type = "start";
-                else if (f.getName().equals("menu_music.mp3"))
+                else if (f.getName().equals("menu_music.wav"))
                     type = "menu";
-                else if (f.getName().equals("age_one.mp3"))
+                else if (f.getName().equals("age_one.wav"))
                     type = "age_one";
-                else if (f.getName().equals("age_two.mp3"))
+                else if (f.getName().equals("age_two.wav"))
                     type = "age_two";
-                else if (f.getName().equals("age_three.mp3"))
+                else if (f.getName().equals("age_three.wav"))
                     type = "age_three";
 
 
