@@ -57,6 +57,8 @@ public class PlayerController {
             case BUILD_CARD:
                 Card playedCard = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
                 player.getConstructionZone().buildCard(playedCard);
+                int goldCost = playedCard.getRequirements().getOrDefault(RESOURCE_TYPE.GOLD, 0);
+                player.setGold(player.getGold() - goldCost);
                 for (Card card : player.getHand())
                 {
                     if (card.getId() == move.getSelectedCardID()) {
