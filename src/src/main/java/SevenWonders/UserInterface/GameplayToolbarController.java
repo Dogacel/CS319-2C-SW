@@ -13,6 +13,7 @@ import SevenWonders.SoundManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Pair;
@@ -28,6 +29,9 @@ public class GameplayToolbarController {
     MoveModel currentMove;
 
     ImageView wonder1, wonder2, wonder3;
+
+    @FXML
+    Label coinLabel;
 
     @FXML
     Button buildCardButton, buildWonderButton, readyButton, discardCardButton, useGodPowerButton;
@@ -122,6 +126,8 @@ public class GameplayToolbarController {
             wonder1Pane.setCenter(wonder1);
             wonder2Pane.setCenter(wonder2);
             wonder3Pane.setCenter(wonder3);
+
+            coinLabel.setText(playerModel.getGold() + "");
 
             if(playerModel.getWonder().getCurrentStageIndex() == 1) {
                 wonder1Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");

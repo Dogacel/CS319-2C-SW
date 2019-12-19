@@ -201,6 +201,16 @@ public class MoveController {
     }
 
     public Pair<Integer, Vector<TradeAction>> minimumTradeCost(Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
+
+        Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
+
+        /*to deep clone a map */
+        for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
+            if ( entry.getKey() != RESOURCE_TYPE.GOLD) {
+                clonedResourceMap.put(entry.getKey(), entry.getValue());
+            }
+        }
+
         boolean leftDiscount = false, rightDiscount = false, goodDiscount = false;
         for (Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
             if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.LEFT_RAW_MATERIAL_TRADE_DISCOUNT) {
@@ -245,12 +255,12 @@ public class MoveController {
             }
         }
 
-        return minimumTradeCostOfCards(currentPlayer, requiredResources, possibleTradeAndCosts);
+        return minimumTradeCostOfCards(currentPlayer, clonedResourceMap, possibleTradeAndCosts);
     }
 
 
     private Pair<Integer, Vector<TradeAction>> minimumTradeCostOfCards(PlayerModel me, Map<RESOURCE_TYPE, Integer> requiredResources, Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts) {
-
+        int cost = 0;
         if (requiredResources.isEmpty()) {
             return new Pair<>(0, new Vector<>());
         }
@@ -263,11 +273,13 @@ public class MoveController {
                         if (required > resource.getValue()) {
                             for (int i = 0 ; i < resource.getValue() ; i++) {
                                 trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
+                                cost += 1;
                             }
                             requiredResources.put(resource.getKey(), required - resource.getValue());
                         } else {
                             for (int i = 0 ; i < required ; i++) {
                                 trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
+                                cost += 1;
                             }
                             requiredResources.remove(resource.getKey());
                         }
@@ -284,11 +296,13 @@ public class MoveController {
                         if (required > resource.getValue()) {
                             for (int i = 0 ; i < resource.getValue() ; i++) {
                                 trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
+                                cost += 2;
                             }
                             requiredResources.put(resource.getKey(), required - resource.getValue());
                         } else {
                             for (int i = 0 ; i < required ; i++) {
                                 trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
+                                cost += 2;
                             }
                             requiredResources.remove(resource.getKey());
                         }
@@ -298,7 +312,7 @@ public class MoveController {
         }
 
         if (requiredResources.isEmpty()) {
-            return new Pair<>(0, trades);
+            return new Pair<>(cost, trades);
         }
 
         return new Pair<>(999, new Vector<>());
@@ -342,7 +356,7 @@ public class MoveController {
                 var bestCost = new Pair<Integer, Vector<TradeAction>>(999, new Vector<>());
                 for (var k : tempMap.keySet()) {
                    var cost = recursive(choiceCards, begin, map, k, me, neighbors);
-                   if (bestCost.getKey() < cost.getKey()) {
+                   if (bestCost.getKey() > cost.getKey()) {
                        bestCost = cost;
                    }
                 }
