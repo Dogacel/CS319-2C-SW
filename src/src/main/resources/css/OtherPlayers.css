@@ -39,8 +39,7 @@
 
 #topPane{
     /*-fx-background-color: yellow;*/
-    -fx-background-image: url('../images/ui-images/ghiza.png');
-    -fx-background-size: 214 89;
+
 }
 
 #closeButton{

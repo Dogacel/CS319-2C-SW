@@ -21,17 +21,17 @@
          <children>
             <ImageView id="gizaImage" fx:id="gizaImage" fitHeight="200.0" onMouseClicked="#gizaPressed" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../images/ui-images/ghizaWonderSelect.png" />
+                  <Image url="@../images/ui-images/greatpyramidofgiza.png" />
                </image>
             </ImageView>
             <ImageView id="halicarnassusImage" fx:id="halicarnassusImage" fitHeight="200.0" onMouseClicked="#halicarnassusPressed" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../images/ui-images/halicarnassusWonderSelect.png" />
+                  <Image url="@../images/ui-images/mausoleumofhalicarnassus.png" />
                </image>
             </ImageView>
             <ImageView id="rhodesImage" fx:id="rhodesImage" fitHeight="200.0" onMouseClicked="#colossusPressed" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../images/ui-images/colossusWonderSelect.png" />
+                  <Image url="@../images/ui-images/colossusofrhodes.png" />
                </image>
             </ImageView>
             <GridPane GridPane.rowIndex="2">
@@ -192,12 +192,12 @@
          <children>
             <ImageView id="artemisImage" fx:id="artemisImage" fitHeight="200.0" onMouseClicked="#artemisPressed" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../images/ui-images/artemisWonderSelect.png" />
+                  <Image url="@../images/ui-images/templeofartemis.png" />
                </image>
             </ImageView>
             <ImageView id="zeusImage" fx:id="zeusImage" fitHeight="200.0" onMouseClicked="#statueOfZeusPressed" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../images/ui-images/statueOfZeus.png" />
+                  <Image url="@../images/ui-images/statueofzeus.png" />
                </image>
             </ImageView>
             <GridPane GridPane.rowIndex="2">
@@ -311,12 +311,12 @@
          <children>
             <ImageView id="babylonImage" fx:id="babylonImage" fitHeight="200.0" onMouseClicked="#babylonPressed" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../images/ui-images/babylonWonderSelect.png" />
+                  <Image url="@../images/ui-images/hanginggardens.png" />
                </image>
             </ImageView>
             <ImageView id="alexandriaImage" fx:id="alexandriaImage" fitHeight="200.0" onMouseClicked="#lighthousePressed" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../images/ui-images/lightHouseWonderSelect.png" />
+                  <Image url="@../images/ui-images/lighthouseofalexandria.png" />
                </image>
             </ImageView>
             <GridPane GridPane.rowIndex="2">

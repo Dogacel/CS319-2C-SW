@@ -17,11 +17,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane fx:id="player1Pane" prefHeight="150.0" prefWidth="213.3" GridPane.columnIndex="1" />
-            <Pane fx:id="player2Pane" prefHeight="150.0" prefWidth="213.3" GridPane.columnIndex="2" />
-            <Pane fx:id="player3Pane" prefHeight="150.0" prefWidth="213.3" GridPane.columnIndex="3" />
-            <Pane fx:id="player4Pane" prefHeight="150.0" prefWidth="213.3" GridPane.columnIndex="4" />
-            <Pane fx:id="player5Pane" prefHeight="150.0" prefWidth="213.3" GridPane.columnIndex="5" />
+            <Pane fx:id="player1Pane" prefHeight="440.0" prefWidth="213.3" GridPane.columnIndex="1" />
+            <Pane fx:id="player2Pane" prefHeight="589.0" prefWidth="213.3" GridPane.columnIndex="2" />
+            <Pane fx:id="player3Pane" prefHeight="440.0" prefWidth="213.3" GridPane.columnIndex="3" />
+            <Pane fx:id="player4Pane" prefHeight="440.0" prefWidth="213.3" GridPane.columnIndex="4" />
+            <Pane fx:id="player5Pane" prefHeight="440.0" prefWidth="213.3" GridPane.columnIndex="5" />
          </children>
       </GridPane>
    </children>
