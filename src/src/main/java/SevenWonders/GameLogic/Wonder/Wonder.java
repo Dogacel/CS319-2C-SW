@@ -40,6 +40,10 @@ public class Wonder {
             currentStage++;
     }
 
+    public void downgradeStage() {
+        currentStage--;
+    }
+
     public boolean isUpgradeable() {
         return currentStage <= 2;
     }
