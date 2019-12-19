@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-import java.util.logging.Logger;
 
 public class ConstructionZoneController {
     
@@ -48,36 +47,32 @@ public class ConstructionZoneController {
         green.getChildren().clear();
         red.getChildren().clear();
         yellowAndPurple.getChildren().clear();
+
         for(Card card: playerModel.getConstructionZone().getConstructedCards()){
             CARD_COLOR_TYPE color = card.getColor();
+            ImageView imageView = new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png"));
+            imageView.setOnMouseClicked((e) -> {
+                if (focusedView != imageView) {
+                    selectedCard = card;
+                    focusedView = imageView;
+                    imageView.setScaleX(1.5);
+                    imageView.setScaleY(1.5);
+                }
+            });
 
-            for(Card card: playerModel.getConstructionZone().getConstructedCards()){
-                CARD_COLOR_TYPE color = card.getColor();
-                ImageView imageView = new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png"));
-                imageView.setOnMouseClicked((e) -> {
-                    Logger.getGlobal().info("aaaaaaa");
-                    if (focusedView != imageView) {
-                        selectedCard = card;
-                        focusedView = imageView;
-                        imageView.setScaleX(1.5);
-                        imageView.setScaleY(1.5);
-                    }
-                });
-
-                if(color == CARD_COLOR_TYPE.BROWN)
-                    brown.getChildren().add(imageView);
-                else if(color == CARD_COLOR_TYPE.GRAY)
-                    gray.getChildren().add(imageView);
-                else if(color == CARD_COLOR_TYPE.BLUE)
-                    blue.getChildren().add(imageView);
-                else if(color == CARD_COLOR_TYPE.GREEN)
-                    green.getChildren().add(imageView);
-                else if(color == CARD_COLOR_TYPE.RED)
-                    red.getChildren().add(imageView);
-                else if( (color == CARD_COLOR_TYPE.YELLOW) || (color == CARD_COLOR_TYPE.PURPLE))
-                    yellowAndPurple.getChildren().add(imageView);
-            }
-        });
+            if(color == CARD_COLOR_TYPE.BROWN)
+                brown.getChildren().add(imageView);
+            else if(color == CARD_COLOR_TYPE.GRAY)
+                gray.getChildren().add(imageView);
+            else if(color == CARD_COLOR_TYPE.BLUE)
+                blue.getChildren().add(imageView);
+            else if(color == CARD_COLOR_TYPE.GREEN)
+                green.getChildren().add(imageView);
+            else if(color == CARD_COLOR_TYPE.RED)
+                red.getChildren().add(imageView);
+            else if( (color == CARD_COLOR_TYPE.YELLOW) || (color == CARD_COLOR_TYPE.PURPLE))
+                yellowAndPurple.getChildren().add(imageView);
+        }
     }
 
     private void updateLeftNeighborConstruction(){
