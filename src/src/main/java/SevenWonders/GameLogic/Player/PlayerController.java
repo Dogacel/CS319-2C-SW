@@ -46,9 +46,6 @@ public class PlayerController {
             case DISCARD_CARD:
                 gameController.discardCard(AssetManager.getInstance().getCardByID(move.getSelectedCardID()));
 
-                if (Client.getInstance().getID() == player.getId())
-                    SoundManager.getInstance().playDiscardSound();
-
                 player.setGold(player.getGold() + DISCARD_REWARD);
 
                 for (Card card : player.getHand())
@@ -63,30 +60,6 @@ public class PlayerController {
             case BUILD_CARD:
                 Card playedCard = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
                 player.getConstructionZone().buildCard(playedCard);
-                if (Client.getInstance().getID() == player.getId()) {
-                    String type = "";
-
-                    if (playedCard.getColor() == CARD_COLOR_TYPE.RED)
-                        type = "red";
-                    else if (playedCard.getColor() == CARD_COLOR_TYPE.BLUE)
-                        type = "blue";
-                    else if (playedCard.getColor() == CARD_COLOR_TYPE.GREEN)
-                        type = "green";
-                    else if (playedCard.getColor() == CARD_COLOR_TYPE.YELLOW)
-                        type = "yellow";
-                    else if (playedCard.getColor() == CARD_COLOR_TYPE.BROWN)
-                        type = "brown";
-                    else if (playedCard.getColor() == CARD_COLOR_TYPE.GRAY) {
-                        if (playedCard.getCardEffect().getResources().get(RESOURCE_TYPE.PAPYRUS) != null)
-                            type = "papyrus";
-                        else if (playedCard.getCardEffect().getResources().get(RESOURCE_TYPE.GLASS) != null)
-                            type = "glass";
-                        else if (playedCard.getCardEffect().getResources().get(RESOURCE_TYPE.LOOM) != null)
-                            type = "loom";
-                    }
-
-                    SoundManager.getInstance().playCardSound(type);
-                }
                 for (Card card : player.getHand())
                 {
                     if (card.getId() == move.getSelectedCardID()) {
@@ -99,8 +72,6 @@ public class PlayerController {
             case UPGRADE_WONDER:
 
                 player.getWonder().upgradeStage();
-                if (Client.getInstance().getID() == player.getId())
-                    SoundManager.getInstance().playWonderSound();
                 for (Card card : player.getHand())
                 {
                     if (card.getId() == move.getSelectedCardID()) {

@@ -65,18 +65,6 @@ public class GameController {
             playEndOfAge();
             if (!model.isGameEnded()) {
                 model.incrementCurrentAge();
-                if (model.getCurrentAge() == 2)
-                {
-                    SoundManager.getInstance().stopAgeOneMusic();
-                    SoundManager.getInstance().playBattleSound();
-                    SoundManager.getInstance().playAgeTwoMusic();
-                }
-                else if (model.getCurrentAge() == 3)
-                {
-                    SoundManager.getInstance().stopAgeTwoMusic();
-                    SoundManager.getInstance().playBattleSound();
-                    SoundManager.getInstance().playAgeThreeMusic();
-                }
 
                 if (model.getCurrentAge() <= 3) {
                     dealCards();
@@ -85,10 +73,6 @@ public class GameController {
                 for (PlayerModel playerModel : model.getPlayerList()) {
                     System.out.println(playerModel.getName() + " : " + ScoreController.calculateScore(playerModel.getId(), model));
                 }
-            }
-            else{
-                SoundManager.getInstance().stopAgeThreeMusic();
-                SoundManager.getInstance().playBattleSound();
             }
         }
     }

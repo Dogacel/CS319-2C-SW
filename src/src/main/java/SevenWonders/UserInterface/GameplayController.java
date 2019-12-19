@@ -46,6 +46,18 @@ public class GameplayController implements Initializable, IGameListener {
     public void updateGameModel(GameModel gameModel) {
         Platform.runLater(() -> {
             this.gameModel = gameModel;
+            if (gameModel.getCurrentAge() == 2 && gameModel.getCurrentTurn() == 1)
+            {
+                SoundManager.getInstance().stopAgeOneMusic();
+                SoundManager.getInstance().playBattleSound();
+                SoundManager.getInstance().playAgeTwoMusic();
+            }
+            else if (gameModel.getCurrentAge() == 3 && gameModel.getCurrentTurn() == 1)
+            {
+                SoundManager.getInstance().stopAgeTwoMusic();
+                SoundManager.getInstance().playBattleSound();
+                SoundManager.getInstance().playAgeThreeMusic();
+            }
             PlayerModel me = gameModel.getPlayerList()[client.getID()];
 
             cardViewController.updateScene(me.getHand());
