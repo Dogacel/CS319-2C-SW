@@ -7,6 +7,7 @@ import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.Network.Requests.*;
+import com.dosse.upnp.UPnP;
 import com.google.gson.Gson;
 
 import java.net.SocketException;
@@ -27,6 +28,8 @@ public class Server implements Runnable, INetworkListener {
 	private static Thread serverThread;
 
 	private static Server createServerInstance() {
+		System.out.println(UPnP.getExternalIP());
+		System.out.println(UPnP.getLocalIP());
 		serverInstance = new Server();
 		return serverInstance;
 	}
@@ -62,7 +65,7 @@ public class Server implements Runnable, INetworkListener {
 		connectionHandlerList = new Vector<>();
 		gson = new Gson();
 		try {
-			serverSocket = new ServerSocket(8080);
+			serverSocket = new ServerSocket(18232);
 			LOGGER.info(serverSocket.toString());
 			worker = new Thread(this);
 		} catch (IOException exception) {
@@ -193,6 +196,12 @@ public class Server implements Runnable, INetworkListener {
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			if (!connectionHandler.getUser().isReady()) {
 				return;
+			}
+		}
+
+		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
+			if (connectionHandler instanceof  ConnectionHandler) {
+				connectionHandler.getUser().setReady(false);
 			}
 		}
 
@@ -338,6 +347,9 @@ public class Server implements Runnable, INetworkListener {
 		for (AbstractConnectionHandler connection : connectionHandlerList) {
 			int id = gameController.addPlayer(connection.getUser().getUsername(), connection.getUser().getSelectedWonder());
 			connection.getUser().setId(id);
+			if (connection instanceof ConnectionHandler) {
+				connection.getUser().setReady(false);
+			}
 		}
 
 		gameController.dealCards();
