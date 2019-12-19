@@ -40,7 +40,7 @@ public class WonderSelectionViewController implements Initializable, ILobbyListe
         model.setSelectedWonder( WONDER_TYPE.COLOSSUS_OF_RHODES);
     }
 
-    public void ghizaPressed(){
+    public void gizaPressed(){
         model.setSelectedWonder( WONDER_TYPE.GREAT_PYRAMID_OF_GIZA);
     }
 
@@ -60,7 +60,7 @@ public class WonderSelectionViewController implements Initializable, ILobbyListe
         model.setSelectedWonder(WONDER_TYPE.STATUE_OF_ZEUS );
     }
 
-    public void selectButtonPressed(){
+    public void startButtonPressed(){
         if( model.getSelectedWonder() != null) {
             client.sendSelectWonderRequest(model.getSelectedWonder());
         }
