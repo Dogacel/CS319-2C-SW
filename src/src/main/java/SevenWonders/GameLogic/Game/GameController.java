@@ -13,6 +13,7 @@ import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.GameLogic.ScoreController;
+import SevenWonders.SoundManager;
 import javafx.util.Pair;
 
 import java.util.Arrays;
@@ -65,11 +66,11 @@ public class GameController {
             if (!model.isGameEnded()) {
                 model.incrementCurrentAge();
 
-
                 if (model.getCurrentAge() <= 3) {
                     dealCards();
                 }
             } else {
+                model.setGameFinished(true);
                 for (PlayerModel playerModel : model.getPlayerList()) {
                     System.out.println(playerModel.getName() + " : " + ScoreController.calculateScore(playerModel.getId(), model));
                 }
