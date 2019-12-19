@@ -66,7 +66,7 @@ public class GameplayController implements Initializable, IGameListener {
             cardViewController.updateScene(me.getHand());
             constructionZoneController.updateScene(me);
             gameplayToolbarController.updateScene(me);
-            //otherPlayersController.updateScene();
+            otherPlayersController.updateScene(me);
         });
     }
 
@@ -82,6 +82,7 @@ public class GameplayController implements Initializable, IGameListener {
         Pane otherPlayersPane = (Pane) pair.getKey();
         otherPlayersController = (OtherPlayersController) pair.getValue();
         this.otherPlayersViewPane.getChildren().add(otherPlayersPane);
+        otherPlayersController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("CardView.fxml");
         Pane cardPane = (Pane)  pair.getKey();

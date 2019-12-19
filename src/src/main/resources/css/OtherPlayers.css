@@ -28,8 +28,14 @@
     -fx-background-color: transparent;
 }
 
-#detailAnchor{
-    -fx-background-image: url('../images/ui-images/detailBg.png');
+
+#outerPane{
+    -fx-background-color: transparent;
+}
+
+#topPane{
+    /*-fx-background-color: yellow;*/
+
 }
 
 #closeButton{
@@ -37,3 +43,19 @@
     -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
+
+#playerNameLabel .text {
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-stroke-width: 1px;
+}
+
+
+#outerPane {
+    -fx-border-width: 0 2px 2px 2px;
+    -fx-border-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18);
+    -fx-border-radius: 0 0 10px 10px;
+    -fx-background-color:  rgba(0,0,0,0.8);
+    -fx-background-radius: 0 0 10px 10px;
+}
+
