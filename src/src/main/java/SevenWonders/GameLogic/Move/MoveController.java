@@ -342,7 +342,7 @@ public class MoveController {
                 var bestCost = new Pair<Integer, Vector<TradeAction>>(999, new Vector<>());
                 for (var k : tempMap.keySet()) {
                    var cost = recursive(choiceCards, begin, map, k, me, neighbors);
-                   if (bestCost.getKey() > cost.getKey()) {
+                   if (bestCost.getKey() < cost.getKey()) {
                        bestCost = cost;
                    }
                 }
