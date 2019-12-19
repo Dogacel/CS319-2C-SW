@@ -44,7 +44,7 @@ public class GameController {
 
         Pair<PlayerModel, PlayerModel> neighbors = new Pair<>(playerControllers[(id+1)%7].getPlayer(), playerControllers[(id+6)%7].getPlayer());
 
-        return MoveController.getInstance().playerCanMakeMove(move, playerControllers[id].getPlayer(), neighbors);
+        return MoveController.getInstance().playerCanMakeMove(move, playerControllers[id].getPlayer(), neighbors, false);
     }
 
     public void updateCurrentMove(int playerID, MoveModel move){

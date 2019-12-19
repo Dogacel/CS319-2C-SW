@@ -279,7 +279,13 @@ public class AIMoveGenerator {
             for (ACTION_TYPE at : ACTION_TYPE.values()) {
                 MoveModel move = new MoveModel(me.getId(), card.getId(), at);
                 Pair<PlayerModel, PlayerModel> neighbors = new Pair<>(game.getLeftPlayer(me.getId()), game.getRightPlayer(me.getId()));
-                if (MoveController.getInstance().playerCanMakeMove(move, me, neighbors)) {
+                if (MoveController.getInstance().playerCanMakeMove(move, me, neighbors, true)) {
+                    if (MoveController.autoTrades != null) {
+                        for (TradeAction t : MoveController.autoTrades) {
+                            move.addTrade(t);
+                        }
+                    }
+                    MoveController.autoTrades = null;
                     moves.add(move);
                 }
             }
@@ -296,6 +302,8 @@ public class AIMoveGenerator {
     }
 
     private static double getAccuracyIndex(AI_DIFFICULTY difficulty) {
+        if (difficulty == AI_DIFFICULTY.CHEATER)
+            return 0;
         double x = Math.random();
         double l = difficulty.ordinal() + 1;
         return map(l * Math.exp(l * x), 0, l * Math.exp(l));
@@ -306,7 +314,6 @@ public class AIMoveGenerator {
         for (MoveModel move : moves) {
             System.out.println(me.getName() + " : " + move.getSelectedCardID() + " " + move.getAction().toString());
         }
-        return moves.get(0);
-        // return moves.get((int) getAccuracyIndex(difficulty) * moves.size());
+        return moves.get((int) getAccuracyIndex(difficulty) * moves.size());
     }
 }
