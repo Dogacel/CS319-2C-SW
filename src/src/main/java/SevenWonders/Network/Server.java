@@ -193,6 +193,7 @@ public class Server implements Runnable, INetworkListener {
 	private void parsePlayerReadyRequest(String message, AbstractConnectionHandler sender) {
 		PlayerReadyRequest request = gson.fromJson(message, PlayerReadyRequest.class);
 		// TODO: Complete
+		sender.getUser().setReady(true);
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			if (!connectionHandler.getUser().isReady()) {
 				return;
@@ -218,7 +219,6 @@ public class Server implements Runnable, INetworkListener {
 
 		sendUpdateGameStateRequests();
 
-		sendUpdateGameStateRequests();
 	}
 
 	private void sendUpdateGameStateRequests() {
@@ -328,8 +328,9 @@ public class Server implements Runnable, INetworkListener {
 	}
 
 	private void sendStartGameRequests() {
+		int index = 0;
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
-			StartGameRequest request = StartGameRequest.of();
+			StartGameRequest request = StartGameRequest.of(index++);
 			sendRequest(request, connectionHandler);
 		}
 

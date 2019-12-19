@@ -92,7 +92,9 @@ public class Client implements INetworkListener {
 		}
 	}
 
-	private void onStartGameRequest() {
+	private void onStartGameRequest(String message) {
+		StartGameRequest request = gson.fromJson(message, StartGameRequest.class);
+		this.getUser().setId(request.id);
 		if (lobbyListener != null)
 			lobbyListener.onStartGameRequest();
 	}
@@ -142,7 +144,7 @@ public class Client implements INetworkListener {
 			return;
 		}
 
-		StartGameRequest request = StartGameRequest.of();
+		StartGameRequest request = StartGameRequest.of(0);
 		sendRequest(request);
 	}
 
@@ -187,7 +189,7 @@ public class Client implements INetworkListener {
 
 	    switch (request.requestType) {
 			case START_GAME:
-				onStartGameRequest();
+				onStartGameRequest(message);
 				break;
 			case UPDATE_GAME_STATE:
 				onUpdateGameStateRequest(message);
