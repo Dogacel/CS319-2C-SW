@@ -114,7 +114,7 @@ public class OtherPlayersController implements Initializable {
                                 outerPane.setVisible(true);
                             }
                         });
-                        otherPlayersPane.add(root, (6 + player.getId() - playerModel.getId()) % 7  ,0);
+                        otherPlayersPane.add(root, 4 - ((6 + player.getId() - playerModel.getId()) % 7)  ,0);
                         outerGrid.add(constructionRoot,0,0);
                         columnIndex--;
                     }
