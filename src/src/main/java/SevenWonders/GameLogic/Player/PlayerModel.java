@@ -27,7 +27,7 @@ public class PlayerModel {
     {
         this.id = id;
         this.name = name;
-        this.gold = 5;
+        this.gold = 3;
 
         this.wonder = wonder;
         this.warPoints = 0;

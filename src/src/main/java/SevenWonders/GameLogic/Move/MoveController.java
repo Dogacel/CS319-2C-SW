@@ -351,14 +351,6 @@ public class MoveController {
         return new Pair<>(999, new Vector<>());
     }
 
-    /**
-     * A helper method that contains the body of the recursion
-     * @param choiceCards
-     * @param begin
-     * @param map
-     * @param resource_type
-     * @return
-     */
     private Pair<Integer, Vector<TradeAction>> recursive(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map, RESOURCE_TYPE resource_type, PlayerModel me, Pair<PlayerModel, PlayerModel> neighbors) {
         int resourceCount = map.getOrDefault(resource_type, 0);
         if (resourceCount > 1) {

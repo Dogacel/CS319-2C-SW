@@ -1,6 +1,7 @@
 package SevenWonders;
 
 import SevenWonders.GameLogic.Deck.Card.Card;
+import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;

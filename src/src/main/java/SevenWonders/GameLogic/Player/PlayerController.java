@@ -3,10 +3,15 @@ package SevenWonders.GameLogic.Player;
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
+import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.GOD_POWER_TYPE;
+import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Wonder.Wonder;
+import SevenWonders.Network.Client;
+import SevenWonders.SoundManager;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.Vector;
 
@@ -53,8 +58,8 @@ public class PlayerController {
                 }
                 break;
             case BUILD_CARD:
-                player.getConstructionZone().buildCard(AssetManager.getInstance().getCardByID(move.getSelectedCardID()));
-
+                Card playedCard = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
+                player.getConstructionZone().buildCard(playedCard);
                 for (Card card : player.getHand())
                 {
                     if (card.getId() == move.getSelectedCardID()) {
@@ -67,7 +72,6 @@ public class PlayerController {
             case UPGRADE_WONDER:
 
                 player.getWonder().upgradeStage();
-
                 for (Card card : player.getHand())
                 {
                     if (card.getId() == move.getSelectedCardID()) {

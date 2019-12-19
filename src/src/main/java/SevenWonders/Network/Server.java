@@ -317,7 +317,7 @@ public class Server implements Runnable, INetworkListener {
 		}
 
 		AddAIPlayerRequest request = gson.fromJson(message, AddAIPlayerRequest.class);
-		PseudoConnectionHandler pseudoConnectionHandler = new PseudoConnectionHandler(this, request.difficulty, request.difficulty.toString() + " BOT");
+		PseudoConnectionHandler pseudoConnectionHandler = new PseudoConnectionHandler(this, request.difficulty, request.difficulty.toString() + connectionHandlerList.size() + " BOT");
 		pseudoConnectionHandler.getUser().setReady(true);
 		connectionHandlerList.add(pseudoConnectionHandler);
 
