@@ -9,9 +9,6 @@ import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Wonder.Wonder;
-import SevenWonders.Network.Client;
-import SevenWonders.SoundManager;
-import javafx.scene.media.MediaPlayer;
 
 import java.util.Vector;
 

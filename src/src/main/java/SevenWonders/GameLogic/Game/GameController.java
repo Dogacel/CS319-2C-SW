@@ -260,7 +260,7 @@ public class GameController {
             {
                 PlayerController tradedPlayer = playerControllers[trade.getTradedPlayerID()];
 
-                 if((hasRightRawDiscount || hasRightRawDiscount )&& (trade.getSelectedResource() == RESOURCE_TYPE.WOOD ||
+                 if((hasRightRawDiscount || hasLeftRawDiscount )&& (trade.getSelectedResource() == RESOURCE_TYPE.WOOD ||
                                             trade.getSelectedResource() == RESOURCE_TYPE.ORE ||
                                             trade.getSelectedResource() == RESOURCE_TYPE.STONE ||
                                             trade.getSelectedResource() == RESOURCE_TYPE.BRICK) )
