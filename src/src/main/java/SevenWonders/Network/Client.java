@@ -4,6 +4,7 @@ import SevenWonders.GameLogic.Enums.AI_DIFFICULTY;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.Network.Requests.*;
+import com.dosse.upnp.UPnP;
 import com.google.gson.Gson;
 
 import java.io.IOException;

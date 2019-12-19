@@ -40,14 +40,16 @@ public class ConstructionZoneController {
         });
     }
 
-    public void updatePlayerConstruction(PlayerModel playerModel){
-        Platform.runLater( () -> {
-            brown.getChildren().clear();
-            gray.getChildren().clear();
-            blue.getChildren().clear();
-            green.getChildren().clear();
-            red.getChildren().clear();
-            yellowAndPurple.getChildren().clear();
+
+    private void updatePlayerConstruction(PlayerModel playerModel){
+        brown.getChildren().clear();
+        gray.getChildren().clear();
+        blue.getChildren().clear();
+        green.getChildren().clear();
+        red.getChildren().clear();
+        yellowAndPurple.getChildren().clear();
+        for(Card card: playerModel.getConstructionZone().getConstructedCards()){
+            CARD_COLOR_TYPE color = card.getColor();
 
             for(Card card: playerModel.getConstructionZone().getConstructedCards()){
                 CARD_COLOR_TYPE color = card.getColor();
