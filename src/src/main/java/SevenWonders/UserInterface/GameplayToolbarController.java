@@ -1,5 +1,6 @@
 package SevenWonders.UserInterface;
 
+import SevenWonders.AI.AIMoveGenerator;
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Move.MoveModel;
@@ -30,22 +31,30 @@ public class GameplayToolbarController {
 
     @FXML
     private void buildCardButtonClicked(MouseEvent event) {
-        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.BUILD_CARD));
+        MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.BUILD_CARD);
+        playerModel.setCurrentMove(move);
+        System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
     }
 
     @FXML
     private void buildWonderButtonClicked(MouseEvent event) {
-        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.UPGRADE_WONDER));
+        MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.UPGRADE_WONDER);
+        playerModel.setCurrentMove(move);
+        System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
     }
 
     @FXML
     private void discardCardButtonClicked(MouseEvent event) {
-        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.DISCARD_CARD));
+        MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.DISCARD_CARD);
+        playerModel.setCurrentMove(move);
+        System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
     }
 
     @FXML
     private void useGodPowerButtonClicked(MouseEvent event) {
-        playerModel.setCurrentMove( new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.USE_GOD_POWER));
+        MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.USE_GOD_POWER);
+        playerModel.setCurrentMove(move);
+        System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
     }
 
     @FXML
