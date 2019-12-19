@@ -70,6 +70,7 @@ public class GameController {
                     dealCards();
                 }
             } else {
+                model.setGameFinished(true);
                 for (PlayerModel playerModel : model.getPlayerList()) {
                     System.out.println(playerModel.getName() + " : " + ScoreController.calculateScore(playerModel.getId(), model));
                 }

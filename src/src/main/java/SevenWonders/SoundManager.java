@@ -18,6 +18,8 @@ public class SoundManager {
     MediaPlayer menuMusic;
     MediaPlayer battleMusic;
     MediaPlayer ageOne;
+    MediaPlayer ageTwo;
+    MediaPlayer ageThree;
     MediaPlayer cardSound;
     MediaPlayer discardSound;
     MediaPlayer wonderSound;
@@ -30,6 +32,8 @@ public class SoundManager {
         loadSounds();
         menuMusic = new MediaPlayer(soundMap.get("menu"));
         ageOne = new MediaPlayer(soundMap.get("age_one"));
+        ageTwo = new MediaPlayer(soundMap.get("age_two"));
+        ageThree = new MediaPlayer(soundMap.get("age_three"));
         battleMusic = new MediaPlayer(soundMap.get("battles"));
         discardSound = new MediaPlayer(soundMap.get("discard"));
         wonderSound = new MediaPlayer(soundMap.get("wonder_upgrade"));
@@ -62,6 +66,8 @@ public class SoundManager {
                     type = "green";
                 else if (f.getName().equals("brown_card.mp3"))
                     type = "brown";
+                else if (f.getName().equals("purple_card.mp3"))
+                    type = "purple";
                 else if (f.getName().equals("papyrus.mp3"))
                     type = "papyrus";
                 else if (f.getName().equals("glass.mp3"))
@@ -80,6 +86,10 @@ public class SoundManager {
                     type = "menu";
                 else if (f.getName().equals("age_one.mp3"))
                     type = "age_one";
+                else if (f.getName().equals("age_two.mp3"))
+                    type = "age_two";
+                else if (f.getName().equals("age_three.mp3"))
+                    type = "age_three";
 
 
                 Media sound = new Media(f.toURI().toString());
@@ -102,7 +112,10 @@ public class SoundManager {
         cardSound.play();
     }
 
-    public void playDiscardSound(){ discardSound.play(); discardSound.seek(Duration.ZERO); }
+    public void playDiscardSound(){
+        discardSound.play();
+        discardSound.seek(Duration.ZERO);
+    }
 
     public void startTheGameAlready(){
         startTheGame.play();
@@ -129,19 +142,21 @@ public class SoundManager {
     }
 
     public void playAgeTwoMusic(){
-
+        ageTwo.play();
+        ageTwo.setCycleCount(MediaPlayer.INDEFINITE);
     }
 
     public void stopAgeTwoMusic(){
-
+        ageTwo.stop();
     }
 
     public void playAgeThreeMusic(){
-
+        ageThree.play();
+        ageThree.setCycleCount(MediaPlayer.INDEFINITE);
     }
 
     public void stopAgeThreeMusic(){
-
+        ageThree.stop();
     }
 
 }

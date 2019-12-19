@@ -57,7 +57,7 @@ public class GameplayToolbarController {
     @FXML
     private void readyButtonClicked(MouseEvent event) {
         if (playerModel.getCurrentMove()!= null) {
-            if (MoveController.getInstance().playerCanMakeMove(playerModel.getCurrentMove(), playerModel, new Pair<PlayerModel,PlayerModel>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), true)){
+            if (MoveController.getInstance().playerCanMakeMove(playerModel.getCurrentMove(), playerModel, new Pair<PlayerModel,PlayerModel>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), false)){
                 currentMove = playerModel.getCurrentMove();
             } else {
                 currentMove = new MoveModel(0,0,ACTION_TYPE.DISCARD_CARD);
@@ -93,6 +93,9 @@ public class GameplayToolbarController {
                         else if (playedCard.getCardEffect().getResources().get(RESOURCE_TYPE.LOOM) != null)
                             type = "loom";
                     }
+                    else if (playedCard.getColor() == CARD_COLOR_TYPE.PURPLE)
+                        type = "purple";
+
                     SoundManager.getInstance().playCardSound(type);
 
                 }

@@ -58,6 +58,9 @@ public class GameplayController implements Initializable, IGameListener {
                 SoundManager.getInstance().playBattleSound();
                 SoundManager.getInstance().playAgeThreeMusic();
             }
+            else if(gameModel.getGameFinished()) {
+                SoundManager.getInstance().stopAgeThreeMusic();
+            }
             PlayerModel me = gameModel.getPlayerList()[client.getID()];
 
             cardViewController.updateScene(me.getHand());
