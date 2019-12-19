@@ -4,12 +4,11 @@ import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Deck.Card.CardEffect;
 import SevenWonders.GameLogic.Deck.DeckController;
-import SevenWonders.GameLogic.Enums.ACTION_TYPE;
-import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
+import SevenWonders.GameLogic.Enums.*;
 
-import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
+import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.GameLogic.ScoreController;
@@ -233,7 +232,56 @@ public class GameController {
                 }
             }
 
-            //TODO Pay back neighbours that myPlayer made trade with
+            Vector<TradeAction> trades = myPlayerController.getCurrentMove().getTrades();
+
+            boolean hasRightRawDiscount = false;
+            boolean hasLeftRawDiscount = false;
+            boolean hasManifacturedDiscount = false;
+        /*
+        Check if the user has a discount by looking at their constructionZone
+         */
+            for (Card card : myPlayerController.getConstructionZone().getConstructedCards()) {
+                CARD_EFFECT_TYPE cardEffect = card.getCardEffect().getEffectType();
+
+                switch (cardEffect) {
+                    case RIGHT_RAW_MATERIAL_TRADE_DISCOUNT:
+                        hasRightRawDiscount = true;
+                        break;
+                    case LEFT_RAW_MATERIAL_TRADE_DISCOUNT:
+                        hasLeftRawDiscount = true;
+                        break;
+                    case MANUFACTURED_GOODS_TRADE_DISCOUNT:
+                        hasManifacturedDiscount = true;
+                        break;
+                    default: break;
+                }
+            }
+
+            for ( TradeAction trade : trades)
+            {
+                PlayerController tradedPlayer = playerControllers[trade.getTradedPlayerID()];
+
+                 if((hasRightRawDiscount || hasRightRawDiscount )&& (trade.getSelectedResource() == RESOURCE_TYPE.WOOD ||
+                                            trade.getSelectedResource() == RESOURCE_TYPE.ORE ||
+                                            trade.getSelectedResource() == RESOURCE_TYPE.STONE ||
+                                            trade.getSelectedResource() == RESOURCE_TYPE.BRICK) )
+                 {
+                     myPlayerController.setGold(myPlayerController.getGold() - 1);
+                     tradedPlayer.setGold( tradedPlayer.getGold() + 1);
+                 }
+                 else if(hasManifacturedDiscount && (trade.getSelectedResource() == RESOURCE_TYPE.GLASS ||
+                                                     trade.getSelectedResource() == RESOURCE_TYPE.PAPYRUS ||
+                                                     trade.getSelectedResource() == RESOURCE_TYPE.LOOM))
+                 {
+                     myPlayerController.setGold(myPlayerController.getGold() - 1);
+                     tradedPlayer.setGold( tradedPlayer.getGold() + 1);
+                 }
+                 else{
+                     myPlayerController.setGold(myPlayerController.getGold() - 2);
+                     tradedPlayer.setGold(tradedPlayer.getGold() + 2);
+                 }
+            }
+
             myPlayerController.setReady(false);
             myPlayerController.updateCurrentMove(null); //Clear the players move
         }
