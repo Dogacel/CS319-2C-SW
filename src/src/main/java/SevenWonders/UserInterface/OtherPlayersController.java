@@ -35,7 +35,7 @@ public class OtherPlayersController implements Initializable {
             otherPlayersPane.getChildren().clear();
 
             PlayerModel[] allPlayers = gameplayController.gameModel.getPlayerList();
-            int columnIndex = 1;
+            int columnIndex = 4;
             for ( PlayerModel player: allPlayers) {
 
                 if ( player.getId() != gameplayController.client.getID()) {
@@ -116,7 +116,7 @@ public class OtherPlayersController implements Initializable {
                         });
                         otherPlayersPane.add(root, columnIndex ,0);
                         outerGrid.add(constructionRoot,0,0);
-                        columnIndex++;
+                        columnIndex--;
                     }
 
                     //initialize construction zone areas

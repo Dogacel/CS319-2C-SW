@@ -74,10 +74,6 @@ public class GameController {
                 if (model.getCurrentAge() <= 3) {
                     dealCards();
                 }
-            } else {
-                for (PlayerModel playerModel : model.getPlayerList()) {
-                    System.out.println(playerModel.getName() + " : " + ScoreController.calculateScore(playerModel.getId(), model));
-                }
             }
         }
     }
