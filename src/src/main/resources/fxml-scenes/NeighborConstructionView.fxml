@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <GridPane prefHeight="500.0" prefWidth="213.33" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -17,11 +16,11 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox fx:id="brown" prefHeight="200.0" prefWidth="100.0" />
+      <VBox fx:id="brown" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" />
       <VBox fx:id="gray" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" />
-      <VBox fx:id="blue" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
+      <VBox fx:id="blue" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
       <VBox fx:id="green" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <VBox fx:id="yellow" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2" />
+      <VBox fx:id="yellow" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2" />
       <VBox fx:id="purple" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    </children>
 </GridPane>
