@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +19,7 @@ public class OtherPlayersDetailController implements Initializable {
     Label moneyLabel, warLabel, godLabel, playerNameLabel;
 
     @FXML
-    Button seeDetailButton;
+    Pane topPane, outerPane;
 
     public OtherPlayersDetailController() {
     }
@@ -39,7 +40,12 @@ public class OtherPlayersDetailController implements Initializable {
         godLabel.setText( ""); //TODO
         playerNameLabel.setText( playerModel.getName());
     }
-    public void playerButtonClicked(MouseEvent e) {
-
+    public void topPaneClicked(MouseEvent e) {
+        if (outerPane.isVisible()) {
+            outerPane.setVisible(false);
+        }
+        else {
+            outerPane.setVisible(true);
+        }
     }
 }
