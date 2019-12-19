@@ -216,15 +216,15 @@ public class MoveController {
         for (Card card : neighbors.getKey().getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
                 if (leftDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
-                } else {
                     possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getKey().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
                 }
             } else if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
                 if (goodDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
-                } else {
                     possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getKey().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
                 }
             }
         }
@@ -232,15 +232,15 @@ public class MoveController {
         for (Card card : neighbors.getValue().getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
                 if (rightDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
-                } else {
                     possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getValue().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
                 }
             } else if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
                 if (goodDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
-                } else {
                     possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getValue().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
                 }
             }
         }
