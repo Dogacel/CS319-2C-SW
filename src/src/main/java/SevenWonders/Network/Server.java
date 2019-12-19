@@ -209,7 +209,6 @@ public class Server implements Runnable, INetworkListener {
 
 		sendUpdateGameStateRequests();
 
-		sendUpdateGameStateRequests();
 	}
 
 	private void sendUpdateGameStateRequests() {
