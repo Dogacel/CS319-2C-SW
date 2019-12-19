@@ -208,7 +208,7 @@ public class Server implements Runnable, INetworkListener {
 
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			if (connectionHandler instanceof PseudoConnectionHandler) {
-				MoveModel aiMove = AIMoveGenerator.generateMove(gameModel.getPlayerList()[connectionHandler.getUser().getId()], ((PseudoConnectionHandler) connectionHandler).getDifficulty());
+				MoveModel aiMove = AIMoveGenerator.generateMove(gameModel.getPlayerList()[connectionHandler.getUser().getId()], gameModel,((PseudoConnectionHandler) connectionHandler).getDifficulty());
 				if (gameController.checkMoveIsValid(aiMove)) {
 					gameController.updateCurrentMove(aiMove.getPlayerID(), aiMove);
 				}

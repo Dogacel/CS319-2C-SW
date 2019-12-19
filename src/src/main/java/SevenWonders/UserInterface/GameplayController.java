@@ -7,6 +7,7 @@ import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.IGameListener;
 import SevenWonders.Network.Requests.UpdateGameStateRequest;
+import SevenWonders.SoundManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,11 +39,28 @@ public class GameplayController implements Initializable, IGameListener {
         gameModel = null;
         client = Client.getInstance();
         client.setGameListener(this);
+        SoundManager.getInstance().stopMenuMusic();
+        SoundManager.getInstance().playAgeOneMusic();
     }
 
     public void updateGameModel(GameModel gameModel) {
         Platform.runLater(() -> {
             this.gameModel = gameModel;
+            if (gameModel.getCurrentAge() == 2 && gameModel.getCurrentTurn() == 1)
+            {
+                SoundManager.getInstance().stopAgeOneMusic();
+                SoundManager.getInstance().playBattleSound();
+                SoundManager.getInstance().playAgeTwoMusic();
+            }
+            else if (gameModel.getCurrentAge() == 3 && gameModel.getCurrentTurn() == 1)
+            {
+                SoundManager.getInstance().stopAgeTwoMusic();
+                SoundManager.getInstance().playBattleSound();
+                SoundManager.getInstance().playAgeThreeMusic();
+            }
+            else if(gameModel.getGameFinished()) {
+                SoundManager.getInstance().stopAgeThreeMusic();
+            }
             PlayerModel me = gameModel.getPlayerList()[client.getID()];
 
             cardViewController.updateScene(me.getHand());

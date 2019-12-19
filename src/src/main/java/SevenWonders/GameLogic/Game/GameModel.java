@@ -17,6 +17,8 @@ public class GameModel {
     private PlayerModel[] playerList;
     private int playerCount;
 
+    private boolean ended;
+
     public GameModel()
     {
         this.currentAge = 1;
@@ -25,6 +27,7 @@ public class GameModel {
         deck = new DeckModel();
         playerList = new PlayerModel[NUMBER_OF_PLAYERS];
         playerCount = 0;
+        ended = false;
     }
 
     public int getCurrentAge() { return currentAge; }
@@ -58,6 +61,10 @@ public class GameModel {
         playerList[playerCount] = model;
         playerCount++;
     }
+
+    public void setGameFinished(boolean state){ ended = true; }
+
+    public boolean getGameFinished(){ return ended; }
 
 
     public PlayerModel getLeftPlayer(int id){

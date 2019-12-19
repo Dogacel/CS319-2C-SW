@@ -12,6 +12,8 @@ import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import SevenWonders.GameLogic.ScoreController;
+import SevenWonders.SoundManager;
 import javafx.util.Pair;
 
 import java.util.Arrays;
@@ -41,9 +43,9 @@ public class GameController {
     public boolean checkMoveIsValid(MoveModel move){
         int id = move.getPlayerID();
 
-        Pair<PlayerController, PlayerController> neighbors = new Pair<>(playerControllers[(id+1)%7], playerControllers[(id+6)%7]);
+        Pair<PlayerModel, PlayerModel> neighbors = new Pair<>(playerControllers[(id+1)%7].getPlayer(), playerControllers[(id+6)%7].getPlayer());
 
-        return MoveController.getInstance().playerCanMakeMove(move, playerControllers[id], neighbors);
+        return MoveController.getInstance().playerCanMakeMove(move, playerControllers[id].getPlayer(), neighbors, false);
     }
 
     public void updateCurrentMove(int playerID, MoveModel move){
@@ -64,9 +66,13 @@ public class GameController {
             if (!model.isGameEnded()) {
                 model.incrementCurrentAge();
 
-
                 if (model.getCurrentAge() <= 3) {
                     dealCards();
+                }
+            } else {
+                model.setGameFinished(true);
+                for (PlayerModel playerModel : model.getPlayerList()) {
+                    System.out.println(playerModel.getName() + " : " + ScoreController.calculateScore(playerModel.getId(), model));
                 }
             }
         }

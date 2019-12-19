@@ -3,6 +3,7 @@ package SevenWonders.UserInterface;
 import SevenWonders.AssetManager;
 import SevenWonders.Network.Client;
 import SevenWonders.SceneManager;
+import SevenWonders.SoundManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,6 +30,7 @@ public class MainMenuController implements Initializable {
     Pane settingsPane, tutorialPane;
 
     public MainMenuController() {
+        SoundManager.getInstance().playMenuMusic();
     }
 
 
