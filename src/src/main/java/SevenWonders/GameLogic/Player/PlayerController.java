@@ -2,16 +2,12 @@ package SevenWonders.GameLogic.Player;
 
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
-import SevenWonders.GameLogic.Enums.ACTION_TYPE;
-import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
-import SevenWonders.GameLogic.Enums.GOD_POWER_TYPE;
-import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+import SevenWonders.GameLogic.Enums.*;
 import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Wonder.Wonder;
 import SevenWonders.Network.Client;
 import SevenWonders.SoundManager;
-import javafx.scene.media.MediaPlayer;
 
 import java.util.Vector;
 
@@ -70,15 +66,26 @@ public class PlayerController {
                 }
                 break;
             case UPGRADE_WONDER:
-
                 player.getWonder().upgradeStage();
-                for (Card card : player.getHand())
-                {
+                for (Card card : player.getHand()) {
                     if (card.getId() == move.getSelectedCardID()) {
                         //Played card is found, remove it from players hand
                         player.getHand().remove(card);
                         break; //Remove only one card
                     }
+                }
+                WONDER_EFFECT_TYPE wonderEffect = player.getWonder().getCurrentStage().getWonderEffect().getEffectType();
+                switch(wonderEffect) {
+                    case GRANT_SHIELDS:
+                        int shields = player.getWonder().getCurrentStage().getWonderEffect().getShields();
+                        player.setShields( player.getShields() + shields);
+                        break;
+                    case GET_MONEY:
+                        int gold = player.getWonder().getCurrentStage().getWonderEffect().getGold();
+                        player.setGold( player.getGold() + gold);
+                        break;
+                    case FREE_BUILDING:
+                        GameController.playerCanBuildFree = true; //when the wonder has the effect of building a free card each turn.
                 }
                 break;
             case USE_GOD_POWER:

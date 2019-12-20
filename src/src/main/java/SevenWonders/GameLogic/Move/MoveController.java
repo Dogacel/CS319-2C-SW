@@ -3,10 +3,8 @@ package SevenWonders.GameLogic.Move;
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Deck.Card.CardEffect;
-import SevenWonders.GameLogic.Enums.ACTION_TYPE;
-import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
-import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
-import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+import SevenWonders.GameLogic.Enums.*;
+import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.util.Pair;
@@ -50,6 +48,12 @@ public class MoveController {
             case USE_GOD_POWER:
                 //TODO add god power here
                 break;
+            case BUILD_FREE:
+                if ( GameController.playerCanBuildFree) {
+                    GameController.playerCanBuildFree = false;
+                    return true;
+                }
+                return false;
             default: break;
         }
         return false;
@@ -188,6 +192,13 @@ public class MoveController {
         }
         //If non-choice cards are not enough, must look at choice cards
         Vector<Card> choiceCards = new Vector<>();
+
+        //If players unlocked the wonder stage that allows him to build on of the resources, add that ability as a corresponding card to the list
+        if ( currentPlayer.getWonder().getCurrentStageIndex() >= 2) {
+            if ( currentPlayer.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.ONE_OF_EACH_RAW_MATERIAL) {
+                choiceCards.add( AssetManager.getInstance().getCardByID( 37)); //Adds the card caravensery, which ability is the same with the wonder ability
+            }
+        }
 
         /*Traverse every card and collect choice cards*/
         for ( Card card : currentPlayer.getConstructionZone().getConstructedCards() ) {
@@ -413,4 +424,5 @@ public class MoveController {
     private boolean playerCanBuildWonder(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
         return currentPlayer.getWonder().isUpgradeable() && playerHasEnoughResourcesAutoTrade(currentPlayer.getWonder().getCurrentStage().getRequiredResources(), currentPlayer, moveModel.getTrades(), neighbors);
     }
+
 }

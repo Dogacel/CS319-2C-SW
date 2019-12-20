@@ -7,6 +7,7 @@ import SevenWonders.GameLogic.Deck.DeckController;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 
+import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
@@ -21,7 +22,7 @@ import java.util.Vector;
 
 public class GameController {
     private final int MAX_NO_OF_PLAYERS = 7;
-
+    public static boolean playerCanBuildFree = true;
     private PlayerController[] playerControllers;
     private DiscardPileController discardPileController;
     private DeckController deckController;
@@ -136,6 +137,13 @@ public class GameController {
 
             myPlayerController.setWarPoints(myPlayerController.getWarPoints() + totalPoints);
             myPlayerController.setLostWarNumber(myPlayerController.getLostWarNumber() + totalLosses);
+
+            for (int j = 0; j < myPlayerController.getWonder().getCurrentStageIndex(); j++) {
+                if ( myPlayerController.getWonder().getStages()[j].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.FREE_BUILDING) {
+                    if (!playerCanBuildFree)
+                        playerCanBuildFree = true;
+                }
+            }
         }
     }
 
