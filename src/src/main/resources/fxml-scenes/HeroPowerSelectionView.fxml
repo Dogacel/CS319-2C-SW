@@ -3,13 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="930.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.HeroPowerSelectionController">
+<AnchorPane prefHeight="930.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.HeroPowerSelectionController">
    <children>
-      <GridPane prefHeight="930.0" prefWidth="840.0">
+      <GridPane prefHeight="930.0" prefWidth="1120.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="280.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="280.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="280.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="280.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="280.0" minHeight="280.0" prefHeight="280.0" vgrow="SOMETIMES" />
@@ -29,7 +30,7 @@
             <Label layoutX="10.0" layoutY="600.0" maxHeight="30.0" maxWidth="280.0" minHeight="30.0" minWidth="280.0" prefHeight="30.0" prefWidth="280.0" text="Label" GridPane.rowIndex="5" />
             <Label layoutX="10.0" layoutY="910.0" maxHeight="30.0" maxWidth="280.0" minHeight="30.0" minWidth="280.0" prefHeight="30.0" prefWidth="280.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label layoutX="290.0" layoutY="910.0" maxHeight="30.0" maxWidth="280.0" minHeight="30.0" minWidth="280.0" prefHeight="30.0" prefWidth="280.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Button fx:id="button1" maxHeight="280.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" mnemonicParsing="false" prefHeight="280.0" prefWidth="280.0" stylesheets="@../css/HeroPowerSelection.css"/>
+            <Button fx:id="button1" maxHeight="280.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" mnemonicParsing="false" prefHeight="280.0" prefWidth="280.0" stylesheets="@../css/HeroPowerSelection.css" />
             <Button fx:id="button2" layoutX="10.0" layoutY="10.0" maxHeight="280.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" mnemonicParsing="false" prefHeight="280.0" prefWidth="280.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" />
             <Button fx:id="button3" layoutX="290.0" layoutY="10.0" maxHeight="280.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" mnemonicParsing="false" prefHeight="280.0" prefWidth="280.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" />
             <Button fx:id="button4" layoutX="570.0" layoutY="10.0" maxHeight="280.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" mnemonicParsing="false" prefHeight="280.0" prefWidth="280.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.rowIndex="2" />
@@ -38,6 +39,12 @@
             <Button fx:id="button7" layoutX="570.0" layoutY="320.0" maxHeight="280.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" mnemonicParsing="false" prefHeight="280.0" prefWidth="280.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.rowIndex="4" />
             <Button fx:id="button8" layoutX="10.0" layoutY="630.0" maxHeight="280.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" mnemonicParsing="false" prefHeight="280.0" prefWidth="280.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Button fx:id="button9" layoutX="290.0" layoutY="630.0" maxHeight="280.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" mnemonicParsing="false" prefHeight="280.0" prefWidth="280.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button fx:id="button10" layoutX="570.0" layoutY="10.0" maxHeight="280.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" mnemonicParsing="false" prefHeight="280.0" prefWidth="280.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="3" />
+            <Button fx:id="button11" layoutX="850.0" layoutY="10.0" maxHeight="280.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" mnemonicParsing="false" prefHeight="280.0" prefWidth="280.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Button fx:id="button12" layoutX="850.0" layoutY="320.0" maxHeight="280.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" mnemonicParsing="false" prefHeight="280.0" prefWidth="280.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Label layoutX="570.0" layoutY="600.0" maxHeight="30.0" maxWidth="280.0" minHeight="30.0" minWidth="280.0" prefHeight="30.0" prefWidth="280.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label layoutX="850.0" layoutY="290.0" maxHeight="30.0" maxWidth="280.0" minHeight="30.0" minWidth="280.0" prefHeight="30.0" prefWidth="280.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Label layoutX="850.0" layoutY="600.0" maxHeight="30.0" maxWidth="280.0" minHeight="30.0" minWidth="280.0" prefHeight="30.0" prefWidth="280.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>
