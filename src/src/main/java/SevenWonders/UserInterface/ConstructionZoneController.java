@@ -7,12 +7,14 @@ import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 
 public class ConstructionZoneController {
@@ -60,6 +62,11 @@ public class ConstructionZoneController {
                 }
             });
 
+            Tooltip tp = new Tooltip();
+            tp.setText(card.getName());
+            tp.setShowDelay(new Duration(250));
+            Tooltip.install(imageView, tp);
+
             if(color == CARD_COLOR_TYPE.BROWN)
                 brown.getChildren().add(imageView);
             else if(color == CARD_COLOR_TYPE.GRAY)
@@ -101,6 +108,7 @@ public class ConstructionZoneController {
                     imageView.setScaleY(1);
                 }
             });
+
 
             if(color == CARD_COLOR_TYPE.BROWN)
                 brownNeighbor.getChildren().add(imageView);
