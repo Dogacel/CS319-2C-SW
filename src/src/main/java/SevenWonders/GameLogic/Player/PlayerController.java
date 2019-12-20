@@ -5,6 +5,7 @@ import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.*;
 import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Move.MoveModel;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
 import SevenWonders.GameLogic.Wonder.Wonder;
 import SevenWonders.Network.Client;
 import SevenWonders.SoundManager;
@@ -59,19 +60,18 @@ public class PlayerController {
                 player.getConstructionZone().buildCard(playedCard);
 
                 if(playedCard.getColor() == CARD_COLOR_TYPE.RED && player.getConstructionZone().getRedHero() == 3){
-                    player.addHero(AssetManager.getInstance().getRandomHeroByEffect(HERO_EFFECT_TYPE.GRANT_ONE_SHIELD));
+
+                    player.addHero(AssetManager.getInstance().getRandomHeroByEffect(HERO_EFFECT_TYPE.GRANT_ONE_SHIELD, player.getHeroes()));
                     player.getConstructionZone().resetRedHero();
                 }
                 else if(playedCard.getColor() == CARD_COLOR_TYPE.GREEN && player.getConstructionZone().getGreenHero() == 3){
-                    player.addHero(AssetManager.getInstance().getRandomHeroByEffect(HERO_EFFECT_TYPE.GRANT_RANDOM_SCIENCE));
+                    player.addHero(AssetManager.getInstance().getRandomHeroByEffect(HERO_EFFECT_TYPE.GRANT_RANDOM_SCIENCE, player.getHeroes()));
                     player.getConstructionZone().resetGreenHero();
                 }
                 else if(playedCard.getColor() == CARD_COLOR_TYPE.BLUE && player.getConstructionZone().getBlueHero() == 3){
-                    player.addHero(AssetManager.getInstance().getRandomHeroByEffect(HERO_EFFECT_TYPE.GRANT_THREE_VP));
+                    player.addHero(AssetManager.getInstance().getRandomHeroByEffect(HERO_EFFECT_TYPE.GRANT_THREE_VP, player.getHeroes()));
                     player.getConstructionZone().resetGreenHero();
                 }
-
-                System.out.println("Heroes of player with id " + player.getId() + ": " + player.getHeroes());
 
                 for (Card card : player.getHand())
                 {
