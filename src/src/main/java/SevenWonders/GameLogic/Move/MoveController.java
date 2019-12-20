@@ -469,10 +469,11 @@ public class MoveController {
         return new Pair<>(currentPlayer.getWonder().isUpgradeable() && x.getKey(), x.getValue());
     }
 
-    private Boolean haveBuildingChain(MoveModel moveModel, PlayerModel currentPlayer ){
+    private boolean haveBuildingChain(MoveModel moveModel, PlayerModel currentPlayer ){
         for (Card card: currentPlayer.getConstructionZone().getConstructedCards()){
-            for(String name: card.getBuildingChain()){
-                if (name.equals(AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()).getName()))
+            Card toPlay = AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID());
+            for(String name: toPlay.getBuildingChain()){
+                if (card.getName().equals(name))
                     return true;
             }
         }
