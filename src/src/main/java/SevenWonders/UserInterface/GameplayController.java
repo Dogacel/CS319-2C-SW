@@ -33,7 +33,7 @@ public class GameplayController implements Initializable, IGameListener {
     Pair<Parent, Object> pair;
 
     @FXML
-    Pane constructionZonePane, otherPlayersConstructionViewPane, cardViewPane, gameplayToolbarPane, otherPlayersViewPane;
+    Pane constructionZonePane, otherPlayersConstructionViewPane, otherPlayersConstructionPane, cardViewPane, gameplayToolbarPane, otherPlayersViewPane;
 
     public GameplayController() {
         gameModel = null;
@@ -70,7 +70,15 @@ public class GameplayController implements Initializable, IGameListener {
 
             otherPlayersViewPane.setOnMouseClicked((event) -> {
                 if (otherPlayersConstructionViewPane.isVisible()) {
-                    otherPlayersConstructionViewPane.setVisible(false);
+                    int visibleCount = 0;
+                    for (var child : otherPlayersConstructionPane.getChildren()) {
+                        if (child.isVisible()) {
+                            visibleCount++;
+                        }
+                    }
+                    if (visibleCount == 0) {
+                        otherPlayersConstructionViewPane.setVisible(false);
+                    }
                 }
                 else {
                     otherPlayersConstructionViewPane.setVisible(true);
@@ -89,7 +97,7 @@ public class GameplayController implements Initializable, IGameListener {
 
         pair = AssetManager.getInstance().getSceneAndController("OtherPlayersView.fxml");
         Pane otherPlayersViewPane = (Pane) pair.getKey().lookup("#otherPlayersPane");
-        Pane otherPlayersConstructionPane = (Pane) pair.getKey().lookup("#otherPlayersConstructionPane");
+        otherPlayersConstructionPane = (Pane) pair.getKey().lookup("#otherPlayersConstructionPane");
         otherPlayersController = (OtherPlayersController) pair.getValue();
         this.otherPlayersConstructionViewPane.getChildren().add(otherPlayersConstructionPane);
         this.otherPlayersViewPane.getChildren().add(otherPlayersViewPane);
