@@ -2,10 +2,7 @@ package SevenWonders.GameLogic.Player;
 
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
-import SevenWonders.GameLogic.Enums.ACTION_TYPE;
-import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
-import SevenWonders.GameLogic.Enums.GOD_POWER_TYPE;
-import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+import SevenWonders.GameLogic.Enums.*;
 import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Wonder.Wonder;
@@ -60,6 +57,22 @@ public class PlayerController {
             case BUILD_CARD:
                 Card playedCard = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
                 player.getConstructionZone().buildCard(playedCard);
+
+                if(playedCard.getColor() == CARD_COLOR_TYPE.RED && player.getConstructionZone().getRedHero() == 3){
+                    player.addHero(AssetManager.getInstance().getRandomHeroByEffect(HERO_EFFECT_TYPE.GRANT_ONE_SHIELD));
+                    player.getConstructionZone().resetRedHero();
+                }
+                else if(playedCard.getColor() == CARD_COLOR_TYPE.GREEN && player.getConstructionZone().getGreenHero() == 3){
+                    player.addHero(AssetManager.getInstance().getRandomHeroByEffect(HERO_EFFECT_TYPE.GRANT_RANDOM_SCIENCE));
+                    player.getConstructionZone().resetGreenHero();
+                }
+                else if(playedCard.getColor() == CARD_COLOR_TYPE.BLUE && player.getConstructionZone().getBlueHero() == 3){
+                    player.addHero(AssetManager.getInstance().getRandomHeroByEffect(HERO_EFFECT_TYPE.GRANT_THREE_VP));
+                    player.getConstructionZone().resetGreenHero();
+                }
+
+                System.out.println("Heroes of player with id " + player.getId() + ": " + player.getHeroes());
+
                 for (Card card : player.getHand())
                 {
                     if (card.getId() == move.getSelectedCardID()) {
