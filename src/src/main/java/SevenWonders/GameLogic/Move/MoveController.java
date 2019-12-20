@@ -439,6 +439,9 @@ public class MoveController {
      * @return true if player can build a card, false otherwise
      */
     private Pair<Boolean, Vector<TradeAction>> playerCanPlayBuildCard(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
+        if (haveBuildingChain(moveModel, currentPlayer)){
+            return new Pair<>(true, new Vector<>());
+        }
         var x = playerHasEnoughResourcesAutoTrade( AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades(), neighbors);
         return new Pair<>(checkConstructionZone(moveModel, currentPlayer) && x.getKey(), x.getValue());
     }
@@ -464,5 +467,16 @@ public class MoveController {
             return new Pair<>(false, new Vector<>());
         var x = playerHasEnoughResourcesAutoTrade(currentPlayer.getWonder().getCurrentStage().getRequiredResources(), currentPlayer, moveModel.getTrades(), neighbors);
         return new Pair<>(currentPlayer.getWonder().isUpgradeable() && x.getKey(), x.getValue());
+    }
+
+    private boolean haveBuildingChain(MoveModel moveModel, PlayerModel currentPlayer ){
+        for (Card card: currentPlayer.getConstructionZone().getConstructedCards()){
+            Card toPlay = AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID());
+            for(String name: toPlay.getBuildingChain()){
+                if (card.getName().equals(name))
+                    return true;
+            }
+        }
+        return false;
     }
 }
