@@ -19,6 +19,9 @@ public class MoveController {
     //variables
     private static MoveController moveControllerInstance = null;
 
+    private Pair<Integer, Vector<TradeAction>> min(Pair<Integer, Vector<TradeAction>> a, Pair<Integer, Vector<TradeAction>> b) {
+        return a.getKey() < b.getKey() ? a : b;
+    }
     //methods
     public static MoveController getInstance() {
         if (moveControllerInstance == null) {
@@ -200,128 +203,6 @@ public class MoveController {
         return playerHasEnoughResourcesWitChoiceCards( choiceCards, choiceCards.size() - 1, clonedResourceMap, currentPlayer, neighbors);
     }
 
-    public Pair<Integer, Vector<TradeAction>> minimumTradeCost(Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
-
-        Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
-
-        /*to deep clone a map */
-        for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
-            if ( entry.getKey() != RESOURCE_TYPE.GOLD) {
-                clonedResourceMap.put(entry.getKey(), entry.getValue());
-            }
-        }
-
-        boolean leftDiscount = false, rightDiscount = false, goodDiscount = false;
-        for (Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
-            if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.LEFT_RAW_MATERIAL_TRADE_DISCOUNT) {
-                leftDiscount = true;
-            } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.RIGHT_RAW_MATERIAL_TRADE_DISCOUNT) {
-                rightDiscount = true;
-            } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.MANUFACTURED_GOODS_TRADE_DISCOUNT) {
-                goodDiscount = true;
-            }
-        }
-
-        Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts = new Vector<>();
-        for (Card card : neighbors.getKey().getConstructionZone().getConstructedCards()) {
-            if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
-                if (leftDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getKey().getId()));
-                } else {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
-                }
-            } else if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
-                if (goodDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getKey().getId()));
-                } else {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
-                }
-            }
-        }
-
-        for (Card card : neighbors.getValue().getConstructionZone().getConstructedCards()) {
-            if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
-                if (rightDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getValue().getId()));
-                } else {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
-                }
-            } else if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
-                if (goodDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getValue().getId()));
-                } else {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
-                }
-            }
-        }
-
-        return minimumTradeCostOfCards(currentPlayer, clonedResourceMap, possibleTradeAndCosts);
-    }
-
-
-    private Pair<Integer, Vector<TradeAction>> minimumTradeCostOfCards(PlayerModel me, Map<RESOURCE_TYPE, Integer> requiredResources, Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts) {
-        int cost = 0;
-        if (requiredResources.isEmpty()) {
-            return new Pair<>(0, new Vector<>());
-        }
-        Vector<TradeAction> trades = new Vector<>();
-        for (var trade : possibleTradeAndCosts) {
-            if (trade.getKey().getValue() == 1) {
-                for (Map.Entry<RESOURCE_TYPE, Integer> resource : trade.getKey().getKey().getCardEffect().getResources().entrySet()) {
-                    int required = requiredResources.getOrDefault(resource.getKey(), 0);
-                    if (required > 0) {
-                        if (required > resource.getValue()) {
-                            for (int i = 0 ; i < resource.getValue() ; i++) {
-                                trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
-                                cost += 1;
-                            }
-                            requiredResources.put(resource.getKey(), required - resource.getValue());
-                        } else {
-                            for (int i = 0 ; i < required ; i++) {
-                                trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
-                                cost += 1;
-                            }
-                            requiredResources.remove(resource.getKey());
-                        }
-                    }
-                }
-            }
-        }
-
-        for (var trade : possibleTradeAndCosts) {
-            if (trade.getKey().getValue() == 2) {
-                for (Map.Entry<RESOURCE_TYPE, Integer> resource : trade.getKey().getKey().getCardEffect().getResources().entrySet()) {
-                    int required = requiredResources.getOrDefault(resource.getKey(), 0);
-                    if (required > 0) {
-                        if (required > resource.getValue()) {
-                            for (int i = 0 ; i < resource.getValue() ; i++) {
-                                trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
-                                cost += 2;
-                            }
-                            requiredResources.put(resource.getKey(), required - resource.getValue());
-                        } else {
-                            for (int i = 0 ; i < required ; i++) {
-                                trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
-                                cost += 2;
-                            }
-                            requiredResources.remove(resource.getKey());
-                        }
-                    }
-                }
-            }
-        }
-
-        if (requiredResources.isEmpty()) {
-            return new Pair<>(cost, trades);
-        }
-
-        return new Pair<>(999, new Vector<>());
-    }
-
-
-    private Pair<Integer, Vector<TradeAction>> min(Pair<Integer, Vector<TradeAction>> a, Pair<Integer, Vector<TradeAction>> b) {
-        return a.getKey() < b.getKey() ? a : b;
-    }
 
     /**
      *  A recursive method for understanding if choice cards provide enough resources.
@@ -378,6 +259,169 @@ public class MoveController {
         }
         return cost;
     }
+
+
+    public Pair<Integer, Vector<TradeAction>> minimumTradeCost(Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
+
+        Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
+
+        /*to deep clone a map */
+        for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
+            if ( entry.getKey() != RESOURCE_TYPE.GOLD) {
+                clonedResourceMap.put(entry.getKey(), entry.getValue());
+            }
+        }
+
+        boolean leftDiscount = false, rightDiscount = false, goodDiscount = false;
+        for (Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
+            if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.LEFT_RAW_MATERIAL_TRADE_DISCOUNT) {
+                leftDiscount = true;
+            } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.RIGHT_RAW_MATERIAL_TRADE_DISCOUNT) {
+                rightDiscount = true;
+            } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.MANUFACTURED_GOODS_TRADE_DISCOUNT) {
+                goodDiscount = true;
+            }
+        }
+
+        Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts = new Vector<>();
+        for (Card card : neighbors.getKey().getConstructionZone().getConstructedCards()) {
+            if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
+                if (leftDiscount) {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getKey().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
+                }
+            } else if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
+                if (goodDiscount) {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getKey().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
+                }
+            }
+        }
+
+        for (Card card : neighbors.getValue().getConstructionZone().getConstructedCards()) {
+            if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
+                if (rightDiscount) {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getValue().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
+                }
+            } else if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
+                if (goodDiscount) {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getValue().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
+                }
+            }
+        }
+
+        return minimumTradeCostOfCards(currentPlayer, clonedResourceMap, possibleTradeAndCosts, 1);
+    }
+
+
+    private Pair<Integer, Vector<TradeAction>> minimumTradeCostOfCards(PlayerModel me, Map<RESOURCE_TYPE, Integer> requiredResources, Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts, int level) {
+        if (requiredResources.isEmpty()) {
+            return new Pair<>(0, new Vector<>());
+        } else if (level == 3) {
+            return new Pair<>(999, new Vector<>());
+        }
+        int cost = 0;
+
+        Vector<TradeAction> trades = new Vector<>();
+        for (var trade : possibleTradeAndCosts) {
+            if (trade.getKey().getValue() == level) {
+                if (trade.getKey().getKey().getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_ONE_OF_TWO) {
+
+                } else {
+                    Map.Entry<RESOURCE_TYPE, Integer> resource = trade.getKey().getKey().getCardEffect().getResources().entrySet().iterator().next();
+                    int required = requiredResources.getOrDefault(resource.getKey(), 0);
+                    if (required > 0) {
+                        if (required > resource.getValue()) {
+                            for (int i = 0 ; i < resource.getValue() ; i++) {
+                                trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
+                                cost += level;
+                            }
+                            requiredResources.put(resource.getKey(), required - resource.getValue());
+                        } else {
+                            for (int i = 0 ; i < required ; i++) {
+                                trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
+                                cost += level;
+                            }
+                            requiredResources.remove(resource.getKey());
+                        }
+                    }
+                }
+            }
+        }
+
+        if (requiredResources.isEmpty()) {
+            return new Pair<>(cost, trades);
+        }
+
+        var mco1 = minimizeChooseOne(me, requiredResources, possibleTradeAndCosts, possibleTradeAndCosts.size() - 1, level);
+        cost += mco1.getKey();
+        for (var trade : mco1.getValue()) {
+            trades.add(new TradeAction(me.getId(), trade.getTradedPlayerID(), trade.getSelectedCardID(), trade.getSelectedResource()));
+            RESOURCE_TYPE resource = trade.getSelectedResource();
+            int resourceCount = requiredResources.getOrDefault(resource, 0);
+            if (resourceCount > 1) {
+                requiredResources.put(resource, resourceCount-1);
+            } else if (resourceCount == 1 || resourceCount == 0){
+                requiredResources.remove(resource);
+            }
+        }
+
+        if (requiredResources.isEmpty()) {
+            return new Pair<>(cost, trades);
+        }
+
+        return new Pair<>(999, new Vector<>());
+    }
+
+    private Pair<Integer, Vector<TradeAction>> minimizeChooseOne(PlayerModel me, Map<RESOURCE_TYPE, Integer> requiredResources, Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts, int begin, int cost) {
+        if (begin == -1 || requiredResources.isEmpty()) {
+            return requiredResources.isEmpty() ? new Pair<>(0, new Vector<>()) : minimumTradeCostOfCards(me, requiredResources, possibleTradeAndCosts, cost + 1);
+        }
+
+        var x = possibleTradeAndCosts.get(begin);
+        Card card = x.getKey().getKey();
+
+        if (card.getCardEffect().getEffectType() != CARD_EFFECT_TYPE.PRODUCE_ONE_OF_TWO || x.getKey().getValue() != cost) {
+            return minimizeChooseOne(me, requiredResources, possibleTradeAndCosts, begin-1, cost);
+        }
+
+        Map<RESOURCE_TYPE, Integer> tempMap = card.getCardEffect().getResources();
+        var bestCost = new Pair<Integer, Vector<TradeAction>>(999, new Vector<>());
+        for (var k : tempMap.keySet()) {
+            var bcost = recursiveTrade(me, requiredResources, possibleTradeAndCosts, begin, k, cost);
+            if (bestCost.getKey() > bcost.getKey()) {
+                bestCost = bcost;
+            }
+        }
+        return bestCost;
+
+    }
+
+    private Pair<Integer, Vector<TradeAction>> recursiveTrade(PlayerModel me, Map<RESOURCE_TYPE, Integer> requiredResources,
+                                                              Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts, int begin, RESOURCE_TYPE resource, int bcost) {
+        int resourceCount = requiredResources.getOrDefault(resource, 0);
+        if (resourceCount > 1) {
+            requiredResources.put(resource, resourceCount-1);
+        } else if (resourceCount == 1 || resourceCount == 0){
+            requiredResources.remove(resource);
+        }
+        Pair<Integer, Vector<TradeAction>> ccost = minimizeChooseOne(me, requiredResources, possibleTradeAndCosts, begin-1, bcost);
+        if (resourceCount > 0){
+            requiredResources.put(resource, resourceCount);
+            var y = possibleTradeAndCosts.get(begin);
+            ccost.getValue().add(new TradeAction(me.getId(), y.getValue(), y.getKey().getKey().getId(), resource));
+            Pair<Integer, Vector<TradeAction>> cost = new Pair<>(ccost.getKey() + bcost, ccost.getValue());
+            return cost;
+        }
+        return ccost;
+    }
+
 
     private boolean checkConstructionZone(MoveModel moveModel, PlayerModel currentPlayer) {
         for ( Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
