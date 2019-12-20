@@ -25,17 +25,20 @@ public class OtherPlayersController implements Initializable {
     public GameplayController gameplayController;
 
     @FXML
-    private GridPane otherPlayersPane;
+    private GridPane otherPlayersConstructionPane, otherPlayersPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
+
     public void updateScene( PlayerModel playerModel){
         Platform.runLater(() -> {
+            otherPlayersConstructionPane.getChildren().clear();
             otherPlayersPane.getChildren().clear();
 
             PlayerModel[] allPlayers = gameplayController.gameModel.getPlayerList();
             int columnIndex = 1;
+            int colIndex = 0;
             for ( PlayerModel player: allPlayers) {
 
                 if ( player.getId() != gameplayController.client.getID()) {
@@ -98,12 +101,14 @@ public class OtherPlayersController implements Initializable {
                     Pane outerPane = (Pane) root.lookup("#outerPane");
                     outerPane.setStyle("");
 
-                    if ( player.getId() == gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getId()) {
-                        otherPlayersPane.add(root, 0, 0);
+                    otherPlayersPane.add(topPane, colIndex ,0);
+                    colIndex++;
 
+                    if ( player.getId() == gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getId()) {
+                        otherPlayersConstructionPane.add(root.lookup("#outerPane"), 0, 0);
                     }
                     else if ( player.getId() == gameplayController.gameModel.getRightPlayer(gameplayController.client.getID()).getId()) {
-                        otherPlayersPane.add(root, 5, 0);
+                        otherPlayersConstructionPane.add(root.lookup("#outerPane"), 5, 0);
                     }
                     else{
                         topPane.setOnMouseClicked((event) -> {
@@ -114,7 +119,7 @@ public class OtherPlayersController implements Initializable {
                                 outerPane.setVisible(true);
                             }
                         });
-                        otherPlayersPane.add(root, columnIndex ,0);
+                        otherPlayersConstructionPane.add(root.lookup("#outerPane"), columnIndex ,0);
                         outerGrid.add(constructionRoot,0,0);
                         columnIndex++;
                     }
