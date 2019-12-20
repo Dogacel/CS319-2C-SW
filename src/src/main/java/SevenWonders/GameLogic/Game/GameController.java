@@ -42,9 +42,9 @@ public class GameController {
     public boolean checkMoveIsValid(MoveModel move){
         int id = move.getPlayerID();
 
-        Pair<PlayerModel, PlayerModel> neighbors = new Pair<>(playerControllers[(id+1)%7].getPlayer(), playerControllers[(id+6)%7].getPlayer());
+        Pair<PlayerModel, PlayerModel> neighbors = new Pair<>(model.getLeftPlayer(move.getPlayerID()), model.getRightPlayer(move.getPlayerID()));
 
-        var m = MoveController.getInstance().playerCanMakeMove(move, playerControllers[id].getPlayer(), neighbors, true);
+        var m = MoveController.getInstance().playerCanMakeMove(move, playerControllers[id].getPlayer(), neighbors, false);
         for (TradeAction t : m.getValue()) {
             move.addTrade(t);
         }
@@ -362,10 +362,10 @@ public class GameController {
     }
 
     public PlayerModel getLeftPlayer(int id){
-        return playerControllers[(id + 6) % 7].getPlayer();
+        return playerControllers[(id + 1) % 7].getPlayer();
     }
 
     public PlayerModel getRightPlayer(int id){
-        return playerControllers[(id + 1) % 7].getPlayer();
+        return playerControllers[(id + 6) % 7].getPlayer();
     }
 }

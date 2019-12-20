@@ -327,7 +327,7 @@ public class Server implements Runnable, INetworkListener {
 		MakeMoveRequest request = gson.fromJson(message, MakeMoveRequest.class);
 		MoveModel move = request.move;
 		assert move.getPlayerID() == sender.getUser().getId();
-		if (move != null && gameController.checkMoveIsValid(move)) {
+		if (gameController.checkMoveIsValid(move)) {
 			gameController.updateCurrentMove(sender.getUser().getId(), move);
 		}
 	}

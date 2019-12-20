@@ -321,7 +321,17 @@ public class MoveController {
 
 
     private Pair<Integer, Vector<TradeAction>> minimumTradeCostOfCards(PlayerModel me, Map<RESOURCE_TYPE, Integer> requiredResources, Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts, int level) {
-        if (requiredResources.isEmpty()) {
+
+        Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
+
+        /*to deep clone a map */
+        for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
+            if ( entry.getKey() != RESOURCE_TYPE.GOLD) {
+                clonedResourceMap.put(entry.getKey(), entry.getValue());
+            }
+        }
+
+        if (clonedResourceMap.isEmpty()) {
             return new Pair<>(0, new Vector<>());
         } else if (level == 3) {
             return new Pair<>(999, new Vector<>());
@@ -335,44 +345,44 @@ public class MoveController {
 
                 } else {
                     Map.Entry<RESOURCE_TYPE, Integer> resource = trade.getKey().getKey().getCardEffect().getResources().entrySet().iterator().next();
-                    int required = requiredResources.getOrDefault(resource.getKey(), 0);
+                    int required = clonedResourceMap.getOrDefault(resource.getKey(), 0);
                     if (required > 0) {
                         if (required > resource.getValue()) {
                             for (int i = 0 ; i < resource.getValue() ; i++) {
                                 trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
                                 cost += level;
                             }
-                            requiredResources.put(resource.getKey(), required - resource.getValue());
+                            clonedResourceMap.put(resource.getKey(), required - resource.getValue());
                         } else {
                             for (int i = 0 ; i < required ; i++) {
                                 trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
                                 cost += level;
                             }
-                            requiredResources.remove(resource.getKey());
+                            clonedResourceMap.remove(resource.getKey());
                         }
                     }
                 }
             }
         }
 
-        if (requiredResources.isEmpty()) {
+        if (clonedResourceMap.isEmpty()) {
             return new Pair<>(cost, trades);
         }
 
-        var mco1 = minimizeChooseOne(me, requiredResources, possibleTradeAndCosts, possibleTradeAndCosts.size() - 1, level);
+        var mco1 = minimizeChooseOne(me, clonedResourceMap, possibleTradeAndCosts, possibleTradeAndCosts.size() - 1, level);
         cost += mco1.getKey();
         for (var trade : mco1.getValue()) {
             trades.add(new TradeAction(me.getId(), trade.getTradedPlayerID(), trade.getSelectedCardID(), trade.getSelectedResource()));
             RESOURCE_TYPE resource = trade.getSelectedResource();
-            int resourceCount = requiredResources.getOrDefault(resource, 0);
+            int resourceCount = clonedResourceMap.getOrDefault(resource, 0);
             if (resourceCount > 1) {
-                requiredResources.put(resource, resourceCount-1);
+                clonedResourceMap.put(resource, resourceCount-1);
             } else if (resourceCount == 1 || resourceCount == 0){
-                requiredResources.remove(resource);
+                clonedResourceMap.remove(resource);
             }
         }
 
-        if (requiredResources.isEmpty()) {
+        if (clonedResourceMap.isEmpty()) {
             return new Pair<>(cost, trades);
         }
 
@@ -408,18 +418,20 @@ public class MoveController {
         int resourceCount = requiredResources.getOrDefault(resource, 0);
         if (resourceCount > 1) {
             requiredResources.put(resource, resourceCount-1);
-        } else if (resourceCount == 1 || resourceCount == 0){
+        } else if (resourceCount == 1){
             requiredResources.remove(resource);
+        } else if (resourceCount == 0) {
+            return minimizeChooseOne(me, requiredResources, possibleTradeAndCosts, begin-1, bcost);
         }
         Pair<Integer, Vector<TradeAction>> ccost = minimizeChooseOne(me, requiredResources, possibleTradeAndCosts, begin-1, bcost);
-        if (resourceCount > 0){
-            requiredResources.put(resource, resourceCount);
-            var y = possibleTradeAndCosts.get(begin);
-            ccost.getValue().add(new TradeAction(me.getId(), y.getValue(), y.getKey().getKey().getId(), resource));
-            Pair<Integer, Vector<TradeAction>> cost = new Pair<>(ccost.getKey() + bcost, ccost.getValue());
-            return cost;
-        }
-        return ccost;
+
+        requiredResources.put(resource, resourceCount);
+
+        var y = possibleTradeAndCosts.get(begin);
+        ccost.getValue().add(new TradeAction(me.getId(), y.getValue(), y.getKey().getKey().getId(), resource));
+        Pair<Integer, Vector<TradeAction>> cost = new Pair<>(ccost.getKey() + bcost, ccost.getValue());
+        return cost;
+
     }
 
 

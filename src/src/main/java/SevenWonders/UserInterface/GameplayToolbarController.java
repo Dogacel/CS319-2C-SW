@@ -11,6 +11,7 @@ import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.SoundManager;
+import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -80,10 +81,12 @@ public class GameplayToolbarController {
     @FXML
     private void readyButtonClicked(MouseEvent event) {
         if (playerModel.getCurrentMove()!= null) {
-            if (MoveController.getInstance().playerCanMakeMove(playerModel.getCurrentMove(), playerModel, new Pair<>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), false).getKey()){
+            boolean canPlay = MoveController.getInstance().playerCanMakeMove(playerModel.getCurrentMove(), playerModel,
+                    new Pair<>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), false).getKey();
+            if (canPlay) {
                 currentMove = playerModel.getCurrentMove();
-            } else {
-                currentMove = new MoveModel(0,0,ACTION_TYPE.DISCARD_CARD);
+            } else if (!canPlay && currentMove == null) {
+                currentMove = new MoveModel(0, 0, ACTION_TYPE.DISCARD_CARD);
             }
             gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
             gameplayController.getClient().sendPlayerReadyRequest(true);
@@ -93,8 +96,8 @@ public class GameplayToolbarController {
     public void updateScene(PlayerModel playerModel) {
         Platform.runLater(() -> {
             String type = "";
-            if ( currentMove != null)
-            {
+
+            if (currentMove != null) {
                 Card playedCard = AssetManager.getInstance().getCardByID(currentMove.getSelectedCardID());
 
                 if( currentMove.getAction() == ACTION_TYPE.BUILD_CARD) {
@@ -129,6 +132,9 @@ public class GameplayToolbarController {
                     SoundManager.getInstance().playDiscardSound();
                 }
             }
+
+            currentMove = null;
+
             this.playerModel = playerModel;
             wonder1 = new ImageView(AssetManager.getInstance().getImage(playerModel.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + "_1.png"));
             wonder2 = new ImageView(AssetManager.getInstance().getImage(playerModel.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + "_2.png"));
