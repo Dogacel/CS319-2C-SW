@@ -3,10 +3,14 @@ package SevenWonders.GameLogic;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
+import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
 import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
 import SevenWonders.GameLogic.Wonder.Wonder;
+
+import java.util.Random;
 
 public class ScoreController {
     
@@ -55,6 +59,12 @@ public class ScoreController {
                 score += card.getCardEffect().getVictoryPoints();
             }
         }
+
+        for (Hero hero: playerModel.getHeroes())
+        {
+            if(hero.getHeroEffect() == HERO_EFFECT_TYPE.GRANT_THREE_VP)
+                score = score + 3;
+        }
         return score;
     }
 
@@ -75,6 +85,22 @@ public class ScoreController {
                 }
             } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.SCIENTISTS_GUILD) {
                 // TODO: Implement choose one
+            }
+        }
+
+        for(Hero hero: playerModel.getHeroes()){
+            if (hero.getHeroEffect() == HERO_EFFECT_TYPE.GRANT_RANDOM_SCIENCE)
+            {
+                Random rand = new Random();
+
+                int random = rand.nextInt(3);
+
+                if(random == 0)
+                    drawings++;
+                else if(random == 1)
+                    mechanics++;
+                else if(random == 2)
+                    writings++;
             }
         }
         return drawings*drawings + mechanics*mechanics + writings*writings + Math.min(drawings, Math.min(mechanics, writings))*7;

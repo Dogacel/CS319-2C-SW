@@ -8,6 +8,9 @@ import java.util.Vector;
 public class ConstructionZone {
 
     private Vector<Card> constructedCards;
+    private int redHero;
+    private int greenHero;
+    private int blueHero;
 
     public ConstructionZone()
     {
@@ -31,8 +34,28 @@ public class ConstructionZone {
     }
     public void buildCard(Card card)
     {
+        if(card.getColor() == CARD_COLOR_TYPE.RED)
+            redHero++;
+        else if(card.getColor() == CARD_COLOR_TYPE.GREEN)
+            greenHero++;
+        else if(card.getColor() == CARD_COLOR_TYPE.BLUE)
+            blueHero++;
+
         constructedCards.add(card);
+
     }
 
     public Vector<Card> getConstructedCards(){ return constructedCards; }
+
+    public void resetRedHero() { this.redHero = 0; }
+
+    public void resetGreenHero() { this.greenHero = 0; }
+
+    public void resetBlueHero() { this.blueHero = 0; }
+
+    public int getRedHero() { return this.redHero; }
+
+    public int getGreenHero() { return this.greenHero; }
+
+    public int getBlueHero() { return this.blueHero; }
 }
