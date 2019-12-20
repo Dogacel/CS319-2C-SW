@@ -9,6 +9,9 @@ import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.Network.Requests.*;
 import com.dosse.upnp.UPnP;
 import com.google.gson.Gson;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.net.SocketException;
 import java.util.logging.Logger;
@@ -26,6 +29,8 @@ public class Server implements Runnable, INetworkListener {
 
 	private static Server serverInstance;
 	private static Thread serverThread;
+
+	private ServerView view;
 
 	private static Server createServerInstance() {
 		System.out.println(UPnP.getExternalIP());
@@ -70,6 +75,18 @@ public class Server implements Runnable, INetworkListener {
 			worker = new Thread(this);
 		} catch (IOException exception) {
 			exception.printStackTrace();
+		}
+
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServerView.fxml"));
+			Scene scene = new Scene(loader.load(), 600, 800);
+			Stage stage = new Stage();
+			stage.setTitle("Server Debug");
+			stage.setScene(scene);
+			stage.show();
+			view = loader.getController();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -195,13 +212,14 @@ public class Server implements Runnable, INetworkListener {
 		// TODO: Complete
 		sender.getUser().setReady(true);
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
-			if (!connectionHandler.getUser().isReady()) {
-				return;
-			}
+			if (connectionHandler instanceof  ConnectionHandler)
+				if (!connectionHandler.getUser().isReady()) {
+					return;
+				}
 		}
 
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
-			if (connectionHandler instanceof  ConnectionHandler) {
+			if (connectionHandler instanceof ConnectionHandler) {
 				connectionHandler.getUser().setReady(false);
 			}
 		}
@@ -209,11 +227,12 @@ public class Server implements Runnable, INetworkListener {
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
 			if (connectionHandler instanceof PseudoConnectionHandler) {
 				MoveModel aiMove = AIMoveGenerator.generateMove(gameModel.getPlayerList()[connectionHandler.getUser().getId()], gameModel,((PseudoConnectionHandler) connectionHandler).getDifficulty());
-				if (gameController.checkMoveIsValid(aiMove)) {
-					gameController.updateCurrentMove(aiMove.getPlayerID(), aiMove);
-				}
+				assert gameController.checkMoveIsValid(aiMove);
+				gameController.updateCurrentMove(aiMove.getPlayerID(), aiMove);
 			}
 		}
+
+		view.update(this.gameModel);
 
 		gameController.playTurn();
 
@@ -297,7 +316,7 @@ public class Server implements Runnable, INetworkListener {
 		}
 
 		AddAIPlayerRequest request = gson.fromJson(message, AddAIPlayerRequest.class);
-		PseudoConnectionHandler pseudoConnectionHandler = new PseudoConnectionHandler(this, request.difficulty, request.difficulty.toString() + " BOT");
+		PseudoConnectionHandler pseudoConnectionHandler = new PseudoConnectionHandler(this, request.difficulty, request.difficulty.toString() + connectionHandlerList.size() + " BOT");
 		pseudoConnectionHandler.getUser().setReady(true);
 		connectionHandlerList.add(pseudoConnectionHandler);
 

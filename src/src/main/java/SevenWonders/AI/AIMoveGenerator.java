@@ -25,21 +25,21 @@ public class AIMoveGenerator {
         int currentAge = game.getCurrentAge();
 
         if(currentAge == 1) {
-            return 8.0 - (currentStageIndex * 2.5);
+            return 6.0 - (currentStageIndex * 2.5);
         }
 
         else if(currentAge == 2) {
             return 7.5 - (currentStageIndex * 1.25);
         }
         else {
-            return 20.0;
+            return 7.0;
         }
 
 
     }
     private static double discardScore(MoveModel move) {
         if(move.getAction() == ACTION_TYPE.DISCARD_CARD) {
-            return 2.0;
+            return 1.0;
         }
         return 0.0;
     }
@@ -92,6 +92,10 @@ public class AIMoveGenerator {
 
         for (Card card1 : me.getConstructionZone().getConstructedCards()) {
             if (card1.getColor() == CARD_COLOR_TYPE.YELLOW){points -= 1.5;}
+        }
+
+        if (me.getGold() < 3) {
+            points += 2.0;
         }
 
         return points;
@@ -173,7 +177,7 @@ public class AIMoveGenerator {
     }
 
     private static double resourceScore(MoveModel move, PlayerModel me, GameModel game) {
-        double score = 0.0;
+        double score = 1.0;
 
         Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
         if (move.getAction() == ACTION_TYPE.BUILD_CARD && (card.getColor() != CARD_COLOR_TYPE.BROWN && card.getColor() != CARD_COLOR_TYPE.GRAY)) return 0.0;
@@ -181,7 +185,7 @@ public class AIMoveGenerator {
 
 
         if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_ONE_OF_TWO) {
-            if (MoveController.getInstance().playerHasEnoughResources(card.getCardEffect().getResources(), me, new Vector<TradeAction>())) {
+            if (MoveController.getInstance().playerHasEnoughResources(card.getCardEffect().getResources(), me, new Vector<TradeAction>()).getKey()) {
                 score += 2.0;
             } else {
                 score += 3.5;
@@ -189,7 +193,7 @@ public class AIMoveGenerator {
         }
 
         if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_MANUFACTURED_GOODS || card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_RAW_MATERIAL) {
-            if (MoveController.getInstance().playerHasEnoughResources(card.getCardEffect().getResources(), me, new Vector<TradeAction>())) {
+            if (MoveController.getInstance().playerHasEnoughResources(card.getCardEffect().getResources(), me, new Vector<TradeAction>()).getKey()) {
                 score -= 1.0;
             } else {
                 score += 2.5;
@@ -239,17 +243,17 @@ public class AIMoveGenerator {
             game.getPlayerList()[me.getId()].getConstructionZone().getConstructedCards().remove(card);
         }
 
-        return score;
+        return score * 1.6;
     }
 
     public static double guildScore(MoveModel move, PlayerModel me, GameModel game) {
-        double score = 0.0;
+        double score = 2.0;
         Card card = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
 
         if (move.getAction() != ACTION_TYPE.BUILD_CARD) return 0;
         if (card.getColor() != CARD_COLOR_TYPE.PURPLE) return 0;
 
-
+        score -= ScoreController.calculateScore(me.getId(), game);
         game.getPlayerList()[me.getId()].getConstructionZone().getConstructedCards().add(card);
         score += ScoreController.calculateScore(me.getId(), game);
         game.getPlayerList()[me.getId()].getConstructionZone().getConstructedCards().remove(card);
@@ -279,13 +283,13 @@ public class AIMoveGenerator {
             for (ACTION_TYPE at : ACTION_TYPE.values()) {
                 MoveModel move = new MoveModel(me.getId(), card.getId(), at);
                 Pair<PlayerModel, PlayerModel> neighbors = new Pair<>(game.getLeftPlayer(me.getId()), game.getRightPlayer(me.getId()));
-                if (MoveController.getInstance().playerCanMakeMove(move, me, neighbors, true)) {
-                    if (MoveController.autoTrades != null) {
-                        for (TradeAction t : MoveController.autoTrades) {
+                var x = MoveController.getInstance().playerCanMakeMove(move, me, neighbors, true);
+                if (x.getKey()) {
+                    if (x.getValue() != null) {
+                        for (TradeAction t : x.getValue()) {
                             move.addTrade(t);
                         }
                     }
-                    MoveController.autoTrades = null;
                     moves.add(move);
                 }
             }

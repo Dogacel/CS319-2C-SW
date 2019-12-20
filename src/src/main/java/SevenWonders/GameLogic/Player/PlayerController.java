@@ -7,9 +7,6 @@ import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
 import SevenWonders.GameLogic.Wonder.Wonder;
-import SevenWonders.Network.Client;
-import SevenWonders.SoundManager;
-import javafx.scene.media.MediaPlayer;
 
 import java.util.Vector;
 
@@ -58,6 +55,10 @@ public class PlayerController {
             case BUILD_CARD:
                 Card playedCard = AssetManager.getInstance().getCardByID(move.getSelectedCardID());
                 player.getConstructionZone().buildCard(playedCard);
+
+                int goldCost = playedCard.getRequirements().getOrDefault(RESOURCE_TYPE.GOLD, 0);
+                player.setGold(player.getGold() - goldCost);
+
 
                 if(playedCard.getColor() == CARD_COLOR_TYPE.RED && player.getConstructionZone().getRedHero() == 3){
 
