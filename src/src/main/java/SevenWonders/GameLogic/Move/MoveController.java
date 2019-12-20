@@ -425,4 +425,17 @@ public class MoveController {
         return currentPlayer.getWonder().isUpgradeable() && playerHasEnoughResourcesAutoTrade(currentPlayer.getWonder().getCurrentStage().getRequiredResources(), currentPlayer, moveModel.getTrades(), neighbors);
     }
 
+    private boolean haveBuildingChain(MoveModel moveModel, PlayerModel currentPlayer ){
+        if (!checkConstructionZone(moveModel,currentPlayer))
+            return false;
+
+        for (Card card: currentPlayer.getConstructionZone().getConstructedCards()){
+            Card toPlay = AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID());
+            for(String name: toPlay.getBuildingChain()){
+                if (card.getName().equals(name))
+                    return true;
+            }
+        }
+        return false;
+    }
 }
