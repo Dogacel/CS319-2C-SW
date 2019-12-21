@@ -100,8 +100,8 @@ public class OtherPlayersController implements Initializable {
                     Pane outerPane = (Pane) root.lookup("#outerPane");
                     outerPane.setStyle("");
 
-                    otherPlayersPane.add(topPane, colIndex ,0);
-                    colIndex++;
+
+                    otherPlayersPane.add(root, 5 - ((6 + player.getId() - playerModel.getId()) % 7)  ,0);
 
                     if ( player.getId() == gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getId()) {
                         otherPlayersConstructionPane.add(root.lookup("#outerPane"), 0, 0);
@@ -118,8 +118,7 @@ public class OtherPlayersController implements Initializable {
                                 outerPane.setVisible(true);
                             }
                         });
-                        otherPlayersConstructionPane.add(root.lookup("#outerPane"), columnIndex ,0);
-                        otherPlayersPane.add(root, 5 - ((6 + player.getId() - playerModel.getId()) % 7)  ,0);
+                        otherPlayersConstructionPane.add(root.lookup("#outerPane"), 5 - ((6 + player.getId() - playerModel.getId()) % 7) ,0);
                         outerGrid.add(constructionRoot,0,0);
                         columnIndex--;
                     }

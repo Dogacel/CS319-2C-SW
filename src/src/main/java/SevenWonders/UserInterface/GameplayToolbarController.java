@@ -34,8 +34,6 @@ public class GameplayToolbarController {
 
     ImageView wonder1, wonder2, wonder3;
 
-    @FXML
-    Label coinLabel;
 
     @FXML
     Button buildCardButton, buildWonderButton, readyButton, discardCardButton, useGodPowerButton;
