@@ -9,8 +9,8 @@
   "cardEffect": {
     "effectType": "PRODUCE_ONE_OF_TWO",
     "resources": {
-      "ORE" : 1,
-      "STONE" : 1
+      "STONE" : 1,
+      "ORE" : 1
     }, 
     "gold": 0, 
     "victoryPoints": 0, 
