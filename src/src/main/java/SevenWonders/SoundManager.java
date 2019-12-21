@@ -25,6 +25,11 @@ public class SoundManager {
     MediaPlayer wonderSound;
     MediaPlayer startTheGame;
 
+    public static double GameSoundLevel = 1.0;
+    public static double MusicSoundLevel = 1.0;
+    public static double mute = 0.0;
+
+    public static MediaPlayer currentMusic = null;
 
     public void initialize(){
 
@@ -100,6 +105,8 @@ public class SoundManager {
 
     }
     public void playMenuMusic(){
+        currentMusic = menuMusic;
+        menuMusic.setVolume(MusicSoundLevel - mute);
         menuMusic.play();
         menuMusic.setCycleCount(MediaPlayer.INDEFINITE);
     }
@@ -109,30 +116,37 @@ public class SoundManager {
     public void playCardSound(String type)
     {
         cardSound = new MediaPlayer(soundMap.get(type));
+        cardSound.setVolume(GameSoundLevel - mute);
         cardSound.play();
     }
 
     public void playDiscardSound(){
+        discardSound.setVolume(GameSoundLevel - mute);
         discardSound.play();
         discardSound.seek(Duration.ZERO);
     }
 
     public void startTheGameAlready(){
+        startTheGame.setVolume(GameSoundLevel - mute);
         startTheGame.play();
         startTheGame.seek(Duration.ZERO);
     }
 
     public void playWonderSound(){
+        wonderSound.setVolume(GameSoundLevel - mute);
         wonderSound.play();
         wonderSound.seek(Duration.ZERO);
     }
 
     public void playBattleSound(){
+        battleMusic.setVolume(GameSoundLevel - mute);
         battleMusic.play();
         battleMusic.seek(Duration.ZERO);
     }
 
     public void playAgeOneMusic(){
+        currentMusic = ageOne;
+        ageOne.setVolume(MusicSoundLevel - mute);
         ageOne.play();
         ageOne.setCycleCount(MediaPlayer.INDEFINITE);
     }
@@ -142,6 +156,8 @@ public class SoundManager {
     }
 
     public void playAgeTwoMusic(){
+        currentMusic = ageTwo;
+        ageTwo.setVolume(MusicSoundLevel - mute);
         ageTwo.play();
         ageTwo.setCycleCount(MediaPlayer.INDEFINITE);
     }
@@ -151,6 +167,8 @@ public class SoundManager {
     }
 
     public void playAgeThreeMusic(){
+        currentMusic = ageThree;
+        ageThree.setVolume(MusicSoundLevel - mute);
         ageThree.play();
         ageThree.setCycleCount(MediaPlayer.INDEFINITE);
     }
