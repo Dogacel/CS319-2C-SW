@@ -49,12 +49,6 @@ public class MoveController {
             case USE_GOD_POWER:
                 //TODO add god power here
                 break;
-            case BUILD_FREE:
-                if ( GameController.playerCanBuildFree) {
-                    GameController.playerCanBuildFree = false;
-                    return true;
-                }
-                return false;
             default: break;
         }
         return new Pair<>(false, new Vector<>());
@@ -196,14 +190,14 @@ public class MoveController {
         Vector<Card> choiceCards = new Vector<>();
 
         //If players unlocked the wonder stage that allows him to build on of the resources, add that ability as a corresponding card to the list
-        if ( currentPlayer.getWonder().getCurrentStageIndex() >= 2) {
-            if ( currentPlayer.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.ONE_OF_EACH_RAW_MATERIAL) {
-                choiceCards.add( AssetManager.getInstance().getCardByID( 37)); //Adds the card caravensery, which ability is the same with the wonder ability
+        if (currentPlayer.getWonder().getCurrentStageIndex() >= 2) {
+            if (currentPlayer.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.ONE_OF_EACH_RAW_MATERIAL) {
+                choiceCards.add(AssetManager.getInstance().getCardByID(37)); //Adds the card caravensery, which ability is the same with the wonder ability
             }
         }
 
         /*Traverse every card and collect choice cards*/
-        for ( Card card : currentPlayer.getConstructionZone().getConstructedCards() ) {
+        for (Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
             switch (card.getCardEffect().getEffectType()) {
                 case ONE_OF_EACH_MANUFACTURED_GOODS:
                 case ONE_OF_EACH_RAW_MATERIAL:
@@ -463,16 +457,20 @@ public class MoveController {
      * @return true if player can build a card, false otherwise
      */
     private Pair<Boolean, Vector<TradeAction>> playerCanPlayBuildCard(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
-        if (haveBuildingChain(moveModel, currentPlayer)){
+        if (currentPlayer.getPlayerCanBuildFree() && checkConstructionZone(moveModel, currentPlayer)) {
             return new Pair<>(true, new Vector<>());
         }
-        var x = playerHasEnoughResourcesAutoTrade( AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades(), neighbors);
+        if (haveBuildingChain(moveModel, currentPlayer)) {
+            return new Pair<>(true, new Vector<>());
+        }
+        var x = playerHasEnoughResourcesAutoTrade(AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades(), neighbors);
         return new Pair<>(checkConstructionZone(moveModel, currentPlayer) && x.getKey(), x.getValue());
     }
 
     /**
      * Checks if the player can discard their selected cards
-     * @param moveModel current move
+     *
+     * @param moveModel     current move
      * @param currentPlayer current player
      * @return true if player can discard, false otherwise
      */
@@ -482,7 +480,8 @@ public class MoveController {
 
     /**
      * Checks if player can upgrade their wonders
-     * @param moveModel current move
+     *
+     * @param moveModel     current move
      * @param currentPlayer current player
      * @return true if player can upgrade wonder, false otherwise
      */
