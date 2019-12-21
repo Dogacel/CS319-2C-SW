@@ -40,7 +40,7 @@
    <right>
       <Pane prefHeight="500.0" prefWidth="213.33" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="rightNeighborConstructionPane" prefHeight="500.0" prefWidth="213.33" />
+            <VBox fx:id="rightNeighborConstructionPane" prefHeight="500.0" prefWidth="213.0" />
          </children></Pane>
    </right>
 </BorderPane>
