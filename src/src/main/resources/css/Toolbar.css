@@ -1,19 +1,4 @@
-.button {
-    -fx-background-image: url('../images/ui-images/newbutton.png');
-    -fx-font-family: "Assassin$";
-    -fx-background-color: transparent;
-}
-
-.button:hover {
-    -fx-border-width: 1px;
-}
-
 .label {
     -fx-stroke: black;
     -fx-stroke-width: 1px;
-}
-
-#readyButton {
-    -fx-background-image: url('../images/ui-images/newbuttonready.png');
-    -fx-background-color: transparent;
 }
