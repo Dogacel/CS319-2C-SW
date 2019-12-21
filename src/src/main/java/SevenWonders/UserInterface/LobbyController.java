@@ -66,9 +66,9 @@ public class LobbyController implements Initializable, ILobbyListener {
             Client.getInstance().setLobbyListener(this);
             Client.getInstance().sendGetReadyRequest(false);
             if (Client.getInstance().getUser().isAdmin()) {
-                readyButton.setText("Start game");
+                readyButton.setText("START GAME");
             }
-            ipaddress.setText(Client.getInstance().getIP());
+            ipaddress.setText("ID: " + Client.getInstance().getIP());
         });
 
     }
