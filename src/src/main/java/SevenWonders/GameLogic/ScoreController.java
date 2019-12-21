@@ -3,10 +3,14 @@ package SevenWonders.GameLogic;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
+import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
 import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
 import SevenWonders.GameLogic.Wonder.Wonder;
+
+import java.util.Random;
 
 public class ScoreController {
     
@@ -54,6 +58,12 @@ public class ScoreController {
             if (card.getColor() == CARD_COLOR_TYPE.BLUE) {
                 score += card.getCardEffect().getVictoryPoints();
             }
+        }
+
+        for (Hero hero: playerModel.getHeroes())
+        {
+            if(hero.getHeroEffect() == HERO_EFFECT_TYPE.GRANT_THREE_VP)
+                score = score + 3;
         }
         return score;
     }

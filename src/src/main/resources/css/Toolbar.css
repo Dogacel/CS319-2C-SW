@@ -1,51 +1,24 @@
-#readyButton{
-    -fx-border-color: transparent;
-    -fx-border-width: 0;
-    -fx-background-radius: 0;
-    -fx-background-color: transparent;
-    -fx-text-fill: #828282;
+.button {
+    -fx-background-radius: 8;
+    -fx-background-color: rgba(0,0,0, 0.2);
+    -fx-border-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18);
+    -fx-border-radius: 8;
+    -fx-font-family: "Assassin$";
+    -fx-font-size: 13px;
+    -fx-text-fill: rgb(255,255,255);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+
 }
 
-#buildWonderButton{
-    -fx-background-image: url('../images/ui-images/buildWonderButton.png');
-    -fx-background-radius: 0;
-    -fx-background-color: transparent;
+.button:hover {
+    -fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18);
 }
 
-#buildCardButton{
-    -fx-background-image: url('../images/ui-images/buildCardButton.png');
-    -fx-background-radius: 0;
-    -fx-background-color: transparent;
+.button:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
 }
 
-#discardCardButton{
-    -fx-background-image: url('../images/ui-images/discardCardButton.png');
-    -fx-background-radius: 0;
-    -fx-background-color: transparent;
-}
-
-#useGodPowerButton{
-    -fx-background-image: url('../images/ui-images/godPowerButton.png');
-    -fx-background-radius: 0;
-    -fx-background-color: transparent;
-}
-
-#readyButton{
-}
-
-#exitButton{
-    -fx-background-image: url('../images/ui-images/exitButton.png');
-    -fx-background-color: transparent;
-}
-
-#settingsButton{
-    -fx-background-image: url('../images/ui-images/settingsButton.png');
-    -fx-background-radius: 0;
-    -fx-background-color: transparent;
-}
-
-#tutorialButton{
-    -fx-background-image: url('../images/ui-images/tutorialButton.png');
-    -fx-background-radius: 0;
-    -fx-background-color: transparent;
+#readyButton {
+    -fx-font-size: 18px;
 }

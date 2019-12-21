@@ -1,6 +1,7 @@
 package SevenWonders.GameLogic.Player;
 
 import SevenWonders.GameLogic.Deck.Card.Card;
+import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
 import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Wonder.Wonder;
@@ -27,7 +28,7 @@ public class PlayerModel {
     {
         this.id = id;
         this.name = name;
-        this.gold = 5;
+        this.gold = 3;
 
         this.wonder = wonder;
         this.warPoints = 0;
@@ -81,6 +82,8 @@ public class PlayerModel {
 
     public void addHero(Hero hero) {
 
+        if (hero.getHeroEffect() == HERO_EFFECT_TYPE.GRANT_ONE_SHIELD)
+            this.shields++;
         heroes.add(hero);
 
     }
