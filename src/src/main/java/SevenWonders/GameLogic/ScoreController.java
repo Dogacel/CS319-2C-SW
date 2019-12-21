@@ -70,6 +70,8 @@ public class ScoreController {
 
     public static int calculateScientificStructures(PlayerModel playerModel) {
         int drawings = 0, mechanics = 0, writings = 0;
+        int tradersGuild = 0, wonder = 0;
+
         for (Card card : playerModel.getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.GREEN) {
                 switch (card.getCardEffect().getEffectType()) {
@@ -84,7 +86,7 @@ public class ScoreController {
                         break;
                 }
             } else if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.SCIENTISTS_GUILD) {
-                // TODO: Implement choose one
+                tradersGuild = 1;
             }
         }
 
@@ -94,7 +96,6 @@ public class ScoreController {
                 Random rand = new Random();
 
                 int random = rand.nextInt(3);
-
                 if(random == 0)
                     drawings++;
                 else if(random == 1)
@@ -103,7 +104,11 @@ public class ScoreController {
                     writings++;
             }
         }
-        return drawings*drawings + mechanics*mechanics + writings*writings + Math.min(drawings, Math.min(mechanics, writings))*7;
+        if(playerModel.getWonder().getCurrentStageIndex() >= 2 && playerModel.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.CHOOSE_ONE_SCIENCE )
+            wonder = 1;
+
+        int result =  recursive(tradersGuild, wonder, drawings, mechanics, writings);
+        return result;
     }
 
     private static int calculateCommercialStructures(PlayerModel playerModel) {
@@ -193,5 +198,27 @@ public class ScoreController {
             }
         }
         return count;
+    }
+
+    private static int recursive(int tradersGuild, int wonder, int drawings, int mechanics, int writings){
+
+        if( tradersGuild == 0 && wonder == 0){
+            return drawings*drawings + mechanics*mechanics + writings*writings + Math.min(drawings, Math.min(mechanics, writings))*7;}
+
+        if ( (tradersGuild == 1 && wonder == 0) || (tradersGuild == 0 && wonder == 1)){
+            return Math.max( Math.max(recursive(0,0,drawings + 1, mechanics, writings),
+                                      recursive(0,0,drawings,mechanics + 1,writings)),
+                                      recursive(0,0,drawings,mechanics, writings + 1));
+        }
+        else if ( tradersGuild == 1 && wonder == 1){
+            return Math.max(Math.max(Math.max( Math.max(Math.max( recursive(0,0, drawings + 2, mechanics, writings),
+                                      recursive(0, 0, drawings, mechanics + 2, writings)),
+                                      recursive(0,0,drawings,mechanics,writings + 2)),
+                                      recursive(0,0, drawings + 1, mechanics + 1, writings)),
+                                      recursive(0,0,drawings + 1, mechanics, writings + 1)),
+                                      recursive(0,0,drawings,mechanics + 1, writings + 1));
+        }
+
+        return 0;
     }
 }

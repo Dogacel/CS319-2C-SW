@@ -13,6 +13,8 @@ public class PlayerModel {
     private final int MAX_CARDS_AT_HAND = 7;
 
     private int          id;
+    private boolean playerCanBuildFree = true;
+    private boolean playerCanBuildDiscard = true;
     private String       name;
     private int          gold;
     private Vector<Card> hand;
@@ -86,6 +88,22 @@ public class PlayerModel {
             this.shields++;
         heroes.add(hero);
 
+    }
+
+    public boolean getPlayerCanBuildFree() {
+        return playerCanBuildFree;
+    }
+
+    public void setPlayerCanBuildFree( boolean boo) {
+        playerCanBuildFree = boo;
+    }
+
+    public boolean getPlayerCanBuildDiscard() {
+        return playerCanBuildDiscard;
+    }
+
+    public void setPlayerCanBuildDiscard( boolean boo) {
+        playerCanBuildDiscard = boo;
     }
 
 }
