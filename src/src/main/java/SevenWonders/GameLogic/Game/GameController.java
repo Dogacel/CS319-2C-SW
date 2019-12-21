@@ -22,7 +22,6 @@ import java.util.Vector;
 
 public class GameController {
     private final int MAX_NO_OF_PLAYERS = 7;
-    public static boolean playerCanBuildFree = true;
     private PlayerController[] playerControllers;
     private DiscardPileController discardPileController;
     private DeckController deckController;
@@ -66,7 +65,9 @@ public class GameController {
             playEndOfAge();
             if (!model.isGameEnded()) {
                 model.incrementCurrentAge();
-
+                for ( PlayerController controller : playerControllers) {
+                    controller.setPlayerCanBuildFree(true);
+                }
                 if (model.getCurrentAge() <= 3) {
                     dealCards();
                 }
@@ -137,13 +138,6 @@ public class GameController {
 
             myPlayerController.setWarPoints(myPlayerController.getWarPoints() + totalPoints);
             myPlayerController.setLostWarNumber(myPlayerController.getLostWarNumber() + totalLosses);
-
-            for (int j = 0; j < myPlayerController.getWonder().getCurrentStageIndex(); j++) {
-                if ( myPlayerController.getWonder().getStages()[j].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.FREE_BUILDING) {
-                    if (!playerCanBuildFree)
-                        playerCanBuildFree = true;
-                }
-            }
         }
     }
 
