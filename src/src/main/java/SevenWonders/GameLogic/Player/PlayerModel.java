@@ -14,6 +14,7 @@ public class PlayerModel {
 
     private int          id;
     private boolean playerCanBuildFree = true;
+    private boolean playerCanBuildDiscard = true;
     private String       name;
     private int          gold;
     private Vector<Card> hand;
@@ -95,6 +96,14 @@ public class PlayerModel {
 
     public void setPlayerCanBuildFree( boolean boo) {
         playerCanBuildFree = boo;
+    }
+
+    public boolean getPlayerCanBuildDiscard() {
+        return playerCanBuildDiscard;
+    }
+
+    public void setPlayerCanBuildDiscard( boolean boo) {
+        playerCanBuildDiscard = boo;
     }
 
 }

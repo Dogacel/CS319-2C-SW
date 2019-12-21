@@ -185,12 +185,19 @@ public class PlayerController {
     }
 
     public boolean getPlayerCanBuildFree() {
-        return getPlayerCanBuildFree();
+        return player.getPlayerCanBuildFree();
+    }
+    public boolean getPlayerCanBuildDiscard() {
+        return player.getPlayerCanBuildDiscard();
     }
 
     public PlayerModel getPlayer() { return player; }
 
     public void setPlayerCanBuildFree(boolean boo) {
         player.setPlayerCanBuildFree(boo);
+    }
+
+    public void setPlayerCanBuildDiscard( boolean boo) {
+        player.setPlayerCanBuildDiscard(boo);
     }
 }
