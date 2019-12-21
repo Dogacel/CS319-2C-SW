@@ -6,6 +6,7 @@ import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Move.TradeAction;
@@ -99,7 +100,7 @@ public class GameplayToolbarController {
                     new Pair<>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), false).getKey();
             if (canPlay) {
                 currentMove = playerModel.getCurrentMove();
-            } else if (!canPlay && currentMove == null) {
+            } else if (currentMove == null) {
                 currentMove = new MoveModel(0, 0, ACTION_TYPE.DISCARD_CARD);
             }
             gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
@@ -168,6 +169,13 @@ public class GameplayToolbarController {
         }
         if(playerModel.getWonder().getCurrentStageIndex() == 2) {
             wonder2Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");
+            if ( playerModel.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.FREE_BUILDING ||
+                    playerModel.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.BUILD_FROM_DISCARDED) {
+                wonder2Pane.setOnMouseClicked((e) -> {
+                    MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.BUILD_CARD);
+                    updatePlayerMove(move);
+                });
+            }
         }
         if(playerModel.getWonder().getCurrentStageIndex() == 3) {
             wonder3Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");
