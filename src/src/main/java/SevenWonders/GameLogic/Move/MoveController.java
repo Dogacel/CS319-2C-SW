@@ -457,11 +457,21 @@ public class MoveController {
      * @return true if player can build a card, false otherwise
      */
     private Pair<Boolean, Vector<TradeAction>> playerCanPlayBuildCard(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
+        //First if will check if the user's wonder has the ability to play a free card for an age.
         if (currentPlayer.getPlayerCanBuildFree() && checkConstructionZone(moveModel, currentPlayer) &&
                 currentPlayer.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.FREE_BUILDING && currentPlayer.getWonder().getCurrentStageIndex() >=2) {
             currentPlayer.setPlayerCanBuildFree(false);
             return new Pair<>(true, new Vector<>());
         }
+
+        //This if will check if the user's wonder has the ability to play a card from a discard pile
+        if ( currentPlayer.getPlayerCanBuildDiscard() && checkConstructionZone(moveModel, currentPlayer) &&
+                currentPlayer.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.BUILD_FROM_DISCARDED && currentPlayer.getWonder().getCurrentStageIndex() >=2) {
+            currentPlayer.setPlayerCanBuildDiscard(false);
+            System.out.println("BEN BURADAYIM");
+            return new Pair<>(true, new Vector<>());
+        }
+
         if (haveBuildingChain(moveModel, currentPlayer)) {
             return new Pair<>(true, new Vector<>());
         }
