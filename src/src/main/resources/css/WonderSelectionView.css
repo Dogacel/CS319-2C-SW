@@ -7,9 +7,11 @@
 
 }
 
+Label{
+    -fx-background-color: rgba(0,0,0,0.8);
+    -fx-font-color: black;
+    -fx-font-family: "Assassin$";
+    -fx-font-size: 30px;
+    -fx-text-fill: rgb(255,255,255);
+    }
 
-#button{
-        -fx-background-image: url('@../images/ui-images/shield.png');
-        -fx-border-style: solid inside;
-        -fx-border-color: blue;
-}
