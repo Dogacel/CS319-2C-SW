@@ -45,7 +45,7 @@ public class GameplayToolbarController {
 
     private void updatePlayerMove(MoveModel move) {
         // TODO: Setting for auto trade
-        var x = MoveController.getInstance().playerCanMakeMove(move, playerModel, new Pair<>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), SettingsController.autoTrade);
+        var x = MoveController.getInstance().playerCanMakeMove(move, playerModel, gameplayController.getNeighbors(), SettingsController.autoTrade);
         if (SettingsController.autoTrade) {
             for (TradeAction trade : x.getValue()) {
                 move.addTrade(trade);

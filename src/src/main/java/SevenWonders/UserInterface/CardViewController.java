@@ -22,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
 import java.net.URL;
 import java.util.Map;
@@ -84,11 +85,26 @@ public class CardViewController implements Initializable {
             move.addTrade(trade);
         }
 
-        if(MoveController.getInstance().playerCanMakeMove(move, gameplayController.getPlayer(), null, false).getKey()){
-            canBuild.setColor(Color.LIGHTGREEN);
-        }
-        else{
-            canBuild.setColor(Color.RED);
+        if (SettingsController.autoTrade) {
+            var x = MoveController.getInstance().playerCanMakeMove(move, gameplayController.getPlayer(),  gameplayController.getNeighbors(), true);
+            if (x.getKey()) {
+                if (x.getValue().size() != 0) {
+                    canBuild.setColor(Color.GOLD);
+                } else {
+                    canBuild.setColor(Color.GREEN);
+                }
+            }
+            else{
+                canBuild.setColor(Color.RED);
+            }
+        } else {
+            var x = MoveController.getInstance().playerCanMakeMove(move, gameplayController.getPlayer(),  gameplayController.getNeighbors(), false);
+            if(x.getKey()){
+                canBuild.setColor(Color.LIGHTGREEN);
+            }
+            else{
+                canBuild.setColor(Color.RED);
+            }
         }
 
         return canBuild;
@@ -168,7 +184,20 @@ public class CardViewController implements Initializable {
                     for (var entry : c.getRequirements().entrySet()) {
                         requirements += entry.getKey().name() + ": " + entry.getValue() + "\n";
                     }
-                    tp.setText(c.getName() + ((buildings).equals("") ? "" : "\nChain: ") + buildings + ((requirements).equals("") ? "" : "\nRequirements:\n" + requirements));
+
+                    int tradeCost = 0;
+                    if (SettingsController.autoTrade) {
+                        MoveModel move = new MoveModel(gameplayController.getPlayer().getId(), c.getId(), ACTION_TYPE.BUILD_CARD);
+                        var x = MoveController.getInstance().playerCanMakeMove(move, gameplayController.getPlayer(),
+                                new Pair<>(gameplayController.getLeftPlayer(), gameplayController.getRightPlayer()), true);
+                        if (x.getKey()) {
+                            Vector<TradeAction> trades = x.getValue();
+                            tradeCost = MoveController.getInstance().tradeCost(trades, gameplayController.getPlayer(), new Pair<>(gameplayController.getLeftPlayer(), gameplayController.getRightPlayer()));
+                        }
+                    }
+
+                    tp.setText(c.getName() + ((buildings).equals("") ? "" : "\nChain: ") + buildings + ((requirements).equals("") ? "" : "\nRequirements:\n" + requirements + (tradeCost > 0 ? "Trade cost: " + tradeCost : "")));
+
                     tp.setShowDelay(new Duration(250));
                     Tooltip.install(imageView, tp);
                 
