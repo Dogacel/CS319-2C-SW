@@ -141,6 +141,7 @@ public class CardViewController implements Initializable {
                             imageView.setScaleX(1);
                             imageView.setScaleY(1);
                             imageView.setEffect(borderGlow);
+                            selectedCard = c;
                         }
                     }});
                     cardBox.getChildren().add(imageView);
