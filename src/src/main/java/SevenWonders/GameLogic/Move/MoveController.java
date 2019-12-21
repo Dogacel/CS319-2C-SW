@@ -457,7 +457,9 @@ public class MoveController {
      * @return true if player can build a card, false otherwise
      */
     private Pair<Boolean, Vector<TradeAction>> playerCanPlayBuildCard(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
-        if (currentPlayer.getPlayerCanBuildFree() && checkConstructionZone(moveModel, currentPlayer)) {
+        if (currentPlayer.getPlayerCanBuildFree() && checkConstructionZone(moveModel, currentPlayer) &&
+                currentPlayer.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.FREE_BUILDING && currentPlayer.getWonder().getCurrentStageIndex() >=2) {
+            currentPlayer.setPlayerCanBuildFree(false);
             return new Pair<>(true, new Vector<>());
         }
         if (haveBuildingChain(moveModel, currentPlayer)) {
