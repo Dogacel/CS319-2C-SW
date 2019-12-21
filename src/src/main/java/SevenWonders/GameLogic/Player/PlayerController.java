@@ -94,7 +94,7 @@ public class PlayerController {
                         break; //Remove only one card
                     }
                 }
-                WONDER_EFFECT_TYPE wonderEffect = player.getWonder().getCurrentStage().getWonderEffect().getEffectType();
+                WONDER_EFFECT_TYPE wonderEffect = player.getWonder().getUpgradedStage().getWonderEffect().getEffectType();
                 switch(wonderEffect) {
                     case GRANT_SHIELDS:
                         int shields = player.getWonder().getCurrentStage().getWonderEffect().getShields();
@@ -104,8 +104,6 @@ public class PlayerController {
                         int gold = player.getWonder().getCurrentStage().getWonderEffect().getGold();
                         player.setGold( player.getGold() + gold);
                         break;
-                    case FREE_BUILDING:
-                        GameController.playerCanBuildFree = true; //when the wonder has the effect of building a free card each turn.
                 }
                 break;
             case USE_GOD_POWER:
@@ -186,5 +184,13 @@ public class PlayerController {
         return player.getId();
     }
 
+    public boolean getPlayerCanBuildFree() {
+        return getPlayerCanBuildFree();
+    }
+
     public PlayerModel getPlayer() { return player; }
+
+    public void setPlayerCanBuildFree(boolean boo) {
+        player.setPlayerCanBuildFree(boo);
+    }
 }
