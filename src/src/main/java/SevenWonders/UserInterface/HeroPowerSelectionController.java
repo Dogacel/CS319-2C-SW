@@ -1,10 +1,16 @@
 package SevenWonders.UserInterface;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 
-public class HeroPowerSelectionController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class HeroPowerSelectionController implements Initializable {
+
     @FXML
     Button button1;
     @FXML
@@ -30,8 +36,11 @@ public class HeroPowerSelectionController {
     @FXML
     Button button12;
 
+    public HeroPowerSelectionController() {
+    }
     @FXML
     public void button1Clicked(MouseEvent mouseEvent) {
+
     }
 
     @FXML
@@ -78,4 +87,21 @@ public class HeroPowerSelectionController {
     public void button12Clicked(MouseEvent mouseEvent) {
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        button1.setTooltip(new Tooltip("Achilles"));
+        button2.setTooltip(new Tooltip("Aristotales"));
+        button3.setTooltip(new Tooltip("Da Vinci"));
+        button4.setTooltip(new Tooltip("Donatello"));
+        button5.setTooltip(new Tooltip("Gaudi"));
+        button6.setTooltip(new Tooltip("Hector"));
+        button7.setTooltip(new Tooltip("Ibni Sina"));
+        button8.setTooltip(new Tooltip("Leonidas"));
+        button9.setTooltip(new Tooltip("Michelangelo"));
+        button10.setTooltip(new Tooltip("Pisagor"));
+        button11.setTooltip(new Tooltip("Spartacus"));
+        button12.setTooltip(new Tooltip("Thales"));
+
+    }
 }
