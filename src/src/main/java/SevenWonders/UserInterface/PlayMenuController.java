@@ -31,8 +31,8 @@ public class PlayMenuController {
         else{
             nameWarningLabel.setText("enter your name first");
             nameWarningLabel.setVisible(true);
+            idWarningLabel.setVisible(false);
         }
-
     }
 
     @FXML
@@ -58,6 +58,4 @@ public class PlayMenuController {
     public void backButtonClicked(MouseEvent mouseEvent) {
         SceneManager.getInstance().changeScene("MainMenu.fxml");
     }
-
-
 }
