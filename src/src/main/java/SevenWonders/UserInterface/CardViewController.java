@@ -5,6 +5,7 @@ import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
+import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.Network.Server;
 import SevenWonders.SceneManager;
 import javafx.application.Platform;
@@ -43,6 +44,8 @@ public class CardViewController implements Initializable {
     @FXML
     BorderPane leftPane;
 
+    private Vector<Card> hand;
+
     public CardViewController(){
     }
 
@@ -50,10 +53,15 @@ public class CardViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    public void refresh() {
+        updateScene(hand);
+    }
+
     public void updateScene(Vector<Card> hand) {
         Platform.runLater(() -> {
-           updateCards(hand);
-           updateLeftAndRightPanes();
+            this.hand = hand;
+            updateCards(hand);
+            updateLeftAndRightPanes();
         });
     }
 
@@ -72,6 +80,9 @@ public class CardViewController implements Initializable {
         canBuild.setSpread(1);
 
         MoveModel move = new MoveModel(gameplayController.getPlayer().getId(), c.getId(), ACTION_TYPE.BUILD_CARD);
+        for (TradeAction trade : gameplayController.constructionZoneController.trades) {
+            move.addTrade(trade);
+        }
 
         if(MoveController.getInstance().playerCanMakeMove(move, gameplayController.getPlayer(), null, false).getKey()){
             canBuild.setColor(Color.LIGHTGREEN);

@@ -27,7 +27,7 @@ import java.util.function.BooleanSupplier;
 
 public class ConstructionZoneController {
     GameplayController gameplayController;
-    public Vector<TradeAction> trades;
+    public Vector<TradeAction> trades = new Vector<TradeAction>();
     ImageView focusedView;
 
     private Card selectedCard;
@@ -114,6 +114,7 @@ public class ConstructionZoneController {
             if( (card.getColor() == CARD_COLOR_TYPE.GRAY) || (card.getColor() == CARD_COLOR_TYPE.BROWN) && !SettingsController.autoTrade)
             {
                 button.setOnAction((e) -> {
+                    gameplayController.cardViewController.refresh();
                     clickCount.getAndIncrement();
                     selectedCard = card;
                     var iter = selectedCard.getCardEffect().getResources().entrySet().iterator();
