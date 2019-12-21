@@ -58,10 +58,29 @@ public class CardViewController implements Initializable {
         leftPane.setTop(imageView);
     }
 
+    private DropShadow generateCanBuild(Card c) {
+        DropShadow canBuild = new DropShadow();
+        canBuild.setOffsetY(0f);
+        canBuild.setOffsetX(0f);
+        canBuild.setWidth(5);
+        canBuild.setHeight(5);
+        canBuild.setSpread(1);
+
+        MoveModel move = new MoveModel(gameplayController.getPlayer().getId(), c.getId(), ACTION_TYPE.BUILD_CARD);
+
+        if(MoveController.getInstance().playerCanMakeMove(move, gameplayController.getPlayer(), null, false).getKey()){
+            canBuild.setColor(Color.LIGHTGREEN);
+        }
+        else{
+            canBuild.setColor(Color.RED);
+        }
+
+        return canBuild;
+    }
+
     private void updateCards(Vector<Card> hand){
         cardBox.getChildren().clear();
         int depth1 = 100;
-        int depth2 = 5;
         DropShadow borderGlow= new DropShadow();
         borderGlow.setOffsetY(0f);
         borderGlow.setOffsetX(0f);
@@ -70,13 +89,6 @@ public class CardViewController implements Initializable {
         borderGlow.setHeight(depth1);
 
         for (int i = 0 ; i < hand.size() ; i++) {
-            DropShadow canBuild = new DropShadow();
-            canBuild.setOffsetY(0f);
-            canBuild.setOffsetX(0f);
-            canBuild.setWidth(depth2);
-            canBuild.setHeight(depth2);
-            canBuild.setSpread(1);
-
             if (hand.get(i) != null) {
                 ImageView imageView = new ImageView(
                         AssetManager.getInstance().getImage(hand.get(i).getName().replaceAll(" ", "").toLowerCase() + ".png")
@@ -84,16 +96,7 @@ public class CardViewController implements Initializable {
                 imageView.setScaleX(0.95);
                 imageView.setScaleY(0.95);
                 Card c = hand.get(i);
-                MoveModel move = new MoveModel(gameplayController.getPlayer().getId(), c.getId(), ACTION_TYPE.BUILD_CARD);
-
-                if(MoveController.getInstance().playerCanMakeMove(move, gameplayController.getPlayer(), null, false).getKey()){
-                    canBuild.setColor(Color.LIGHTGREEN);
-                    imageView.setEffect(canBuild);
-                }
-                else{
-                    canBuild.setColor(Color.RED);
-                    imageView.setEffect(canBuild);
-                }
+                imageView.setEffect(generateCanBuild(c));
 
                 imageView.setOnMouseEntered( (e) -> {
                     imageView.setScaleX(1);
@@ -107,28 +110,32 @@ public class CardViewController implements Initializable {
 
                 imageView.setOnMouseClicked((e) ->  {
                     if (focusedView != imageView) {
-                        selectedCard = c;
                         if(focusedView != null) {
-                            focusedView.setEffect(canBuild);
+                            if (selectedCard != null) {
+                                focusedView.setEffect(generateCanBuild(selectedCard));
+                            }
+                            selectedCard = c;
                             focusedView.setScaleX(0.95);
                             focusedView.setScaleY(0.95);
                         }
+
+                        selectedCard = c;
                         focusedView = imageView;
                         imageView.setScaleX(1);
                         imageView.setScaleY(1);
                         focusedView.setEffect(borderGlow);
                     }
-                    else if (focusedView != null) {
-                        if(focusedView.getScaleX() == 1 && focusedView.getScaleY() == 1) {
-                            focusedView.setScaleX(0.95);
-                            focusedView.setScaleY(0.95);
-                            focusedView.setEffect(canBuild);
+                    else {
+                        if(imageView.getScaleX() == 1 && imageView.getScaleY() == 1) {
+                            imageView.setScaleX(0.95);
+                            imageView.setScaleY(0.95);
+                            imageView.setEffect(generateCanBuild(c));
                             selectedCard = null;
                         }
                         else{
-                            focusedView.setScaleX(1);
-                            focusedView.setScaleY(1);
-                            focusedView.setEffect(borderGlow);
+                            imageView.setScaleX(1);
+                            imageView.setScaleY(1);
+                            imageView.setEffect(borderGlow);
                         }
                     }
                 });
