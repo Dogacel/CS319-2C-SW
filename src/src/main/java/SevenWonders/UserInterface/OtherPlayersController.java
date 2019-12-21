@@ -38,7 +38,7 @@ public class OtherPlayersController implements Initializable {
             int columnIndex = 1;
             for ( PlayerModel player: allPlayers) {
 
-                if ( player.getId() != gameplayController.client.getID()) {
+                if (player.getId() != gameplayController.client.getID()) {
 
                     Parent root = AssetManager.getInstance().getSceneByNameForce("OtherPlayersDetailView.fxml");
 
@@ -58,7 +58,7 @@ public class OtherPlayersController implements Initializable {
 
                     //holds the war points of players
                     Label shieldLabel = (Label) root.lookup("#shieldLabel");
-                    shieldLabel.setText(player.getShields() +"");
+                    shieldLabel.setText(player.getShields() + "");
                     shieldLabel.toFront();
 
                     //image behind shield label
@@ -68,7 +68,7 @@ public class OtherPlayersController implements Initializable {
 
                     //holds the war points of players
                     Label warLabel = (Label) root.lookup("#warLabel");
-                    warLabel.setText(player.getWarPoints() +"");
+                    warLabel.setText(player.getWarPoints() + "");
                     warLabel.toFront();
 
                     //image behind war point label
@@ -124,60 +124,60 @@ public class OtherPlayersController implements Initializable {
                     Parent constructionRoot = AssetManager.getInstance().getSceneByNameForce("NeighborConstructionView.fxml");
                     Pane outerPane = (Pane) root.lookup("#outerPane");
                     outerPane.setStyle("");
-                    //initialize construction zone areas
-                    VBox brown = (VBox) constructionRoot.lookup("#brown");
-                    VBox gray = (VBox) constructionRoot.lookup("#gray");
-                    VBox blue = (VBox) constructionRoot.lookup("#blue");
-                    VBox green = (VBox) constructionRoot.lookup("#green");
-                    VBox yellow = (VBox) constructionRoot.lookup("#yellow");
-                    VBox purple = (VBox) constructionRoot.lookup("#purple");
-
-                    brown.getChildren().clear();
-                    gray.getChildren().clear();
-                    blue.getChildren().clear();
-                    green.getChildren().clear();
-                    yellow.getChildren().clear();
-                    purple.getChildren().clear();
-
                     if (player.getId() == gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getId()) {
+                        outerPane.getChildren().removeAll();
+                        HBox minusOnes = new HBox();
+                        minusOnes.setSpacing(-7.0);
+                        outerPane.getChildren().add(minusOnes);
+                        outerPane.setMaxHeight(50);
+                        outerPane.setVisible(true);
+                        for (int i = 0; i < gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getLostWarNumber(); i++) {
+                            minusOnes.getChildren().add(new ImageView(AssetManager.getInstance().getImage("warpoints_minus1.png")));
+                        }
+                        outerPane.setManaged(false);
+                        outerPane.setLayoutY(90);
+                        outerPane.setLayoutX(0);
                         otherPlayersPane.add(root, 0, 0);
-                        outerPane.getChildren().removeAll();
-                        HBox minusOnes = new HBox();
-                        minusOnes.setSpacing(-7.0);
-                        outerPane.getChildren().add(minusOnes);
-                        outerPane.setMaxHeight(50);
-                        outerPane.setVisible(true);
-                        for(int i = 0; i <
-                                gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getLostWarNumber(); i++)
-                        {
-                            minusOnes.getChildren().add(new ImageView(AssetManager.getInstance().getImage("warpoints_minus1.png")));
-                        }
-                        outerPane.setManaged(false);
-                        outerPane.setLayoutY(90);
-                        outerPane.setLayoutX(0);
                     } else if (player.getId() == gameplayController.gameModel.getRightPlayer(gameplayController.client.getID()).getId()) {
-                        otherPlayersPane.add(root, 5, 0);
                         outerPane.getChildren().removeAll();
                         HBox minusOnes = new HBox();
                         minusOnes.setSpacing(-7.0);
                         outerPane.getChildren().add(minusOnes);
                         outerPane.setMaxHeight(50);
                         outerPane.setVisible(true);
-                        for(int i = 0; i <
-                                gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getLostWarNumber(); i++)
-                        {
+                        for (int i = 0; i < gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getLostWarNumber(); i++) {
                             minusOnes.getChildren().add(new ImageView(AssetManager.getInstance().getImage("warpoints_minus1.png")));
                         }
                         outerPane.setManaged(false);
                         outerPane.setLayoutY(90);
                         outerPane.setLayoutX(0);
+                        otherPlayersPane.add(root, 5, 0);
                     } else {
-                        otherPlayersPane.add(root, columnIndex, 0);
+                        topPane.setOnMouseClicked((event) -> {
+                            if (outerPane.isVisible()) {
+                                outerPane.setVisible(false);
+                            } else {
+                                outerPane.setVisible(true);
+                            }
+                        });
+                        otherPlayersPane.add(root, 5 - ((6 + player.getId() - playerModel.getId()) % 7), 0);
                         outerGrid.add(constructionRoot, 0, 0);
-
+                        columnIndex--;
+                        //initialize construction zone areas
+                        VBox brown = (VBox) constructionRoot.lookup("#brown");
+                        VBox gray = (VBox) constructionRoot.lookup("#gray");
+                        VBox blue = (VBox) constructionRoot.lookup("#blue");
+                        VBox green = (VBox) constructionRoot.lookup("#green");
+                        VBox yellow = (VBox) constructionRoot.lookup("#yellow");
+                        VBox purple = (VBox) constructionRoot.lookup("#purple");
+                        brown.getChildren().clear();
+                        gray.getChildren().clear();
+                        blue.getChildren().clear();
+                        green.getChildren().clear();
+                        yellow.getChildren().clear();
+                        purple.getChildren().clear();
                         for (Card card : player.getConstructionZone().getConstructedCards()) {
                             CARD_COLOR_TYPE color = card.getColor();
-
                             if (color == CARD_COLOR_TYPE.BROWN) {
                                 brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
                             } else if (color == CARD_COLOR_TYPE.GRAY)
@@ -191,14 +191,6 @@ public class OtherPlayersController implements Initializable {
                             else if (color == CARD_COLOR_TYPE.PURPLE)
                                 purple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
                         }
-                        topPane.setOnMouseClicked((event) -> {
-                            if (outerPane.isVisible()) {
-                                outerPane.setVisible(false);
-                            } else {
-                                outerPane.setVisible(true);
-                            }
-                        });
-                        columnIndex++;
                     }
                 }
             }
