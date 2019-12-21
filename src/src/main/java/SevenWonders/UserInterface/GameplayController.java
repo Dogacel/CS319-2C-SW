@@ -33,7 +33,7 @@ public class GameplayController implements Initializable, IGameListener {
     Pair<Parent, Object> pair;
 
     @FXML
-    Pane constructionZonePane, otherPlayersViewPane, cardViewPane, gameplayToolbarPane;
+    Pane constructionZonePane, otherPlayersConstructionViewPane, otherPlayersConstructionPane, cardViewPane, gameplayToolbarPane, otherPlayersViewPane;
 
     public GameplayController() {
         gameModel = null;
@@ -67,6 +67,23 @@ public class GameplayController implements Initializable, IGameListener {
             constructionZoneController.updateScene(me);
             gameplayToolbarController.updateScene(me);
             otherPlayersController.updateScene(me);
+
+            otherPlayersViewPane.setOnMouseClicked((event) -> {
+                if (otherPlayersConstructionViewPane.isVisible()) {
+                    int visibleCount = 0;
+                    for (var child : otherPlayersConstructionPane.getChildren()) {
+                        if (child.isVisible()) {
+                            visibleCount++;
+                        }
+                    }
+                    if (visibleCount == 0) {
+                        otherPlayersConstructionViewPane.setVisible(false);
+                    }
+                }
+                else {
+                    otherPlayersConstructionViewPane.setVisible(true);
+                }
+            });
         });
     }
 
@@ -79,9 +96,11 @@ public class GameplayController implements Initializable, IGameListener {
         this.gameplayToolbarPane.getChildren().add(gameplayToolbarPane);
 
         pair = AssetManager.getInstance().getSceneAndController("OtherPlayersView.fxml");
-        Pane otherPlayersPane = (Pane) pair.getKey();
+        Pane otherPlayersViewPane = (Pane) pair.getKey().lookup("#otherPlayersPane");
+        otherPlayersConstructionPane = (Pane) pair.getKey().lookup("#otherPlayersConstructionPane");
         otherPlayersController = (OtherPlayersController) pair.getValue();
-        this.otherPlayersViewPane.getChildren().add(otherPlayersPane);
+        this.otherPlayersConstructionViewPane.getChildren().add(otherPlayersConstructionPane);
+        this.otherPlayersViewPane.getChildren().add(otherPlayersViewPane);
         otherPlayersController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("CardView.fxml");

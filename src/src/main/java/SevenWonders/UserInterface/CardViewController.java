@@ -10,15 +10,20 @@ import SevenWonders.SceneManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -137,9 +142,24 @@ public class CardViewController implements Initializable {
                             imageView.setScaleY(1);
                             imageView.setEffect(borderGlow);
                         }
+                    }});
+                    cardBox.getChildren().add(imageView);
+
+                    Tooltip tp = new Tooltip();
+                    String buildings = "";
+                    for (String s : c.getBuildingChain()) {
+                        buildings += s + ",";
                     }
-                });
-                cardBox.getChildren().add(imageView);
+                    if (buildings != "")
+                        buildings = buildings.substring(0, buildings.length() - 1);
+                    String requirements = "";
+                    for (var entry : c.getRequirements().entrySet()) {
+                        requirements += entry.getKey().name() + ": " + entry.getValue() + "\n";
+                    }
+                    tp.setText(c.getName() + ((buildings).equals("") ? "" : "\nChain: ") + buildings + ((requirements).equals("") ? "" : "\nRequirements:\n" + requirements));
+                    tp.setShowDelay(new Duration(250));
+                    Tooltip.install(imageView, tp);
+                
             }
         }
     }

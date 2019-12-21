@@ -16,11 +16,13 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Pair;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public class GameplayToolbarController {
@@ -32,8 +34,6 @@ public class GameplayToolbarController {
 
     ImageView wonder1, wonder2, wonder3;
 
-    @FXML
-    Label coinLabel;
 
     @FXML
     Button buildCardButton, buildWonderButton, readyButton, discardCardButton, useGodPowerButton;
@@ -49,6 +49,12 @@ public class GameplayToolbarController {
         }
         playerModel.setCurrentMove(move);
     }
+
+    @FXML
+    Label coinLabel, warPointLabel;
+
+    @FXML
+    HBox victoryPointsHBox;
 
     @FXML
     private void buildCardButtonClicked(MouseEvent event) {
@@ -136,24 +142,38 @@ public class GameplayToolbarController {
             currentMove = null;
 
             this.playerModel = playerModel;
-            wonder1 = new ImageView(AssetManager.getInstance().getImage(playerModel.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + "_1.png"));
-            wonder2 = new ImageView(AssetManager.getInstance().getImage(playerModel.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + "_2.png"));
-            wonder3 = new ImageView(AssetManager.getInstance().getImage(playerModel.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + "_3.png"));
-            wonder1Pane.setCenter(wonder1);
-            wonder2Pane.setCenter(wonder2);
-            wonder3Pane.setCenter(wonder3);
-
-            coinLabel.setText(playerModel.getGold() + "");
-
-            if(playerModel.getWonder().getCurrentStageIndex() == 1) {
-                wonder1Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");
-            }
-            if(playerModel.getWonder().getCurrentStageIndex() == 2) {
-                wonder2Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");
-            }
-            if(playerModel.getWonder().getCurrentStageIndex() == 3) {
-                wonder3Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");
-            }
+            updateWonder();
+            updateCoinAndWarPoints();
         });
+    }
+
+    private void updateWonder(){
+        wonder1 = new ImageView(AssetManager.getInstance().getImage(playerModel.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + "_1.png"));
+        wonder2 = new ImageView(AssetManager.getInstance().getImage(playerModel.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + "_2.png"));
+        wonder3 = new ImageView(AssetManager.getInstance().getImage(playerModel.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + "_3.png"));
+        wonder1Pane.setCenter(wonder1);
+        wonder2Pane.setCenter(wonder2);
+        wonder3Pane.setCenter(wonder3);
+
+        if(playerModel.getWonder().getCurrentStageIndex() == 1) {
+            wonder1Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");
+        }
+        if(playerModel.getWonder().getCurrentStageIndex() == 2) {
+            wonder2Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");
+        }
+        if(playerModel.getWonder().getCurrentStageIndex() == 3) {
+            wonder3Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");
+        }
+    }
+
+    private void updateCoinAndWarPoints() {
+        victoryPointsHBox.getChildren().clear();
+        coinLabel.setText(playerModel.getGold() + "");
+        warPointLabel.setText(playerModel.getWarPoints() + "");
+
+        for(int i = 0; i < playerModel.getLostWarNumber(); i++) {
+            ImageView imageView = new ImageView(AssetManager.getInstance().getImage("warpoint_minus1.png"));
+            victoryPointsHBox.getChildren().add(imageView);
+        }
     }
 }
