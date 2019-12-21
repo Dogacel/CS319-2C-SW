@@ -9,17 +9,13 @@ import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
@@ -31,7 +27,7 @@ import java.util.function.BooleanSupplier;
 
 public class ConstructionZoneController {
     GameplayController gameplayController;
-    Map<Card, RESOURCE_TYPE> trades;
+    public Vector<TradeAction> trades;
     ImageView focusedView;
 
     private Card selectedCard;
@@ -48,7 +44,7 @@ public class ConstructionZoneController {
 
     public void updateScene(PlayerModel playerModel) {
         Platform.runLater(() -> {
-            trades = new HashMap<>();
+            trades = new Vector<>();
             updatePlayerConstruction(playerModel);
             updateNeighborConstruction(gameplayController.getLeftPlayer(), leftNeighborConstructionPane);
             updateNeighborConstruction(gameplayController.getRightPlayer(), rightNeighborConstructionPane);
@@ -74,11 +70,6 @@ public class ConstructionZoneController {
                     imageView.setScaleY(1.5);
                 }
             });
-
-            Tooltip tp = new Tooltip();
-            tp.setText(card.getName());
-            tp.setShowDelay(new Duration(250));
-            Tooltip.install(imageView, tp);
 
             if(color == CARD_COLOR_TYPE.BROWN)
                 brown.getChildren().add(imageView);
@@ -120,31 +111,55 @@ public class ConstructionZoneController {
             button.getStylesheets().add(getClass().getResource("/css/ConstructionZone.css").toExternalForm());
             button.setStyle(button.getStyle() + "-fx-background-image: url('/images/cards/" + card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png' );");
 
-            if( (card.getColor() == CARD_COLOR_TYPE.GRAY) || (card.getColor() == CARD_COLOR_TYPE.BROWN))
+            if( (card.getColor() == CARD_COLOR_TYPE.GRAY) || (card.getColor() == CARD_COLOR_TYPE.BROWN) && !SettingsController.autoTrade)
             {
                 button.setOnAction((e) -> {
                     clickCount.getAndIncrement();
                     selectedCard = card;
-                    Map.Entry<RESOURCE_TYPE, Integer> entry = selectedCard.getCardEffect().getResources().entrySet().iterator().next();
-                   // RESOURCE_TYPE tradeResource = entry.getKey();
+                    var iter = selectedCard.getCardEffect().getResources().entrySet().iterator();
+                    Map.Entry<RESOURCE_TYPE, Integer> entry = iter.next();
+
                     if(selectedCard.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_RAW_MATERIAL || selectedCard.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_MANUFACTURED_GOODS){
                             if(entry.getValue() == 1){
                                 if( clickCount.get() % 2 == 1) {
+                                    trades.add(new TradeAction(gameplayController.getPlayer().getId(), playerModel.getId(), selectedCard.getId(), entry.getKey()));
                                     borderGlow.setColor(Color.DARKORANGE);
                                 }
                                 else{
+                                    TradeAction trade2 = new TradeAction(gameplayController.getPlayer().getId(), playerModel.getId(), selectedCard.getId(), entry.getKey());
+                                    for (int i = 0 ; i < trades.size() ; i++) {
+                                        if(trades.get(i).equals(trade2)) {
+                                            trades.remove(i);
+                                            break;
+                                        }
+                                    }
                                     borderGlow.setColor(Color.TRANSPARENT);
                                 }
                             }
                             else {
                                 borderGlow.setColor(Color.DARKORANGE);
                                 if(clickCount.get() % 3 == 1) {
+                                    trades.add(new TradeAction(gameplayController.getPlayer().getId(), playerModel.getId(), selectedCard.getId(), entry.getKey()));
                                     borderGlow.setOffsetX(-5);
                                 }
                                 else if(clickCount.get() % 3 == 2) {
+                                    trades.add(new TradeAction(gameplayController.getPlayer().getId(), playerModel.getId(), selectedCard.getId(), entry.getKey()));
                                     borderGlow.setOffsetX(0);
                                 }
                                 else {
+                                    TradeAction trade2 = new TradeAction(gameplayController.getPlayer().getId(), playerModel.getId(), selectedCard.getId(), entry.getKey());
+                                    for (int i = 0 ; i < trades.size() ; i++) {
+                                        if(trades.get(i).equals(trade2)) {
+                                            trades.remove(i);
+                                            break;
+                                        }
+                                    }
+                                    for (int i = 0 ; i < trades.size() ; i++) {
+                                        if(trades.get(i).equals(trade2)) {
+                                            trades.remove(i);
+                                            break;
+                                        }
+                                    }
                                     borderGlow.setColor(Color.TRANSPARENT);
                                     borderGlow.setOffsetX(0);
                                 }
@@ -152,14 +167,32 @@ public class ConstructionZoneController {
 
                     }
                     else if( card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_ONE_OF_TWO) {
+                        Map.Entry<RESOURCE_TYPE, Integer> entry2 = iter.next();
+                        assert  entry != entry2;
                         borderGlow.setColor(Color.DARKORANGE);
                         if(clickCount.get() % 3 == 1) {
+                            trades.add(new TradeAction(gameplayController.getPlayer().getId(), playerModel.getId(), selectedCard.getId(), entry.getKey()));
                             borderGlow.setOffsetX(-5);
                         }
                         else if(clickCount.get() % 3 == 2) {
+                            trades.add(new TradeAction(gameplayController.getPlayer().getId(), playerModel.getId(), selectedCard.getId(), entry2.getKey()));
+                            TradeAction trade2 = new TradeAction(gameplayController.getPlayer().getId(), playerModel.getId(), selectedCard.getId(), entry.getKey());
+                            for (int i = 0 ; i < trades.size() ; i++) {
+                                if(trades.get(i).equals(trade2)) {
+                                    trades.remove(i);
+                                    break;
+                                }
+                            }
                             borderGlow.setOffsetX(5);
                         }
                         else {
+                            TradeAction trade2 = new TradeAction(gameplayController.getPlayer().getId(), playerModel.getId(), selectedCard.getId(), entry2.getKey());
+                            for (int i = 0 ; i < trades.size() ; i++) {
+                                if(trades.get(i).equals(trade2)) {
+                                    trades.remove(i);
+                                    break;
+                                }
+                            }
                             borderGlow.setColor(Color.TRANSPARENT);
                             borderGlow.setOffsetX(0);
                         }

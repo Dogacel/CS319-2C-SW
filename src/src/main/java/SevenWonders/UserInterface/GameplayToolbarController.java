@@ -25,6 +25,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+import java.util.Set;
+
 public class GameplayToolbarController {
 
     PlayerModel playerModel;
@@ -44,8 +46,14 @@ public class GameplayToolbarController {
     private void updatePlayerMove(MoveModel move) {
         // TODO: Setting for auto trade
         var x = MoveController.getInstance().playerCanMakeMove(move, playerModel, new Pair<>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), SettingsController.autoTrade);
-        for (TradeAction trade : x.getValue()) {
-            move.addTrade(trade);
+        if (SettingsController.autoTrade) {
+            for (TradeAction trade : x.getValue()) {
+                move.addTrade(trade);
+            }
+        } else {
+            for (TradeAction tradeAction : gameplayController.constructionZoneController.trades) {
+                move.addTrade(tradeAction);
+            }
         }
         playerModel.setCurrentMove(move);
     }
