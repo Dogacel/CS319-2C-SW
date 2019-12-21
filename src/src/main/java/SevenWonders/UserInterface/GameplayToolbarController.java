@@ -8,8 +8,10 @@ import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
+import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.SoundManager;
+import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,10 +35,22 @@ public class GameplayToolbarController {
     ImageView wonder1, wonder2, wonder3;
 
     @FXML
+    Label coinLabel;
+
+    @FXML
     Button buildCardButton, buildWonderButton, readyButton, discardCardButton, useGodPowerButton;
 
     @FXML
     BorderPane wonder1Pane, wonder2Pane, wonder3Pane;
+
+    private void updatePlayerMove(MoveModel move) {
+        // TODO: Setting for auto trade
+        var x = MoveController.getInstance().playerCanMakeMove(move, playerModel, new Pair<>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), true);
+        for (TradeAction trade : x.getValue()) {
+            move.addTrade(trade);
+        }
+        playerModel.setCurrentMove(move);
+    }
 
     @FXML
     Label coinLabel, warPointLabel;
@@ -47,38 +61,40 @@ public class GameplayToolbarController {
     @FXML
     private void buildCardButtonClicked(MouseEvent event) {
         MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.BUILD_CARD);
-        playerModel.setCurrentMove(move);
+        updatePlayerMove(move);
         System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
     }
 
     @FXML
     private void buildWonderButtonClicked(MouseEvent event) {
         MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.UPGRADE_WONDER);
-        playerModel.setCurrentMove(move);
+        updatePlayerMove(move);
         System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
     }
 
     @FXML
     private void discardCardButtonClicked(MouseEvent event) {
         MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.DISCARD_CARD);
-        playerModel.setCurrentMove(move);
+        updatePlayerMove(move);
         System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
     }
 
     @FXML
     private void useGodPowerButtonClicked(MouseEvent event) {
         MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.USE_GOD_POWER);
-        playerModel.setCurrentMove(move);
+        updatePlayerMove(move);
         System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
     }
 
     @FXML
     private void readyButtonClicked(MouseEvent event) {
         if (playerModel.getCurrentMove()!= null) {
-            if (MoveController.getInstance().playerCanMakeMove(playerModel.getCurrentMove(), playerModel, new Pair<PlayerModel,PlayerModel>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), false)){
+            boolean canPlay = MoveController.getInstance().playerCanMakeMove(playerModel.getCurrentMove(), playerModel,
+                    new Pair<>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), false).getKey();
+            if (canPlay) {
                 currentMove = playerModel.getCurrentMove();
-            } else {
-                currentMove = new MoveModel(0,0,ACTION_TYPE.DISCARD_CARD);
+            } else if (!canPlay && currentMove == null) {
+                currentMove = new MoveModel(0, 0, ACTION_TYPE.DISCARD_CARD);
             }
             gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
             gameplayController.getClient().sendPlayerReadyRequest(true);
@@ -88,8 +104,8 @@ public class GameplayToolbarController {
     public void updateScene(PlayerModel playerModel) {
         Platform.runLater(() -> {
             String type = "";
-            if ( currentMove != null)
-            {
+
+            if (currentMove != null) {
                 Card playedCard = AssetManager.getInstance().getCardByID(currentMove.getSelectedCardID());
 
                 if( currentMove.getAction() == ACTION_TYPE.BUILD_CARD) {
@@ -124,6 +140,9 @@ public class GameplayToolbarController {
                     SoundManager.getInstance().playDiscardSound();
                 }
             }
+
+            currentMove = null;
+
             this.playerModel = playerModel;
             updateWonder();
             updateCoinAndWarPoints();

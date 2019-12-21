@@ -68,11 +68,11 @@ public class GameModel {
 
 
     public PlayerModel getLeftPlayer(int id){
-        return playerList[(id + 6) % 7];
+        return playerList[(id + 1) % 7];
     }
 
     public PlayerModel getRightPlayer(int id){
-        return playerList[(id + 1) % 7];
+        return playerList[(id + 6) % 7];
     }
 
 }
