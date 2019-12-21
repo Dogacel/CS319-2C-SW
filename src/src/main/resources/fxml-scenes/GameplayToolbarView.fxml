@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
@@ -15,7 +16,7 @@
 
 <AnchorPane prefHeight="90.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.GameplayToolbarController">
    <children>
-      <GridPane prefHeight="90.0" prefWidth="1280.0">
+      <GridPane alignment="CENTER" hgap="10.0" prefHeight="90.0" prefWidth="1280.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="439.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="420.0" minWidth="10.0" prefWidth="415.0" />
@@ -25,24 +26,31 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane fx:id="buttonGrid" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <GridPane fx:id="buttonGrid" hgap="3.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="75.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="95.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="70.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="buildWonderButton" mnemonicParsing="false" onMouseClicked="#buildWonderButtonClicked" prefHeight="50.0" prefWidth="50.0" stylesheets="@../css/Toolbar.css" GridPane.halignment="CENTER" />
-                  <Button fx:id="buildCardButton" mnemonicParsing="false" onMouseClicked="#buildCardButtonClicked" prefHeight="50.0" prefWidth="50.0" stylesheets="@../css/Toolbar.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                  <Button fx:id="discardCardButton" mnemonicParsing="false" onMouseClicked="#discardCardButtonClicked" prefHeight="50.0" prefWidth="50.0" stylesheets="@../css/Toolbar.css" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Button fx:id="useGodPowerButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#useGodPowerButtonClicked" prefHeight="50.0" prefWidth="50.0" stylesheets="@../css/Toolbar.css" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Button fx:id="readyButton" mnemonicParsing="false" onMouseClicked="#readyButtonClicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/Toolbar.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                  <Button fx:id="buildWonderButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#buildWonderButtonClicked" prefHeight="50.0" prefWidth="90.0" stylesheets="@../css/Toolbar.css" text="WONDER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="buildCardButton" mnemonicParsing="false" onMouseClicked="#buildCardButtonClicked" prefHeight="50.0" prefWidth="80.0" stylesheets="@../css/Toolbar.css" text="BUILD" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="readyButton" mnemonicParsing="false" onMouseClicked="#readyButtonClicked" prefHeight="70.0" prefWidth="100.0" stylesheets="@../css/Toolbar.css" text="READY" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Assassin$" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="discardCardButton" mnemonicParsing="false" onMouseClicked="#discardCardButtonClicked" prefHeight="50.0" prefWidth="90.0" stylesheets="@../css/Toolbar.css" text="DISCARD" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="useGodPowerButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#useGodPowerButtonClicked" prefHeight="50.0" prefWidth="80.0" stylesheets="@../css/Toolbar.css" text="GOD" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </GridPane>
             <GridPane GridPane.columnIndex="2">
                <columnConstraints>
