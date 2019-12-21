@@ -30,8 +30,6 @@ public class Server implements Runnable, INetworkListener {
 	private static Server serverInstance;
 	private static Thread serverThread;
 
-	private ServerView view;
-
 	private static Server createServerInstance() {
 		System.out.println(UPnP.getExternalIP());
 		System.out.println(UPnP.getLocalIP());
@@ -75,18 +73,6 @@ public class Server implements Runnable, INetworkListener {
 			worker = new Thread(this);
 		} catch (IOException exception) {
 			exception.printStackTrace();
-		}
-
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServerView.fxml"));
-			Scene scene = new Scene(loader.load(), 600, 800);
-			Stage stage = new Stage();
-			stage.setTitle("Server Debug");
-			stage.setScene(scene);
-			stage.show();
-			view = loader.getController();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -231,8 +217,6 @@ public class Server implements Runnable, INetworkListener {
 				gameController.updateCurrentMove(aiMove.getPlayerID(), aiMove);
 			}
 		}
-
-		view.update(this.gameModel);
 
 		gameController.playTurn();
 
