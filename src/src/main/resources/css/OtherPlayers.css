@@ -50,6 +50,12 @@
     -fx-stroke-width: 1px;
 }
 
+#wonderStage1, #wonderStage2, #wonderStage3{
+    -fx-border-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18);
+    -fx-border-radius: 5px 5px 5px 5px;
+    -fx-background-color:  rgba(0,0,0,0.8);
+    -fx-background-radius: 5px 5px 5px 5px;
+}
 
 #outerPane {
     -fx-border-width: 0 2px 2px 2px;

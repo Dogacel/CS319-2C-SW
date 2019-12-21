@@ -8,7 +8,7 @@
 
 <BorderPane stylesheets="@../css/OtherPlayers.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Pane id="outerPane" fx:id="outerPane" prefHeight="500.0" prefWidth="213.3" stylesheets="@../css/OtherPlayers.css" visible="false" BorderPane.alignment="CENTER">
+      <Pane id="outerPane" fx:id="outerPane" maxHeight="500.0" maxWidth="213.3" minHeight="50.0" minWidth="213.3" prefHeight="500.0" prefWidth="213.3" stylesheets="@../css/OtherPlayers.css" visible="false" BorderPane.alignment="CENTER">
          <children>
             <GridPane id="otherConstruction" fx:id="otherConstruction" prefHeight="500.0" prefWidth="213.3">
               <columnConstraints>
@@ -44,15 +44,15 @@
                   </Label>
                   <GridPane GridPane.rowIndex="1">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="99.0" minWidth="10.0" prefWidth="99.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="44.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="70.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="76.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="68.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="37.0" minHeight="37.0" prefHeight="37.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <StackPane prefHeight="101.0" prefWidth="133.0">
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
                            <children>
                               <ImageView id="coinImageView" fx:id="coinImageView" fitHeight="37.0" fitWidth="37.0" layoutX="5.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                               <Label id="coinLabel" fx:id="coinLabel" alignment="CENTER" prefHeight="40.0" prefWidth="89.0" text="Label" textFill="WHITE">
@@ -66,6 +66,16 @@
                            <children>
                               <ImageView id="shieldImageView" fx:id="shieldImageView" fitHeight="37.0" fitWidth="37.0" layoutX="48.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                               <Label id="shieldLabel" fx:id="shieldLabel" text="Label" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </StackPane>
+                        <StackPane layoutX="80.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2">
+                           <children>
+                              <ImageView id="warImageView" fx:id="warImageView1" fitHeight="37.0" fitWidth="37.0" layoutX="48.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                              <Label id="warLabel" fx:id="warLabel1" text="Label" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="25.0" />
                                  </font>

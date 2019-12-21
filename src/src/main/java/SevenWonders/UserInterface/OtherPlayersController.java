@@ -66,66 +66,71 @@ public class OtherPlayersController implements Initializable {
                     shieldImageView.setImage(AssetManager.getInstance().getImage("shield.png"));
                     shieldImageView.toBack();
 
+                    //holds the war points of players
+                    Label warLabel = (Label) root.lookup("#warLabel");
+                    warLabel.setText(player.getWarPoints() +"");
+                    warLabel.toFront();
+
+                    //image behind war point label
+                    ImageView warImageView = (ImageView) root.lookup("#shieldImageView");
+                    warImageView.setImage(AssetManager.getInstance().getImage("military.png"));
+                    warImageView.toBack();
+
                     /*
                     Wonder stage requirements images for each player's wonders
                      */
                     Label wonderStage1 = (Label) root.lookup("#wonderStage1");
-                    ImageView wonderStage1Image = new ImageView(AssetManager.getInstance().getImage("babylon3.png"));
-                    wonderStage1Image.setFitHeight(37);
-                    wonderStage1Image.setFitWidth(37);
+                    ImageView wonderStage1Image = new ImageView(AssetManager.getInstance().getImage(player.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + "_1.png"));
+                    wonderStage1Image.setFitHeight(34);
+                    wonderStage1Image.setFitWidth(64);
                     wonderStage1.setGraphic(wonderStage1Image);
 
                     Label wonderStage2 = (Label) root.lookup("#wonderStage2");
-                    ImageView wonderStage2Image = new ImageView(AssetManager.getInstance().getImage("babylon3.png"));
-                    wonderStage2Image.setFitHeight(37);
-                    wonderStage2Image.setFitWidth(37);
+                    ImageView wonderStage2Image = new ImageView(AssetManager.getInstance().getImage(player.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + "_2.png"));
+                    wonderStage2Image.setFitHeight(34);
+                    wonderStage2Image.setFitWidth(64);
                     wonderStage2.setGraphic(wonderStage2Image);
 
                     Label wonderStage3 = (Label) root.lookup("#wonderStage3");
-                    ImageView wonderStage3Image = new ImageView(AssetManager.getInstance().getImage("babylon3.png"));
-                    wonderStage3Image.setFitHeight(37);
-                    wonderStage3Image.setFitWidth(37);
+                    ImageView wonderStage3Image = new ImageView(AssetManager.getInstance().getImage(player.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + "_3.png"));
+                    wonderStage3Image.setFitHeight(34);
+                    wonderStage3Image.setFitWidth(64);
                     wonderStage3.setGraphic(wonderStage3Image);
+
+                    //Update other players wonder stage by highlighting them
+                    if (player.getWonder().getCurrentStageIndex() >= 1) {
+                        wonderStage1.setStyle("-fx-background-color: rgb(0,144,116)");
+                    } else {
+                        wonderStage1.setStyle("-fx-background-color: rgba(0,0,0,0.8)");
+                    }
+                    if (player.getWonder().getCurrentStageIndex() >= 2) {
+                        wonderStage2.setStyle("-fx-background-color: rgb(0,144,116)");
+                    } else {
+                        wonderStage2.setStyle("-fx-background-color: rgba(0,0,0,0.8)");
+                    }
+                    if (player.getWonder().getCurrentStageIndex() >= 3) {
+                        wonderStage3.setStyle("-fx-background-color: rgb(0,144,116);");
+                    } else {
+                        wonderStage3.setStyle("-fx-background-color: rgba(0,0,0,0.8)");
+                    }
 
                     //add background image according to the user wonder
                     Pane topPane = (Pane) root.lookup("#topPane");
                     BackgroundImage backgroundImage = new BackgroundImage(AssetManager.getInstance().getImage(player.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + ".png"),
-                            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT);
+                            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
                     topPane.setBackground(new Background(backgroundImage));
 
                     GridPane outerGrid = (GridPane) root.lookup("#otherConstruction");
                     Parent constructionRoot = AssetManager.getInstance().getSceneByNameForce("NeighborConstructionView.fxml");
                     Pane outerPane = (Pane) root.lookup("#outerPane");
                     outerPane.setStyle("");
-
-                    if ( player.getId() == gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getId()) {
-                        otherPlayersPane.add(root, 0, 0);
-
-                    }
-                    else if ( player.getId() == gameplayController.gameModel.getRightPlayer(gameplayController.client.getID()).getId()) {
-                        otherPlayersPane.add(root, 5, 0);
-                    }
-                    else{
-                        topPane.setOnMouseClicked((event) -> {
-                            if (outerPane.isVisible()) {
-                                outerPane.setVisible(false);
-                            }
-                            else {
-                                outerPane.setVisible(true);
-                            }
-                        });
-                        otherPlayersPane.add(root, columnIndex ,0);
-                        outerGrid.add(constructionRoot,0,0);
-                        columnIndex++;
-                    }
-
                     //initialize construction zone areas
                     VBox brown = (VBox) constructionRoot.lookup("#brown");
-                    VBox gray = (VBox)constructionRoot.lookup("#gray");
-                    VBox blue = (VBox)constructionRoot.lookup("#blue");
-                    VBox green = (VBox)constructionRoot.lookup("#green");
-                    VBox yellow = (VBox)constructionRoot.lookup("#yellow");
-                    VBox purple = (VBox)constructionRoot.lookup("#purple");
+                    VBox gray = (VBox) constructionRoot.lookup("#gray");
+                    VBox blue = (VBox) constructionRoot.lookup("#blue");
+                    VBox green = (VBox) constructionRoot.lookup("#green");
+                    VBox yellow = (VBox) constructionRoot.lookup("#yellow");
+                    VBox purple = (VBox) constructionRoot.lookup("#purple");
 
                     brown.getChildren().clear();
                     gray.getChildren().clear();
@@ -134,26 +139,69 @@ public class OtherPlayersController implements Initializable {
                     yellow.getChildren().clear();
                     purple.getChildren().clear();
 
-                    for(Card card: player.getConstructionZone().getConstructedCards()){
-                        CARD_COLOR_TYPE color = card.getColor();
-
-                        if(color == CARD_COLOR_TYPE.BROWN) {
-                            brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                    if (player.getId() == gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getId()) {
+                        otherPlayersPane.add(root, 0, 0);
+                        outerPane.getChildren().removeAll();
+                        HBox minusOnes = new HBox();
+                        minusOnes.setSpacing(-7.0);
+                        outerPane.getChildren().add(minusOnes);
+                        outerPane.setMaxHeight(50);
+                        outerPane.setVisible(true);
+                        for(int i = 0; i <
+                                gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getLostWarNumber(); i++)
+                        {
+                            minusOnes.getChildren().add(new ImageView(AssetManager.getInstance().getImage("warpoints_minus1.png")));
                         }
-                        else if(color == CARD_COLOR_TYPE.GRAY)
-                            gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
-                        else if(color == CARD_COLOR_TYPE.BLUE)
-                            blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
-                        else if(color == CARD_COLOR_TYPE.GREEN)
-                            green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
-                        else if( (color == CARD_COLOR_TYPE.YELLOW))
-                            yellow.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
-                        else if( color == CARD_COLOR_TYPE.PURPLE)
-                            purple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                        outerPane.setManaged(false);
+                        outerPane.setLayoutY(90);
+                        outerPane.setLayoutX(0);
+                    } else if (player.getId() == gameplayController.gameModel.getRightPlayer(gameplayController.client.getID()).getId()) {
+                        otherPlayersPane.add(root, 5, 0);
+                        outerPane.getChildren().removeAll();
+                        HBox minusOnes = new HBox();
+                        minusOnes.setSpacing(-7.0);
+                        outerPane.getChildren().add(minusOnes);
+                        outerPane.setMaxHeight(50);
+                        outerPane.setVisible(true);
+                        for(int i = 0; i <
+                                gameplayController.gameModel.getLeftPlayer(gameplayController.client.getID()).getLostWarNumber(); i++)
+                        {
+                            minusOnes.getChildren().add(new ImageView(AssetManager.getInstance().getImage("warpoints_minus1.png")));
+                        }
+                        outerPane.setManaged(false);
+                        outerPane.setLayoutY(90);
+                        outerPane.setLayoutX(0);
+                    } else {
+                        otherPlayersPane.add(root, columnIndex, 0);
+                        outerGrid.add(constructionRoot, 0, 0);
+
+                        for (Card card : player.getConstructionZone().getConstructedCards()) {
+                            CARD_COLOR_TYPE color = card.getColor();
+
+                            if (color == CARD_COLOR_TYPE.BROWN) {
+                                brown.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                            } else if (color == CARD_COLOR_TYPE.GRAY)
+                                gray.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                            else if (color == CARD_COLOR_TYPE.BLUE)
+                                blue.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                            else if (color == CARD_COLOR_TYPE.GREEN)
+                                green.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                            else if ((color == CARD_COLOR_TYPE.YELLOW))
+                                yellow.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                            else if (color == CARD_COLOR_TYPE.PURPLE)
+                                purple.getChildren().add(new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png")));
+                        }
+                        topPane.setOnMouseClicked((event) -> {
+                            if (outerPane.isVisible()) {
+                                outerPane.setVisible(false);
+                            } else {
+                                outerPane.setVisible(true);
+                            }
+                        });
+                        columnIndex++;
                     }
                 }
             }
         });
-
     }
 }
