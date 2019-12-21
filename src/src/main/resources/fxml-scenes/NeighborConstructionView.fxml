@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
 <GridPane fx:id="constGrid" prefHeight="500.0" prefWidth="213.33" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
@@ -13,11 +16,32 @@
     <RowConstraints minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox fx:id="brown" alignment="TOP_RIGHT" minHeight="50.0" prefHeight="52.0" prefWidth="107.0" />
-      <VBox fx:id="gray" minHeight="50.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" />
-      <VBox fx:id="blue" alignment="TOP_RIGHT" minHeight="0.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
-      <VBox fx:id="green" minHeight="0.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <VBox fx:id="yellow" alignment="TOP_RIGHT" minHeight="0.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2" />
-      <VBox fx:id="purple" minHeight="0.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <VBox fx:id="brown" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin></VBox>
+      <VBox fx:id="gray" prefHeight="200.0" prefWidth="100.0" spacing="2.0" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin></VBox>
+      <VBox fx:id="blue" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="2.0" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets right="5.0" />
+         </GridPane.margin></VBox>
+      <VBox fx:id="green" prefHeight="200.0" prefWidth="100.0" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin></VBox>
+      <VBox fx:id="yellow" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="2.0" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="5.0" />
+         </GridPane.margin></VBox>
+      <VBox fx:id="purple" prefHeight="200.0" prefWidth="100.0" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin></VBox>
    </children>
+   <padding>
+      <Insets left="5.0" right="5.0" />
+   </padding>
 </GridPane>

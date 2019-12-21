@@ -1,0 +1,7 @@
+.toggle-button{
+    -fx-pref-height: 45px;
+    -fx-pref-width: 105px;
+    -fx-border-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18);
+    -fx-border-width: 0px;
+    -fx-background-color: transparent;
+}

@@ -25,17 +25,19 @@ public class OtherPlayersController implements Initializable {
     public GameplayController gameplayController;
 
     @FXML
-    private GridPane otherPlayersPane;
+    private GridPane otherPlayersConstructionPane, otherPlayersPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
+
     public void updateScene( PlayerModel playerModel){
         Platform.runLater(() -> {
+            otherPlayersConstructionPane.getChildren().clear();
             otherPlayersPane.getChildren().clear();
 
             PlayerModel[] allPlayers = gameplayController.gameModel.getPlayerList();
-            int columnIndex = 1;
+            int columnIndex = 4;
             for ( PlayerModel player: allPlayers) {
 
                 if (player.getId() != gameplayController.client.getID()) {

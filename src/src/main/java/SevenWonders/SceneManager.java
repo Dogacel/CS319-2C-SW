@@ -5,6 +5,7 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -27,12 +28,22 @@ public class SceneManager {
 
     public void changeScene(String sceneName) {
         Parent root = AssetManager.getInstance().getSceneByName(sceneName);
+        SoundManager.getInstance();
         Scene scene = stage.getScene();
         if (scene == null) {
             scene = new Scene(root);
             stage.setScene(scene);
         } else {
             scene.setRoot(root);
+            if ( sceneName.equals("Lobby.fxml")){
+                System.out.println("In first if");
+                scene.setOnKeyPressed(e -> {
+                    if (e.getCode() == KeyCode.S) {
+                        System.out.println("In second if");
+                        SoundManager.getInstance().startTheGameAlready();
+                    }
+                });
+            }
         }
        Image image = new Image("images/tokens/arrow.png");
        scene.setCursor(new ImageCursor(image));

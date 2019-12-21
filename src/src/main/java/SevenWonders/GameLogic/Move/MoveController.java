@@ -7,7 +7,6 @@ import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
-import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.util.Pair;
 
@@ -20,6 +19,9 @@ public class MoveController {
     //variables
     private static MoveController moveControllerInstance = null;
 
+    private Pair<Integer, Vector<TradeAction>> min(Pair<Integer, Vector<TradeAction>> a, Pair<Integer, Vector<TradeAction>> b) {
+        return a.getKey() < b.getKey() ? a : b;
+    }
     //methods
     public static MoveController getInstance() {
         if (moveControllerInstance == null) {
@@ -28,14 +30,12 @@ public class MoveController {
         return moveControllerInstance;
     }
 
-    public static Vector<TradeAction> autoTrades = null;
 
-
-    public boolean playerCanMakeMove(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours, boolean autoTrade) {
+    public Pair<Boolean, Vector<TradeAction>> playerCanMakeMove(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours, boolean autoTrade) {
 
         ACTION_TYPE action = moveModel.getAction();
         if ( !playerCanMakeTheTrade( moveModel, currentPlayer, neighbours)) {
-            return false;
+            return new Pair<>(false, new Vector<>());
         }
         if (!autoTrade) {
             neighbours = null;
@@ -52,7 +52,7 @@ public class MoveController {
                 break;
             default: break;
         }
-        return false;
+        return new Pair<>(false, new Vector<>());
     }
 
     private boolean playerCanMakeTheTrade( MoveModel move, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours) {
@@ -116,21 +116,22 @@ public class MoveController {
         return true;
     }
 
-    public boolean playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades) {
-        return playerResourceCost(requiredResources, currentPlayer, trades, null) == 0;
+    public Pair<Boolean, Vector<TradeAction>> playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades) {
+        var x = playerResourceCost(requiredResources, currentPlayer, trades, null);
+        return new Pair<>(x.getKey() == 0, x.getValue());}
+
+    public Pair<Boolean, Vector<TradeAction>> playerHasEnoughResourcesAutoTrade( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades, Pair<PlayerModel, PlayerModel> neighbors) {
+        var x = playerResourceCost(requiredResources, currentPlayer, trades, neighbors);
+        return new Pair<>(x.getKey() <= currentPlayer.getGold(), x.getValue());
     }
 
-    public boolean playerHasEnoughResourcesAutoTrade( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades, Pair<PlayerModel, PlayerModel> neighbors) {
-        return playerResourceCost(requiredResources, currentPlayer, trades, neighbors) <= currentPlayer.getGold();
-    }
-
-    public int playerResourceCost( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades, Pair<PlayerModel, PlayerModel> neighbors) {
+    public Pair<Integer, Vector<TradeAction>> playerResourceCost( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades, Pair<PlayerModel, PlayerModel> neighbors) {
         Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
 
         /*to deep clone a map */
         for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
             if ( entry.getKey() != RESOURCE_TYPE.GOLD) {
-                clonedResourceMap.put(entry.getKey(),entry.getValue().intValue());
+                clonedResourceMap.put(entry.getKey(), entry.getValue());
             }
         }
 
@@ -149,7 +150,7 @@ public class MoveController {
         }
         // If the trades were enough, just return true
         if ( clonedResourceMap.isEmpty()) {
-            return 0;
+            return new Pair<>(0, new Vector<>());
         }
 
         // Check wonder resource
@@ -184,7 +185,7 @@ public class MoveController {
         }
         /*If the non-choice cards provide enough resources, return true*/
         if ( clonedResourceMap.isEmpty()) {
-            return 0;
+            return new Pair<>(0, new Vector<>());
         }
         //If non-choice cards are not enough, must look at choice cards
         Vector<Card> choiceCards = new Vector<>();
@@ -202,7 +203,75 @@ public class MoveController {
         return playerHasEnoughResourcesWitChoiceCards( choiceCards, choiceCards.size() - 1, clonedResourceMap, currentPlayer, neighbors);
     }
 
-    public int minimumTradeCost(Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
+
+    /**
+     *  A recursive method for understanding if choice cards provide enough resources.
+     * @param choiceCards all the choice cards that the user have in their constructionZone
+     * @param begin size of the choiceCard vector
+     * @param map resources that user requires to perform given action
+     * @return true if choice cards provide necessary resources, false if not.
+     */
+    private Pair<Integer, Vector<TradeAction>> playerHasEnoughResourcesWitChoiceCards(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map, PlayerModel me, Pair<PlayerModel, PlayerModel> neighbors) {
+        if (begin == -1) {
+            // gold ?
+            if (neighbors == null) {
+                return map.isEmpty() ? new Pair<>(0, new Vector<>()) : new Pair<>(999, new Vector<>());
+            }
+            return map.isEmpty() ? new Pair<>(0, new Vector<>()) : minimumTradeCost(map, me, neighbors);
+        }
+        Card card = choiceCards.get(begin);
+        switch (card.getCardEffect().getEffectType()) {
+            case ONE_OF_EACH_MANUFACTURED_GOODS:
+                var loomCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.LOOM, me, neighbors);
+                var glassCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.GLASS, me, neighbors);
+                var papyrusCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.PAPYRUS, me, neighbors);
+                return min(loomCost, min(glassCost, papyrusCost));
+            case ONE_OF_EACH_RAW_MATERIAL:
+                var woodCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.WOOD, me, neighbors);
+                var brickCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.BRICK, me, neighbors);
+                var stoneCost =  recursive(choiceCards, begin, map, RESOURCE_TYPE.STONE, me, neighbors);
+                var oreCost =  recursive(choiceCards, begin, map, RESOURCE_TYPE.ORE, me, neighbors);
+                return min(min(woodCost, brickCost), min(stoneCost, oreCost));
+            case PRODUCE_ONE_OF_TWO:
+                Map<RESOURCE_TYPE, Integer> tempMap = card.getCardEffect().getResources();
+                var bestCost = new Pair<Integer, Vector<TradeAction>>(999, new Vector<>());
+                for (var k : tempMap.keySet()) {
+                   var cost = recursive(choiceCards, begin, map, k, me, neighbors);
+                   if (bestCost.getKey() > cost.getKey()) {
+                       bestCost = cost;
+                   }
+                }
+                return bestCost;
+        }
+        return new Pair<>(999, new Vector<>());
+    }
+
+    private Pair<Integer, Vector<TradeAction>> recursive(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map, RESOURCE_TYPE resource_type, PlayerModel me, Pair<PlayerModel, PlayerModel> neighbors) {
+        int resourceCount = map.getOrDefault(resource_type, 0);
+        if (resourceCount > 1) {
+            map.put(resource_type, resourceCount-1);
+        } else if (resourceCount == 1 || resourceCount == 0){
+            map.remove(resource_type);
+        }
+        Pair<Integer, Vector<TradeAction>> cost  = playerHasEnoughResourcesWitChoiceCards(choiceCards, begin-1, map, me, neighbors);
+        if (resourceCount > 0){
+            map.put(resource_type, resourceCount);
+        }
+        return cost;
+    }
+
+
+    public Pair<Integer, Vector<TradeAction>> minimumTradeCost(Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
+
+        Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
+
+        /*to deep clone a map */
+        for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
+            if ( entry.getKey() != RESOURCE_TYPE.GOLD) {
+                clonedResourceMap.put(entry.getKey(), entry.getValue());
+            }
+        }
+
         boolean leftDiscount = false, rightDiscount = false, goodDiscount = false;
         for (Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
             if (card.getCardEffect().getEffectType() == CARD_EFFECT_TYPE.LEFT_RAW_MATERIAL_TRADE_DISCOUNT) {
@@ -218,15 +287,15 @@ public class MoveController {
         for (Card card : neighbors.getKey().getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
                 if (leftDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
-                } else {
                     possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getKey().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
                 }
             } else if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
                 if (goodDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
-                } else {
                     possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getKey().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getKey().getId()));
                 }
             }
         }
@@ -234,146 +303,137 @@ public class MoveController {
         for (Card card : neighbors.getValue().getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.BROWN) {
                 if (rightDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
-                } else {
                     possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getValue().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
                 }
             } else if (card.getColor() == CARD_COLOR_TYPE.GRAY) {
                 if (goodDiscount) {
-                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
-                } else {
                     possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 1), neighbors.getValue().getId()));
+                } else {
+                    possibleTradeAndCosts.add(new Pair<>(new Pair<>(card, 2), neighbors.getValue().getId()));
                 }
             }
         }
 
-        return minimumTradeCostOfCards(currentPlayer, requiredResources, possibleTradeAndCosts);
+        return minimumTradeCostOfCards(currentPlayer, clonedResourceMap, possibleTradeAndCosts, 1);
     }
 
 
-    private int minimumTradeCostOfCards(PlayerModel me, Map<RESOURCE_TYPE, Integer> requiredResources, Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts) {
+    private Pair<Integer, Vector<TradeAction>> minimumTradeCostOfCards(PlayerModel me, Map<RESOURCE_TYPE, Integer> requiredResources, Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts, int level) {
+
+        Map<RESOURCE_TYPE,Integer> clonedResourceMap = new HashMap<>(); //a map to be cloned
+
+        /*to deep clone a map */
+        for (Map.Entry<RESOURCE_TYPE, Integer> entry : requiredResources.entrySet()) {
+            if ( entry.getKey() != RESOURCE_TYPE.GOLD) {
+                clonedResourceMap.put(entry.getKey(), entry.getValue());
+            }
+        }
+
+        if (clonedResourceMap.isEmpty()) {
+            return new Pair<>(0, new Vector<>());
+        } else if (level == 3) {
+            return new Pair<>(999, new Vector<>());
+        }
         int cost = 0;
 
-        if (requiredResources.isEmpty()) {
-            return 0;
-        }
-        autoTrades = new Vector<>();
+        Vector<TradeAction> trades = new Vector<>();
         for (var trade : possibleTradeAndCosts) {
-            if (trade.getKey().getValue() == 1) {
-                for (Map.Entry<RESOURCE_TYPE, Integer> resource : trade.getKey().getKey().getCardEffect().getResources().entrySet()) {
-                    int required = requiredResources.getOrDefault(resource.getKey(), 0);
+            if (trade.getKey().getValue() == level) {
+                if (trade.getKey().getKey().getCardEffect().getEffectType() == CARD_EFFECT_TYPE.PRODUCE_ONE_OF_TWO) {
+
+                } else {
+                    Map.Entry<RESOURCE_TYPE, Integer> resource = trade.getKey().getKey().getCardEffect().getResources().entrySet().iterator().next();
+                    int required = clonedResourceMap.getOrDefault(resource.getKey(), 0);
                     if (required > 0) {
                         if (required > resource.getValue()) {
-                            cost += resource.getValue();
                             for (int i = 0 ; i < resource.getValue() ; i++) {
-                                autoTrades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
+                                trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
+                                cost += level;
                             }
-                            requiredResources.put(resource.getKey(), required - resource.getValue());
+                            clonedResourceMap.put(resource.getKey(), required - resource.getValue());
                         } else {
-                            cost += required;
                             for (int i = 0 ; i < required ; i++) {
-                                autoTrades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
+                                trades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
+                                cost += level;
                             }
-                            requiredResources.remove(resource.getKey());
+                            clonedResourceMap.remove(resource.getKey());
                         }
                     }
                 }
             }
         }
 
-        for (var trade : possibleTradeAndCosts) {
-            if (trade.getKey().getValue() == 2) {
-                for (Map.Entry<RESOURCE_TYPE, Integer> resource : trade.getKey().getKey().getCardEffect().getResources().entrySet()) {
-                    int required = requiredResources.getOrDefault(resource.getKey(), 0);
-                    if (required > 0) {
-                        if (required > resource.getValue()) {
-                            cost += 2 * resource.getValue();
-                            for (int i = 0 ; i < resource.getValue() ; i++) {
-                                autoTrades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
-                            }
-                            requiredResources.put(resource.getKey(), required - resource.getValue());
-                        } else {
-                            cost += 2 * required;
-                            for (int i = 0 ; i < required ; i++) {
-                                autoTrades.add(new TradeAction(me.getId(), trade.getValue(), trade.getKey().getKey().getId(), resource.getKey()));
-                            }
-                            requiredResources.remove(resource.getKey());
-                        }
-                    }
-                }
+        if (clonedResourceMap.isEmpty()) {
+            return new Pair<>(cost, trades);
+        }
+
+        var mco1 = minimizeChooseOne(me, clonedResourceMap, possibleTradeAndCosts, possibleTradeAndCosts.size() - 1, level);
+        cost += mco1.getKey();
+        for (var trade : mco1.getValue()) {
+            trades.add(new TradeAction(me.getId(), trade.getTradedPlayerID(), trade.getSelectedCardID(), trade.getSelectedResource()));
+            RESOURCE_TYPE resource = trade.getSelectedResource();
+            int resourceCount = clonedResourceMap.getOrDefault(resource, 0);
+            if (resourceCount > 1) {
+                clonedResourceMap.put(resource, resourceCount-1);
+            } else if (resourceCount == 1 || resourceCount == 0){
+                clonedResourceMap.remove(resource);
             }
         }
 
-        if (requiredResources.isEmpty()) {
-            return cost;
+        if (clonedResourceMap.isEmpty()) {
+            return new Pair<>(cost, trades);
         }
 
-        return 999;
+        return new Pair<>(999, new Vector<>());
     }
 
-    /**
-     *  A recursive method for understanding if choice cards provide enough resources.
-     * @param choiceCards all the choice cards that the user have in their constructionZone
-     * @param begin size of the choiceCard vector
-     * @param map resources that user requires to perform given action
-     * @return true if choice cards provide necessary resources, false if not.
-     */
-    private int playerHasEnoughResourcesWitChoiceCards(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map, PlayerModel me, Pair<PlayerModel, PlayerModel> neighbors) {
-        if (begin == -1) {
-            // gold ?
-            if (neighbors == null) {
-                return map.isEmpty() ? 0 : 999;
+    private Pair<Integer, Vector<TradeAction>> minimizeChooseOne(PlayerModel me, Map<RESOURCE_TYPE, Integer> requiredResources, Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts, int begin, int cost) {
+        if (begin == -1 || requiredResources.isEmpty()) {
+            return requiredResources.isEmpty() ? new Pair<>(0, new Vector<>()) : minimumTradeCostOfCards(me, requiredResources, possibleTradeAndCosts, cost + 1);
+        }
+
+        var x = possibleTradeAndCosts.get(begin);
+        Card card = x.getKey().getKey();
+
+        if (card.getCardEffect().getEffectType() != CARD_EFFECT_TYPE.PRODUCE_ONE_OF_TWO || x.getKey().getValue() != cost) {
+            return minimizeChooseOne(me, requiredResources, possibleTradeAndCosts, begin-1, cost);
+        }
+
+        Map<RESOURCE_TYPE, Integer> tempMap = card.getCardEffect().getResources();
+        var bestCost = new Pair<Integer, Vector<TradeAction>>(999, new Vector<>());
+        for (var k : tempMap.keySet()) {
+            var bcost = recursiveTrade(me, requiredResources, possibleTradeAndCosts, begin, k, cost);
+            if (bestCost.getKey() > bcost.getKey()) {
+                bestCost = bcost;
             }
-            return map.isEmpty() ? 0 : minimumTradeCost(map, me, neighbors);
         }
-        Card card = choiceCards.get(begin);
-        switch (card.getCardEffect().getEffectType()) {
-            case ONE_OF_EACH_MANUFACTURED_GOODS:
-                int loomCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.LOOM, me, neighbors);
-                int glassCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.GLASS, me, neighbors);
-                int papyrusCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.PAPYRUS, me, neighbors);
-                return Math.min(loomCost, Math.min(glassCost, papyrusCost));
-            case ONE_OF_EACH_RAW_MATERIAL:
-                int woodCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.WOOD, me, neighbors);
-                int brickCost = recursive(choiceCards, begin, map, RESOURCE_TYPE.BRICK, me, neighbors);
-                int stoneCost =  recursive(choiceCards, begin, map, RESOURCE_TYPE.STONE, me, neighbors);
-                int oreCost =  recursive(choiceCards, begin, map, RESOURCE_TYPE.ORE, me, neighbors);
-                return Math.min(Math.min(woodCost, brickCost), Math.min(stoneCost, oreCost));
-            case PRODUCE_ONE_OF_TWO:
-                Map<RESOURCE_TYPE, Integer> tempMap = card.getCardEffect().getResources();
-                int bestCost = 999;
-                for (var k : tempMap.keySet()) {
-                   int cost = recursive(choiceCards, begin, map, k, me, neighbors);
-                   if (bestCost > cost) {
-                       bestCost = cost;
-                   }
-                }
-                return bestCost;
-        }
-        return 999;
+        return bestCost;
+
     }
 
-    /**
-     * A helper method that contains the body of the recursion
-     * @param choiceCards
-     * @param begin
-     * @param map
-     * @param resource_type
-     * @return
-     */
-    private int recursive(Vector<Card> choiceCards, int begin,  Map<RESOURCE_TYPE,Integer> map, RESOURCE_TYPE resource_type, PlayerModel me, Pair<PlayerModel, PlayerModel> neighbors) {
-        int resourceCount = map.getOrDefault(resource_type, 0);
+    private Pair<Integer, Vector<TradeAction>> recursiveTrade(PlayerModel me, Map<RESOURCE_TYPE, Integer> requiredResources,
+                                                              Vector<Pair<Pair<Card, Integer>, Integer>> possibleTradeAndCosts, int begin, RESOURCE_TYPE resource, int bcost) {
+        int resourceCount = requiredResources.getOrDefault(resource, 0);
         if (resourceCount > 1) {
-            map.put(resource_type, resourceCount-1);
-        } else if (resourceCount == 1 || resourceCount == 0){
-            map.remove(resource_type);
+            requiredResources.put(resource, resourceCount-1);
+        } else if (resourceCount == 1){
+            requiredResources.remove(resource);
+        } else if (resourceCount == 0) {
+            return minimizeChooseOne(me, requiredResources, possibleTradeAndCosts, begin-1, bcost);
         }
-        int cost  = playerHasEnoughResourcesWitChoiceCards(choiceCards, begin-1, map, me, neighbors);
-        if (resourceCount > 0){
-            map.put(resource_type, resourceCount);
-        }
+        Pair<Integer, Vector<TradeAction>> ccost = minimizeChooseOne(me, requiredResources, possibleTradeAndCosts, begin-1, bcost);
+
+        requiredResources.put(resource, resourceCount);
+
+        var y = possibleTradeAndCosts.get(begin);
+        ccost.getValue().add(new TradeAction(me.getId(), y.getValue(), y.getKey().getKey().getId(), resource));
+        Pair<Integer, Vector<TradeAction>> cost = new Pair<>(ccost.getKey() + bcost, ccost.getValue());
         return cost;
+
     }
+
 
     private boolean checkConstructionZone(MoveModel moveModel, PlayerModel currentPlayer) {
         for ( Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
@@ -387,11 +447,15 @@ public class MoveController {
     /**
      * check if a player can build a card
      * @param moveModel current move
-     * @param currentPlayer curren player
+     * @param currentPlayer current player
      * @return true if player can build a card, false otherwise
      */
-    private boolean playerCanPlayBuildCard(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
-         return checkConstructionZone( moveModel, currentPlayer) && playerHasEnoughResourcesAutoTrade( AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades(), neighbors);
+    private Pair<Boolean, Vector<TradeAction>> playerCanPlayBuildCard(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
+        if (haveBuildingChain(moveModel, currentPlayer)){
+            return new Pair<>(true, new Vector<>());
+        }
+        var x = playerHasEnoughResourcesAutoTrade( AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades(), neighbors);
+        return new Pair<>(checkConstructionZone(moveModel, currentPlayer) && x.getKey(), x.getValue());
     }
 
     /**
@@ -400,8 +464,8 @@ public class MoveController {
      * @param currentPlayer current player
      * @return true if player can discard, false otherwise
      */
-    private boolean playerCanDiscardCard(MoveModel moveModel, PlayerModel currentPlayer) {
-        return currentPlayer.getHand().contains(AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()));
+    private Pair<Boolean, Vector<TradeAction>> playerCanDiscardCard(MoveModel moveModel, PlayerModel currentPlayer) {
+        return new Pair<>(currentPlayer.getHand().contains(AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID())), new Vector<>());
     }
 
     /**
@@ -410,7 +474,21 @@ public class MoveController {
      * @param currentPlayer current player
      * @return true if player can upgrade wonder, false otherwise
      */
-    private boolean playerCanBuildWonder(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
-        return currentPlayer.getWonder().isUpgradeable() && playerHasEnoughResourcesAutoTrade(currentPlayer.getWonder().getCurrentStage().getRequiredResources(), currentPlayer, moveModel.getTrades(), neighbors);
+    private Pair<Boolean, Vector<TradeAction>> playerCanBuildWonder(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
+        if (!currentPlayer.getWonder().isUpgradeable())
+            return new Pair<>(false, new Vector<>());
+        var x = playerHasEnoughResourcesAutoTrade(currentPlayer.getWonder().getCurrentStage().getRequiredResources(), currentPlayer, moveModel.getTrades(), neighbors);
+        return new Pair<>(currentPlayer.getWonder().isUpgradeable() && x.getKey(), x.getValue());
+    }
+
+    private boolean haveBuildingChain(MoveModel moveModel, PlayerModel currentPlayer ){
+        for (Card card: currentPlayer.getConstructionZone().getConstructedCards()){
+            Card toPlay = AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID());
+            for(String name: toPlay.getBuildingChain()){
+                if (card.getName().equals(name))
+                    return true;
+            }
+        }
+        return false;
     }
 }

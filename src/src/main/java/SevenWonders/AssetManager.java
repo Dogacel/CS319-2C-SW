@@ -1,6 +1,7 @@
 package SevenWonders;
 
 import SevenWonders.GameLogic.Deck.Card.Card;
+import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
 import SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
@@ -221,10 +222,12 @@ public class AssetManager {
 
     public Wonder getWonderByType(WONDER_TYPE wonderType){ return wonderMap.get(wonderType); }
 
-    public Hero getRandomHeroByEffect(HERO_EFFECT_TYPE effect){
+    public Hero getRandomHeroByEffect(HERO_EFFECT_TYPE effect, Vector<Hero> alreadyHave){
         Random rand = new Random();
         Vector<Hero> heroes = heroMap.get(effect);
-        
+
+        heroes.removeAll(alreadyHave);
+
         return heroes.get(rand.nextInt(heroes.size()));
     }
 

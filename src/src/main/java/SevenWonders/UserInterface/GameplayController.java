@@ -7,6 +7,7 @@ import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.IGameListener;
 import SevenWonders.Network.Requests.UpdateGameStateRequest;
+import SevenWonders.SoundManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,23 +33,57 @@ public class GameplayController implements Initializable, IGameListener {
     Pair<Parent, Object> pair;
 
     @FXML
-    Pane constructionZonePane, otherPlayersViewPane, cardViewPane, gameplayToolbarPane;
+    Pane constructionZonePane, otherPlayersConstructionViewPane, otherPlayersConstructionPane, cardViewPane, gameplayToolbarPane, otherPlayersViewPane;
 
     public GameplayController() {
         gameModel = null;
         client = Client.getInstance();
         client.setGameListener(this);
+        SoundManager.getInstance().stopMenuMusic();
+        SoundManager.getInstance().playAgeOneMusic();
     }
 
     public void updateGameModel(GameModel gameModel) {
         Platform.runLater(() -> {
             this.gameModel = gameModel;
+            if (gameModel.getCurrentAge() == 2 && gameModel.getCurrentTurn() == 1)
+            {
+                SoundManager.getInstance().stopAgeOneMusic();
+                SoundManager.getInstance().playBattleSound();
+                SoundManager.getInstance().playAgeTwoMusic();
+            }
+            else if (gameModel.getCurrentAge() == 3 && gameModel.getCurrentTurn() == 1)
+            {
+                SoundManager.getInstance().stopAgeTwoMusic();
+                SoundManager.getInstance().playBattleSound();
+                SoundManager.getInstance().playAgeThreeMusic();
+            }
+            else if(gameModel.getGameFinished()) {
+                SoundManager.getInstance().stopAgeThreeMusic();
+            }
             PlayerModel me = gameModel.getPlayerList()[client.getID()];
 
             cardViewController.updateScene(me.getHand());
             constructionZoneController.updateScene(me);
             gameplayToolbarController.updateScene(me);
             otherPlayersController.updateScene(me);
+
+            otherPlayersViewPane.setOnMouseClicked((event) -> {
+                if (otherPlayersConstructionViewPane.isVisible()) {
+                    int visibleCount = 0;
+                    for (var child : otherPlayersConstructionPane.getChildren()) {
+                        if (child.isVisible()) {
+                            visibleCount++;
+                        }
+                    }
+                    if (visibleCount == 0) {
+                        otherPlayersConstructionViewPane.setVisible(false);
+                    }
+                }
+                else {
+                    otherPlayersConstructionViewPane.setVisible(true);
+                }
+            });
         });
     }
 
@@ -61,9 +96,11 @@ public class GameplayController implements Initializable, IGameListener {
         this.gameplayToolbarPane.getChildren().add(gameplayToolbarPane);
 
         pair = AssetManager.getInstance().getSceneAndController("OtherPlayersView.fxml");
-        Pane otherPlayersPane = (Pane) pair.getKey();
+        Pane otherPlayersViewPane = (Pane) pair.getKey().lookup("#otherPlayersPane");
+        otherPlayersConstructionPane = (Pane) pair.getKey().lookup("#otherPlayersConstructionPane");
         otherPlayersController = (OtherPlayersController) pair.getValue();
-        this.otherPlayersViewPane.getChildren().add(otherPlayersPane);
+        this.otherPlayersConstructionViewPane.getChildren().add(otherPlayersConstructionPane);
+        this.otherPlayersViewPane.getChildren().add(otherPlayersViewPane);
         otherPlayersController.gameplayController = this;
 
         pair = AssetManager.getInstance().getSceneAndController("CardView.fxml");
