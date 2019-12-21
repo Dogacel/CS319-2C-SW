@@ -222,10 +222,12 @@ public class AssetManager {
 
     public Wonder getWonderByType(WONDER_TYPE wonderType){ return wonderMap.get(wonderType); }
 
-    public Hero getRandomHeroByEffect(HERO_EFFECT_TYPE effect){
+    public Hero getRandomHeroByEffect(HERO_EFFECT_TYPE effect, Vector<Hero> alreadyHave){
         Random rand = new Random();
         Vector<Hero> heroes = heroMap.get(effect);
-        
+
+        heroes.removeAll(alreadyHave);
+
         return heroes.get(rand.nextInt(heroes.size()));
     }
 
