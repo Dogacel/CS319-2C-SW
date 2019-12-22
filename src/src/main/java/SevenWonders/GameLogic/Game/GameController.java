@@ -73,6 +73,9 @@ public class GameController {
                     dealCards();
                 }
             }
+            else{
+                model.setGameFinished(true);
+            }
         }
     }
 
