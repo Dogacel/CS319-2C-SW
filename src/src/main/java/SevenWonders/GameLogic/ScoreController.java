@@ -33,7 +33,7 @@ public class ScoreController {
         return score;
     }
 
-    private static int calculateMilitaryConflicts(PlayerModel playerModel) {
+    public static int calculateMilitaryConflicts(PlayerModel playerModel) {
         return playerModel.getWarPoints();
     }
 
