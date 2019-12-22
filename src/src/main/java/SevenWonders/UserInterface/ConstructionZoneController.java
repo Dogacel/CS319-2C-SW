@@ -14,11 +14,13 @@ import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -85,14 +87,13 @@ public class ConstructionZoneController {
 
     private void updateNeighborConstruction(PlayerModel playerModel, Pane pane){
         pane.getChildren().clear();
-        Parent root = AssetManager.getInstance().getSceneByName("NeighborConstructionView.fxml");
-        pane.getChildren().add(root);
-        brownNeighbor = (VBox) root.lookup("#brown");
-        grayNeighbor = (VBox) root.lookup("#gray");
-        blueNeighbor = (VBox) root.lookup("#blue");
-        greenNeighbor = (VBox) root.lookup("#green");
-        yellowNeighbor = (VBox) root.lookup("#yellow");
-        purpleNeighbor = (VBox) root.lookup("#purple");
+
+        playerModel.getConstructionZone().getConstructedCards().sort(Comparator.comparingInt(card -> card.getColor().ordinal()));
+
+        int count = 0;
+        HBox hbox = new HBox();
+        pane.getChildren().add(hbox);
+        Card lastCard = playerModel.getConstructionZone().getConstructedCards().size() > 0 ? playerModel.getConstructionZone().getConstructedCards().get(0) : null;
 
         for(Card card: playerModel.getConstructionZone().getConstructedCards()){
             CARD_COLOR_TYPE color = card.getColor();
@@ -198,18 +199,19 @@ public class ConstructionZoneController {
                 });
             }
 
-            if(color == CARD_COLOR_TYPE.BROWN)
-                brownNeighbor.getChildren().add(button);
-            else if(color == CARD_COLOR_TYPE.GRAY)
-                grayNeighbor.getChildren().add(button);
-            else if(color == CARD_COLOR_TYPE.BLUE)
-                blueNeighbor.getChildren().add(button);
-            else if(color == CARD_COLOR_TYPE.GREEN)
-                greenNeighbor.getChildren().add(button);
-            else if(color == CARD_COLOR_TYPE.PURPLE)
-                purpleNeighbor.getChildren().add(button);
-            else if( color == CARD_COLOR_TYPE.YELLOW)
-                yellowNeighbor.getChildren().add(button);
+            if (hbox.getChildren().size() == 0) {
+                hbox.getChildren().add(button);
+            } else {
+                if (card.getColor() != lastCard.getColor()) {
+                    hbox = new HBox();
+                    hbox.getChildren().add(button);
+                } else {
+                    hbox.getChildren().add(button);
+                    hbox = new HBox();
+                }
+                pane.getChildren().add(hbox);
+            }
+            lastCard = card;
         }
     }
 }
