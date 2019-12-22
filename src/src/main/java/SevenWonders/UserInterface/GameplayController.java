@@ -6,7 +6,9 @@ import SevenWonders.GameLogic.Player.ConstructionZone;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.IGameListener;
+import SevenWonders.Network.Requests.EndGameRequest;
 import SevenWonders.Network.Requests.UpdateGameStateRequest;
+import SevenWonders.SceneManager;
 import SevenWonders.SoundManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -29,6 +31,7 @@ public class GameplayController implements Initializable, IGameListener {
     OtherPlayersController otherPlayersController;
     ConstructionZoneController constructionZoneController;
     GameplayToolbarController gameplayToolbarController;
+    ScoreViewController scoreViewController;
 
     Pair<Parent, Object> pair;
 
@@ -46,6 +49,7 @@ public class GameplayController implements Initializable, IGameListener {
     public void updateGameModel(GameModel gameModel) {
         Platform.runLater(() -> {
             this.gameModel = gameModel;
+            System.out.println("AGE IS "  + gameModel.getCurrentAge() + " turn is " + gameModel.getCurrentTurn());
             if (gameModel.getCurrentAge() == 2 && gameModel.getCurrentTurn() == 1)
             {
                 SoundManager.getInstance().stopAgeOneMusic();
@@ -58,8 +62,13 @@ public class GameplayController implements Initializable, IGameListener {
                 SoundManager.getInstance().playBattleSound();
                 SoundManager.getInstance().playAgeThreeMusic();
             }
-            else if(gameModel.getGameFinished()) {
+            else if(gameModel.getCurrentAge() == 4 && gameModel.getCurrentTurn() == 1) {
                 SoundManager.getInstance().stopAgeThreeMusic();
+
+                scoreViewController = (ScoreViewController) AssetManager.getInstance().getSceneAndController("ScoreView.fxml").getValue();
+                scoreViewController.gameplayController = this;
+
+                SceneManager.getInstance().changeScene("ScoreView.fxml");
             }
             PlayerModel me = gameModel.getPlayerList()[client.getID()];
 
@@ -149,7 +158,6 @@ public class GameplayController implements Initializable, IGameListener {
 
     @Override
     public void onEndGameRequest() {
-
     }
 
     @Override
