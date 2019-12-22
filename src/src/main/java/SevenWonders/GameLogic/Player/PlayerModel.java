@@ -12,18 +12,20 @@ public class PlayerModel {
 
     private final int MAX_CARDS_AT_HAND = 7;
 
-    private int          id;
-    private String       name;
-    private int          gold;
-    private Vector<Card> hand;
-    private Wonder wonder;
-    private int          shields;
-    private int          warPoints;
-    private int          lostWarNumber;
-    private boolean      isReady;
-    private MoveModel currentMove;
-    private Vector<Hero> heroes;
+    private int              id;
+    private String           name;
+    private int              gold;
+    private Vector<Card>     hand;
+    private Wonder           wonder;
+    private int              shields;
+    private int              warPoints;
+    private int              lostWarNumber;
+    private boolean          isReady;
+    private MoveModel        currentMove;
+    private Vector<Hero>     heroes;
     private ConstructionZone constructionZone;
+
+
     public PlayerModel(int id, String name, Wonder wonder)
     {
         this.id = id;

@@ -6,12 +6,15 @@ import SevenWonders.GameLogic.Deck.Card.CardEffect;
 import SevenWonders.GameLogic.Deck.DeckController;
 import SevenWonders.GameLogic.Enums.*;
 
+import SevenWonders.GameLogic.Enums.GOD_TYPE;
+import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.GameLogic.ScoreController;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.God;
 import SevenWonders.SoundManager;
 import javafx.util.Pair;
 
@@ -62,6 +65,8 @@ public class GameController {
             shiftCards();
 
             model.incrementCurrentTurn();
+
+            updateGodPowers();
         }
         else{
             discardLastCards();
@@ -134,6 +139,15 @@ public class GameController {
 
             myPlayerController.setWarPoints(myPlayerController.getWarPoints() + totalPoints);
             myPlayerController.setLostWarNumber(myPlayerController.getLostWarNumber() + totalLosses);
+        }
+    }
+
+    private void updateGodPowers(){
+        for(PlayerController playerController: playerControllers){
+            GOD_TYPE godType = playerController.getWonder().getGod().getGodType();
+
+            if( godType == GOD_TYPE.ARTEMIS && playerController.getPlayer().getWonder().getGod().isUsed())
+                playerController.getPlayer().getWonder().getGod().incrementVpEachTurn();
         }
     }
 

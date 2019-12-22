@@ -11,8 +11,8 @@ import SevenWonders.GameLogic.Wonder.Wonder;
 import java.util.Vector;
 
 public class PlayerController {
-    private final int NO_OF_PLAYERS = 7;
     private final int DISCARD_REWARD = 3;
+    private final int ARES_SHIELD_BONUS = 5;
 
     private PlayerModel player;
     private GameController gameController;
@@ -102,7 +102,7 @@ public class PlayerController {
 
                 switch(powerType){
                     case EXTRA_WAR_TOKENS:
-
+                        player.setShields( player.getShields() + ARES_SHIELD_BONUS);
                         break;
 
                     case TRADE_WITH_ANY:
@@ -111,12 +111,20 @@ public class PlayerController {
                         break;
 
                     case VP_EACH_TURN:
-
+                        if ( !player.getWonder().getGod().isUsed())
+                        {
+                            player.getWonder().getGod().setUsed();
+                        }
 
                         break;
 
                     case EARTHQUAKE:
-
+                        if( !player.getWonder().getGod().isUsed())
+                        {
+                            gameController.getLeftPlayer(player.getId()).getWonder().downgradeStage();
+                            gameController.getRightPlayer(player.getId()).getWonder().downgradeStage();
+                            player.getWonder().getGod().setUsed();
+                        }
                         break;
 
                     case BLOCK_AND_DESTROY_CARD:
