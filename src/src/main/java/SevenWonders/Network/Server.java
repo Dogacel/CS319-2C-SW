@@ -364,14 +364,16 @@ public class Server implements Runnable, INetworkListener {
 
 		// Iterate over all clients and add them to list of clients that want a wonder
 		for (AbstractConnectionHandler connectionHandler : connectionHandlerList) {
-			WONDER_TYPE wonder = connectionHandler.getUser().getSelectedWonder();
-			Vector<AbstractConnectionHandler> connections = wonderCounts.get(wonder);
-			if (connections == null) {
-				connections = new Vector<>();
-				connections.add(connectionHandler);
-				wonderCounts.put(wonder, connections);
-			} else {
-				connections.add(connectionHandler);
+			if (connectionHandler instanceof ConnectionHandler) {
+				WONDER_TYPE wonder = connectionHandler.getUser().getSelectedWonder();
+				Vector<AbstractConnectionHandler> connections = wonderCounts.get(wonder);
+				if (connections == null) {
+					connections = new Vector<>();
+					connections.add(connectionHandler);
+					wonderCounts.put(wonder, connections);
+				} else {
+					connections.add(connectionHandler);
+				}
 			}
 		}
 
@@ -403,6 +405,11 @@ public class Server implements Runnable, INetworkListener {
 			}
 		}
 
+		for (AbstractConnectionHandler ch : connectionHandlerList) {
+			if (ch instanceof  PseudoConnectionHandler) {
+				unassignedUsers.add(ch);
+			}
+		}
 		// Number of unassigned users should match number of unassigned wonders
 		assert unassignedUsers.size() == emptyWonders.size();
 
