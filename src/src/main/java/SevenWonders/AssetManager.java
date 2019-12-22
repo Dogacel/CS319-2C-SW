@@ -222,7 +222,7 @@ public class AssetManager {
 
     public Wonder getWonderByType(WONDER_TYPE wonderType){
         Wonder wonder = gson.fromJson(gson.toJson(wonderMap.get(wonderType)), Wonder.class); // Deep copy wonder
-        return wonderMap.get(wonder);
+        return wonder;
     }
 
     public Hero getRandomHeroByEffect(HERO_EFFECT_TYPE effect, Vector<Hero> alreadyHave){
