@@ -21,7 +21,7 @@ public class TestApplication extends Application {
                 e.printStackTrace();
             }
         });
-        SceneManager.getInstance().changeScene("MainMenu.fxml");
+        SceneManager.getInstance().changeScene("MainMenuView.fxml");
         SceneManager.getInstance().show();
     }
 

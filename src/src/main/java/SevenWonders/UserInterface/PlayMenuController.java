@@ -25,7 +25,7 @@ public class PlayMenuController {
             Client.createClientInstance (ipInputField.getText(), 18232, nameInputField.getText());
             Client.getInstance().sendConnectRequest( nameInputField.getText());
             Client.getInstance().makeAdmin();
-            SceneManager.getInstance().changeScene("Lobby.fxml");
+            SceneManager.getInstance().changeScene("LobbyView.fxml");
             nameWarningLabel.setVisible(false);
         }
         else{
@@ -40,7 +40,7 @@ public class PlayMenuController {
         if(!ipInputField.getText().equals("") && !nameInputField.getText().equals("")) {
             Client.createClientInstance (ipInputField.getText(), 18232, nameInputField.getText());
             Client.getInstance().sendConnectRequest( nameInputField.getText());
-            SceneManager.getInstance().changeScene("Lobby.fxml");
+            SceneManager.getInstance().changeScene("LobbyView.fxml");
             idWarningLabel.setVisible(false);
             nameWarningLabel.setVisible(false);
         }
@@ -56,6 +56,6 @@ public class PlayMenuController {
 
     @FXML
     public void backButtonClicked(MouseEvent mouseEvent) {
-        SceneManager.getInstance().changeScene("MainMenu.fxml");
+        SceneManager.getInstance().changeScene("MainMenuView.fxml");
     }
 }

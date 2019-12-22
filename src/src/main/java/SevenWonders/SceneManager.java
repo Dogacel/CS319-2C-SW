@@ -35,7 +35,7 @@ public class SceneManager {
             stage.setScene(scene);
         } else {
             scene.setRoot(root);
-            if ( sceneName.equals("Lobby.fxml")){
+            if ( sceneName.equals("LobbyView.fxml")){
                 System.out.println("In first if");
                 scene.setOnKeyPressed(e -> {
                     if (e.getCode() == KeyCode.S) {

@@ -172,6 +172,6 @@ public class CardViewController implements Initializable {
     public void exitButtonClicked(MouseEvent e) {
         Server.stopServerInstance();
         gameplayController.getClient().disconnect();
-        SceneManager.getInstance().changeScene("MainMenu.fxml");
+        SceneManager.getInstance().changeScene("MainMenuView.fxml");
     }
 }
