@@ -7,11 +7,7 @@ import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.Network.Requests.*;
-import com.dosse.upnp.UPnP;
 import com.google.gson.Gson;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.net.SocketException;
 import java.util.logging.Logger;
@@ -30,13 +26,8 @@ public class Server implements Runnable, INetworkListener {
 	private static Server serverInstance;
 	private static Thread serverThread;
 
-	private ServerView view;
-
-	private static Server createServerInstance() {
-		System.out.println(UPnP.getExternalIP());
-		System.out.println(UPnP.getLocalIP());
+	private static void createServerInstance() {
 		serverInstance = new Server();
-		return serverInstance;
 	}
 
 	public static void startServerInstance() {
@@ -75,18 +66,6 @@ public class Server implements Runnable, INetworkListener {
 			worker = new Thread(this);
 		} catch (IOException exception) {
 			exception.printStackTrace();
-		}
-
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServerView.fxml"));
-			Scene scene = new Scene(loader.load(), 600, 800);
-			Stage stage = new Stage();
-			stage.setTitle("Server Debug");
-			stage.setScene(scene);
-			stage.show();
-			view = loader.getController();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -232,8 +211,6 @@ public class Server implements Runnable, INetworkListener {
 			}
 		}
 
-		view.update(this.gameModel);
-
 		gameController.playTurn();
 
 		sendUpdateGameStateRequests();
@@ -353,11 +330,11 @@ public class Server implements Runnable, INetworkListener {
 			sendRequest(request, connectionHandler);
 		}
 
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-
-		}
+//		try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//
+//		}
 
 		distributeWonders();
 

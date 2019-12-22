@@ -134,6 +134,10 @@ public class GameplayController implements Initializable, IGameListener {
         return gameModel.getLeftPlayer( getPlayer().getId());
     }
 
+    public Pair<PlayerModel, PlayerModel> getNeighbors() {
+        return new Pair<>(getLeftPlayer(), getRightPlayer());
+    }
+
     public Client getClient(){
         return client;
     }

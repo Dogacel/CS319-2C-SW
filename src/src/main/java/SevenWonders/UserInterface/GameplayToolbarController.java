@@ -45,7 +45,7 @@ public class GameplayToolbarController {
 
     private void updatePlayerMove(MoveModel move) {
         // TODO: Setting for auto trade
-        var x = MoveController.getInstance().playerCanMakeMove(move, playerModel, new Pair<>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), SettingsController.autoTrade);
+        var x = MoveController.getInstance().playerCanMakeMove(move, playerModel, gameplayController.getNeighbors(), SettingsController.autoTrade);
         if (SettingsController.autoTrade) {
             for (TradeAction trade : x.getValue()) {
                 move.addTrade(trade);
@@ -66,30 +66,34 @@ public class GameplayToolbarController {
 
     @FXML
     private void buildCardButtonClicked(MouseEvent event) {
-        MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.BUILD_CARD);
-        updatePlayerMove(move);
-        System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
+        if (cardViewController.getSelectedCard() != null) {
+            MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.BUILD_CARD);
+            updatePlayerMove(move);
+        }
     }
 
     @FXML
     private void buildWonderButtonClicked(MouseEvent event) {
-        MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.UPGRADE_WONDER);
-        updatePlayerMove(move);
-        System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
+        if (cardViewController.getSelectedCard() != null) {
+            MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.UPGRADE_WONDER);
+            updatePlayerMove(move);
+        }
     }
 
     @FXML
     private void discardCardButtonClicked(MouseEvent event) {
-        MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.DISCARD_CARD);
-        updatePlayerMove(move);
-        System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
+        if (cardViewController.getSelectedCard() != null) {
+            MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.DISCARD_CARD);
+            updatePlayerMove(move);
+        }
     }
 
     @FXML
     private void useGodPowerButtonClicked(MouseEvent event) {
-        MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.USE_GOD_POWER);
-        updatePlayerMove(move);
-        System.out.println("Score: " + AIMoveGenerator.evaluateMove(move, playerModel, gameplayController.gameModel));
+        if (cardViewController.getSelectedCard() != null) {
+            MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.USE_GOD_POWER);
+            updatePlayerMove(move);
+        }
     }
 
     @FXML
@@ -99,7 +103,7 @@ public class GameplayToolbarController {
                     new Pair<>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), false).getKey();
             if (canPlay) {
                 currentMove = playerModel.getCurrentMove();
-            } else if (!canPlay && currentMove == null) {
+            } else if (currentMove == null) {
                 currentMove = new MoveModel(0, 0, ACTION_TYPE.DISCARD_CARD);
             }
             gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());

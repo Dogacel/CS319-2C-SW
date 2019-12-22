@@ -56,7 +56,11 @@ public class MoveController {
     }
 
     private boolean playerCanMakeTheTrade( MoveModel move, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours) {
-        int goldOfCurrentPlayer = currentPlayer.getGold();
+        return tradeCost(move.getTrades(), currentPlayer, neighbours) <= currentPlayer.getGold();
+    }
+
+    public int tradeCost(Vector<TradeAction> trades, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbours) {
+        int cost = 0;
 
         /* boolean for understanding if there is a discount */
         boolean hasRightRawDiscount = false;
@@ -81,39 +85,30 @@ public class MoveController {
                 default: break;
             }
         }
-        /* Check the trade array, check if valid and if valid, reduce gold */
-        //TODO check neighbour cards
-        for (TradeAction trade : move.getTrades()) {
+
+        for (TradeAction trade : trades) {
             if ( trade.getSelectedResource() == RESOURCE_TYPE.BRICK || trade.getSelectedResource() == RESOURCE_TYPE.ORE ||
                     trade.getSelectedResource() == RESOURCE_TYPE.WOOD || trade.getSelectedResource() == RESOURCE_TYPE.STONE ) {
-                if ( hasLeftRawDiscount) {
-                    if (trade.getPlayerID() == neighbours.getKey().getId()) {
-                        goldOfCurrentPlayer -= 1;
-                    }
+                if ( hasLeftRawDiscount && trade.getTradedPlayerID() == neighbours.getKey().getId()) {
+                    cost += 1;
                 }
-                else if (hasRightRawDiscount) {
-                    if (trade.getPlayerID() == neighbours.getValue().getId()) {
-                        goldOfCurrentPlayer -= 1;
-                    }
+                else if (hasRightRawDiscount && trade.getTradedPlayerID() == neighbours.getValue().getId()) {
+                    cost += 1;
                 }
                 else {
-                    goldOfCurrentPlayer -= 2;
+                    cost += 2;
                 }
             }
             else if ( trade.getSelectedResource() == RESOURCE_TYPE.LOOM || trade.getSelectedResource() == RESOURCE_TYPE.PAPYRUS || trade.getSelectedResource() == RESOURCE_TYPE.GLASS) {
                 if ( hasManifacturedDiscount) {
-                    goldOfCurrentPlayer -= 1;
+                    cost += 1;
                 }
                 else {
-                    goldOfCurrentPlayer -= 2;
+                    cost += 2;
                 }
             }
-            //at the end of each iteration, check if the user has ran out of money, return false if so.
-            if (goldOfCurrentPlayer < 0) {
-                return false;
-            }
         }
-        return true;
+        return cost;
     }
 
     public Pair<Boolean, Vector<TradeAction>> playerHasEnoughResources( Map<RESOURCE_TYPE, Integer> requiredResources, PlayerModel currentPlayer, Vector<TradeAction> trades) {
