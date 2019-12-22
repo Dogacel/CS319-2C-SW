@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,6 @@ import java.util.function.BooleanSupplier;
 public class ConstructionZoneController {
     GameplayController gameplayController;
     public Vector<TradeAction> trades = new Vector<TradeAction>();
-    ImageView focusedView;
 
     private Card selectedCard;
 
@@ -62,14 +62,11 @@ public class ConstructionZoneController {
         for(Card card: playerModel.getConstructionZone().getConstructedCards()){
             CARD_COLOR_TYPE color = card.getColor();
             ImageView imageView = new ImageView(AssetManager.getInstance().getImage(card.getName().replaceAll(" ", "").toLowerCase() + "_mini.png"));
-            imageView.setOnMouseClicked((e) -> {
-                if (focusedView != imageView) {
-                    selectedCard = card;
-                    focusedView = imageView;
-                    imageView.setScaleX(1.5);
-                    imageView.setScaleY(1.5);
-                }
-            });
+
+            Tooltip tp = new Tooltip();
+            tp.setText(card.getName());
+            tp.setShowDelay(new Duration(250));
+            Tooltip.install(imageView, tp);
 
             if(color == CARD_COLOR_TYPE.BROWN)
                 brown.getChildren().add(imageView);
