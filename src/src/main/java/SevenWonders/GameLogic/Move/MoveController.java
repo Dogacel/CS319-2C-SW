@@ -48,8 +48,7 @@ public class MoveController {
             case UPGRADE_WONDER:
                 return playerCanBuildWonder(moveModel, currentPlayer, neighbours);
             case USE_GOD_POWER:
-                //TODO add god power here
-                break;
+                return new Pair<>(!currentPlayer.getWonder().isUpgradeable() && !currentPlayer.getWonder().getGod().isUsed(), new Vector<>());
             default: break;
         }
         return new Pair<>(false, new Vector<>());

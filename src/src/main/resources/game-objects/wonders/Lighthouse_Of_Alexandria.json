@@ -39,6 +39,6 @@
   "currentStage" : 0,
   "god" : {
     "godType" : "RA",
-    "godPower" : "TRADE_WITH_ANY"
+    "godPower" : "SCIENTIFIC_REGRESSION"
   }
 }

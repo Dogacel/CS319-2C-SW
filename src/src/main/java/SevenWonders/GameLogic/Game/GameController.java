@@ -150,6 +150,12 @@ public class GameController {
     private void makeMoves()
     {
         for (PlayerController playerController : playerControllers) {
+            if (playerController.getCurrentMove() == null) {
+                playerController.updateCurrentMove(new MoveModel(playerController.getId(), playerController.getHand().firstElement().getId(), ACTION_TYPE.DISCARD_CARD));
+            }
+        }
+
+        for (PlayerController playerController : playerControllers) {
             if (playerController.getCurrentMove().getAction() == ACTION_TYPE.USE_GOD_POWER) {
                 switch (playerController.getWonder().getGod().getGodPower()) {
                     case EARTHQUAKE:

@@ -3,21 +3,22 @@ package SevenWonders.UserInterface;
 import SevenWonders.AI.AIMoveGenerator;
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
-import SevenWonders.GameLogic.Enums.ACTION_TYPE;
-import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
-import SevenWonders.GameLogic.Enums.GOD_TYPE;
-import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+import SevenWonders.GameLogic.Enums.*;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.GameLogic.Wonder.GodsAndHeroes.God;
+import SevenWonders.SceneManager;
 import SevenWonders.SoundManager;
 import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -92,7 +93,40 @@ public class GameplayToolbarController {
 
     @FXML
     private void useGodPowerButtonClicked(MouseEvent event) {
-        if (cardViewController.getSelectedCard() != null) {
+        if (!gameplayController.getPlayer().getWonder().isUpgradeable()
+                && gameplayController.getPlayer().getWonder().getGod().getGodPower() == GOD_POWER_TYPE.FORESIGHT) {
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setMaxWidth(800);
+            scrollPane.setMaxHeight(400);
+            scrollPane.setPannable(true);
+            scrollPane.setFitToHeight(true);
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            scrollPane.setPadding(new Insets(10, 10, 10, 10));
+            scrollPane.setStyle("-fx-background-color: transparent;");
+            HBox cards = new HBox();
+            cards.setStyle("-fx-background-color: black;");
+            cards.setSpacing(5.0);
+            scrollPane.setContent(cards);
+
+            PlayerModel player = gameplayController.gameModel.getCurrentAge() == 2 ? gameplayController.getLeftPlayer() : gameplayController.getRightPlayer();
+            for (Card c : player.getHand()) {
+                ImageView imageView = new ImageView(AssetManager.getInstance().getImage(c.getName().replaceAll(" ", "").toLowerCase() + ".png")
+                );
+                cards.getChildren().add(imageView);
+            }
+
+            BorderPane borderPane = new BorderPane();
+            borderPane.setCenter(new Group(scrollPane));
+            borderPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
+            borderPane.setOnMousePressed(event1 -> {
+                System.out.println(event1.getSource());
+                System.out.println(event1.getTarget());
+                if (event1.getTarget() != scrollPane && ! (event1.getTarget() instanceof ImageView)) {
+                    SceneManager.getInstance().popPaneOnScreenNow(borderPane);
+                }
+            });
+            SceneManager.getInstance().showPaneOnScreenNow(borderPane);
+        } else if (cardViewController.getSelectedCard() != null) {
             MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.USE_GOD_POWER);
             updatePlayerMove(move);
         }
