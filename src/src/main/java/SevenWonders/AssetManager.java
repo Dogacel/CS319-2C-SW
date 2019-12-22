@@ -109,6 +109,14 @@ public class AssetManager {
             if( f.getName().matches(".*(\\.(png|jpg|jpeg))") && !imageMap.containsKey(f.getName()))
                 imageMap.put(f.getName(), new Image("/images/wonders/" + f.getName()));
         }
+        imageResourcesURL = getClass().getClassLoader().getResource("images/tutorialImages");
+        assert imageResourcesURL != null;
+        dir = new File(imageResourcesURL.getPath());
+
+        for (File f : Objects.requireNonNull(dir.listFiles())) {
+            if( f.getName().matches(".*(\\.(png|jpg|jpeg))") && !imageMap.containsKey(f.getName()))
+                imageMap.put(f.getName(), new Image("/images/tutorialImages/" + f.getName()));
+        }
     }
 
     private void loadScenes() {

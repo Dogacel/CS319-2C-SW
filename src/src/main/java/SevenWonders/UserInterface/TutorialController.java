@@ -1,43 +1,53 @@
 package SevenWonders.UserInterface;
 
+import SevenWonders.AssetManager;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 
-public class TutorialController {
+public class TutorialController implements Initializable {
 
     public int currentPageNo;
 
-    public final int totalPageNo = 2;
+    public final int totalPageNo = 4;
+
+    Map<Integer, Image> tutorialImages = new HashMap<>();
+    Map<Integer, String> tutorialTexts = new HashMap<>();
 
     Image img;
     //img = new Image("images/cards/age1.png");
     @FXML
-    Button closeButton;
+    Button closeButton, leftButton, rightButton;
 
     @FXML
-    Button leftButton;
+    Pane tutorialPane, frontPane, backPane;
 
     @FXML
-    Button rightButton;
-
-    @FXML
-    GridPane tutorialGrid;
-
-    @FXML
-    Label tutorialTextLabel;
+    TextArea tutorialText;
 
     @FXML
     ImageView tutorialImage;
 
     @FXML
     public void closeButtonClicked( MouseEvent event) {
-        tutorialGrid.setVisible(false);
+        tutorialImage.setScaleY(1);
+        tutorialImage.setScaleX(1);
+        tutorialImage.setLayoutY(-5);
+        tutorialImage.setLayoutY(0);
+        tutorialPane.setVisible(false);
     }
 
     @FXML
@@ -47,9 +57,13 @@ public class TutorialController {
             leftButton.setVisible(false);
         }
         rightButton.setVisible(true);
-        tutorialTextLabel.setText("Tutorial page " + (currentPageNo + 1));
-        img = new Image("images/cards/age" + (currentPageNo + 1) + ".png");
-        tutorialImage.setImage(img);
+        tutorialText.setText("Tutorial page " + (currentPageNo + 1));
+        tutorialImage.setScaleY(1);
+        tutorialImage.setScaleX(1);
+        tutorialImage.setLayoutX(-5);
+        tutorialImage.setLayoutY(0);
+        tutorialImage.setImage(tutorialImages.get(currentPageNo));
+
     }
 
     @FXML
@@ -59,18 +73,45 @@ public class TutorialController {
             rightButton.setVisible(false);
         }
         leftButton.setVisible(true);
-        tutorialTextLabel.setText("Tutorial page " + (currentPageNo + 1));
-        img = new Image("images/cards/age" + (currentPageNo + 1) + ".png");
-        tutorialImage.setImage(img);
+        tutorialText.setText("Tutorial page " + (currentPageNo + 1));
+        tutorialImage.setScaleY(1);
+        tutorialImage.setScaleX(1);
+        tutorialImage.setLayoutX(-5);
+        tutorialImage.setLayoutY(0);
+        tutorialImage.setImage(tutorialImages.get(currentPageNo));
+    }
 
+    public void initialize(URL url, ResourceBundle rb){
+        for ( int i  = 0; i < totalPageNo; i++) {
+            tutorialImages.put(i, AssetManager.getInstance().getImage("tutorial" + i + ".png"));
+        }
+        //tutorialTexts
     }
 
     public void updateScene() {
-        tutorialGrid.setVisible(true);
+        tutorialPane.setVisible(true);
         currentPageNo = 0;
         leftButton.setVisible(false);
-        tutorialTextLabel.setText("Tutorial page " + (currentPageNo + 1));
-        img = new Image("images/cards/age1.png");
-        tutorialImage.setImage(img);
+        tutorialText.setText("Tutorial page " + (currentPageNo + 1));
+        tutorialImage.setImage(tutorialImages.get(currentPageNo));
+        tutorialImage.setLayoutX(20);
+    }
+
+    @FXML
+    public void tutorialImageClicked( MouseEvent e) {
+        frontPane.toFront();
+        backPane.toBack();
+        if(tutorialImage.getScaleX() == 1 && tutorialImage.getScaleY() == 1) {
+            tutorialImage.setScaleY(600.0/400);
+            tutorialImage.setScaleX(600.0/400);
+            tutorialImage.setLayoutX(-10);
+            tutorialImage.setLayoutY(120);
+        }
+        else {
+            tutorialImage.setScaleY(1);
+            tutorialImage.setScaleX(1);
+            tutorialImage.setLayoutX(-5);
+            tutorialImage.setLayoutY(0);
+        }
     }
 }
