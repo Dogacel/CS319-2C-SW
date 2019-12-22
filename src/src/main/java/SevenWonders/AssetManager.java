@@ -220,7 +220,10 @@ public class AssetManager {
         return cardMap.get(cardID);
     }
 
-    public Wonder getWonderByType(WONDER_TYPE wonderType){ return wonderMap.get(wonderType); }
+    public Wonder getWonderByType(WONDER_TYPE wonderType){
+        Wonder wonder = gson.fromJson(gson.toJson(wonderMap.get(wonderType)), Wonder.class); // Deep copy wonder
+        return wonderMap.get(wonder);
+    }
 
     public Hero getRandomHeroByEffect(HERO_EFFECT_TYPE effect, Vector<Hero> alreadyHave){
         Random rand = new Random();
