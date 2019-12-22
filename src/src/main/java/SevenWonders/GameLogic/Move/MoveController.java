@@ -89,15 +89,11 @@ public class MoveController {
         for (TradeAction trade : trades) {
             if ( trade.getSelectedResource() == RESOURCE_TYPE.BRICK || trade.getSelectedResource() == RESOURCE_TYPE.ORE ||
                     trade.getSelectedResource() == RESOURCE_TYPE.WOOD || trade.getSelectedResource() == RESOURCE_TYPE.STONE ) {
-                if ( hasLeftRawDiscount) {
-                    if (trade.getPlayerID() == neighbours.getKey().getId()) {
-                        cost += 1;
-                    }
+                if ( hasLeftRawDiscount && trade.getTradedPlayerID() == neighbours.getKey().getId()) {
+                    cost += 1;
                 }
-                else if (hasRightRawDiscount) {
-                    if (trade.getPlayerID() == neighbours.getValue().getId()) {
-                        cost += 1;
-                    }
+                else if (hasRightRawDiscount && trade.getTradedPlayerID() == neighbours.getValue().getId()) {
+                    cost += 1;
                 }
                 else {
                     cost += 2;
