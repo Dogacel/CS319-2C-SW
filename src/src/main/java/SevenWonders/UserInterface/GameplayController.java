@@ -62,13 +62,15 @@ public class GameplayController implements Initializable, IGameListener {
                 SoundManager.getInstance().playBattleSound();
                 SoundManager.getInstance().playAgeThreeMusic();
             }
-            else if(gameModel.getCurrentAge() == 4 && gameModel.getCurrentTurn() == 1) {
+            else if(gameModel.getCurrentAge() == 1 && gameModel.getCurrentTurn() == 2) {
                 SoundManager.getInstance().stopAgeThreeMusic();
 
-                scoreViewController = (ScoreViewController) AssetManager.getInstance().getSceneAndController("ScoreView.fxml").getValue();
+                var sceneAndController = AssetManager.getInstance().getSceneAndController("ScoreView.fxml");
+                ScoreViewController scoreViewController = (ScoreViewController) sceneAndController.getValue();
                 scoreViewController.gameplayController = this;
+                Parent scene = sceneAndController.getKey();
 
-                SceneManager.getInstance().changeScene("ScoreView.fxml");
+                SceneManager.getInstance().changeScene(scene);
             }
             PlayerModel me = gameModel.getPlayerList()[client.getID()];
 
