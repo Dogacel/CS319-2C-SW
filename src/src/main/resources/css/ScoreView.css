@@ -1,0 +1,7 @@
+#borderPane{
+    -fx-background-image: url('../images/ui-images/scoreBg.png');
+}
+
+#scoreBox {
+    -fx-background-color: rgba(100, 100, 100, 0.4);
+}
