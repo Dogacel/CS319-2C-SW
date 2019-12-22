@@ -16,7 +16,7 @@
       </BorderPane>
       <BorderPane fx:id="rightPane" layoutX="1144.0" layoutY="10.0" prefHeight="210.0" prefWidth="136.0">
          <top>
-            <Button fx:id="heroButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
+            <Button fx:id="heroButton" onMouseClicked="#heroButtonClicked" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
          </top>
          <bottom>
             <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#exitButtonClicked" prefHeight="50.0" prefWidth="72.0" BorderPane.alignment="CENTER">

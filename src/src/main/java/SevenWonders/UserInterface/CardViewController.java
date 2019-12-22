@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
@@ -20,9 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
@@ -237,5 +237,16 @@ public class CardViewController implements Initializable {
         Server.stopServerInstance();
         gameplayController.getClient().disconnect();
         SceneManager.getInstance().changeScene("MainMenu.fxml");
+    }
+
+    public void heroButtonClicked(MouseEvent mouseEvent) {
+        var sceneAndController = AssetManager.getInstance().getSceneAndController("HeroPowerSelectionView.fxml");
+        HeroPowerSelectionController controller = (HeroPowerSelectionController) sceneAndController.getValue();
+        Parent root = sceneAndController.getKey();
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(root);
+        borderPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
+        borderPane.setOnMouseClicked(event -> SceneManager.getInstance().popPaneOnScreenNow(borderPane));
+        SceneManager.getInstance().showPaneOnScreenNow(borderPane);
     }
 }
