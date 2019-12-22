@@ -13,3 +13,12 @@
         -fx-border-style: solid inside;
         -fx-border-color: blue;
 }
+
+Label{
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-font-color: black;
+    -fx-font-family: "Assassin$";
+    -fx-font-size: 30px;
+    -fx-text-fill: rgb(255,255,255);
+}
+
