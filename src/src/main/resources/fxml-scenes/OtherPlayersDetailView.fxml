@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane stylesheets="@../css/OtherPlayers.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="650.0" prefHeight="650.0" prefWidth="213.3" stylesheets="@../css/OtherPlayers.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <Pane id="outerPane" fx:id="outerPane" prefHeight="500.0" prefWidth="213.3" stylesheets="@../css/OtherPlayers.css" visible="false" BorderPane.alignment="CENTER">
          <children>
@@ -24,7 +24,7 @@
    <top>
       <Pane id="topPane" fx:id="topPane" prefHeight="90.0" prefWidth="213.3" BorderPane.alignment="CENTER">
          <children>
-            <GridPane id="outerGrid" prefHeight="90.0" prefWidth="214.0">
+            <GridPane id="outerGrid" prefHeight="90.0" prefWidth="213.3">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
