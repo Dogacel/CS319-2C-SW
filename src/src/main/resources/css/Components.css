@@ -9,13 +9,12 @@
     -fx-pref-height: 50px;
 }
 
-#lobbyLabel {
+#lobbyLabel, #nameInputField, #ipaddress, #ipInputField {
     -fx-text-fill: #d3cc89;
 }
 
 #ipaddress {
     -fx-font-size: 20px;
-    -fx-text-fill: #d3cc89;
 }
 
 .button:hover {
@@ -61,6 +60,11 @@
 
 #backButton {
     -fx-background-image: url('../images/ui-images/backButton.png');
+}
+
+#backButton:hover {
+    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.1;
 }
 
 #idWarningLabel, #nameWarningLabel {
