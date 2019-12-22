@@ -362,10 +362,10 @@ public class GameController {
     }
 
     public PlayerModel getLeftPlayer(int id){
-        return playerControllers[(id + 1) % 7].getPlayer();
+        return playerControllers[(id + 6) % 7].getPlayer();
     }
 
     public PlayerModel getRightPlayer(int id){
-        return playerControllers[(id + 6) % 7].getPlayer();
+        return playerControllers[(id + 1) % 7].getPlayer();
     }
 }
