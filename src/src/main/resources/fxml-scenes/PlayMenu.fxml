@@ -25,7 +25,7 @@
         <TextField fx:id="ipInputField" alignment="CENTER" promptText="Enter Game ID" GridPane.rowIndex="3" GridPane.valignment="TOP" />
         <Button onMouseClicked="#joinGameButtonClicked" text="JOIN GAME" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       <Button fx:id="backButton" centerShape="false" layoutX="27.0" layoutY="701.0" maxHeight="64.0" maxWidth="64.0" minHeight="0.0" minWidth="0.0" onMouseClicked="#backButtonClicked" prefHeight="71.0" prefWidth="68.0" translateX="-125.0" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-        <TextField fx:id="nameInputField" alignment="CENTER" promptText="Enter Your Name" />
+        <TextField fx:id="nameInputField" alignment="CENTER" promptText="Enter Your Name" GridPane.valignment="BOTTOM" />
       <Label id="idWarningLabel" fx:id="idWarningLabel" text="Label" visible="false" GridPane.rowIndex="3" />
       <Label id="nameWarningLabel" fx:id="nameWarningLabel" alignment="CENTER" text="Label" visible="false" GridPane.valignment="BOTTOM">
          <GridPane.margin>
