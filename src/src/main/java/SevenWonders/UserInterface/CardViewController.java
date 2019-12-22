@@ -10,20 +10,18 @@ import SevenWonders.SceneManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.Tooltip;
-import javafx.scene.effect.ColorAdjust;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.util.Duration;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -61,6 +59,7 @@ public class CardViewController implements Initializable {
         leftPane.setStyle("-fx-background-image: url('/images/tokens/age" + gameplayController.gameModel.getCurrentAge() + ".png')");
         ImageView imageView = new ImageView(AssetManager.getInstance().getImage(gameplayController.getPlayer().getWonder().getResource().name().toLowerCase() + ".png"));
         leftPane.setTop(imageView);
+        BorderPane.setAlignment(imageView, Pos.TOP_CENTER);
     }
 
     private DropShadow generateCanBuild(Card c) {
