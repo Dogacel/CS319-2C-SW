@@ -11,7 +11,9 @@ import SevenWonders.SceneManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.control.Button;
@@ -20,6 +22,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
@@ -55,6 +59,7 @@ public class CardViewController implements Initializable {
     }
 
     public void refresh() {
+        focusedView = null;
         updateScene(hand);
     }
 
@@ -113,7 +118,7 @@ public class CardViewController implements Initializable {
     private void updateCards(Vector<Card> hand){
         cardBox.getChildren().clear();
         int depth1 = 100;
-        DropShadow borderGlow= new DropShadow();
+        DropShadow borderGlow = new DropShadow();
         borderGlow.setOffsetY(0f);
         borderGlow.setOffsetX(0f);
         borderGlow.setColor(Color.GOLD);
@@ -171,36 +176,54 @@ public class CardViewController implements Initializable {
                             selectedCard = c;
                         }
                     }});
-                    cardBox.getChildren().add(imageView);
 
-                    Tooltip tp = new Tooltip();
-                    String buildings = "";
-                    for (String s : c.getBuildingChain()) {
-                        buildings += s + ",";
+                StackPane pane = new StackPane();
+                pane.getChildren().add(imageView);
+
+                cardBox.getChildren().add(pane);
+
+                Tooltip tp = new Tooltip();
+                String buildings = "";
+                for (String s : c.getBuildingChain()) {
+                    buildings += s + ",";
+                }
+                if (buildings != "")
+                    buildings = buildings.substring(0, buildings.length() - 1);
+                String requirements = "";
+                for (var entry : c.getRequirements().entrySet()) {
+                    requirements += entry.getKey().name() + ": " + entry.getValue() + "\n";
+                }
+
+                int tradeCost = 0;
+                if (SettingsController.autoTrade) {
+                    MoveModel move = new MoveModel(gameplayController.getPlayer().getId(), c.getId(), ACTION_TYPE.BUILD_CARD);
+                    var x = MoveController.getInstance().playerCanMakeMove(move, gameplayController.getPlayer(),
+                            new Pair<>(gameplayController.getLeftPlayer(), gameplayController.getRightPlayer()), true);
+                    if (x.getKey()) {
+                        Vector<TradeAction> trades = x.getValue();
+                        tradeCost = MoveController.getInstance().tradeCost(trades, gameplayController.getPlayer(), new Pair<>(gameplayController.getLeftPlayer(), gameplayController.getRightPlayer()));
                     }
-                    if (buildings != "")
-                        buildings = buildings.substring(0, buildings.length() - 1);
-                    String requirements = "";
-                    for (var entry : c.getRequirements().entrySet()) {
-                        requirements += entry.getKey().name() + ": " + entry.getValue() + "\n";
-                    }
+                }
 
-                    int tradeCost = 0;
-                    if (SettingsController.autoTrade) {
-                        MoveModel move = new MoveModel(gameplayController.getPlayer().getId(), c.getId(), ACTION_TYPE.BUILD_CARD);
-                        var x = MoveController.getInstance().playerCanMakeMove(move, gameplayController.getPlayer(),
-                                new Pair<>(gameplayController.getLeftPlayer(), gameplayController.getRightPlayer()), true);
-                        if (x.getKey()) {
-                            Vector<TradeAction> trades = x.getValue();
-                            tradeCost = MoveController.getInstance().tradeCost(trades, gameplayController.getPlayer(), new Pair<>(gameplayController.getLeftPlayer(), gameplayController.getRightPlayer()));
-                        }
-                    }
+                if (tradeCost != 0) {
+                    StackPane coinstack = new StackPane();
+                    coinstack.setAlignment(Pos.CENTER);
+                    ImageView coin = new ImageView(AssetManager.getInstance().getImage("coin.png"));
+                    coin.setScaleX(0.3);
+                    coin.setScaleY(0.3);
+                    coinstack.getChildren().add(coin);
+                    Label text = new Label(tradeCost + "");
+                    text.setStyle("-fx-text-fill: black; -fx-font-family: Assassin$;");
+                    coinstack.getChildren().add(text);
+                    coinstack.setMaxSize(coin.getFitWidth(), coin.getFitHeight());
+                    pane.setAlignment(Pos.BOTTOM_CENTER);
+                    pane.getChildren().add(coinstack);
+                }
 
-                    tp.setText(c.getName() + ((buildings).equals("") ? "" : "\nChain: ") + buildings + ((requirements).equals("") ? "" : "\nRequirements:\n" + requirements + (tradeCost > 0 ? "Trade cost: " + tradeCost : "")));
-
-                    tp.setShowDelay(new Duration(250));
-                    Tooltip.install(imageView, tp);
-                
+                tp.setText(c.getName() + ((buildings).equals("") ? "" : "\nChain: ") + buildings + ((requirements).equals("") ? "" : "\nRequirements:\n" + requirements + (tradeCost > 0 ? "Trade cost: " + tradeCost : "")));
+                tp.setShowDelay(new Duration(250));
+                tp.setHideDelay(new Duration(0));
+                Tooltip.install(imageView, tp);
             }
         }
     }
