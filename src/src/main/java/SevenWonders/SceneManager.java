@@ -49,23 +49,18 @@ public class SceneManager {
     }
 
     public void changeScene(String sceneName) {
-        currentRoot = AssetManager.getInstance().getSceneByName(sceneName);
+        Parent root = AssetManager.getInstance().getSceneByName(sceneName);
+        changeScene(root);
+    }
+
+    public void changeScene(Parent root) {
         SoundManager.getInstance();
         Scene scene = stage.getScene();
         if (scene == null) {
             scene = new Scene(currentRoot);
             stage.setScene(scene);
         } else {
-            scene.setRoot(currentRoot);
-            if ( sceneName.equals("LobbyView.fxml")){
-                System.out.println("In first if");
-                scene.setOnKeyPressed(e -> {
-                    if (e.getCode() == KeyCode.S) {
-                        System.out.println("In second if");
-                        SoundManager.getInstance().startTheGameAlready();
-                    }
-                });
-            }
+            scene.setRoot(root);
         }
        Image image = new Image("images/tokens/arrow.png");
        scene.setCursor(new ImageCursor(image));
