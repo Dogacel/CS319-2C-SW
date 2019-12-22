@@ -23,7 +23,6 @@
 }
 
 #borderPane{
-    -fx-background-image: url('../images/ui-images/ageImage.png');
     -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
@@ -59,3 +58,18 @@
     -fx-background-radius: 0 0 10px 10px;
 }
 
+#shieldLabel{
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-stroke-width: 4px;
+}
+#minusOneLabel{
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-stroke-width: 4px;
+ }
+ #coinLabel{
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-stroke-width: 4px;
+}

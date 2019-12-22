@@ -318,6 +318,9 @@ public class AIMoveGenerator {
         for (MoveModel move : moves) {
             System.out.println(me.getName() + " : " + move.getSelectedCardID() + " " + move.getAction().toString());
         }
+        if (moves.size() == 0) {
+            return new MoveModel(me.getId(), me.getHand().firstElement().getId(), ACTION_TYPE.DISCARD_CARD);
+        }
         return moves.get((int) getAccuracyIndex(difficulty) * (moves.size() - 1));
     }
 }

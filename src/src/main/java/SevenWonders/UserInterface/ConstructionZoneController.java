@@ -92,6 +92,7 @@ public class ConstructionZoneController {
 
         int count = 0;
         HBox hbox = new HBox();
+        hbox.setSpacing(2);
         pane.getChildren().add(hbox);
         Card lastCard = playerModel.getConstructionZone().getConstructedCards().size() > 0 ? playerModel.getConstructionZone().getConstructedCards().get(0) : null;
 
@@ -210,6 +211,7 @@ public class ConstructionZoneController {
                     hbox = new HBox();
                 }
                 pane.getChildren().add(hbox);
+                hbox.setSpacing(2);
             }
             lastCard = card;
         }
