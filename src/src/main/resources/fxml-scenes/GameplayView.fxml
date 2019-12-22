@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -8,10 +10,21 @@
    <children>
       <AnchorPane fx:id="gameplayAnchorPane" stylesheets="@../css/Gameplay.css">
          <children>
-            <StackPane layoutY="90.0">
+            <StackPane layoutY="90.0" minHeight="560.0" prefHeight="560.0" prefWidth="1280.0">
                <children>
                   <Pane fx:id="constructionZonePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="1280.0" StackPane.alignment="BOTTOM_CENTER" />
                   <Pane fx:id="otherPlayersConstructionViewPane" prefHeight="560.0" prefWidth="1280.0" visible="false" />
+                  <StackPane fx:id="stackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="860.0" prefHeight="960.0" prefWidth="1280.0" visible="false">
+                     <children>
+                        <ImageView fx:id="shieldImage" fitHeight="471.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                           <StackPane.margin>
+                              <Insets bottom="200.0" />
+                           </StackPane.margin></ImageView>
+                     </children>
+                     <StackPane.margin>
+                        <Insets top="300.0" />
+                     </StackPane.margin>
+                  </StackPane>
                </children>
             </StackPane>
             <Pane fx:id="cardViewPane" layoutY="740.0" prefHeight="220.0" prefWidth="1280.0" />
