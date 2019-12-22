@@ -33,15 +33,15 @@ public class ScoreController {
         return score;
     }
 
-    private static int calculateMilitaryConflicts(PlayerModel playerModel) {
+    public static int calculateMilitaryConflicts(PlayerModel playerModel) {
         return playerModel.getWarPoints();
     }
 
-    private static int calculateTreasuryContents(PlayerModel playerModel) {
+    public static int calculateTreasuryContents(PlayerModel playerModel) {
         return playerModel.getGold() / 3;
     }
 
-    private static int calculateWonders(PlayerModel playerModel) {
+    public static int calculateWonders(PlayerModel playerModel) {
         Wonder wonder = playerModel.getWonder();
         int score = 0;
         for (int i = 0 ; i < wonder.getCurrentStageIndex() ; i++) {
@@ -52,7 +52,7 @@ public class ScoreController {
         return score;
     }
 
-    private static int calculateCivilianStructures(PlayerModel playerModel) {
+    public static int calculateCivilianStructures(PlayerModel playerModel) {
         int score = 0;
         for (Card card : playerModel.getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.BLUE) {
@@ -106,7 +106,7 @@ public class ScoreController {
         return drawings*drawings + mechanics*mechanics + writings*writings + Math.min(drawings, Math.min(mechanics, writings))*7;
     }
 
-    private static int calculateCommercialStructures(PlayerModel playerModel) {
+    public static int calculateCommercialStructures(PlayerModel playerModel) {
         int score = 0;
         for (Card card : playerModel.getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.YELLOW) {
@@ -129,7 +129,7 @@ public class ScoreController {
         return score;
     }
 
-    private static int calculateGuilds(PlayerModel playerModel, PlayerModel left, PlayerModel right) {
+    public static int calculateGuilds(PlayerModel playerModel, PlayerModel left, PlayerModel right) {
         int score = 0;
         for (Card card : playerModel.getConstructionZone().getConstructedCards()) {
             if (card.getColor() == CARD_COLOR_TYPE.PURPLE) {
