@@ -57,7 +57,7 @@ public class CardViewController implements Initializable {
 
     private void updateLeftAndRightPanes(){
         leftPane.setStyle("-fx-background-image: url('/images/tokens/age" + gameplayController.gameModel.getCurrentAge() + ".png')");
-        ImageView imageView = new ImageView(AssetManager.getInstance().getImage(gameplayController.getPlayer().getWonder().getResource().name().toLowerCase() + ".png"));
+        ImageView imageView = new ImageView(AssetManager.getInstance().getImage(gameplayController.getPlayer().getWonder().getResource().name().toLowerCase() + "_r.png"));
         leftPane.setTop(imageView);
         BorderPane.setAlignment(imageView, Pos.TOP_CENTER);
     }
