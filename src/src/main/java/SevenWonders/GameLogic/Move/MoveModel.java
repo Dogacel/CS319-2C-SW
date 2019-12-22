@@ -31,6 +31,10 @@ public class MoveModel {
         this.trades = new Vector<TradeAction>();
     }
 
+    public void setDiscard() {
+        this.action = ACTION_TYPE.DISCARD_CARD;
+    }
+
     public int getPlayerID(){
         return playerID;
     }

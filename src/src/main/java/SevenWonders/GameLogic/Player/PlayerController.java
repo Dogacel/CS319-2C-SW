@@ -5,14 +5,13 @@ import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.*;
 import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Move.MoveModel;
-import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
 import SevenWonders.GameLogic.Wonder.Wonder;
 
 import java.util.Vector;
 
 public class PlayerController {
-    private final int DISCARD_REWARD = 3;
-    private final int ARES_SHIELD_BONUS = 5;
+    public final int DISCARD_REWARD = 3;
+    public final int ARES_SHIELD_BONUS = 5;
 
     private PlayerModel player;
     private GameController gameController;
@@ -96,48 +95,12 @@ public class PlayerController {
                 }
                 break;
             case USE_GOD_POWER:
-                //TODO Add God Power
+                gameController.discardCard(AssetManager.getInstance().getCardByID(move.getSelectedCardID()));
 
                 GOD_POWER_TYPE powerType = player.getWonder().getGod().getGodPower();
 
-                switch(powerType){
-                    case EXTRA_WAR_TOKENS:
-                        player.setShields( player.getShields() + ARES_SHIELD_BONUS);
-                        break;
-
-                    case TRADE_WITH_ANY:
-
-
-                        break;
-
-                    case VP_EACH_TURN:
-                        if ( !player.getWonder().getGod().isUsed())
-                        {
-                            player.getWonder().getGod().setUsed();
-                        }
-
-                        break;
-
-                    case EARTHQUAKE:
-                        if( !player.getWonder().getGod().isUsed())
-                        {
-                            gameController.getLeftPlayer(player.getId()).getWonder().downgradeStage();
-                            gameController.getRightPlayer(player.getId()).getWonder().downgradeStage();
-                            player.getWonder().getGod().setUsed();
-                        }
-                        break;
-
-                    case BLOCK_AND_DESTROY_CARD:
-
-                        break;
-
-                    case FORESIGHT:
-
-                        break;
-
-                    case FAMINE:
-
-                        break;
+                if (powerType == GOD_POWER_TYPE.EXTRA_WAR_TOKENS) {
+                    player.setShields(player.getShields() + ARES_SHIELD_BONUS);
                 }
 
                 break;
