@@ -11,7 +11,7 @@
       <HBox fx:id="cardBox" alignment="CENTER" layoutX="136.0" prefHeight="220.0" prefWidth="1008.0" stylesheets="@../css/Gameplay.css" />
       <BorderPane fx:id="leftPane" layoutY="10.0" prefHeight="210.0" prefWidth="136.0" style="-: ;">
          <center>
-            <Button fx:id="discardPile" alignment="CENTER" mnemonicParsing="false" prefHeight="63.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
+            <Button fx:id="discardPile" onMouseClicked="#discardButtonClicked" alignment="CENTER" mnemonicParsing="false" prefHeight="63.0" prefWidth="80.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
       <BorderPane fx:id="rightPane" layoutX="1144.0" layoutY="10.0" prefHeight="210.0" prefWidth="136.0">
