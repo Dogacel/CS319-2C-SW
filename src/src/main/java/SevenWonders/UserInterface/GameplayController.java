@@ -2,7 +2,6 @@ package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Game.GameModel;
-import SevenWonders.GameLogic.Player.ConstructionZone;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.IGameListener;
@@ -12,11 +11,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Pair;
 
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
 public class GameplayController implements Initializable, IGameListener {
@@ -24,6 +24,7 @@ public class GameplayController implements Initializable, IGameListener {
     GameModel gameModel;
 
     Client client;
+    int updateCount;
 
     CardViewController cardViewController;
     OtherPlayersController otherPlayersController;
@@ -35,8 +36,15 @@ public class GameplayController implements Initializable, IGameListener {
     @FXML
     Pane constructionZonePane, otherPlayersConstructionViewPane, otherPlayersConstructionPane, cardViewPane, gameplayToolbarPane, otherPlayersViewPane;
 
+    @FXML
+    ImageView shieldImage;
+
+    @FXML
+    StackPane stackPane;
+
     public GameplayController() {
         gameModel = null;
+        updateCount = 0;
         client = Client.getInstance();
         client.setGameListener(this);
         SoundManager.getInstance().stopMenuMusic();
@@ -45,6 +53,14 @@ public class GameplayController implements Initializable, IGameListener {
 
     public void updateGameModel(GameModel gameModel) {
         Platform.runLater(() -> {
+            if (this.gameModel != null) {
+                if(this.gameModel.getCurrentTurn() == 6) {
+                    AnimationController.endOfAgeAnimation(this, stackPane);
+                    AnimationController.startOfAgeAnimation(this, stackPane);
+                    SoundManager.getInstance().playCardSound("red");
+                }
+            }
+
             this.gameModel = gameModel;
             if (gameModel.getCurrentAge() == 2 && gameModel.getCurrentTurn() == 1)
             {
