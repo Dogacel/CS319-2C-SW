@@ -18,17 +18,22 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
-
 import java.net.URL;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -72,8 +77,9 @@ public class CardViewController implements Initializable {
 
     private void updateLeftAndRightPanes(){
         leftPane.setStyle("-fx-background-image: url('/images/tokens/age" + gameplayController.gameModel.getCurrentAge() + ".png')");
-        ImageView imageView = new ImageView(AssetManager.getInstance().getImage(gameplayController.getPlayer().getWonder().getResource().name().toLowerCase() + ".png"));
+        ImageView imageView = new ImageView(AssetManager.getInstance().getImage(gameplayController.getPlayer().getWonder().getResource().name().toLowerCase() + "_r.png"));
         leftPane.setTop(imageView);
+        BorderPane.setAlignment(imageView, Pos.TOP_CENTER);
     }
 
     private DropShadow generateCanBuild(Card c) {
@@ -235,7 +241,7 @@ public class CardViewController implements Initializable {
     public void exitButtonClicked(MouseEvent e) {
         Server.stopServerInstance();
         gameplayController.getClient().disconnect();
-        SceneManager.getInstance().changeScene("MainMenu.fxml");
+        SceneManager.getInstance().changeScene("MainMenuView.fxml");
     }
 
     public void heroButtonClicked(MouseEvent mouseEvent) {

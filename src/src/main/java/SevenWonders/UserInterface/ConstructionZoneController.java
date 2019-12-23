@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -46,6 +47,8 @@ public class ConstructionZoneController {
 
     public void updateScene(PlayerModel playerModel) {
         Platform.runLater(() -> {
+            constructionGrid.setEffect(new DropShadow(2d, 8d, -10d, Color.rgb(0,0,0,0.6)));
+
             trades = new Vector<>();
             updatePlayerConstruction(playerModel);
             updateNeighborConstruction(gameplayController.getLeftPlayer(), leftNeighborConstructionPane);
@@ -106,8 +109,6 @@ public class ConstructionZoneController {
             borderGlow.setHeight(20);
             button.setEffect(borderGlow);
             borderGlow.setSpread(0.5);
-
-            button.getStylesheets().add(getClass().getResource("/css/ConstructionZone.css").toExternalForm());
             button.setStyle(button.getStyle() + "-fx-background-image: url('/images/cards/" + card.getName().replaceAll(" ", "").toLowerCase() + "_mini_neighbor.png' );");
 
             if( (card.getColor() == CARD_COLOR_TYPE.GRAY) || (card.getColor() == CARD_COLOR_TYPE.BROWN) && !SettingsController.autoTrade)

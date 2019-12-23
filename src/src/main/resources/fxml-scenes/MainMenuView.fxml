@@ -15,7 +15,7 @@
 
 <AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" stylesheets="@../css/MainMenu.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.MainMenuController">
    <children>
-      <GridPane id="menuGridPane" layoutX="171.0" prefHeight="960.0" prefWidth="340.0" stylesheets="@../css/Components.css">
+      <GridPane id="menuGridPane" layoutX="170.0" prefHeight="960.0" prefWidth="340.0" stylesheets="@../css/Components.css">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -64,20 +64,20 @@
                      <font>
                         <Font name="Assassin$" size="45.0" />
                      </font>
-                      <textFill>
-                          <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                              <stops>
-                                  <Stop color="#7c2323" />
-                                  <Stop color="#d3cc89" offset="1.0" />
-                              </stops>
-                          </RadialGradient>
-                      </textFill>
+                     <textFill>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                           <stops>
+                              <Stop color="#7c2323" />
+                              <Stop color="#d3cc89" offset="1.0" />
+                           </stops>
+                        </RadialGradient>
+                     </textFill>
                   </Label>
                </children>
             </Group>
          </children>
       </GridPane>
        <Pane fx:id="settingsPane" layoutX="602.0" layoutY="180.0" prefHeight="600.0" prefWidth="600.0" visible="false" />
-      <Pane fx:id="tutorialPane" layoutX="602.0" layoutY="180.0" prefHeight="600.0" prefWidth="600.0" visible="false" />
+      <Pane fx:id="tutorialPane" layoutX="600.0" layoutY="180.0" prefHeight="600.0" prefWidth="600.0" visible="false" />
    </children>
 </AnchorPane>

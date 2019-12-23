@@ -56,7 +56,7 @@ public class LobbyController implements Initializable, ILobbyListener {
     {
         Server.stopServerInstance();
         Client.getInstance().disconnect();
-        SceneManager.getInstance().changeScene("PlayMenu.fxml");
+        SceneManager.getInstance().changeScene("PlayMenuView.fxml");
     }
 
     @Override
@@ -66,9 +66,9 @@ public class LobbyController implements Initializable, ILobbyListener {
             Client.getInstance().setLobbyListener(this);
             Client.getInstance().sendGetReadyRequest(false);
             if (Client.getInstance().getUser().isAdmin()) {
-                readyButton.setText("Start game");
+                readyButton.setText("START GAME");
             }
-            ipaddress.setText(Client.getInstance().getIP());
+            ipaddress.setText("ID: " + Client.getInstance().getIP());
         });
 
     }
@@ -135,6 +135,6 @@ public class LobbyController implements Initializable, ILobbyListener {
 
     @Override
     public void onDisconnect() {
-        SceneManager.getInstance().changeScene("MainMenu.fxml");
+        SceneManager.getInstance().changeScene("MainMenuView.fxml");
     }
 }
