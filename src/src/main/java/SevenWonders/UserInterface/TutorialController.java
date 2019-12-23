@@ -22,10 +22,11 @@ public class TutorialController implements Initializable {
 
     public int currentPageNo;
 
-    public final int totalPageNo = 4;
+    public final int totalPageNo = 10;
 
     Map<Integer, Image> tutorialImages = new HashMap<>();
     Map<Integer, String> tutorialTexts = new HashMap<>();
+    Map<Integer, String> tutorialTitles = new HashMap<>();
 
     Image img;
     //img = new Image("images/cards/age1.png");
@@ -42,6 +43,9 @@ public class TutorialController implements Initializable {
     ImageView tutorialImage;
 
     @FXML
+    Label tutorialTitle;
+
+    @FXML
     public void closeButtonClicked( MouseEvent event) {
         tutorialImage.setScaleY(1);
         tutorialImage.setScaleX(1);
@@ -53,7 +57,7 @@ public class TutorialController implements Initializable {
     @FXML
     public void leftButtonClicked( MouseEvent event) {
         currentPageNo--;
-        if(currentPageNo == 0){
+        if(currentPageNo == 1){
             leftButton.setVisible(false);
         }
         rightButton.setVisible(true);
@@ -63,6 +67,7 @@ public class TutorialController implements Initializable {
         tutorialImage.setLayoutX(-5);
         tutorialImage.setLayoutY(0);
         tutorialImage.setImage(tutorialImages.get(currentPageNo));
+        tutorialTitle.setText( tutorialTitles.get(currentPageNo));
 
     }
 
@@ -79,14 +84,25 @@ public class TutorialController implements Initializable {
         tutorialImage.setLayoutX(-5);
         tutorialImage.setLayoutY(0);
         tutorialImage.setImage(tutorialImages.get(currentPageNo));
+        tutorialTitle.setText( tutorialTitles.get(currentPageNo));
     }
 
     public void initialize(URL url, ResourceBundle rb){
-        for ( int i  = 1; i < 3; i++) {
+        for ( int i  = 1; i < totalPageNo+1; i++) {
             tutorialImages.put(i, AssetManager.getInstance().getImage("tutorial" + i + ".png"));
             tutorialTexts.put(i, AssetManager.getInstance().readTextFromFile("build/resources/main/tutorialTexts/tutorial" + i +".txt"));
         }
-        //tutorialTexts
+        //tutorialTitles
+        tutorialTitles.put(1, "Cards");
+        tutorialTitles.put(2, "Wonders");
+        tutorialTitles.put(3, "Heroes");
+        tutorialTitles.put(4, "Gameplay Screen");
+        tutorialTitles.put(5, "Toolbar");
+        tutorialTitles.put(6, "Construction Zone");
+        tutorialTitles.put(7, "Neighbors");
+        tutorialTitles.put(8, "Other Players");
+        tutorialTitles.put(9, "Stats");
+        tutorialTitles.put(10, "Score Calculation");
     }
 
     public void updateScene() {
@@ -96,23 +112,6 @@ public class TutorialController implements Initializable {
         tutorialText.setText(AssetManager.getInstance().readTextFromFile("build/resources/main/tutorialTexts/tutorial1.txt"));
         tutorialImage.setImage(tutorialImages.get(currentPageNo));
         tutorialImage.setLayoutX(20);
-    }
-
-    @FXML
-    public void tutorialImageClicked( MouseEvent e) {
-        frontPane.toFront();
-        backPane.toBack();
-        if(tutorialImage.getScaleX() == 1 && tutorialImage.getScaleY() == 1) {
-            tutorialImage.setScaleY(600.0/400);
-            tutorialImage.setScaleX(600.0/400);
-            tutorialImage.setLayoutX(-10);
-            tutorialImage.setLayoutY(120);
-        }
-        else {
-            tutorialImage.setScaleY(1);
-            tutorialImage.setScaleX(1);
-            tutorialImage.setLayoutX(-5);
-            tutorialImage.setLayoutY(0);
-        }
+        tutorialTitle.setText( tutorialTitles.get(1));
     }
 }
