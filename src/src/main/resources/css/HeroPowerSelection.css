@@ -61,6 +61,7 @@
 #button11 {
     -fx-background-image: url('../images/hero-images/thales_black_white.png');
     -fx-background-color: transparent;
+    -fx-background-size: 150px;
 }
 
 #button12 {
