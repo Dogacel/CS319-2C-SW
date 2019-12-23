@@ -1,0 +1,5 @@
+These represent your coins, war tokens and your unlocked heroes.
+
+You can click on the hero shaped button to see your unlocked heroes.
+
+You can click on Exit button to exit the game.

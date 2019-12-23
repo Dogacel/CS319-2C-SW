@@ -1,0 +1,7 @@
+Heroes are a new feature!
+When a player plays three cards of the same color, a hero will appear.
+Heroes grant simple abilities:
+If three red cards are played, one additional shield is provided.
+If three green cards are played, one random science point is provided.
+If three blue are played, three additional victory point is provided.
+

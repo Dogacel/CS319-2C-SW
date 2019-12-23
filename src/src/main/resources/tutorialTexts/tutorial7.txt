@@ -1,0 +1,13 @@
+This is your neighbor's construction zone.
+
+The cards your neighbors built are shown.
+
+You can only see the resources that card gives you.
+
+You can click on their cards to select that resource for trading.
+
+You can click on and trade as many items as you like, as long as you have enough money.
+
+For trading choose one cards, if the user click once, the left sided resource will be traded.
+If the user clicks twice, the right-sided resource will be traded. 
+

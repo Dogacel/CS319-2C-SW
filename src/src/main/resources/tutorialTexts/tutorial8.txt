@@ -1,0 +1,15 @@
+This is the other players view.
+
+You can keep track of other players that are not neighbors.
+
+Initially, a condensed view is available.
+
+This view will show their names, their gold, their shields and the battle loss points.
+
+Right under these, it shows their wonder stages and whether or not they've upgraded them.
+
+If you click on these labels, their construction zone will open up.
+
+You cannot interact with their cards, it is only for follow up.
+
+If you click on the label again, the zone will close. 
