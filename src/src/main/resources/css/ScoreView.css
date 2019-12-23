@@ -1,0 +1,25 @@
+#borderPane{
+    -fx-background-image: url('../images/ui-images/scoreBg.png');
+    -fx-background-size: 100% 100%;
+}
+
+.button{
+    -fx-background-color: rgba(0,0,0,0.3);
+    -fx-font-family: "Assassin$";
+    -fx-font-size: 30px;
+    -fx-text-fill: rgb(255,255,255);
+    -fx-pref-width: 340px;
+    -fx-pref-height: 50px;
+    -fx-border-radius:  10px;
+    -fx-border-color:  white;
+    -fx-background-radius: 10px;
+}
+
+.button:hover {
+    -fx-background-color: rgba(100, 100, 100, 0.7);
+    -fx-font-size: 34px;
+}
+
+.button:pressed {
+    -fx-background-color: rgba(100, 100, 100, 0.5);
+}

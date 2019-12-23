@@ -2,12 +2,14 @@ package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
 import SevenWonders.SceneManager;
+import SevenWonders.SoundManager;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -182,8 +184,17 @@ public class AnimationController {
                 ageFade.setFromValue(1.0);
                 ageFade.setToValue(0.0);
                 ageFade.play();
-                if(gameplayController.gameModel.getGameFinished())
-                    SceneManager.getInstance().changeScene("MainMenuView.fxml");
+                if(gameplayController.gameModel.getGameFinished()) {
+                    SoundManager.getInstance().stopAgeThreeMusic();
+                    SoundManager.getInstance().playEndMusic();
+
+                    var sceneAndController = AssetManager.getInstance().getSceneAndController("ScoreView.fxml");
+                    ScoreViewController scoreViewController = (ScoreViewController) sceneAndController.getValue();
+                    scoreViewController.gameplayController = gameplayController;
+                    Parent scene = sceneAndController.getKey();
+
+                    SceneManager.getInstance().changeScene(scene);
+                }
             }
         });
         stackPane.getChildren().add(ageText);
