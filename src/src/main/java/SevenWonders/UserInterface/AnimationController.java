@@ -234,6 +234,12 @@ public class AnimationController {
                 heroFade.setFromValue(1.0);
                 heroFade.setToValue(0.0);
                 heroFade.play();
+                heroFade.setOnFinished(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        stackPane.setVisible(false);
+                    }
+                });
             }
         });
         stackPane.getChildren().add(heroText);

@@ -255,7 +255,9 @@ public class CardViewController implements Initializable {
     public void heroButtonClicked(MouseEvent mouseEvent) {
         var sceneAndController = AssetManager.getInstance().getSceneAndController("HeroPowerSelectionView.fxml");
         HeroPowerSelectionController controller = (HeroPowerSelectionController) sceneAndController.getValue();
-    Parent root = sceneAndController.getKey();
+        controller.gameplayController = gameplayController;
+        controller.updateScene(gameplayController.gameModel);
+        Parent root = sceneAndController.getKey();
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(root);
         borderPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");

@@ -35,7 +35,7 @@ public class GameplayController implements Initializable, IGameListener {
     OtherPlayersController otherPlayersController;
     ConstructionZoneController constructionZoneController;
     GameplayToolbarController gameplayToolbarController;
-    ScoreViewController scoreViewController;
+    HeroPowerSelectionController heroPowerSelectionController;
 
     Pair<Parent, Object> pair;
 
