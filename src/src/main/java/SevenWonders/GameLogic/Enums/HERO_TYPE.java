@@ -7,6 +7,7 @@ public enum HERO_TYPE {
     HECTOR,
     ARISTOTALES,
     IBNI_SINA,
+    GAUDI,
     PISAGOR,
     THALES,
     DA_VINCI,
