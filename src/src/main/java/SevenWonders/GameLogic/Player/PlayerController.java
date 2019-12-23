@@ -72,7 +72,7 @@ public class PlayerController {
                 }
                 else if(playedCard.getColor() == CARD_COLOR_TYPE.BLUE && player.getConstructionZone().getBlueHero() == 3){
                     player.addHero(AssetManager.getInstance().getRandomHeroByEffect(HERO_EFFECT_TYPE.GRANT_THREE_VP, player.getHeroes()));
-                    player.getConstructionZone().resetGreenHero();
+                    player.getConstructionZone().resetBlueHero();
                 }
 
                 for (Card card : player.getHand())
