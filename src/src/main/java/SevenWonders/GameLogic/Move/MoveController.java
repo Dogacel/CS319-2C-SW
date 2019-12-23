@@ -3,10 +3,9 @@ package SevenWonders.GameLogic.Move;
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Deck.Card.CardEffect;
-import SevenWonders.GameLogic.Enums.ACTION_TYPE;
-import SevenWonders.GameLogic.Enums.CARD_COLOR_TYPE;
-import SevenWonders.GameLogic.Enums.CARD_EFFECT_TYPE;
-import SevenWonders.GameLogic.Enums.RESOURCE_TYPE;
+import SevenWonders.GameLogic.Enums.*;
+import SevenWonders.GameLogic.Game.GameController;
+import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.util.Pair;
 
@@ -184,8 +183,15 @@ public class MoveController {
         //If non-choice cards are not enough, must look at choice cards
         Vector<Card> choiceCards = new Vector<>();
 
+        //If players unlocked the wonder stage that allows him to build on of the resources, add that ability as a corresponding card to the list
+        if (currentPlayer.getWonder().getCurrentStageIndex() >= 2) {
+            if (currentPlayer.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.ONE_OF_EACH_RAW_MATERIAL) {
+                choiceCards.add(AssetManager.getInstance().getCardByID(37)); //Adds the card caravensery, which ability is the same with the wonder ability
+            }
+        }
+
         /*Traverse every card and collect choice cards*/
-        for ( Card card : currentPlayer.getConstructionZone().getConstructedCards() ) {
+        for (Card card : currentPlayer.getConstructionZone().getConstructedCards()) {
             switch (card.getCardEffect().getEffectType()) {
                 case ONE_OF_EACH_MANUFACTURED_GOODS:
                 case ONE_OF_EACH_RAW_MATERIAL:
@@ -445,16 +451,47 @@ public class MoveController {
      * @return true if player can build a card, false otherwise
      */
     private Pair<Boolean, Vector<TradeAction>> playerCanPlayBuildCard(MoveModel moveModel, PlayerModel currentPlayer, Pair<PlayerModel, PlayerModel> neighbors) {
-        if (haveBuildingChain(moveModel, currentPlayer)){
+        boolean has = false;
+        for (Card c : currentPlayer.getHand()) {
+            if (c.getId() == moveModel.getSelectedCardID()) {
+                has = true;
+                break;
+            }
+        }
+
+        if (!has) {
+            //This if will check if the user's wonder has the ability to play a card from a discard pile
+            if ( currentPlayer.getPlayerCanBuildDiscard() &&
+                    currentPlayer.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.BUILD_FROM_DISCARDED && currentPlayer.getWonder().getCurrentStageIndex() >=2) {
+                currentPlayer.setPlayerCanBuildDiscard(false);
+                return new Pair<>(true, new Vector<>());
+            }
+            return new Pair<>(false, new Vector<>());
+        }
+
+        if (haveBuildingChain(moveModel, currentPlayer)) {
             return new Pair<>(true, new Vector<>());
         }
-        var x = playerHasEnoughResourcesAutoTrade( AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades(), neighbors);
+
+        var x = playerHasEnoughResourcesAutoTrade(AssetManager.getInstance().getCardByID(moveModel.getSelectedCardID()).getRequirements(), currentPlayer, moveModel.getTrades(), neighbors);
+
+        if (checkConstructionZone(moveModel, currentPlayer) && !x.getKey()) {
+            //First if will check if the user's wonder has the ability to play a free card for an age.
+            if (currentPlayer.getPlayerCanBuildFree() &&
+                    currentPlayer.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.FREE_BUILDING && currentPlayer.getWonder().getCurrentStageIndex() >=2) {
+                currentPlayer.setPlayerCanBuildFree(false);
+                return new Pair<>(true, new Vector<>());
+            }
+            return new Pair<>(false, new Vector<>());
+        }
+
         return new Pair<>(checkConstructionZone(moveModel, currentPlayer) && x.getKey(), x.getValue());
     }
 
     /**
      * Checks if the player can discard their selected cards
-     * @param moveModel current move
+     *
+     * @param moveModel     current move
      * @param currentPlayer current player
      * @return true if player can discard, false otherwise
      */
@@ -464,7 +501,8 @@ public class MoveController {
 
     /**
      * Checks if player can upgrade their wonders
-     * @param moveModel current move
+     *
+     * @param moveModel     current move
      * @param currentPlayer current player
      * @return true if player can upgrade wonder, false otherwise
      */

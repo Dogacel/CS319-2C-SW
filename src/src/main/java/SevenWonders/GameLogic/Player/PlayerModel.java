@@ -12,17 +12,19 @@ public class PlayerModel {
 
     private final int MAX_CARDS_AT_HAND = 7;
 
-    private int              id;
-    private String           name;
-    private int              gold;
-    private Vector<Card>     hand;
-    private Wonder           wonder;
-    private int              shields;
-    private int              warPoints;
-    private int              lostWarNumber;
-    private boolean          isReady;
-    private MoveModel        currentMove;
-    private Vector<Hero>     heroes;
+    private int          id;
+    private boolean playerCanBuildFree = true;
+    private boolean playerCanBuildDiscard = true;
+    private String       name;
+    private int          gold;
+    private Vector<Card> hand;
+    private Wonder wonder;
+    private int          shields;
+    private int          warPoints;
+    private int          lostWarNumber;
+    private boolean      isReady;
+    private MoveModel currentMove;
+    private Vector<Hero> heroes;
     private ConstructionZone constructionZone;
 
 
@@ -88,6 +90,22 @@ public class PlayerModel {
             this.shields++;
         heroes.add(hero);
 
+    }
+
+    public boolean getPlayerCanBuildFree() {
+        return playerCanBuildFree;
+    }
+
+    public void setPlayerCanBuildFree( boolean boo) {
+        playerCanBuildFree = boo;
+    }
+
+    public boolean getPlayerCanBuildDiscard() {
+        return playerCanBuildDiscard;
+    }
+
+    public void setPlayerCanBuildDiscard( boolean boo) {
+        playerCanBuildDiscard = boo;
     }
 
 }

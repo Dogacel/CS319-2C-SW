@@ -3,6 +3,8 @@ package SevenWonders.UserInterface;
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.ACTION_TYPE;
+import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
+import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Move.TradeAction;
@@ -44,6 +46,8 @@ public class CardViewController implements Initializable {
     private Card selectedCard;
     private ImageView focusedView;
 
+    private DropShadow borderGlow;
+
     @FXML
     HBox cardBox;
 
@@ -56,6 +60,13 @@ public class CardViewController implements Initializable {
     private Vector<Card> hand;
 
     public CardViewController(){
+        borderGlow = new DropShadow();
+        borderGlow.setOffsetY(0f);
+        borderGlow.setOffsetX(0f);
+        borderGlow.setColor(Color.GOLD);
+        int depth1 = 100;
+        borderGlow.setWidth(depth1);
+        borderGlow.setHeight(depth1);
     }
 
     @Override
@@ -122,13 +133,7 @@ public class CardViewController implements Initializable {
 
     private void updateCards(Vector<Card> hand){
         cardBox.getChildren().clear();
-        int depth1 = 100;
-        DropShadow borderGlow = new DropShadow();
-        borderGlow.setOffsetY(0f);
-        borderGlow.setOffsetX(0f);
-        borderGlow.setColor(Color.GOLD);
-        borderGlow.setWidth(depth1);
-        borderGlow.setHeight(depth1);
+
 
         for (int i = 0 ; i < hand.size() ; i++) {
             if (hand.get(i) != null) {
@@ -247,7 +252,7 @@ public class CardViewController implements Initializable {
     public void heroButtonClicked(MouseEvent mouseEvent) {
         var sceneAndController = AssetManager.getInstance().getSceneAndController("HeroPowerSelectionView.fxml");
         HeroPowerSelectionController controller = (HeroPowerSelectionController) sceneAndController.getValue();
-        Parent root = sceneAndController.getKey();
+    Parent root = sceneAndController.getKey();
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(root);
         borderPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
@@ -257,6 +262,11 @@ public class CardViewController implements Initializable {
 
     public void discardButtonClicked(MouseEvent mouseEvent) {
         ScrollPane scrollPane = new ScrollPane();
+        if (!gameplayController.getPlayer().getPlayerCanBuildDiscard() ||
+                gameplayController.getPlayer().getWonder().getStages()[1].getWonderEffect().getEffectType() != WONDER_EFFECT_TYPE.BUILD_FROM_DISCARDED ||
+                gameplayController.getPlayer().getWonder().getCurrentStageIndex() < 2) {
+            return;
+        }
         scrollPane.setMaxWidth(800);
         scrollPane.setMaxHeight(400);
         scrollPane.setPannable(true);
@@ -274,7 +284,36 @@ public class CardViewController implements Initializable {
             );
             imageView.setOnMouseClicked(event ->
             {
+                if (focusedView != imageView) {
+                    if(focusedView != null) {
+                        if (selectedCard != null) {
+                            focusedView.setEffect(generateCanBuild(selectedCard));
+                        }
+                        selectedCard = c;
+                        focusedView.setScaleX(0.95);
+                        focusedView.setScaleY(0.95);
+                    }
 
+                    selectedCard = c;
+                    focusedView = imageView;
+                    imageView.setScaleX(1);
+                    imageView.setScaleY(1);
+                    focusedView.setEffect(borderGlow);
+                }
+                else {
+                    if(imageView.getScaleX() == 1 && imageView.getScaleY() == 1) {
+                        imageView.setScaleX(0.95);
+                        imageView.setScaleY(0.95);
+                        imageView.setEffect(generateCanBuild(c));
+                        selectedCard = null;
+                    }
+                    else{
+                        imageView.setScaleX(1);
+                        imageView.setScaleY(1);
+                        imageView.setEffect(borderGlow);
+                        selectedCard = c;
+                    }
+                }
             });
             cards.getChildren().add(imageView);
         }

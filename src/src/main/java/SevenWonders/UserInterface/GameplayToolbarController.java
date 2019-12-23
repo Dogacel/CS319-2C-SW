@@ -208,6 +208,13 @@ public class GameplayToolbarController {
         }
         if(playerModel.getWonder().getCurrentStageIndex() == 2) {
             wonder2Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");
+            if ( playerModel.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.FREE_BUILDING ||
+                    playerModel.getWonder().getStages()[1].getWonderEffect().getEffectType() == WONDER_EFFECT_TYPE.BUILD_FROM_DISCARDED) {
+                wonder2Pane.setOnMouseClicked((e) -> {
+                    MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.BUILD_CARD);
+                    updatePlayerMove(move);
+                });
+            }
         }
         if(playerModel.getWonder().getCurrentStageIndex() == 3) {
             wonder3Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");

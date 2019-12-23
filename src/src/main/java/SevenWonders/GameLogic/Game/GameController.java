@@ -6,6 +6,7 @@ import SevenWonders.GameLogic.Deck.Card.CardEffect;
 import SevenWonders.GameLogic.Deck.DeckController;
 import SevenWonders.GameLogic.Enums.*;
 
+import SevenWonders.GameLogic.Enums.WONDER_EFFECT_TYPE;
 import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
@@ -19,7 +20,6 @@ import java.util.Vector;
 
 public class GameController {
     private final int MAX_NO_OF_PLAYERS = 7;
-
     private PlayerController[] playerControllers;
     private DiscardPileController discardPileController;
     private DeckController deckController;
@@ -69,7 +69,9 @@ public class GameController {
             playEndOfAge();
             if (!model.isGameEnded()) {
                 model.incrementCurrentAge();
-
+                for ( PlayerController controller : playerControllers) {
+                    controller.setPlayerCanBuildFree(true);
+                }
                 if (model.getCurrentAge() <= 3) {
                     dealCards();
                 }

@@ -6,6 +6,8 @@ import SevenWonders.GameLogic.Enums.*;
 import SevenWonders.GameLogic.Game.GameController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Wonder.Wonder;
+import SevenWonders.Network.Client;
+import SevenWonders.SoundManager;
 
 import java.util.Vector;
 
@@ -83,15 +85,24 @@ public class PlayerController {
                 }
                 break;
             case UPGRADE_WONDER:
-
                 player.getWonder().upgradeStage();
-                for (Card card : player.getHand())
-                {
+                for (Card card : player.getHand()) {
                     if (card.getId() == move.getSelectedCardID()) {
                         //Played card is found, remove it from players hand
                         player.getHand().remove(card);
                         break; //Remove only one card
                     }
+                }
+                WONDER_EFFECT_TYPE wonderEffect = player.getWonder().getUpgradedStage().getWonderEffect().getEffectType();
+                switch(wonderEffect) {
+                    case GRANT_SHIELDS:
+                        int shields = player.getWonder().getCurrentStage().getWonderEffect().getShields();
+                        player.setShields( player.getShields() + shields);
+                        break;
+                    case GET_MONEY:
+                        int gold = player.getWonder().getCurrentStage().getWonderEffect().getGold();
+                        player.setGold( player.getGold() + gold);
+                        break;
                 }
                 break;
             case USE_GOD_POWER:
@@ -144,5 +155,20 @@ public class PlayerController {
         return player.getId();
     }
 
+    public boolean getPlayerCanBuildFree() {
+        return player.getPlayerCanBuildFree();
+    }
+    public boolean getPlayerCanBuildDiscard() {
+        return player.getPlayerCanBuildDiscard();
+    }
+
     public PlayerModel getPlayer() { return player; }
+
+    public void setPlayerCanBuildFree(boolean boo) {
+        player.setPlayerCanBuildFree(boo);
+    }
+
+    public void setPlayerCanBuildDiscard( boolean boo) {
+        player.setPlayerCanBuildDiscard(boo);
+    }
 }

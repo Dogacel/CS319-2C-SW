@@ -55,4 +55,12 @@ public class Wonder {
         }
         return null;
     }
+    public WonderStage getUpgradedStage() {
+        if (currentStage == 3 || currentStage == 2) {
+            return stages[2];
+        }
+        else {
+            return stages[currentStage];
+        }
+    }
 }
