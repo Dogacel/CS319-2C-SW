@@ -26,14 +26,14 @@
                 <Button fx:id="button2" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" />
                 <Button fx:id="button3" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" />
                 <Button fx:id="button4" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.rowIndex="1" />
-                <Button fx:id="button5" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="button12" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                 <Button fx:id="button6" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                 <Button fx:id="button7" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.rowIndex="2" />
                 <Button fx:id="button8" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <Button fx:id="button9" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                 <Button fx:id="button10" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.rowIndex="3" />
                 <Button fx:id="button11" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Button fx:id="button12" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Button fx:id="button5" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </center>

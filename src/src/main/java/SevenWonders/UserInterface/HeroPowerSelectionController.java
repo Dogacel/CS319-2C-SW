@@ -29,40 +29,40 @@ public class HeroPowerSelectionController implements Initializable {
                     BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 
             if(name.equals("achilles")){
-                button1.setBackground(new Background(backgroundImage));
+                button1.setStyle("-fx-background-image: url('/images/hero-images/achilles.png');");
             }
             else if(name.equals("aristotales")){
-                button2.setBackground(new Background(backgroundImage));
+                button2.setStyle("-fx-background-image: url('/images/hero-images/aristotales.png');");
             }
             else if(name.equals("da_vinci")){
-                button3.setBackground(new Background(backgroundImage));
+                button3.setStyle("-fx-background-image: url('/images/hero-images/da_vinci.png');");
             }
             else if(name.equals("donatello")){
-                button4.setBackground(new Background(backgroundImage));
+                button4.setStyle("-fx-background-image: url('/images/hero-images/donatello.png');");
             }
             else if(name.equals("gaudi")){
-                button5.setBackground(new Background(backgroundImage));
+                button5.setStyle("-fx-background-image: url('/images/hero-images/gaudi.png');");
             }
             else if(name.equals("hector")){
-                button6.setBackground(new Background(backgroundImage));
+                button6.setStyle("-fx-background-image: url('/images/hero-images/hector.png');");
             }
             else if(name.equals("ibni_sina")){
-                button7.setBackground(new Background(backgroundImage));
+                button7.setStyle("-fx-background-image: url('/images/hero-images/ibni_sina.png');");
             }
             else if(name.equals("leonidas")){
-                button8.setBackground(new Background(backgroundImage));
+                button8.setStyle("-fx-background-image: url('/images/hero-images/leonidas.png');");
             }
             else if(name.equals("michelangelo")){
-                button9.setBackground(new Background(backgroundImage));
+                button9.setStyle("-fx-background-image: url('/images/hero-images/michelangelo.png');");
             }
             else if(name.equals("pisagor")){
-                button10.setBackground(new Background(backgroundImage));
+                button10.setStyle("-fx-background-image: url('/images/hero-images/pisagor.png');");
             }
             else if(name.equals("spartacus")){
-                button11.setBackground(new Background(backgroundImage));
+                button11.setStyle("-fx-background-image: url('/images/hero-images/spartacus.png');");
             }
             else if(name.equals("thales")){
-                button12.setBackground(new Background(backgroundImage));
+                button12.setStyle("-fx-background-image: url('/images/hero-images/thales.png');");
             }
         }
     }
