@@ -29,11 +29,7 @@ public class ScoreViewController implements Initializable {
    GameplayController gameplayController;
 
     @FXML
-    private Button returnMenuButton, exitButton;
-
-    @FXML
     private BorderPane borderPane;
-
 
     public ScoreViewController() {
 

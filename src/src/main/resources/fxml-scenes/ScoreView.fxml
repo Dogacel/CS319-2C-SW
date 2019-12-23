@@ -11,10 +11,10 @@
    <bottom>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
-            <Button fx:id="returnMenuButton" mnemonicParsing="false" onMouseClicked="#returnMenuButtonClicked" text="Back Menu" BorderPane.alignment="CENTER" />
+            <Button mnemonicParsing="false" onMouseClicked="#returnMenuButtonClicked" text="BACK MENU" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#exitButtonClicked" text="Exit" BorderPane.alignment="CENTER" />
+            <Button mnemonicParsing="false" onMouseClicked="#exitButtonClicked" text="EXIT" BorderPane.alignment="CENTER" />
          </right>
       </BorderPane>
    </bottom>
