@@ -5,7 +5,9 @@ import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.IGameListener;
+import SevenWonders.Network.Requests.EndGameRequest;
 import SevenWonders.Network.Requests.UpdateGameStateRequest;
+import SevenWonders.SceneManager;
 import SevenWonders.SoundManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -30,6 +32,7 @@ public class GameplayController implements Initializable, IGameListener {
     OtherPlayersController otherPlayersController;
     ConstructionZoneController constructionZoneController;
     GameplayToolbarController gameplayToolbarController;
+    ScoreViewController scoreViewController;
 
     Pair<Parent, Object> pair;
 
@@ -62,6 +65,7 @@ public class GameplayController implements Initializable, IGameListener {
             }
 
             this.gameModel = gameModel;
+            System.out.println("AGE IS "  + gameModel.getCurrentAge() + " turn is " + gameModel.getCurrentTurn());
             if (gameModel.getCurrentAge() == 2 && gameModel.getCurrentTurn() == 1)
             {
                 SoundManager.getInstance().stopAgeOneMusic();
@@ -74,9 +78,7 @@ public class GameplayController implements Initializable, IGameListener {
                 SoundManager.getInstance().playBattleSound();
                 SoundManager.getInstance().playAgeThreeMusic();
             }
-            else if(gameModel.getGameFinished()) {
-                SoundManager.getInstance().stopAgeThreeMusic();
-            }
+
             PlayerModel me = gameModel.getPlayerList()[client.getID()];
 
             cardViewController.updateScene(me.getHand());
@@ -165,7 +167,6 @@ public class GameplayController implements Initializable, IGameListener {
 
     @Override
     public void onEndGameRequest() {
-
     }
 
     @Override

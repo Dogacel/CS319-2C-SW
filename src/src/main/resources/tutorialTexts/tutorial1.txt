@@ -1,0 +1,14 @@
+1) Displays the required resources and the previous building in the chain.
+2) Displays the resources that will be provided to the user when played.
+3)Displays the name of the card.
+4)If exists,Displays the name of another building, which can be built for free if the current card is built.
+There are total of 7 types of cards:
+Brown and grey cards provide resources. 
+Red cards provide shields.
+Green cards provide one of the three science points.
+Blue cards provide victory points.
+Yellow cards provide various awards, from discounts to resources.
+Purple cards also provide different awards.
+
+
+

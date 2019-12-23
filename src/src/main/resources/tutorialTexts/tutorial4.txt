@@ -1,0 +1,2 @@
+This is the main gameplay screen of 7 Wonders!
+The numbered sections will be explained in later tutorial pages.
