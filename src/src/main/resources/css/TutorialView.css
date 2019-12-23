@@ -18,3 +18,57 @@ Button:hover {
     -fx-scale-y: 1.25;
 }
 
+.text-area {
+    -fx-background-color: rgba(53,89,119,0.4);
+    -fx-text-fill: white;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+#tutorialPane{
+    -fx-background-color: rgba(0,0,0,0.8);
+}
+
+#tutorialTitle{
+        -fx-background-color: rgba(0,0,0,.8);
+        -fx-font-family: "Assassin$";
+        -fx-font-size: 30px;
+        -fx-text-fill: rgb(255,255,255);
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(228, 233, 237, 0.7);
+    -fx-background-radius: 5em;
+}
+.scroll-pane > .corner {
+    -fx-background-color: black;
+}

@@ -1,0 +1,19 @@
+1) This is your hand.
+Cards that can be played are highlighted in green, otherwise red.
+You can click on a card to select it.
+
+2) This is the discard pile.
+It can only be opened if you have the build from discard pile effect.
+If you have that effect, you can click on the cards inside the pile once a game to build that card.
+
+3)These are your wonder stages.
+These stages are unique to your wonder.
+If you upgrade a stage, it will glow, letting you know.
+
+4) These are the action buttons.
+If you have enough resources;
+Wonder button will let you upgrade your wonder, discarding the selected card .
+Build button will let you build the selected card to your construction zone.
+Discard button will let you discard the selected card to gain 3 coins.
+God button will let you activate the god power, if you upgraded all wonder stages.
+If you clicked a card and then an action button, click Ready to make your move.

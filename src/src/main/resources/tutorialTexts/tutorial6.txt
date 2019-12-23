@@ -1,0 +1,7 @@
+This is your construction zone.
+
+The cards you have built are shown here.
+
+You can only see the resources that card gives you.
+
+There are different slots for different colored cards.

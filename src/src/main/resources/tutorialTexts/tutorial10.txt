@@ -1,0 +1,19 @@
+If you have the most victory points, congratulations, you win! 
+
+In order to calculate victory points, here are the steps:
+
+Victory points coming from unlocked wonder stages and blue cards will be calculated directly.
+
+Your battle points (not shields!) are each count as one victory point.
+
+Yellow and purple cards are checked as they might have abilities that will grant you points.
+
+Greeb cards earn victory points in two very different ways: from sets of identical symbols and from sets of 3 different symbols.
+
+Be careful : the victory points earned by both methods are cumulative.
+
+If you have n(max 4) number of same symbols, you win n^2 victory points.
+
+If you have three different symbols(a set), you win 7 victory points.
+
+

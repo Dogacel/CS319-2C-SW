@@ -1,0 +1,22 @@
+1) Displays the wonder name.
+
+2) Displays the ability that will be provided to the user when stage is unlocked.
+
+If all three wonder stages are unlocked, user can use their god power.
+
+Here are the wonders and the gods for each wonder: 
+
+Colossus of Rhodes:
+	Ares: Grants 5 shields to the user
+Lighthouse of Alexandria:
+	Ra: Delete one random science point from all players.
+Great Pyramid of Giza:
+	Seth: Block the trades of all players.
+Hanging Gardens of Babylon:
+	Marduk: Downgrade one stage of every player's wonder.
+Mausoleum at Halicarnassus:
+	Athena: Can see the upcoming hand, every turn after you unlock the wonder.
+Statue of Zeus:
+	Zeus: Block build and wonder upgrade actions of your neigbors.
+Temple of Artemis:
+	Artemis: Grants one victory point each turn after activation. 

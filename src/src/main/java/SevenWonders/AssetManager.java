@@ -15,6 +15,7 @@ import javafx.util.Pair;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Logger;
 
 
 public class AssetManager {
@@ -109,7 +110,37 @@ public class AssetManager {
             if( f.getName().matches(".*(\\.(png|jpg|jpeg))") && !imageMap.containsKey(f.getName()))
                 imageMap.put(f.getName(), new Image("/images/wonders/" + f.getName()));
         }
+        imageResourcesURL = getClass().getClassLoader().getResource("images/tutorialImages");
+        assert imageResourcesURL != null;
+        dir = new File(imageResourcesURL.getPath());
+
+        for (File f : Objects.requireNonNull(dir.listFiles())) {
+            if( f.getName().matches(".*(\\.(png|jpg|jpeg))") && !imageMap.containsKey(f.getName()))
+                imageMap.put(f.getName(), new Image("/images/tutorialImages/" + f.getName()));
+        }
     }
+
+    public String readTextFromFile( String fileName){
+        File file = new File(fileName);
+        BufferedReader br = null;
+        String finalStr = "";
+        try {
+            br = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            String i;
+            while ((i = br.readLine()) != null)
+                finalStr+= i+"\n";
+        } catch(IOException ex1) {
+            ex1.printStackTrace();
+        }
+
+        return finalStr;
+    }
+
 
     private void loadScenes() {
         URL sceneResourcesURL = getClass().getClassLoader().getResource("fxml-scenes");
