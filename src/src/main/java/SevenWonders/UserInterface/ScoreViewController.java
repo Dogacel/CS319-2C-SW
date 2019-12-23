@@ -3,6 +3,8 @@ package SevenWonders.UserInterface;
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.GameLogic.ScoreController;
+import SevenWonders.Network.Client;
+import SevenWonders.Network.Server;
 import SevenWonders.SceneManager;
 import SevenWonders.SoundManager;
 import javafx.application.Platform;
@@ -21,6 +23,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -108,6 +111,8 @@ public class ScoreViewController implements Initializable {
 
     public void returnMenuButtonClicked(javafx.scene.input.MouseEvent mouseEvent) {
         SoundManager.getInstance().stopEndMusic();
+        gameplayController.getClient().disconnect();
+        Server.stopServerInstance();
         SceneManager.getInstance().changeScene("MainMenuView.fxml");
     }
 }
