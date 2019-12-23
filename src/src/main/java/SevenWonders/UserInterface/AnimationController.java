@@ -1,6 +1,9 @@
 package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
+import SevenWonders.GameLogic.Game.GameModel;
+import SevenWonders.GameLogic.Player.PlayerModel;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
 import SevenWonders.SceneManager;
 import SevenWonders.SoundManager;
 import javafx.animation.FadeTransition;
@@ -15,11 +18,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 public class AnimationController {
 
-    public static void endOfAgeAnimation(GameplayController gameplayController, StackPane stackPane) {
+    public static void endOfAgeAnimation(GameplayController gameplayController, StackPane stackPane, GameModel gameModel) {
         stackPane.setVisible(true);
         ImageView shieldImage = new ImageView(AssetManager.getInstance().getImage("shield.png"));
         stackPane.getChildren().add(shieldImage);
@@ -58,11 +62,11 @@ public class AnimationController {
                 pane.setOnFinished(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        stackPane.setVisible(false);
                         FadeTransition pane = new FadeTransition(Duration.millis(10), stackPane);
                         pane.setFromValue(0.0);
                         pane.setToValue(1.0);
                         pane.play();
+                        stackPane.setVisible(false);
                         stackPane.getChildren().clear();
                     }
                 });
@@ -72,13 +76,17 @@ public class AnimationController {
         stackPane.getChildren().add(leftSword);
         stackPane.getChildren().add(rightSword);
 
+        PlayerModel player = gameModel.getPlayerList()[gameplayController.getPlayer().getId()];
+        PlayerModel leftPlayer = gameModel.getLeftPlayer(gameplayController.getPlayer().getId());
+        PlayerModel rightPlayer = gameModel.getRightPlayer(gameplayController.getPlayer().getId());
+
         ImageView shieldRight, shieldLeft;
-        if(gameplayController.getPlayer().getShields() < gameplayController.getRightPlayer().getShields()){
+        if(player.getShields() < rightPlayer.getShields()){
             shieldRight = new ImageView(AssetManager.getInstance().getImage("warpoint_minus1.png"));
             shieldRight.setScaleX(1.5);
             shieldRight.setScaleY(1.5);
         }
-        else if(gameplayController.getPlayer().getShields() == gameplayController.getRightPlayer().getShields()){
+        else if(player.getShields() == rightPlayer.getShields()){
             shieldRight = null;
         }
         else{
@@ -101,12 +109,12 @@ public class AnimationController {
             }
         }
 
-        if(gameplayController.getPlayer().getShields() < gameplayController.getLeftPlayer().getShields()){
+        if(player.getShields() < leftPlayer.getShields()){
             shieldLeft = new ImageView(AssetManager.getInstance().getImage("warpoint_minus1.png"));
             shieldLeft.setScaleY(1.5);
             shieldLeft.setScaleX(1.5);
         }
-        else if(gameplayController.getPlayer().getShields() == gameplayController.getLeftPlayer().getShields()){
+        else if(player.getShields() == leftPlayer.getShields()){
             shieldLeft = null;
         }
         else{
@@ -130,7 +138,6 @@ public class AnimationController {
             }
         }
 
-
         TranslateTransition leftShield  = new TranslateTransition(Duration.millis(1500), shieldLeft);
         leftShield.setFromX(-700);
         leftShield.setToX(-50);
@@ -151,10 +158,9 @@ public class AnimationController {
         if(shieldRight != null){
             stackPane.getChildren().add(shieldRight);
         }
-
     }
 
-    public static void startOfAgeAnimation(GameplayController gameplayController, StackPane stackPane){
+    public static void startOfAgeAnimation(GameplayController gameplayController, StackPane stackPane, GameModel gameModel){
         Text ageText = new Text();
         if(gameplayController.gameModel.getCurrentAge() == 3){
             ageText.setText("GAME OVER   ");
@@ -162,10 +168,10 @@ public class AnimationController {
         else{
             ageText.setText("AGE " + (gameplayController.gameModel.getCurrentAge() + 1) + "   ");
         }
-        ageText.setStyle("-fx-font-family: 'Assassin$';" + "-fx-font-size: 80px;" + "-fx-fill: white;" + "-fx-stroke: black;" + "-fx-stroke-width: 1px;");
+        ageText.setStyle("-fx-font-family: 'Assassin$';" + "-fx-font-size: 80px;" + "-fx-fill: white;");
 
         DropShadow borderGlow = new DropShadow();
-        borderGlow.setColor(Color.GOLD);
+        borderGlow.setColor(Color.RED);
         int depth1 = 120;
         borderGlow.setWidth(depth1);
         borderGlow.setHeight(depth1);
@@ -199,5 +205,38 @@ public class AnimationController {
         });
         stackPane.getChildren().add(ageText);
         StackPane.setAlignment(ageText, Pos.CENTER);
+    }
+
+    public static void heroAnimation(PlayerModel playerModel, StackPane stackPane) {
+        stackPane.setVisible(true);
+        Hero hero = playerModel.getHeroes().lastElement();
+
+        Text heroText = new Text();
+        heroText.setText( hero.getHeroType().name().toUpperCase().replaceAll("_", " ") + "\nHAS\nARRIVED!");
+        heroText.setStyle("-fx-font-family: 'Assassin$';" + "-fx-font-size: 80px;" + "-fx-fill: white;");
+        heroText.setTextAlignment(TextAlignment.CENTER);
+
+        DropShadow borderGlow = new DropShadow();
+        borderGlow.setColor(Color.RED);
+        int depth1 = 120;
+        borderGlow.setWidth(depth1);
+        borderGlow.setHeight(depth1);
+        heroText.setEffect(borderGlow);
+
+        FadeTransition textAnim = new FadeTransition(Duration.millis(2000), heroText);
+        textAnim.setFromValue(0.0);
+        textAnim.setToValue(1.0);
+        textAnim.play();
+        textAnim.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FadeTransition heroFade = new FadeTransition(Duration.millis(1000), heroText);
+                heroFade.setFromValue(1.0);
+                heroFade.setToValue(0.0);
+                heroFade.play();
+            }
+        });
+        stackPane.getChildren().add(heroText);
+        StackPane.setAlignment(heroText, Pos.CENTER);
     }
 }
