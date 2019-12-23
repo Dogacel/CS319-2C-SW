@@ -65,7 +65,7 @@ public class ScoreViewController implements Initializable {
                 playerGrid.add(new Text(ScoreController.calculateWonders(player) + ""), 3, index);
                 playerGrid.add(new Text(ScoreController.calculateCivilianStructures(player) + ""), 4, index);
                 playerGrid.add(new Text(ScoreController.calculateCommercialStructures(player) + ""), 5, index);
-                playerGrid.add(new Text(ScoreController.calculateGuilds(player, gameplayController.getLeftPlayer(), gameplayController.getRightPlayer()) + ""), 6, index);
+                playerGrid.add(new Text(ScoreController.calculateGuilds(player, gameplayController.gameModel.getLeftPlayer(player.getId()), gameplayController.gameModel.getRightPlayer(player.getId())) + ""), 6, index);
                 playerGrid.add(new Text(ScoreController.calculateScientificStructures(player) + ""), 7, index);
                 playerGrid.add(new Text(ScoreController.calculateScore(player.getId(), gameplayController.gameModel) + ""), 8, index);
                 index++;
