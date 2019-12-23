@@ -15,6 +15,7 @@ import javafx.util.Pair;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Logger;
 
 
 public class AssetManager {
@@ -118,6 +119,28 @@ public class AssetManager {
                 imageMap.put(f.getName(), new Image("/images/tutorialImages/" + f.getName()));
         }
     }
+
+    public String readTextFromFile( String fileName){
+        File file = new File(fileName);
+        BufferedReader br = null;
+        String finalStr = "";
+        try {
+            br = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            String i;
+            while ((i = br.readLine()) != null)
+                finalStr+= i;
+        } catch(IOException ex1) {
+            ex1.printStackTrace();
+        }
+
+        return finalStr;
+    }
+
 
     private void loadScenes() {
         URL sceneResourcesURL = getClass().getClassLoader().getResource("fxml-scenes");
