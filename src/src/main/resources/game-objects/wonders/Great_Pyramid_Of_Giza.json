@@ -39,6 +39,6 @@
   "currentStage" : 0,
   "god" : {
     "godType" : "SETH",
-    "godPower" : "FAMINE"
+    "godPower" : "ECONOMIC_DEPRESSION"
   }
 }

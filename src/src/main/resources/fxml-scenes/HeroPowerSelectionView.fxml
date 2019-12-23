@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="280.0" prefWidth="210.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.HeroPowerSelectionController">
-   <children>
-      <GridPane prefHeight="280.0" prefWidth="210.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
-            <ColumnConstraints />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="button1" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button1Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" />
-            <Button fx:id="button2" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button2Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" />
-            <Button fx:id="button3" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button3Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" />
-            <Button fx:id="button4" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button4Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.rowIndex="1" />
-            <Button fx:id="button5" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button5Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="button6" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button6Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="button7" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button7Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.rowIndex="2" />
-            <Button fx:id="button8" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button8Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="button9" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button9Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button fx:id="button10" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button10Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.rowIndex="3" />
-            <Button fx:id="button11" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button11Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button fx:id="button12" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button12Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-         </children>
-      </GridPane>
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="280.0" maxWidth="210.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.HeroPowerSelectionController">
+    <center>
+        <GridPane prefHeight="280.0" prefWidth="210.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button fx:id="button1" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button1Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" />
+                <Button fx:id="button2" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button2Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" />
+                <Button fx:id="button3" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button3Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" />
+                <Button fx:id="button4" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button4Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.rowIndex="1" />
+                <Button fx:id="button5" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button5Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="button6" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button6Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Button fx:id="button7" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button7Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.rowIndex="2" />
+                <Button fx:id="button8" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button8Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Button fx:id="button9" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button9Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Button fx:id="button10" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button10Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.rowIndex="3" />
+                <Button fx:id="button11" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button11Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Button fx:id="button12" maxHeight="70.0" maxWidth="70.0" minHeight="70.0" minWidth="70.0" mnemonicParsing="false" onMouseClicked="#button12Clicked" prefHeight="70.0" prefWidth="70.0" stylesheets="@../css/HeroPowerSelection.css" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            </children>
+        </GridPane>
+    </center>
+</BorderPane>

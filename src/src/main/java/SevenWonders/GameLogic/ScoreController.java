@@ -29,6 +29,7 @@ public class ScoreController {
         score += calculateCommercialStructures(myPlayer);
         score += calculateScientificStructures(myPlayer);
         score += calculateGuilds(myPlayer, left, right);
+        score += calculateGods(myPlayer);
 
         return score;
     }
@@ -183,6 +184,10 @@ public class ScoreController {
             }
         }
         return score;
+    }
+
+    private static int calculateGods(PlayerModel playerModel){
+        return playerModel.getWonder().getGod().getVpEachTurn();
     }
 
     public static int countColor(PlayerModel playerModel, CARD_COLOR_TYPE color) {

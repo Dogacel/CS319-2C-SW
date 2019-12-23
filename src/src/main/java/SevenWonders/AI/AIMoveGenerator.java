@@ -243,7 +243,7 @@ public class AIMoveGenerator {
             game.getPlayerList()[me.getId()].getConstructionZone().getConstructedCards().remove(card);
         }
 
-        return score * 1.6;
+        return 5 + score * 2.4;
     }
 
     public static double guildScore(MoveModel move, PlayerModel me, GameModel game) {

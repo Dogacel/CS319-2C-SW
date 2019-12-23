@@ -6,13 +6,12 @@ import SevenWonders.GameLogic.Deck.Card.CardEffect;
 import SevenWonders.GameLogic.Deck.DeckController;
 import SevenWonders.GameLogic.Enums.*;
 
+import SevenWonders.GameLogic.Enums.WONDER_TYPE;
 import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.GameLogic.Player.PlayerController;
 import SevenWonders.GameLogic.Player.PlayerModel;
-import SevenWonders.GameLogic.ScoreController;
-import SevenWonders.SoundManager;
 import javafx.util.Pair;
 
 import java.util.Arrays;
@@ -62,6 +61,8 @@ public class GameController {
             shiftCards();
 
             model.incrementCurrentTurn();
+
+            updateGodPowers();
         }
         else{
             discardLastCards();
@@ -137,8 +138,72 @@ public class GameController {
         }
     }
 
+    private void updateGodPowers(){
+        for(PlayerController playerController: playerControllers){
+            GOD_POWER_TYPE godType = playerController.getWonder().getGod().getGodPower();
+
+            if( godType == GOD_POWER_TYPE.VP_EACH_TURN && playerController.getPlayer().getWonder().getGod().isUsed())
+                playerController.getPlayer().getWonder().getGod().incrementVpEachTurn();
+        }
+    }
+
     private void makeMoves()
     {
+        for (PlayerController playerController : playerControllers) {
+            if (playerController.getCurrentMove() == null) {
+                playerController.updateCurrentMove(new MoveModel(playerController.getId(), playerController.getHand().firstElement().getId(), ACTION_TYPE.DISCARD_CARD));
+            }
+        }
+
+        for (PlayerController playerController : playerControllers) {
+            if (playerController.getCurrentMove().getAction() == ACTION_TYPE.USE_GOD_POWER) {
+                switch (playerController.getWonder().getGod().getGodPower()) {
+                    case EARTHQUAKE:
+                        if (getLeftPlayer(playerController.getId()).getCurrentMove().getAction() == ACTION_TYPE.UPGRADE_WONDER) {
+                            getLeftPlayer(playerController.getId()).getCurrentMove().setDiscard();
+                        } else {
+                            getLeftPlayer(playerController.getId()).getWonder().downgradeStage();
+                        }
+                        if (getRightPlayer(playerController.getId()).getCurrentMove().getAction() == ACTION_TYPE.UPGRADE_WONDER) {
+                            getRightPlayer(playerController.getId()).getCurrentMove().setDiscard();
+                        } else {
+                            getRightPlayer(playerController.getId()).getWonder().downgradeStage();
+                        }
+                        break;
+                    case BLOCK_AND_DESTROY_CARD:
+                        getLeftPlayer(playerController.getId()).getCurrentMove().setDiscard();
+                        getRightPlayer(playerController.getId()).getCurrentMove().setDiscard();
+                        break;
+                    case ECONOMIC_DEPRESSION:
+                        for (PlayerController pc : playerControllers) {
+                            if (pc.getCurrentMove().getTrades().size() > 0) {
+                                pc.getCurrentMove().setDiscard();
+                                pc.setGold(pc.getGold() - pc.DISCARD_REWARD);
+                            }
+                        }
+                        break;
+                    case SCIENTIFIC_REGRESSION:
+                        for (PlayerController pc : playerControllers) {
+                            if (pc.getCurrentMove().getAction() == ACTION_TYPE.BUILD_CARD
+                            && AssetManager.getInstance().getCardByID(pc.getCurrentMove().getSelectedCardID()).getColor() == CARD_COLOR_TYPE.GREEN) {
+                                pc.getCurrentMove().setDiscard();
+                                pc.setGold(pc.getGold() - pc.DISCARD_REWARD);
+                            } else {
+                                for (Card c : pc.getConstructionZone().getConstructedCards()) {
+                                    if (c.getColor() == CARD_COLOR_TYPE.GREEN) {
+                                        pc.getConstructionZone().getConstructedCards().remove(c);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                }
+
+                playerController.getWonder().getGod().setUsed();
+            }
+        }
+
         for (PlayerController playerController : playerControllers) {
             playerController.makeMove();
         }
