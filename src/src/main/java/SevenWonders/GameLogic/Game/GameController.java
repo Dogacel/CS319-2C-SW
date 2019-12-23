@@ -147,7 +147,7 @@ public class GameController {
         for(PlayerController playerController: playerControllers){
             GOD_POWER_TYPE godType = playerController.getWonder().getGod().getGodPower();
 
-            if( godType == GOD_POWER_TYPE.VP_EACH_TURN && playerController.getPlayer().getWonder().getGod().isUsed())
+            if( godType == GOD_POWER_TYPE.VP_EACH_TURN && !playerController.getPlayer().getWonder().isUpgradeable())
                 playerController.getPlayer().getWonder().getGod().incrementVpEachTurn();
         }
     }
