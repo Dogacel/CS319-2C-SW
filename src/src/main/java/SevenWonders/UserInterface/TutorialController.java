@@ -90,7 +90,7 @@ public class TutorialController implements Initializable {
     public void initialize(URL url, ResourceBundle rb){
         for ( int i  = 1; i < totalPageNo+1; i++) {
             tutorialImages.put(i, AssetManager.getInstance().getImage("tutorial" + i + ".png"));
-            tutorialTexts.put(i, AssetManager.getInstance().readTextFromFile("build/resources/main/tutorialTexts/tutorial" + i +".txt"));
+            tutorialTexts.put(i, AssetManager.getInstance().readTextFromFile("tutorialTexts/tutorial" + i +".txt"));
         }
         //tutorialTitles
         tutorialTitles.put(1, "Cards");
@@ -109,7 +109,7 @@ public class TutorialController implements Initializable {
         tutorialPane.setVisible(true);
         currentPageNo = 1;
         leftButton.setVisible(false);
-        tutorialText.setText(AssetManager.getInstance().readTextFromFile("build/resources/main/tutorialTexts/tutorial1.txt"));
+        tutorialText.setText(AssetManager.getInstance().readTextFromFile("tutorialTexts/tutorial1.txt"));
         tutorialImage.setImage(tutorialImages.get(currentPageNo));
         tutorialImage.setLayoutX(20);
         tutorialTitle.setText( tutorialTitles.get(1));

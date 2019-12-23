@@ -50,8 +50,8 @@ public class MainMenuController implements Initializable {
     @FXML
     public void tutorialButtonClicked( MouseEvent event) {
         settingsPane.setVisible(false);
-        tutorialPane.setVisible(true);
         tutorialController.updateScene();
+        tutorialPane.setVisible(true);
     }
 
     @FXML

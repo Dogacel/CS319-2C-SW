@@ -130,7 +130,8 @@ public class AssetManager {
     }
 
     public String readTextFromFile( String fileName){
-        File file = new File(fileName);
+        var x = getClass().getClassLoader().getResource(fileName);
+        File file = new File(x.getPath());
         BufferedReader br = null;
         String finalStr = "";
         try {
