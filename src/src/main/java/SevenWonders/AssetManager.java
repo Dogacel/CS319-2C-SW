@@ -133,7 +133,7 @@ public class AssetManager {
         try {
             String i;
             while ((i = br.readLine()) != null)
-                finalStr+= i;
+                finalStr+= i+"\n";
         } catch(IOException ex1) {
             ex1.printStackTrace();
         }
