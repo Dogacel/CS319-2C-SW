@@ -138,7 +138,7 @@
                         </Label>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/tokens/stone.png" />
+                                <Image url="@../images/tokens/stone_r.png" />
                             </image>
                         </ImageView>
                     </children>
@@ -159,7 +159,7 @@
                         </Label>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/tokens/loom.png" />
+                                <Image url="@../images/tokens/loom_r.png" />
                             </image>
                         </ImageView>
                     </children>
@@ -180,7 +180,7 @@
                         </Label>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/tokens/ore.png" />
+                                <Image url="@../images/tokens/ore_r.png" />
                             </image></ImageView>
                     </children>
                 </GridPane>
@@ -283,7 +283,7 @@
                         </Label>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/tokens/papyrus.png" />
+                                <Image url="@../images/tokens/papyrus_r.png" />
                             </image>
                         </ImageView>
                     </children>
@@ -306,7 +306,7 @@
                             <children>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/tokens/wood.png" />
+                                        <Image url="@../images/tokens/wood_r.png" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -406,7 +406,7 @@
                         </Label>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/tokens/brick.png" />
+                                <Image url="@../images/tokens/brick_r.png" />
                             </image>
                         </ImageView>
                     </children>
@@ -427,7 +427,7 @@
                         </Label>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/tokens/glass.png" />
+                                <Image url="@../images/tokens/glass_r.png" />
                             </image>
                         </ImageView>
                     </children>
