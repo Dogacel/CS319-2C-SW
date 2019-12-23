@@ -1,145 +1,72 @@
 #button1 {
     -fx-background-image: url('../images/hero-images/achilles_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button1:hover {
-    -fx-background-image: url('../images/hero-images/achilles.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
+    -fx-background-size: 150px;
 }
 
 #button2 {
     -fx-background-image: url('../images/hero-images/aristotales_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button2:hover {
-    -fx-background-image: url('../images/hero-images/aristotales.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
+    -fx-background-size: 150px;
 }
 
 #button3 {
     -fx-background-image: url('../images/hero-images/da_vinci_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button3:hover {
-    -fx-background-image: url('../images/hero-images/da_vinci.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
+    -fx-background-size: 150px;
 }
 
 #button4 {
     -fx-background-image: url('../images/hero-images/donatello_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button4:hover {
-    -fx-background-image: url('../images/hero-images/donatello.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
+    -fx-background-size: 150px;
 }
 
 #button5 {
     -fx-background-image: url('../images/hero-images/hector_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button5:hover {
-    -fx-background-image: url('../images/hero-images/hector.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
+    -fx-background-size: 150px;
 }
 
 #button6 {
     -fx-background-image: url('../images/hero-images/ibni_sina_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button6:hover {
-    -fx-background-image: url('../images/hero-images/ibni_sina.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
+    -fx-background-size: 150px;
 }
 
 #button7 {
     -fx-background-image: url('../images/hero-images/leonidas_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button7:hover {
-    -fx-background-image: url('../images/hero-images/leonidas.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
+    -fx-background-size: 150px;
 }
 
 #button8 {
     -fx-background-image: url('../images/hero-images/michelangelo_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button8:hover {
-    -fx-background-image: url('../images/hero-images/michelangelo.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
+    -fx-background-size: 150px;
 }
 
 #button9 {
     -fx-background-image: url('../images/hero-images/pisagor_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button9:hover {
-    -fx-background-image: url('../images/hero-images/pisagor.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
+    -fx-background-size: 150px;
 }
 
 #button10 {
     -fx-background-image: url('../images/hero-images/spartacus_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button10:hover {
-    -fx-background-image: url('../images/hero-images/spartacus.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
+    -fx-background-size: 150px;
 }
 
 #button11 {
     -fx-background-image: url('../images/hero-images/thales_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button11:hover {
-    -fx-background-image: url('../images/hero-images/thales.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
 }
 
 #button12 {
     -fx-background-image: url('../images/hero-images/gaudi_black_white.png');
     -fx-background-color: transparent;
-    -fx-background-size: 70px;
-}
-
-#button12:hover {
-    -fx-background-image: url('../images/hero-images/gaudi.png');
-    -fx-background-color: transparent;
-    -fx-background-size: 70px;
+    -fx-background-size: 150px;
 }
 
 .label {

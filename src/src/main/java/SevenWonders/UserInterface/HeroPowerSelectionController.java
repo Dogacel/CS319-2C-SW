@@ -1,95 +1,74 @@
 package SevenWonders.UserInterface;
 
+import SevenWonders.AssetManager;
+import SevenWonders.GameLogic.Game.GameModel;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HeroPowerSelectionController implements Initializable {
 
+    GameplayController gameplayController;
+
     @FXML
-    Button button1;
-    @FXML
-    Button button2;
-    @FXML
-    Button button3;
-    @FXML
-    Button button4;
-    @FXML
-    Button button5;
-    @FXML
-    Button button6;
-    @FXML
-    Button button7;
-    @FXML
-    Button button8;
-    @FXML
-    Button button9;
-    @FXML
-    Button button10;
-    @FXML
-    Button button11;
-    @FXML
-    Button button12;
+    Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12;
 
     public HeroPowerSelectionController() {
     }
-    @FXML
-    public void button1Clicked(MouseEvent mouseEvent) {
 
-    }
+    public void updateScene(GameModel gameModel) {
+        for(Hero hero: gameModel.getPlayerList()[gameplayController.getPlayer().getId()].getHeroes()){
+            String name = hero.getHeroType().name().toLowerCase();
+            BackgroundImage backgroundImage = new BackgroundImage(AssetManager.getInstance().getImage(name + ".png"),
+                    BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 
-    @FXML
-    public void button2Clicked(MouseEvent mouseEvent) {
-    }
-
-    @FXML
-    public void button3Clicked(MouseEvent mouseEvent) {
-    }
-
-    @FXML
-    public void button4Clicked(MouseEvent mouseEvent) {
-    }
-
-    @FXML
-    public void button5Clicked(MouseEvent mouseEvent) {
-    }
-
-    @FXML
-    public void button6Clicked(MouseEvent mouseEvent) {
-    }
-
-    @FXML
-    public void button7Clicked(MouseEvent mouseEvent) {
-    }
-
-    @FXML
-    public void button8Clicked(MouseEvent mouseEvent) {
-    }
-
-    @FXML
-    public void button9Clicked(MouseEvent mouseEvent) {
-    }
-
-    @FXML
-    public void button10Clicked(MouseEvent mouseEvent) {
-    }
-
-    @FXML
-    public void button11Clicked(MouseEvent mouseEvent) {
-    }
-
-    @FXML
-    public void button12Clicked(MouseEvent mouseEvent) {
+            if(name.equals("achilles")){
+                button1.setBackground(new Background(backgroundImage));
+            }
+            else if(name.equals("aristotales")){
+                button2.setBackground(new Background(backgroundImage));
+            }
+            else if(name.equals("da_vinci")){
+                button3.setBackground(new Background(backgroundImage));
+            }
+            else if(name.equals("donatello")){
+                button4.setBackground(new Background(backgroundImage));
+            }
+            else if(name.equals("gaudi")){
+                button5.setBackground(new Background(backgroundImage));
+            }
+            else if(name.equals("hector")){
+                button6.setBackground(new Background(backgroundImage));
+            }
+            else if(name.equals("ibni_sina")){
+                button7.setBackground(new Background(backgroundImage));
+            }
+            else if(name.equals("leonidas")){
+                button8.setBackground(new Background(backgroundImage));
+            }
+            else if(name.equals("michelangelo")){
+                button9.setBackground(new Background(backgroundImage));
+            }
+            else if(name.equals("pisagor")){
+                button10.setBackground(new Background(backgroundImage));
+            }
+            else if(name.equals("spartacus")){
+                button11.setBackground(new Background(backgroundImage));
+            }
+            else if(name.equals("thales")){
+                button12.setBackground(new Background(backgroundImage));
+            }
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         button1.setTooltip(new Tooltip("Achilles"));
         button2.setTooltip(new Tooltip("Aristotales"));
         button3.setTooltip(new Tooltip("Da Vinci"));
@@ -102,6 +81,5 @@ public class HeroPowerSelectionController implements Initializable {
         button10.setTooltip(new Tooltip("Pisagor"));
         button11.setTooltip(new Tooltip("Spartacus"));
         button12.setTooltip(new Tooltip("Thales"));
-
     }
 }

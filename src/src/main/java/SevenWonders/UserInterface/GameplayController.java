@@ -3,36 +3,39 @@ package SevenWonders.UserInterface;
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
 import SevenWonders.Network.Client;
 import SevenWonders.Network.IGameListener;
-import SevenWonders.Network.Requests.EndGameRequest;
 import SevenWonders.Network.Requests.UpdateGameStateRequest;
-import SevenWonders.SceneManager;
 import SevenWonders.SoundManager;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 public class GameplayController implements Initializable, IGameListener {
 
     GameModel gameModel;
 
     Client client;
-    int updateCount;
 
     CardViewController cardViewController;
     OtherPlayersController otherPlayersController;
     ConstructionZoneController constructionZoneController;
     GameplayToolbarController gameplayToolbarController;
-    ScoreViewController scoreViewController;
+    HeroPowerSelectionController heroPowerSelectionController;
 
     Pair<Parent, Object> pair;
 
@@ -40,14 +43,10 @@ public class GameplayController implements Initializable, IGameListener {
     Pane constructionZonePane, otherPlayersConstructionViewPane, otherPlayersConstructionPane, cardViewPane, gameplayToolbarPane, otherPlayersViewPane;
 
     @FXML
-    ImageView shieldImage;
-
-    @FXML
     StackPane stackPane;
 
     public GameplayController() {
         gameModel = null;
-        updateCount = 0;
         client = Client.getInstance();
         client.setGameListener(this);
         SoundManager.getInstance().stopMenuMusic();
@@ -57,15 +56,18 @@ public class GameplayController implements Initializable, IGameListener {
     public void updateGameModel(GameModel gameModel) {
         Platform.runLater(() -> {
             if (this.gameModel != null) {
+                if(gameModel.getPlayerList()[getPlayer().getId()].getHeroes().size() != getPlayer().getHeroes().size()){
+                    AnimationController.heroAnimation(gameModel.getPlayerList()[getPlayer().getId()], stackPane);
+                }
+
                 if(this.gameModel.getCurrentTurn() == 6) {
-                    AnimationController.endOfAgeAnimation(this, stackPane);
-                    AnimationController.startOfAgeAnimation(this, stackPane);
+                    AnimationController.endOfAgeAnimation(this, stackPane, gameModel);
+                    AnimationController.startOfAgeAnimation(this, stackPane, gameModel);
                     SoundManager.getInstance().playCardSound("red");
                 }
             }
 
             this.gameModel = gameModel;
-            System.out.println("AGE IS "  + gameModel.getCurrentAge() + " turn is " + gameModel.getCurrentTurn());
             if (gameModel.getCurrentAge() == 2 && gameModel.getCurrentTurn() == 1)
             {
                 SoundManager.getInstance().stopAgeOneMusic();
@@ -104,7 +106,6 @@ public class GameplayController implements Initializable, IGameListener {
             });
         });
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -171,16 +172,13 @@ public class GameplayController implements Initializable, IGameListener {
 
     @Override
     public void onEndAgeRequest() {
-
     }
 
     @Override
     public void onEndTurnRequest() {
-
     }
 
     @Override
     public void onDisconnect() {
-
     }
 }
