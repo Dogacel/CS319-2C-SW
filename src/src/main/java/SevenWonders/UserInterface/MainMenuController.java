@@ -36,7 +36,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void playButtonClicked( MouseEvent event) {
-        SceneManager.getInstance().changeScene("PlayMenu.fxml");
+        SceneManager.getInstance().changeScene("PlayMenuView.fxml");
     }
 
     @FXML

@@ -157,6 +157,6 @@ public class WonderSelectionViewController implements Initializable, ILobbyListe
 
     @Override
     public void onDisconnect() {
-        SceneManager.getInstance().changeScene("MainMenu.fxml");
+        SceneManager.getInstance().changeScene("MainMenuView.fxml");
     }
 }
