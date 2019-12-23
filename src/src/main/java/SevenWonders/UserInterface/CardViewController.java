@@ -282,7 +282,7 @@ public class CardViewController implements Initializable {
                 if (focusedView != imageView) {
                     if(focusedView != null) {
                         if (selectedCard != null) {
-                            focusedView.setEffect(generateCanBuild(selectedCard));
+                            focusedView.setEffect(null);
                         }
                         selectedCard = c;
                         focusedView.setScaleX(0.95);
@@ -299,7 +299,7 @@ public class CardViewController implements Initializable {
                     if(imageView.getScaleX() == 1 && imageView.getScaleY() == 1) {
                         imageView.setScaleX(0.95);
                         imageView.setScaleY(0.95);
-                        imageView.setEffect(generateCanBuild(c));
+                        imageView.setEffect(null);
                         selectedCard = null;
                     }
                     else{
