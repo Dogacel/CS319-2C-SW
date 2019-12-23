@@ -98,7 +98,7 @@ public class AssetManager {
         dir = new File(imageResourcesURL.getPath());
 
         for (File f : Objects.requireNonNull(dir.listFiles())) {
-            if( f.getName().matches(".*(\\.(png|jpg|jpeg))") && !imageMap.containsKey(f.getName()))
+            if( f.getName().matches(".*(\\.(png|jpg|jpeg|gif))") && !imageMap.containsKey(f.getName()))
                 imageMap.put(f.getName(), new Image("/images/tokens/" + f.getName()));
         }
 

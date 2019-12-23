@@ -10,7 +10,7 @@
 
 }
 
-.button:hover {
+.button:hover, .active {
     -fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18);
 }
 

@@ -40,6 +40,9 @@ public class GameplayToolbarController {
     ImageView wonder1, wonder2, wonder3;
 
 
+    Button selectedButton;
+    BorderPane waitingPane;
+
     @FXML
     Button buildCardButton, buildWonderButton, readyButton, discardCardButton, useGodPowerButton;
 
@@ -70,6 +73,12 @@ public class GameplayToolbarController {
     @FXML
     private void buildCardButtonClicked(MouseEvent event) {
         if (cardViewController.getSelectedCard() != null) {
+            if (selectedButton != null) {
+                selectedButton.getStyleClass().remove("active");
+            }
+            selectedButton = buildCardButton;
+            selectedButton.getStyleClass().add("active");
+
             MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.BUILD_CARD);
             updatePlayerMove(move);
         }
@@ -77,6 +86,11 @@ public class GameplayToolbarController {
 
     @FXML
     private void buildWonderButtonClicked(MouseEvent event) {
+        if (selectedButton != null) {
+            selectedButton.getStyleClass().remove("active");
+        }
+        selectedButton = buildWonderButton;
+        selectedButton.getStyleClass().add("active");
         if (cardViewController.getSelectedCard() != null) {
             MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.UPGRADE_WONDER);
             updatePlayerMove(move);
@@ -85,6 +99,11 @@ public class GameplayToolbarController {
 
     @FXML
     private void discardCardButtonClicked(MouseEvent event) {
+        if (selectedButton != null) {
+            selectedButton.getStyleClass().remove("active");
+        }
+        selectedButton = discardCardButton;
+        selectedButton.getStyleClass().add("active");
         if (cardViewController.getSelectedCard() != null) {
             MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.DISCARD_CARD);
             updatePlayerMove(move);
@@ -127,6 +146,11 @@ public class GameplayToolbarController {
             });
             SceneManager.getInstance().showPaneOnScreenNow(borderPane);
         } else if (cardViewController.getSelectedCard() != null) {
+            if (selectedButton != null) {
+                selectedButton.getStyleClass().remove("active");
+            }
+            selectedButton = useGodPowerButton;
+            selectedButton.getStyleClass().add("active");
             MoveModel move = new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.USE_GOD_POWER);
             updatePlayerMove(move);
         }
@@ -134,6 +158,12 @@ public class GameplayToolbarController {
 
     @FXML
     private void readyButtonClicked(MouseEvent event) {
+        if (playerModel.getCurrentMove() == null) {
+            if (cardViewController.getSelectedCard() != null) {
+                playerModel.setCurrentMove(new MoveModel(playerModel.getId(), cardViewController.getSelectedCard().getId(), ACTION_TYPE.BUILD_CARD));
+            }
+        }
+
         if (playerModel.getCurrentMove()!= null) {
             boolean canPlay = MoveController.getInstance().playerCanMakeMove(playerModel.getCurrentMove(), playerModel,
                     new Pair<>(gameplayController.getLeftPlayer(),gameplayController.getRightPlayer()), false).getKey();
@@ -144,13 +174,27 @@ public class GameplayToolbarController {
             }
             gameplayController.getClient().sendMakeMoveRequest( playerModel.getCurrentMove());
             gameplayController.getClient().sendPlayerReadyRequest(true);
+
+            waitingPane = new BorderPane();
+            waitingPane.setCenter(new Group(new ImageView(AssetManager.getInstance().getImage("loading.gif"))));
+            waitingPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.8);");
+            waitingPane.setOnMousePressed(event1 -> {
+                gameplayController.getClient().sendPlayerReadyRequest(false);
+                SceneManager.getInstance().popPaneOnScreenNow(waitingPane);
+            });
+            SceneManager.getInstance().showPaneOnScreenNow(waitingPane);
         }
     }
 
     public void updateScene(PlayerModel playerModel) {
         Platform.runLater(() -> {
             String type = "";
-
+            if (waitingPane != null) {
+                SceneManager.getInstance().popPaneOnScreenNow(waitingPane);
+            }
+            if (selectedButton != null) {
+                selectedButton.getStyleClass().remove("active");
+            }
             if (currentMove != null) {
                 Card playedCard = AssetManager.getInstance().getCardByID(currentMove.getSelectedCardID());
 
