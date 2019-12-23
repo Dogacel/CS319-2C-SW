@@ -128,6 +128,7 @@ public class OtherPlayersController implements Initializable {
                             }
                         });
                         otherPlayersConstructionPane.add(root.lookup("#outerPane"), 5 - ((6 + player.getId() - playerModel.getId()) % 7), 0);
+                        outerGrid.add(constructionRoot, 0, 0);
                         columnIndex--;
                     }
 
