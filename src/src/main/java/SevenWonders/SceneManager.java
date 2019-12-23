@@ -49,8 +49,8 @@ public class SceneManager {
     }
 
     public void changeScene(String sceneName) {
-        Parent root = AssetManager.getInstance().getSceneByName(sceneName);
-        changeScene(root);
+        currentRoot = AssetManager.getInstance().getSceneByName(sceneName);
+        changeScene(currentRoot);
     }
 
     public void changeScene(Parent root) {

@@ -56,9 +56,9 @@ public class ScoreViewController implements Initializable {
             for ( PlayerModel player: allPlayers) {
                 FlowPane pane = new FlowPane();
                 ImageView wonderImage =  new ImageView(AssetManager.getInstance().getImage(player.getWonder().getWonderType().name().replaceAll("_", "").toLowerCase() + ".png"));
-                Text text = new Text(player.getName() + "");
-                wonderImage.setFitWidth(150);
-                wonderImage.setFitHeight(50);
+                Text text = new Text("  " + player.getName().toUpperCase() + "");
+                wonderImage.setFitWidth(100);
+                wonderImage.setFitHeight(66);
                 pane.getChildren().add(wonderImage);
                 pane.getChildren().add(text);
 
@@ -75,17 +75,19 @@ public class ScoreViewController implements Initializable {
             }
             borderPane.setCenter(playerGrid);
             playerGrid.setAlignment(Pos.CENTER);
+            DropShadow textShadow = new DropShadow();
+            textShadow.setWidth(20);
+            textShadow.setHeight(20);
+            textShadow.setColor(Color.BLACK);
+
             for(Node node: playerGrid.getChildren()){
                 GridPane.setHalignment(node, HPos.CENTER);
-                node.setStyle(" -fx-font: Assassin$;" + "-fx-font-size: 20px;" +
-                        "-fx-fill: white;" +
-                        "-fx-stroke-width: 1px;" +
-                        "-fx-stroke: gold;");
+                node.setStyle("-fx-font-family: 'Assassin$';" + "-fx-font-size: 20px;" +
+                        "-fx-fill: white;" + "-fx-stroke-width: 1px;" + "-fx-stroke: #fff7dd;");
+                node.setEffect(textShadow);
                 if( node instanceof FlowPane){
-                    ((FlowPane) node).getChildren().get(1).setStyle("-fx-font-size: 20px;" +
-                            "-fx-fill: white;" +
-                            "-fx-stroke-width: 1px;" +
-                            "-fx-stroke: gold;");
+                    ((FlowPane) node).getChildren().get(1).setStyle("-fx-font-family: 'Assassin$';" + "-fx-font-size: 20px;" +
+                            "-fx-fill: white;" + "-fx-stroke-width: 1px;" + "-fx-stroke: #fff7dd;");
                 }
             }
 
