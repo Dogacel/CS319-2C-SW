@@ -1,7 +1,6 @@
 package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
-import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.SceneManager;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
@@ -9,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
