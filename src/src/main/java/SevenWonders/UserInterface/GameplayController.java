@@ -81,10 +81,10 @@ public class GameplayController implements Initializable, IGameListener {
 
             PlayerModel me = gameModel.getPlayerList()[client.getID()];
 
-            cardViewController.updateScene(me.getHand());
             constructionZoneController.updateScene(me);
             gameplayToolbarController.updateScene(me);
             otherPlayersController.updateScene(me);
+            cardViewController.updateScene(me.getHand());
 
             otherPlayersViewPane.setOnMouseClicked((event) -> {
                 if (otherPlayersConstructionViewPane.isVisible()) {

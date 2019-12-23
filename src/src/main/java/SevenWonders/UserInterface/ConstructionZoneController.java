@@ -9,6 +9,7 @@ import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -88,7 +89,7 @@ public class ConstructionZoneController {
         }
     }
 
-    private void updateNeighborConstruction(PlayerModel playerModel, Pane pane){
+    private void updateNeighborConstruction(PlayerModel playerModel, VBox pane){
         pane.getChildren().clear();
 
         playerModel.getConstructionZone().getConstructedCards().sort(Comparator.comparingInt(card -> card.getColor().ordinal()));
@@ -96,6 +97,10 @@ public class ConstructionZoneController {
         int count = 0;
         HBox hbox = new HBox();
         hbox.setSpacing(2);
+        pane.setSpacing(4);
+
+        pane.setPadding(new Insets(0, 0, 0, 3));
+
         pane.getChildren().add(hbox);
         Card lastCard = playerModel.getConstructionZone().getConstructedCards().size() > 0 ? playerModel.getConstructionZone().getConstructedCards().get(0) : null;
 
