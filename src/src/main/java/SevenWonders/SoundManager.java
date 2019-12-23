@@ -20,6 +20,7 @@ public class SoundManager {
     MediaPlayer ageOne;
     MediaPlayer ageTwo;
     MediaPlayer ageThree;
+    MediaPlayer endMusic;
     MediaPlayer cardSound;
     MediaPlayer discardSound;
     MediaPlayer wonderSound;
@@ -39,6 +40,7 @@ public class SoundManager {
         ageOne = new MediaPlayer(soundMap.get("age_one"));
         ageTwo = new MediaPlayer(soundMap.get("age_two"));
         ageThree = new MediaPlayer(soundMap.get("age_three"));
+        endMusic = new MediaPlayer(soundMap.get("end_music"));
         battleMusic = new MediaPlayer(soundMap.get("battles"));
         discardSound = new MediaPlayer(soundMap.get("discard"));
         wonderSound = new MediaPlayer(soundMap.get("wonder_upgrade"));
@@ -95,6 +97,8 @@ public class SoundManager {
                     type = "age_two";
                 else if (f.getName().equals("age_three.wav"))
                     type = "age_three";
+                else if(f.getName().equals("end_music.wav"))
+                    type = "end_music";
 
 
                 Media sound = new Media(f.toURI().toString());
@@ -177,4 +181,14 @@ public class SoundManager {
         ageThree.stop();
     }
 
+    public void playEndMusic(){
+        currentMusic = endMusic;
+        endMusic.setVolume(MusicSoundLevel - mute);
+        endMusic.play();
+        endMusic.setCycleCount(MediaPlayer.INDEFINITE);
+    }
+
+    public void stopEndMusic(){
+        endMusic.stop();
+    }
 }

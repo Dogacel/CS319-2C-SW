@@ -186,6 +186,7 @@ public class AnimationController {
                 ageFade.play();
                 if(gameplayController.gameModel.getGameFinished()) {
                     SoundManager.getInstance().stopAgeThreeMusic();
+                    SoundManager.getInstance().playEndMusic();
 
                     var sceneAndController = AssetManager.getInstance().getSceneAndController("ScoreView.fxml");
                     ScoreViewController scoreViewController = (ScoreViewController) sceneAndController.getValue();

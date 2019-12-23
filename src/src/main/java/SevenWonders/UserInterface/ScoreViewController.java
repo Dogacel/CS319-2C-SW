@@ -4,6 +4,7 @@ import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.GameLogic.ScoreController;
 import SevenWonders.SceneManager;
+import SevenWonders.SoundManager;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -110,6 +111,7 @@ public class ScoreViewController implements Initializable {
     }
 
     public void returnMenuButtonClicked(javafx.scene.input.MouseEvent mouseEvent) {
-        SceneManager.getInstance().changeScene("MainMenu.fxml");
+        SoundManager.getInstance().stopEndMusic();
+        SceneManager.getInstance().changeScene("MainMenuView.fxml");
     }
 }

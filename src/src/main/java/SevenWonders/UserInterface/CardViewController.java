@@ -9,6 +9,7 @@ import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.Network.Server;
 import SevenWonders.SceneManager;
+import SevenWonders.SoundManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -239,6 +240,13 @@ public class CardViewController implements Initializable {
 
     @FXML
     public void exitButtonClicked(MouseEvent e) {
+        if(gameplayController.gameModel.getCurrentAge() == 1)
+            SoundManager.getInstance().stopAgeOneMusic();
+        else if(gameplayController.gameModel.getCurrentAge() == 2)
+            SoundManager.getInstance().stopAgeTwoMusic();
+        else if(gameplayController.gameModel.getCurrentAge() == 3)
+            SoundManager.getInstance().stopAgeThreeMusic();
+
         Server.stopServerInstance();
         gameplayController.getClient().disconnect();
         SceneManager.getInstance().changeScene("MainMenuView.fxml");
