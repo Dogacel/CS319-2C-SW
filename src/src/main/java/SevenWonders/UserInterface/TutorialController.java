@@ -57,7 +57,7 @@ public class TutorialController implements Initializable {
             leftButton.setVisible(false);
         }
         rightButton.setVisible(true);
-        tutorialText.setText("Tutorial page " + (currentPageNo + 1));
+        tutorialText.setText(tutorialTexts.get(currentPageNo));
         tutorialImage.setScaleY(1);
         tutorialImage.setScaleX(1);
         tutorialImage.setLayoutX(-5);
@@ -73,7 +73,7 @@ public class TutorialController implements Initializable {
             rightButton.setVisible(false);
         }
         leftButton.setVisible(true);
-        tutorialText.setText("Tutorial page " + (currentPageNo + 1));
+        tutorialText.setText(tutorialTexts.get(currentPageNo));
         tutorialImage.setScaleY(1);
         tutorialImage.setScaleX(1);
         tutorialImage.setLayoutX(-5);
@@ -82,17 +82,18 @@ public class TutorialController implements Initializable {
     }
 
     public void initialize(URL url, ResourceBundle rb){
-        for ( int i  = 0; i < totalPageNo; i++) {
+        for ( int i  = 1; i < 3; i++) {
             tutorialImages.put(i, AssetManager.getInstance().getImage("tutorial" + i + ".png"));
+            tutorialTexts.put(i, AssetManager.getInstance().readTextFromFile("build/resources/main/tutorialTexts/tutorial" + i +".txt"));
         }
         //tutorialTexts
     }
 
     public void updateScene() {
         tutorialPane.setVisible(true);
-        currentPageNo = 0;
+        currentPageNo = 1;
         leftButton.setVisible(false);
-        tutorialText.setText("Tutorial page " + (currentPageNo + 1));
+        tutorialText.setText(AssetManager.getInstance().readTextFromFile("build/resources/main/tutorialTexts/tutorial1.txt"));
         tutorialImage.setImage(tutorialImages.get(currentPageNo));
         tutorialImage.setLayoutX(20);
     }
