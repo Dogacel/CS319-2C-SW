@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" stylesheets="@../css/WonderSelectionView.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.WonderSelectionViewController">
+<AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" stylesheets="@../css/WonderSelectionView.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.WonderSelectionViewController">
     <children>
         <GridPane hgap="20.0" layoutX="10.0" layoutY="315.0" prefHeight="280.0" prefWidth="1240.0">
             <columnConstraints>
@@ -434,6 +440,6 @@
                 </GridPane>
             </children>
         </GridPane>
-        <Button layoutX="500.0" layoutY="890.0" maxHeight="20.0" mnemonicParsing="false" onAction="#startButtonPressed" prefHeight="20.0" prefWidth="280.0" style="-fx-border-radius: 10px; -fx-border-color: white; -fx-background-radius: 10px;" stylesheets="@../css/Components.css" text="START" />
+        <Button layoutX="500.0" layoutY="890.0" maxHeight="20.0" mnemonicParsing="false" onAction="#startButtonPressed" prefHeight="20.0" prefWidth="280.0" stylesheets="@../css/WonderSelectionView.css" text="START" />
     </children>
 </AnchorPane>

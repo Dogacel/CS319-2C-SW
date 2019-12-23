@@ -2,18 +2,6 @@
     -fx-background-image: url('../images/ui-images/bg.jpg');
 }
 
-#pane{
-    -fx-background-image: url('../images/ui-images/wonderSelectBG.png');
-
-}
-
-
-#button{
-        -fx-background-image: url('@../images/ui-images/shield.png');
-        -fx-border-style: solid inside;
-        -fx-border-color: blue;
-}
-
 Label{
     -fx-background-color: rgba(0,0,0,0.5);
     -fx-font-color: black;
@@ -22,3 +10,23 @@ Label{
     -fx-text-fill: rgb(255,255,255);
 }
 
+.button{
+    -fx-background-color: transparent;
+    -fx-font-family: "Assassin$";
+    -fx-font-size: 30px;
+    -fx-text-fill: rgb(255,255,255);
+    -fx-pref-width: 340px;
+    -fx-pref-height: 50px;
+    -fx-border-radius:  10px;
+    -fx-border-color:  white;
+    -fx-background-radius: 10px;
+}
+
+.button:hover {
+    -fx-background-color: rgba(100, 100, 100, 0.4);
+    -fx-font-size: 34px;
+}
+
+.button:pressed {
+    -fx-background-color: rgba(100, 100, 100, 0.2);
+}
