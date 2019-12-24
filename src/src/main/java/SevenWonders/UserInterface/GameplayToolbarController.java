@@ -1,6 +1,5 @@
 package SevenWonders.UserInterface;
 
-import SevenWonders.AI.AIMoveGenerator;
 import SevenWonders.AssetManager;
 import SevenWonders.GameLogic.Deck.Card.Card;
 import SevenWonders.GameLogic.Enums.*;
@@ -8,10 +7,8 @@ import SevenWonders.GameLogic.Move.MoveController;
 import SevenWonders.GameLogic.Move.MoveModel;
 import SevenWonders.GameLogic.Move.TradeAction;
 import SevenWonders.GameLogic.Player.PlayerModel;
-import SevenWonders.GameLogic.Wonder.GodsAndHeroes.God;
 import SevenWonders.SceneManager;
 import SevenWonders.SoundManager;
-import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -19,16 +16,13 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Pair;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-
-import java.util.Set;
+import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
 public class GameplayToolbarController {
 
@@ -274,5 +268,17 @@ public class GameplayToolbarController {
             ImageView imageView = new ImageView(AssetManager.getInstance().getImage("warpoint_minus1.png"));
             victoryPointsHBox.getChildren().add(imageView);
         }
+    }
+
+    public void wonderCompleted(){
+        DropShadow glow = new DropShadow();
+        glow.setHeight(50);
+        glow.setWidth(50);
+        glow.setColor(Color.GOLD);
+        wonder1Pane.setEffect(glow);
+        wonder2Pane.setEffect(glow);
+        wonder3Pane.setEffect(glow);
+
+        useGodPowerButton.setEffect(glow);
     }
 }

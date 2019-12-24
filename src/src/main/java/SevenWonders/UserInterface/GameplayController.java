@@ -65,6 +65,11 @@ public class GameplayController implements Initializable, IGameListener {
                     AnimationController.startOfAgeAnimation(this, stackPane, gameModel);
                     SoundManager.getInstance().playCardSound("red");
                 }
+
+                if(gameModel.getPlayerList()[getPlayer().getId()].getWonder().getCurrentStageIndex() == 3 && this.gameModel.getPlayerList()[getPlayer().getId()].getWonder().getCurrentStageIndex() != 3){
+                    AnimationController.godAnimation();
+                    gameplayToolbarController.wonderCompleted();
+                }
             }
 
             this.gameModel = gameModel;

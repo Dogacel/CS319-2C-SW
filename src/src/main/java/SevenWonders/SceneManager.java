@@ -15,10 +15,19 @@ import javafx.stage.Stage;
 
 public class SceneManager {
     private static SceneManager instance;
+
+    public Stage getStage() {
+        return stage;
+    }
+
     private Stage stage;
     public static Client client = Client.getInstance();
 
     Parent currentRoot;
+
+    public Parent getCurrentRoot() {
+        return currentRoot;
+    }
 
     private SceneManager(Stage firstStage) {
         stage = firstStage;

@@ -7,6 +7,8 @@ import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
 import SevenWonders.SceneManager;
 import SevenWonders.SoundManager;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,7 +33,7 @@ public class AnimationController {
         ImageView shieldImage = new ImageView(AssetManager.getInstance().getImage("shield.png"));
         stackPane.getChildren().add(shieldImage);
         StackPane.setAlignment(shieldImage, Pos.CENTER);
-        StackPane.setMargin(shieldImage, new Insets(0,0,50,0));
+        StackPane.setMargin(shieldImage, new Insets(0, 0, 50, 0));
         ImageView leftSword = new ImageView(AssetManager.getInstance().getImage("sword_left.png"));
         ImageView rightSword = new ImageView(AssetManager.getInstance().getImage("sword_right.png"));
 
@@ -84,64 +86,54 @@ public class AnimationController {
         PlayerModel rightPlayer = gameModel.getRightPlayer(gameplayController.getPlayer().getId());
 
         ImageView shieldRight, shieldLeft;
-        if(player.getShields() < rightPlayer.getShields()){
+        if (player.getShields() < rightPlayer.getShields()) {
             shieldRight = new ImageView(AssetManager.getInstance().getImage("warpoint_minus1.png"));
             shieldRight.setScaleX(1.5);
             shieldRight.setScaleY(1.5);
-        }
-        else if(player.getShields() == rightPlayer.getShields()){
+        } else if (player.getShields() == rightPlayer.getShields()) {
             shieldRight = null;
-        }
-        else{
-            if(gameplayController.gameModel.getCurrentAge() == 1){
+        } else {
+            if (gameplayController.gameModel.getCurrentAge() == 1) {
                 shieldRight = new ImageView(AssetManager.getInstance().getImage("warpoint_1.png"));
-            }
-            else if(gameplayController.gameModel.getCurrentAge() == 2){
+            } else if (gameplayController.gameModel.getCurrentAge() == 2) {
                 shieldRight = new ImageView(AssetManager.getInstance().getImage("warpoint_3.png"));
-            }
-            else if(gameplayController.gameModel.getCurrentAge() == 3){
+            } else if (gameplayController.gameModel.getCurrentAge() == 3) {
                 shieldRight = new ImageView(AssetManager.getInstance().getImage("warpoint_5.png"));
-            }
-            else {
+            } else {
                 shieldRight = null;
             }
 
-            if (shieldRight != null){
+            if (shieldRight != null) {
                 shieldRight.setScaleY(0.8);
                 shieldRight.setScaleX(0.8);
             }
         }
 
-        if(player.getShields() < leftPlayer.getShields()){
+        if (player.getShields() < leftPlayer.getShields()) {
             shieldLeft = new ImageView(AssetManager.getInstance().getImage("warpoint_minus1.png"));
             shieldLeft.setScaleY(1.5);
             shieldLeft.setScaleX(1.5);
-        }
-        else if(player.getShields() == leftPlayer.getShields()){
+        } else if (player.getShields() == leftPlayer.getShields()) {
             shieldLeft = null;
-        }
-        else{
-            if(gameplayController.gameModel.getCurrentAge() == 1){
+        } else {
+            if (gameplayController.gameModel.getCurrentAge() == 1) {
                 shieldLeft = new ImageView(AssetManager.getInstance().getImage("warpoint_1.png"));
-            }
-            else if(gameplayController.gameModel.getCurrentAge() == 2){
+            } else if (gameplayController.gameModel.getCurrentAge() == 2) {
                 shieldLeft = new ImageView(AssetManager.getInstance().getImage("warpoint_3.png"));
-            }
-            else if(gameplayController.gameModel.getCurrentAge() == 3){
+            } else if (gameplayController.gameModel.getCurrentAge() == 3) {
                 shieldLeft = new ImageView(AssetManager.getInstance().getImage("warpoint_5.png"));
-            }
-            else{
+            } else {
 
                 shieldLeft = null;
             }
 
-            if (shieldLeft != null){
+            if (shieldLeft != null) {
                 shieldLeft.setScaleY(0.8);
                 shieldLeft.setScaleX(0.8);
             }
         }
 
-        TranslateTransition leftShield  = new TranslateTransition(Duration.millis(1500), shieldLeft);
+        TranslateTransition leftShield = new TranslateTransition(Duration.millis(1500), shieldLeft);
         leftShield.setFromX(-700);
         leftShield.setToX(-50);
         leftShield.setFromY(-100);
@@ -155,20 +147,19 @@ public class AnimationController {
         rightShield.setToY(-100);
         rightShield.play();
 
-        if(shieldLeft != null){
+        if (shieldLeft != null) {
             stackPane.getChildren().add(shieldLeft);
         }
-        if(shieldRight != null){
+        if (shieldRight != null) {
             stackPane.getChildren().add(shieldRight);
         }
     }
 
-    public static void startOfAgeAnimation(GameplayController gameplayController, StackPane stackPane, GameModel gameModel){
+    public static void startOfAgeAnimation(GameplayController gameplayController, StackPane stackPane, GameModel gameModel) {
         Text ageText = new Text();
-        if(gameplayController.gameModel.getCurrentAge() == 3){
+        if (gameplayController.gameModel.getCurrentAge() == 3) {
             ageText.setText("GAME OVER   ");
-        }
-        else{
+        } else {
             ageText.setText("AGE " + (gameplayController.gameModel.getCurrentAge() + 1) + "   ");
         }
         ageText.setStyle("-fx-font-family: 'Assassin$';" + "-fx-font-size: 80px;" + "-fx-fill: white;");
@@ -193,7 +184,7 @@ public class AnimationController {
                 ageFade.setFromValue(1.0);
                 ageFade.setToValue(0.0);
                 ageFade.play();
-                if(gameplayController.gameModel.getGameFinished()) {
+                if (gameplayController.gameModel.getGameFinished()) {
                     SoundManager.getInstance().stopAgeThreeMusic();
                     SoundManager.getInstance().playEndMusic();
 
@@ -216,15 +207,13 @@ public class AnimationController {
 
         Text heroText = new Text();
         Text effectText = new Text();
-        heroText.setText( hero.getHeroType().name().toUpperCase().replaceAll("_", " ") + "\nHAS\nARRIVED!");
+        heroText.setText(hero.getHeroType().name().toUpperCase().replaceAll("_", " ") + "\nHAS\nARRIVED!");
 
-        if(hero.getHeroEffect() == GRANT_ONE_SHIELD){
+        if (hero.getHeroEffect() == GRANT_ONE_SHIELD) {
             effectText.setText("       GAINED 1 SHIELD");
-        }
-        else if(hero.getHeroEffect() == GRANT_RANDOM_SCIENCE) {
+        } else if (hero.getHeroEffect() == GRANT_RANDOM_SCIENCE) {
             effectText.setText("       GAINED ONE SCIENCE ARTIFACT");
-        }
-        else{
+        } else {
             effectText.setText("       GAINED THREE VICTORY POINT");
         }
 
@@ -269,6 +258,35 @@ public class AnimationController {
         stackPane.getChildren().add(heroText);
         stackPane.getChildren().add(effectText);
         StackPane.setAlignment(heroText, Pos.CENTER);
-        StackPane.setMargin(heroText, new Insets(0,0,50,0));
+        StackPane.setMargin(heroText, new Insets(0, 0, 50, 0));
+    }
+
+    public static void godAnimation() {
+        final int[] x = {0};
+        final int[] y = {0};
+
+        Timeline timelineX = new Timeline(new KeyFrame(Duration.seconds(0.03), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                if (x[0] == 0) {
+                    SceneManager.getInstance().getStage().setX(SceneManager.getInstance().getStage().getX() + 5);
+                    x[0] = 1;
+                } else {
+                    SceneManager.getInstance().getStage().setX(SceneManager.getInstance().getStage().getX() - 5);
+                    x[0] = 0;
+                }
+            }
+        }));
+
+        timelineX.setCycleCount(40);
+        timelineX.setAutoReverse(true);
+        timelineX.play();
+
+        timelineX.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SceneManager.getInstance().getStage().setX(SceneManager.getInstance().getStage().getX() -5);
+            }
+        });
     }
 }
