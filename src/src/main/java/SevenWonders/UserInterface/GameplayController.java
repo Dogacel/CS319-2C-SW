@@ -67,7 +67,7 @@ public class GameplayController implements Initializable, IGameListener {
                 }
 
                 if(gameModel.getPlayerList()[getPlayer().getId()].getWonder().getCurrentStageIndex() == 3 && this.gameModel.getPlayerList()[getPlayer().getId()].getWonder().getCurrentStageIndex() != 3){
-                    AnimationController.godAnimation();
+                    AnimationController.wonderCompletedAnimation();
                     gameplayToolbarController.wonderCompleted();
                 }
             }

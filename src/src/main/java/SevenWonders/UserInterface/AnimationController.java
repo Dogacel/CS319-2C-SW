@@ -261,7 +261,7 @@ public class AnimationController {
         StackPane.setMargin(heroText, new Insets(0, 0, 50, 0));
     }
 
-    public static void godAnimation() {
+    public static void wonderCompletedAnimation() {
         final int[] x = {0};
         final int[] y = {0};
 

@@ -279,6 +279,7 @@ public class GameplayToolbarController {
         wonder2Pane.setEffect(glow);
         wonder3Pane.setEffect(glow);
 
+        useGodPowerButton.setStyle("-fx-background-color: gold;" + "-fx-font-size: 16px;" + "-fx-text-fill: black;");
         useGodPowerButton.setEffect(glow);
     }
 }
