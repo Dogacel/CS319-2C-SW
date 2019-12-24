@@ -21,6 +21,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
+import static SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE.GRANT_ONE_SHIELD;
+import static SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE.GRANT_RANDOM_SCIENCE;
+
 public class AnimationController {
 
     public static void endOfAgeAnimation(GameplayController gameplayController, StackPane stackPane, GameModel gameModel) {
@@ -212,9 +215,23 @@ public class AnimationController {
         Hero hero = playerModel.getHeroes().lastElement();
 
         Text heroText = new Text();
+        Text effectText = new Text();
         heroText.setText( hero.getHeroType().name().toUpperCase().replaceAll("_", " ") + "\nHAS\nARRIVED!");
+
+        if(hero.getHeroEffect() == GRANT_ONE_SHIELD){
+            effectText.setText("       GAINED 1 SHIELD");
+        }
+        else if(hero.getHeroEffect() == GRANT_RANDOM_SCIENCE) {
+            effectText.setText("       GAINED ONE SCIENCE ARTIFACT");
+        }
+        else{
+            effectText.setText("       GAINED THREE VICTORY POINT");
+        }
+
         heroText.setStyle("-fx-font-family: 'Assassin$';" + "-fx-font-size: 80px;" + "-fx-fill: white;");
+        effectText.setStyle("-fx-font-family: 'Assassin$';" + "-fx-font-size: 30px;" + "-fx-fill: red;" + "-fx-stroke: white;" + "-fx-stroke-width: 1px;");
         heroText.setTextAlignment(TextAlignment.CENTER);
+        effectText.setTextAlignment(TextAlignment.CENTER);
 
         DropShadow borderGlow = new DropShadow();
         borderGlow.setColor(Color.RED);
@@ -222,6 +239,13 @@ public class AnimationController {
         borderGlow.setWidth(depth1);
         borderGlow.setHeight(depth1);
         heroText.setEffect(borderGlow);
+
+        TranslateTransition effectAnim = new TranslateTransition(Duration.millis(2000), effectText);
+        effectAnim.setFromX(-50);
+        effectAnim.setToX(-50);
+        effectAnim.setFromY(400);
+        effectAnim.setToY(120);
+        effectAnim.play();
 
         FadeTransition textAnim = new FadeTransition(Duration.millis(2000), heroText);
         textAnim.setFromValue(0.0);
@@ -243,6 +267,8 @@ public class AnimationController {
             }
         });
         stackPane.getChildren().add(heroText);
+        stackPane.getChildren().add(effectText);
         StackPane.setAlignment(heroText, Pos.CENTER);
+        StackPane.setMargin(heroText, new Insets(0,0,50,0));
     }
 }
