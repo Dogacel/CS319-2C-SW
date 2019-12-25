@@ -1,8 +1,10 @@
 package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
+import SevenWonders.GameLogic.Enums.GOD_POWER_TYPE;
 import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Player.PlayerModel;
+import SevenWonders.GameLogic.Wonder.GodsAndHeroes.God;
 import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
 import SevenWonders.SceneManager;
 import SevenWonders.SoundManager;
@@ -23,6 +25,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
+import static SevenWonders.GameLogic.Enums.GOD_POWER_TYPE.*;
 import static SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE.GRANT_ONE_SHIELD;
 import static SevenWonders.GameLogic.Enums.HERO_EFFECT_TYPE.GRANT_RANDOM_SCIENCE;
 
@@ -214,7 +217,7 @@ public class AnimationController {
         } else if (hero.getHeroEffect() == GRANT_RANDOM_SCIENCE) {
             effectText.setText("       GAINED ONE SCIENCE ARTIFACT");
         } else {
-            effectText.setText("       GAINED THREE VICTORY POINT");
+            effectText.setText("       GAINED THREE VICTORY POINTS");
         }
 
         heroText.setStyle("-fx-font-family: 'Assassin$';" + "-fx-font-size: 80px;" + "-fx-fill: white;");
@@ -289,4 +292,76 @@ public class AnimationController {
             }
         });
     }
+    public static void godAnimation(PlayerModel playerModel, StackPane stackPane) {
+        stackPane.setVisible(true);
+        God god = playerModel.getWonder().getGod();
+
+        Text godText = new Text();
+        Text effectText = new Text();
+        godText.setText(god.getGodType().name().toUpperCase().replaceAll("_", " ") + "\nIS\nSUMMONED!");
+
+        if (god.getGodPower() == EXTRA_WAR_TOKENS) {
+            effectText.setText("       GAINED 5 SHIELDS");
+        } else if (god.getGodPower() == SCIENTIFIC_REGRESSION) {
+            effectText.setText("       REMOVED 1 SCIENCE TOKEN");
+        } else if ( god.getGodPower() == VP_EACH_TURN) {
+            effectText.setText("       1 VICTORY POINT EACH TURN ");
+        }
+        else if (god.getGodPower() == EARTHQUAKE) {
+            effectText.setText("       NEIGHBOR'S WONDER STAGE DESTROYED ");
+        }
+        else if (god.getGodPower() == BLOCK_AND_DESTROY_CARD) {
+            effectText.setText("       NEIGHBORS'S CAN'T BUILD ");
+        }
+        else if (god.getGodPower() == FORESIGHT) {
+            effectText.setText("       SEE THE HAND YOU WILL RECEIVE ");
+        }
+        else if (god.getGodPower() == ECONOMIC_DEPRESSION) {
+            effectText.setText("      ECONOMIC DEPRESSION");
+        }
+
+        godText.setStyle("-fx-font-family: 'Assassin$';" + "-fx-font-size: 80px;" + "-fx-fill: white;");
+        effectText.setStyle("-fx-font-family: 'Assassin$';" + "-fx-font-size: 30px;" + "-fx-fill: red;" + "-fx-stroke: white;" + "-fx-stroke-width: 1px;");
+        godText.setTextAlignment(TextAlignment.CENTER);
+        effectText.setTextAlignment(TextAlignment.CENTER);
+
+        DropShadow borderGlow = new DropShadow();
+        borderGlow.setColor(Color.RED);
+        int depth1 = 120;
+        borderGlow.setWidth(depth1);
+        borderGlow.setHeight(depth1);
+        godText.setEffect(borderGlow);
+
+        TranslateTransition effectAnim = new TranslateTransition(Duration.millis(2000), effectText);
+        effectAnim.setFromX(-50);
+        effectAnim.setToX(-50);
+        effectAnim.setFromY(400);
+        effectAnim.setToY(120);
+        effectAnim.play();
+
+        FadeTransition textAnim = new FadeTransition(Duration.millis(2000), godText);
+        textAnim.setFromValue(0.0);
+        textAnim.setToValue(1.0);
+        textAnim.play();
+        textAnim.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FadeTransition heroFade = new FadeTransition(Duration.millis(1000), godText);
+                heroFade.setFromValue(1.0);
+                heroFade.setToValue(0.0);
+                heroFade.play();
+                heroFade.setOnFinished(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        stackPane.setVisible(false);
+                    }
+                });
+            }
+        });
+        stackPane.getChildren().add(godText);
+        stackPane.getChildren().add(effectText);
+        StackPane.setAlignment(godText, Pos.CENTER);
+        StackPane.setMargin(godText, new Insets(0, 0, 50, 0));
+    }
+
 }

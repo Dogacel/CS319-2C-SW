@@ -1,6 +1,7 @@
 package SevenWonders.UserInterface;
 
 import SevenWonders.AssetManager;
+import SevenWonders.GameLogic.Enums.ACTION_TYPE;
 import SevenWonders.GameLogic.Game.GameModel;
 import SevenWonders.GameLogic.Player.PlayerModel;
 import SevenWonders.GameLogic.Wonder.GodsAndHeroes.Hero;
@@ -56,6 +57,12 @@ public class GameplayController implements Initializable, IGameListener {
     public void updateGameModel(GameModel gameModel) {
         Platform.runLater(() -> {
             if (this.gameModel != null) {
+                System.out.println(this.gameModel.getPlayerList()[getPlayer().getId()]);
+                if (this.gameModel.getPlayerList()[getPlayer().getId()].getCurrentMove().getAction() == ACTION_TYPE.USE_GOD_POWER && this.gameModel.getPlayerList()[getPlayer().getId()].getWonder().getCurrentStageIndex() == 3 &&
+                        !this.gameModel.getPlayerList()[getPlayer().getId()].getWonder().getGod().isUsed()) {
+                    AnimationController.godAnimation(gameModel.getPlayerList()[getPlayer().getId()], stackPane);
+                }
+
                 if(gameModel.getPlayerList()[getPlayer().getId()].getHeroes().size() != getPlayer().getHeroes().size()){
                     AnimationController.heroAnimation(gameModel.getPlayerList()[getPlayer().getId()], stackPane);
                 }
