@@ -303,15 +303,15 @@ public class AnimationController {
         if (god.getGodPower() == EXTRA_WAR_TOKENS) {
             effectText.setText("       GAINED 5 SHIELDS");
         } else if (god.getGodPower() == SCIENTIFIC_REGRESSION) {
-            effectText.setText("       REMOVED 1 SCIENCE TOKEN");
+            effectText.setText("       REMOVED 1 SCIENCE TOKEN FROM EVERY PLAYER");
         } else if ( god.getGodPower() == VP_EACH_TURN) {
             effectText.setText("       1 VICTORY POINT EACH TURN ");
         }
         else if (god.getGodPower() == EARTHQUAKE) {
-            effectText.setText("       NEIGHBOR'S WONDER STAGE DESTROYED ");
+            effectText.setText("       NEIGHBOR'S LAST WONDER STAGE DESTROYED ");
         }
         else if (god.getGodPower() == BLOCK_AND_DESTROY_CARD) {
-            effectText.setText("       NEIGHBORS'S CAN'T BUILD ");
+            effectText.setText("       NEIGHBORS'S CAN'T BUILD");
         }
         else if (god.getGodPower() == FORESIGHT) {
             effectText.setText("       SEE THE HAND YOU WILL RECEIVE ");

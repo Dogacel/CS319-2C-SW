@@ -193,4 +193,8 @@ public class GameplayController implements Initializable, IGameListener {
     @Override
     public void onDisconnect() {
     }
+
+    public StackPane getStackPane() {
+        return stackPane;
+    }
 }

@@ -256,6 +256,9 @@ public class GameplayToolbarController {
         }
         if(playerModel.getWonder().getCurrentStageIndex() == 3) {
             wonder3Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");
+            if ( playerModel.getWonder().getGod().getGodType() == GOD_TYPE.ATHENA) {
+                AnimationController.godAnimation(playerModel, gameplayController.getStackPane());
+            }
         }
     }
 
