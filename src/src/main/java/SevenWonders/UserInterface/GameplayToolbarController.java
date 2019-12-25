@@ -30,6 +30,7 @@ public class GameplayToolbarController {
     GameplayController gameplayController;
     CardViewController cardViewController;
     MoveModel currentMove;
+    boolean isActivated;
 
     ImageView wonder1, wonder2, wonder3;
 
@@ -42,6 +43,10 @@ public class GameplayToolbarController {
 
     @FXML
     BorderPane wonder1Pane, wonder2Pane, wonder3Pane;
+
+    public GameplayToolbarController(){
+        isActivated = false;
+    }
 
     private void updatePlayerMove(MoveModel move) {
         // TODO: Setting for auto trade
@@ -256,7 +261,8 @@ public class GameplayToolbarController {
         }
         if(playerModel.getWonder().getCurrentStageIndex() == 3) {
             wonder3Pane.setStyle("-fx-background-color: linear-gradient(to right top, #604040, #894f33, #996c0d, #849400, #11be18)");
-            if ( playerModel.getWonder().getGod().getGodType() == GOD_TYPE.ATHENA) {
+            if ( playerModel.getWonder().getGod().getGodType() == GOD_TYPE.ATHENA && !isActivated) {
+                isActivated = true;
                 AnimationController.godAnimation(playerModel, gameplayController.getStackPane());
             }
         }

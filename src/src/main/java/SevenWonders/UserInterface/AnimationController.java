@@ -254,6 +254,7 @@ public class AnimationController {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         stackPane.setVisible(false);
+                        stackPane.getChildren().clear();
                     }
                 });
             }
@@ -354,6 +355,7 @@ public class AnimationController {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         stackPane.setVisible(false);
+                        stackPane.getChildren().clear();
                     }
                 });
             }
