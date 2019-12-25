@@ -17,6 +17,6 @@ Hanging Gardens of Babylon:
 Mausoleum at Halicarnassus:
 	Athena: Can see the upcoming hand, every turn after you unlock the wonder.
 Statue of Zeus:
-	Zeus: Block build and wonder upgrade actions of your neigbors.
+	Zeus: Block build and wonder upgrade actions of your neighbors.
 Temple of Artemis:
 	Artemis: Grants one victory point each turn after activation. 
