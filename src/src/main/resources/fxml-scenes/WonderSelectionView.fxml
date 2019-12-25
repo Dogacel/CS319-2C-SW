@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" stylesheets="@../css/WonderSelectionView.css" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.WonderSelectionViewController">
+<AnchorPane id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" stylesheets="@../css/WonderSelectionView.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.WonderSelectionViewController">
     <children>
         <GridPane hgap="20.0" layoutX="10.0" layoutY="315.0" prefHeight="280.0" prefWidth="1240.0">
             <columnConstraints>
@@ -41,93 +35,6 @@
                         <Image url="@../images/wonders/colossusofrhodes.png" />
                     </image>
                 </ImageView>
-                <GridPane hgap="29.0" GridPane.rowIndex="2">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <ImageView id="giza3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-                            <image>
-                                <Image url="@../images/wonders/greatpyramidofgiza_3.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView id="giza2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-                            <image>
-                                <Image url="@../images/wonders/greatpyramidofgiza_2.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView id="giza1" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/wonders/greatpyramidofgiza_1.png" />
-                            </image>
-                        </ImageView>
-                    </children>
-                    <GridPane.margin>
-                        <Insets left="29.0" right="29.0" />
-                    </GridPane.margin>
-                </GridPane>
-                <GridPane hgap="29.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <ImageView id="halicarnassus1" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/wonders/mausoleumofhalicarnassus_1.png" />
-                            </image></ImageView>
-                        <ImageView id="halicarnassus2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-                            <image>
-                                <Image url="@../images/wonders/mausoleumofhalicarnassus_2.png" />
-                            </image></ImageView>
-                        <ImageView id="halicarnassus3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-                            <image>
-                                <Image url="@../images/wonders/mausoleumofhalicarnassus_3.png" />
-                            </image></ImageView>
-                    </children>
-                    <GridPane.margin>
-                        <Insets left="29.0" right="29.0" />
-                    </GridPane.margin>
-                </GridPane>
-                <GridPane hgap="29.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <ImageView id="rhodes1" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/wonders/colossusofrhodes_1.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView id="rhodes2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-                            <image>
-                                <Image url="@../images/wonders/colossusofrhodes_2.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView id="rhodes3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-                            <image>
-                                <Image url="@../images/wonders/colossusofrhodes_3.png" />
-                            </image>
-                        </ImageView>
-                    </children>
-                    <GridPane.margin>
-                        <Insets left="29.0" right="29.0" />
-                    </GridPane.margin>
-                </GridPane>
                 <GridPane hgap="20.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
@@ -190,6 +97,114 @@
                             </image></ImageView>
                     </children>
                 </GridPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                    <children>
+                        <GridPane AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <ImageView id="giza3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                                    <image>
+                                        <Image url="@../images/wonders/greatpyramidofgiza_3.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="giza2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                                    <image>
+                                        <Image url="@../images/wonders/greatpyramidofgiza_2.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="giza1" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/wonders/greatpyramidofgiza_1.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </GridPane>
+                        <ImageView id="gizaGod" fx:id="gizaGod" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="5.0">
+                            <image>
+                                <Image url="@../images/god-images/seth.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <children>
+                        <ImageView id="halicarnassusGod" fx:id="halicarnassusGod" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="5.0">
+                            <image>
+                                <Image url="@../images/god-images/athena.png" />
+                            </image>
+                        </ImageView>
+                        <GridPane AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <ImageView id="halicarnassus1" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/wonders/mausoleumofhalicarnassus_1.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="halicarnassus2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                                    <image>
+                                        <Image url="@../images/wonders/mausoleumofhalicarnassus_2.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="halicarnassus3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                                    <image>
+                                        <Image url="@../images/wonders/mausoleumofhalicarnassus_3.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                    <children>
+                        <GridPane AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <ImageView id="rhodes1" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/wonders/colossusofrhodes_1.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="rhodes2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                                    <image>
+                                        <Image url="@../images/wonders/colossusofrhodes_2.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="rhodes3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                                    <image>
+                                        <Image url="@../images/wonders/colossusofrhodes_3.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </GridPane>
+                        <ImageView id="rhodesGod" fx:id="rhodesGod" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="5.0">
+                            <image>
+                                <Image url="@../images/god-images/ares.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
             </children>
         </GridPane>
         <GridPane hgap="20.0" layoutX="230.0" layoutY="20.0" prefHeight="280.0" prefWidth="820.0">
@@ -213,63 +228,6 @@
                         <Image url="@../images/wonders/statueofzeus.png" />
                     </image>
                 </ImageView>
-                <GridPane hgap="29.0" GridPane.rowIndex="2">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <ImageView id="artemis1" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/wonders/templeofartemis_1.png" />
-                            </image></ImageView>
-                        <ImageView id="artemis2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-                            <image>
-                                <Image url="@../images/wonders/templeofartemis_2.png" />
-                            </image></ImageView>
-                        <ImageView id="artemis3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-                            <image>
-                                <Image url="@../images/wonders/templeofartemis_3.png" />
-                            </image></ImageView>
-                    </children>
-                    <padding>
-                        <Insets left="15.0" />
-                    </padding>
-                    <GridPane.margin>
-                        <Insets left="29.0" right="29.0" />
-                    </GridPane.margin>
-                </GridPane>
-                <GridPane hgap="29.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <ImageView id="zeus1" fitHeight="57.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/wonders/statueofzeus_1.png" />
-                            </image></ImageView>
-                        <ImageView id="zeus2" fitHeight="57.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-                            <image>
-                                <Image url="@../images/wonders/statueofzeus_3.png" />
-                            </image></ImageView>
-                        <ImageView id="zeus3" fitHeight="57.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-                            <image>
-                                <Image url="@../images/wonders/statueofzeus_2.png" />
-                            </image></ImageView>
-                    </children>
-                    <GridPane.margin>
-                        <Insets left="29.0" right="29.0" />
-                    </GridPane.margin>
-                </GridPane>
                 <GridPane hgap="20.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="20.0" prefWidth="50.0" />
@@ -319,6 +277,78 @@
                         </StackPane>
                     </children>
                 </GridPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                    <children>
+                        <ImageView id="artemisGod" fx:id="artemisGod" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="5.0">
+                            <image>
+                                <Image url="@../images/god-images/artemis.png" />
+                            </image>
+                        </ImageView>
+                        <GridPane AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <ImageView id="artemis1" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/wonders/templeofartemis_1.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="artemis2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                                    <image>
+                                        <Image url="@../images/wonders/templeofartemis_2.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="artemis3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                                    <image>
+                                        <Image url="@../images/wonders/templeofartemis_3.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </GridPane>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <children>
+                        <GridPane AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <ImageView id="zeus1" fitHeight="57.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/wonders/statueofzeus_1.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="zeus2" fitHeight="57.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                                    <image>
+                                        <Image url="@../images/wonders/statueofzeus_3.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="zeus3" fitHeight="57.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                                    <image>
+                                        <Image url="@../images/wonders/statueofzeus_2.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </GridPane>
+                        <ImageView id="zeusGod" fx:id="zeusGod" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="5.0">
+                            <image>
+                                <Image url="@../images/god-images/zeus.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
             </children>
         </GridPane>
         <GridPane hgap="20.0" layoutX="230.0" layoutY="615.0" prefHeight="280.0" prefWidth="820.0">
@@ -342,60 +372,6 @@
                         <Image url="@../images/wonders/lighthouseofalexandria.png" />
                     </image>
                 </ImageView>
-                <GridPane hgap="29.0" GridPane.rowIndex="2">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <ImageView id="babylon1" fx:id="babylon1" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/wonders/hanginggardens_1.png" />
-                            </image></ImageView>
-                        <ImageView id="babylon2" fx:id="babylon2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-                            <image>
-                                <Image url="@../images/wonders/hanginggardens_2.png" />
-                            </image></ImageView>
-                        <ImageView id="babylon3" fx:id="babylon3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-                            <image>
-                                <Image url="@../images/wonders/hanginggardens_3.png" />
-                            </image></ImageView>
-                    </children>
-                    <padding>
-                        <Insets left="29.0" right="29.0" />
-                    </padding>
-                </GridPane>
-                <GridPane hgap="29.0" prefHeight="50.0" prefWidth="342.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <ImageView id="lighthouse1" fx:id="lighthouse1" fitHeight="54.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/wonders/lighthouseofalexandria_1.png" />
-                            </image></ImageView>
-                        <ImageView id="lighthouse2" fx:id="lighthouse2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-                            <image>
-                                <Image url="@../images/wonders/lighthouseofalexandria_2.png" />
-                            </image></ImageView>
-                        <ImageView id="lighthouse3" fx:id="lighthouse3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-                            <image>
-                                <Image url="@../images/wonders/lighthouseofalexandria_3.png" />
-                            </image></ImageView>
-                    </children>
-                    <GridPane.margin>
-                        <Insets left="29.0" right="29.0" />
-                    </GridPane.margin>
-                </GridPane>
                 <GridPane hgap="20.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="30.0" prefWidth="50.0" />
@@ -438,6 +414,78 @@
                         </ImageView>
                     </children>
                 </GridPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                    <children>
+                        <GridPane AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <ImageView id="babylon1" fx:id="babylon1" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/wonders/hanginggardens_1.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="babylon2" fx:id="babylon2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                                    <image>
+                                        <Image url="@../images/wonders/hanginggardens_2.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="babylon3" fx:id="babylon3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                                    <image>
+                                        <Image url="@../images/wonders/hanginggardens_3.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </GridPane>
+                        <ImageView id="babylonGod" fx:id="babylonGod" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="5.0">
+                            <image>
+                                <Image url="@../images/god-images/marduk.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <children>
+                        <GridPane AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="102.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <ImageView id="lighthouse1" fx:id="lighthouse1" fitHeight="54.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/wonders/lighthouseofalexandria_1.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="lighthouse2" fx:id="lighthouse2" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                                    <image>
+                                        <Image url="@../images/wonders/lighthouseofalexandria_2.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView id="lighthouse3" fx:id="lighthouse3" fitHeight="55.5" fitWidth="97.5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                                    <image>
+                                        <Image url="@../images/wonders/lighthouseofalexandria_3.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </GridPane>
+                        <ImageView id="lighthouseGod" fx:id="lighthouseGod" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="5.0">
+                            <image>
+                                <Image url="@../images/god-images/ra.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
             </children>
         </GridPane>
         <Button layoutX="500.0" layoutY="890.0" maxHeight="20.0" mnemonicParsing="false" onAction="#startButtonPressed" prefHeight="20.0" prefWidth="280.0" stylesheets="@../css/WonderSelectionView.css" text="START" />
