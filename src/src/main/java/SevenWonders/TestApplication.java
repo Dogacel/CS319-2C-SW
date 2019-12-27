@@ -5,6 +5,8 @@ import SevenWonders.Network.Server;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 public class TestApplication extends Application {
 
     @Override
@@ -27,6 +29,7 @@ public class TestApplication extends Application {
 
 
     public static void main(String[] args) {
+        Locale.setDefault(Locale.ENGLISH);
         launch(args);
     }
 }
