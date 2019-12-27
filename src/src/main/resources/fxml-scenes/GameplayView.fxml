@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SevenWonders.UserInterface.GameplayController">
    <children>
@@ -12,6 +19,42 @@
                <children>
                   <Pane fx:id="constructionZonePane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="1280.0" StackPane.alignment="BOTTOM_CENTER" />
                   <Pane fx:id="otherPlayersConstructionViewPane" prefHeight="560.0" prefWidth="1280.0" visible="false" />
+                  <GridPane maxHeight="60.0" style="-fx-background-color: rgba(0,0,0,0.3);" StackPane.alignment="TOP_CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Text fill="WHITE" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Left Neighbor" GridPane.halignment="LEFT">
+                           <font>
+                              <Font name="Assassin$" size="28.0" />
+                           </font>
+                           <effect>
+                              <ColorAdjust brightness="-0.49" contrast="0.37" hue="-0.07" saturation="0.02" />
+                           </effect>
+                        </Text>
+                        <Text fill="WHITE" layoutX="10.0" layoutY="50.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Construction Zone" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Assassin$" size="32.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Text>
+                        <Text fill="WHITE" layoutX="10.0" layoutY="49.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Right Neighbor" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                           <font>
+                              <Font name="Assassin$" size="28.0" />
+                           </font>
+                           <effect>
+                              <ColorAdjust brightness="-0.49" contrast="0.37" hue="-0.07" saturation="0.02" />
+                           </effect>
+                        </Text>
+                     </children>
+                  </GridPane>
                </children>
             </StackPane>
             <Pane fx:id="cardViewPane" layoutY="740.0" prefHeight="220.0" prefWidth="1280.0" />

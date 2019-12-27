@@ -333,14 +333,14 @@ public class AnimationController {
         borderGlow.setHeight(depth1);
         godText.setEffect(borderGlow);
 
-        TranslateTransition effectAnim = new TranslateTransition(Duration.millis(2000), effectText);
+        TranslateTransition effectAnim = new TranslateTransition(Duration.millis(2500), effectText);
         effectAnim.setFromX(-50);
         effectAnim.setToX(-50);
         effectAnim.setFromY(400);
         effectAnim.setToY(120);
         effectAnim.play();
 
-        FadeTransition textAnim = new FadeTransition(Duration.millis(2000), godText);
+        FadeTransition textAnim = new FadeTransition(Duration.millis(2500), godText);
         textAnim.setFromValue(0.0);
         textAnim.setToValue(1.0);
         textAnim.play();

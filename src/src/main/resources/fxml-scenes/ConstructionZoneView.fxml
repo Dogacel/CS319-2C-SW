@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,10 +15,19 @@
       <Pane prefHeight="500.0" prefWidth="213.33" BorderPane.alignment="CENTER">
          <children>
             <VBox fx:id="leftNeighborConstructionPane" prefHeight="500.0" prefWidth="213.33" />
-         </children></Pane>
+         </children>
+         <effect>
+            <InnerShadow />
+         </effect>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="10.0" />
+         </padding></Pane>
    </left>
    <center>
-      <GridPane fx:id="constructionGrid" prefHeight="500.0" prefWidth="853.34">
+      <GridPane fx:id="constructionGrid" prefHeight="500.0" prefWidth="853.34" style="-fx-border-width: 0 3 0 3; -fx-border-color: rgba(0,0,0, 0.4); -fx-border-radius: 7;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -44,12 +55,21 @@
                </GridPane.margin>
             </VBox>
          </children>
+         <effect>
+            <DropShadow color="WHITE" height="20.0" radius="9.5" spread="0.5" width="20.0" />
+         </effect>
+         <BorderPane.margin>
+            <Insets left="5.0" right="2.0" />
+         </BorderPane.margin>
       </GridPane>
    </center>
    <right>
       <Pane prefHeight="500.0" prefWidth="213.33" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="rightNeighborConstructionPane" prefHeight="500.0" prefWidth="213.0" />
+            <VBox fx:id="rightNeighborConstructionPane" prefHeight="500.0" prefWidth="213.0">
+               <effect>
+                  <InnerShadow />
+               </effect></VBox>
          </children></Pane>
    </right>
 </BorderPane>
