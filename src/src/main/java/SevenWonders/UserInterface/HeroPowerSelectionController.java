@@ -41,28 +41,28 @@ public class HeroPowerSelectionController implements Initializable {
                 button4.setStyle("-fx-background-image: url('/images/hero-images/donatello.png');");
             }
             else if(name.equals("gaudi")){
-                button5.setStyle("-fx-background-image: url('/images/hero-images/gaudi.png');");
+                button12.setStyle("-fx-background-image: url('/images/hero-images/gaudi.png');");
             }
             else if(name.equals("hector")){
-                button6.setStyle("-fx-background-image: url('/images/hero-images/hector.png');");
+                button5.setStyle("-fx-background-image: url('/images/hero-images/hector.png');");
             }
             else if(name.equals("ibni_sina")){
-                button7.setStyle("-fx-background-image: url('/images/hero-images/ibni_sina.png');");
+                button6.setStyle("-fx-background-image: url('/images/hero-images/ibni_sina.png');");
             }
             else if(name.equals("leonidas")){
-                button8.setStyle("-fx-background-image: url('/images/hero-images/leonidas.png');");
+                button7.setStyle("-fx-background-image: url('/images/hero-images/leonidas.png');");
             }
             else if(name.equals("michelangelo")){
-                button9.setStyle("-fx-background-image: url('/images/hero-images/michelangelo.png');");
+                button8.setStyle("-fx-background-image: url('/images/hero-images/michelangelo.png');");
             }
             else if(name.equals("pisagor")){
-                button10.setStyle("-fx-background-image: url('/images/hero-images/pisagor.png');");
+                button9.setStyle("-fx-background-image: url('/images/hero-images/pisagor.png');");
             }
             else if(name.equals("spartacus")){
-                button11.setStyle("-fx-background-image: url('/images/hero-images/spartacus.png');");
+                button10.setStyle("-fx-background-image: url('/images/hero-images/spartacus.png');");
             }
             else if(name.equals("thales")){
-                button12.setStyle("-fx-background-image: url('/images/hero-images/thales.png');");
+                button11.setStyle("-fx-background-image: url('/images/hero-images/thales.png');");
             }
         }
     }
